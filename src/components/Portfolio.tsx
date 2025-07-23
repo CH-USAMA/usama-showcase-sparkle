@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Portfolio = () => {
   const projects = [
@@ -88,9 +89,11 @@ const Portfolio = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" variant="hero" className="shadow-glow">
-            View All Projects
-          </Button>
+          <Link to="/projects">
+            <Button size="lg" variant="hero" className="shadow-glow">
+              View All Projects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
