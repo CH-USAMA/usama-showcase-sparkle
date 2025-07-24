@@ -71,7 +71,7 @@ const Contact = () => {
               </Card>
               <Card className="p-6 text-center">
                 <div className="text-3xl font-bold text-primary mb-2">5+</div>
-                <div className="text-muted-foreground">Years Experience</div>
+                <div className="text-foreground">Years Experience</div>
               </Card>
             </div>
           </div>
