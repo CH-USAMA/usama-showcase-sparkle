@@ -32,9 +32,12 @@ const Portfolio = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted/20">
+    <section className="py-20 bg-muted/20 relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute bottom-20 left-10 w-28 h-28 bg-primary/5 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+      
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">
             MY WORK
           </h2>
@@ -45,7 +48,7 @@ const Portfolio = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {projects.map((project, index) => (
-            <Card key={index} className="group overflow-hidden hover:shadow-elegant transition-all duration-300 hover:-translate-y-2">
+            <Card key={index} className="group overflow-hidden hover:shadow-elegant transition-all duration-500 hover:-translate-y-3 animate-scale-in hover:scale-105" style={{animationDelay: `${index * 0.1}s`}}>
               <div className="relative overflow-hidden">
                 <img 
                   src={project.image} 

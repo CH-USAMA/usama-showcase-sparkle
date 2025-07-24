@@ -18,7 +18,7 @@ const About = () => {
           
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Content */}
-            <div className="space-y-6">
+            <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.2s'}}>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I'm a passionate web developer with 5+ years of experience in creating custom websites and web applications. My mission is to turn your design concepts into fully functional, responsive, and user-friendly digital solutions.
               </p>
@@ -33,7 +33,7 @@ const About = () => {
             </div>
 
             {/* Right Content - Skills Grid */}
-            <div className="space-y-6">
+            <div className="space-y-6 animate-slide-up" style={{animationDelay: '0.4s'}}>
               {Object.entries(skills).map(([category, skillList]) => (
                 <Card key={category} className="p-6 hover:shadow-lg transition-shadow duration-300">
                   <h3 className="text-xl font-semibold mb-4 text-foreground">
