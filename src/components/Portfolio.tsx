@@ -93,7 +93,11 @@ const Portfolio = () => {
 
         <div className="text-center mt-12">
           <Link to="/projects">
-            <Button size="lg" variant="hero" className="shadow-glow">
+            <Button
+              size="lg"
+              variant="hero"
+              className="shadow-glow text-white" // ✅ force white text
+            >
               View All Projects
             </Button>
           </Link>

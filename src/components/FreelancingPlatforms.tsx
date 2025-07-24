@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, ExternalLink } from "lucide-react";
+import HireMe from "@/components/HireMe"
 
 const FreelancingPlatforms = () => {
   const platforms = [
@@ -12,7 +13,7 @@ const FreelancingPlatforms = () => {
       earnings: "$50,000+",
       badge: "Top Rated Plus",
       description: "Specialized in full-stack web development with focus on React and Node.js projects",
-      profileUrl: "#",
+      profileUrl: "https://www.upwork.com/freelancers/~01007bf0a0286da654",
       logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center"
     },
     {
@@ -22,7 +23,7 @@ const FreelancingPlatforms = () => {
       earnings: "$30,000+",
       badge: "Level 2 Seller",
       description: "Offering premium web development gigs with quick turnaround times",
-      profileUrl: "#",
+      profileUrl: "https://www.fiverr.com/ch_usama_",
       logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center"
     },
     {
@@ -147,11 +148,12 @@ const FreelancingPlatforms = () => {
               Ready to Work Together?
             </h3>
             <p className="text-muted-foreground">
-              Whether through these platforms or direct contact, I'm always excited to take on new challenges and deliver exceptional results.
+              Whether through these platforms or direct contact, I'm always excited to
+              take on new challenges and deliver exceptional results.
             </p>
-            <Button size="lg" variant="hero" className="shadow-glow">
-              Hire Me Now
-            </Button>
+
+            {/* ✅ Replaced the old button with HireMe modal */}
+            <HireMe />
           </div>
         </div>
       </div>

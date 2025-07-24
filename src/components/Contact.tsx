@@ -38,7 +38,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Email</h4>
-                  <p className="text-muted-foreground">usama.munawar@example.com</p>
+                  <p className="text-muted-foreground">devusamaworks@gmail.com</p>
                 </div>
               </div>
               
@@ -48,7 +48,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Phone</h4>
-                  <p className="text-muted-foreground">+92 XXX XXXXXXX</p>
+                  <p className="text-muted-foreground">+92 303 8004684</p>
                 </div>
               </div>
               
@@ -77,53 +77,78 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <Card className="p-8">
-            <form className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    First Name
-                  </label>
-                  <Input placeholder="John" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Last Name
-                  </label>
-                  <Input placeholder="Doe" />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Email
-                </label>
-                <Input type="email" placeholder="john.doe@example.com" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Subject
-                </label>
-                <Input placeholder="Project Discussion" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
-                <Textarea 
-                  placeholder="Tell me about your project..."
-                  rows={5}
-                />
-              </div>
-              
-              <Button type="submit" size="lg" variant="hero" className="w-full">
-                <Send className="w-4 h-4 mr-2" />
-                Send Message
-              </Button>
-            </form>
-          </Card>
+          <Card className="p-8 bg-card-gradient border-border/50 shadow-glow">
+      <form
+        action="https://formspree.io/f/mkgzjlde" // <-- replace with your Formspree form ID
+        method="POST"
+        className="space-y-6"
+      >
+       
+        <p className="text-muted-foreground text-center text-sm mb-6">
+          Share your project details, and I'll get back to you with the best solution.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Your Name
+            </label>
+            <Input name="name" placeholder="John Doe" required />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Company / Brand
+            </label>
+            <Input name="company" placeholder="TechStart Inc." />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Email
+          </label>
+          <Input type="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Project Type
+          </label>
+          <select
+            name="project_type"
+            className="w-full p-3 rounded-md bg-background border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option>Website Development</option>
+            <option>Web Application</option>
+            <option>AI Integration</option>
+            <option>System Upgrade / Maintenance</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Project Details
+          </label>
+          <Textarea
+            name="message"
+            placeholder="Tell me about your project, timeline, and budget..."
+            rows={5}
+            required
+          />
+        </div>
+
+        <Button
+  type="submit"
+  size="lg"
+  variant="hero"
+  className="w-full text-white shadow-glow hover:scale-105 transition-transform"
+>
+  <Send className="w-4 h-4 mr-2" />
+  Hire Me Now
+</Button>
+      </form>
+    </Card>
         </div>
       </div>
     </section>

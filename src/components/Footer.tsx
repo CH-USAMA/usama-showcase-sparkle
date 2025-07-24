@@ -14,24 +14,48 @@ const Footer = () => {
 
           {/* Social Links */}
           <div className="flex justify-center gap-4">
-            <Button size="icon" variant="ghost" className="text-white hover:text-primary">
-              <Github className="w-5 h-5" />
+            <Button
+              size="icon"
+              variant="outline"
+              className="border-white text-white hover:text-primary hover:border-primary transition-colors"
+              asChild
+            >
+              <a href="https://github.com/CH-USAMA" target="_blank" rel="noopener noreferrer">
+                <Github className="w-5 h-5" />
+              </a>
             </Button>
-            <Button size="icon" variant="ghost" className="text-white hover:text-primary">
-              <Linkedin className="w-5 h-5" />
+
+            <Button
+              size="icon"
+              variant="outline"
+              className="border-white text-white hover:text-primary hover:border-primary transition-colors"
+              asChild
+            >
+              <a href="https://www.linkedin.com/in/usama-works/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="w-5 h-5" />
+              </a>
             </Button>
-            <Button size="icon" variant="ghost" className="text-white hover:text-primary">
-              <Mail className="w-5 h-5" />
+
+            <Button
+              size="icon"
+              variant="outline"
+              className="border-white text-white hover:text-primary hover:border-primary transition-colors"
+              asChild
+            >
+              <a href="mailto:devusamaworks@gmail.com">
+                <Mail className="w-5 h-5" />
+              </a>
             </Button>
           </div>
+
 
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-white/70 flex items-center justify-center md:justify-end gap-1">
-              Made with <Heart className="w-4 h-4 text-red-500" fill="currentColor" /> by Usama
+              Made by Usama 
             </p>
             <p className="text-white/50 text-sm mt-1">
-              © 2024 All rights reserved
+              © 2026 All rights reserved
             </p>
           </div>
         </div>
