@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'inter': ['Inter', 'sans-serif'],
+				'mono': ['JetBrains Mono', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -73,10 +77,12 @@ export default {
 				'hero-gradient': 'var(--hero-gradient)',
 				'card-gradient': 'var(--card-gradient)',
 				'accent-gradient': 'var(--accent-gradient)',
+				'cool-gradient': 'var(--cool-gradient)',
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
 				'elegant': 'var(--shadow-elegant)',
+				'cool': 'var(--shadow-cool)',
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
