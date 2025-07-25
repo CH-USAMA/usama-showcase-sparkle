@@ -26,9 +26,9 @@ const Portfolio = () => {
     {
       id: 3,
       title: "Solutions Zilla Call Portal",
-      description: "Call center management portal with CRM workflows and analytics",
+      description: "Call center management portal with CRM workflows and analytics. Responsive design with Laravel and Next.js.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-      technologies: ["Laravel", "Bootstrap", "MySQL"],
+      technologies: ["Laravel", "Bootstrap", "MySQL","NEXT JS", "TailwindCSS"],
       liveUrl: "https://call.solutionszilla.com",
       githubUrl: "#"
     }
