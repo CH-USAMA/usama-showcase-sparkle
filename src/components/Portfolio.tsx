@@ -10,7 +10,7 @@ const Portfolio = () => {
       title: "Focus Interiors",
       description: "Luxury Interior Design Studio website with premium aesthetics and SEO optimization",
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
-      technologies: ["WordPress", "Elementor", "Custom CSS", "SEO"],
+      technologies: ["Shopify", "APIs", "React", "SEO","E Commerce"],
       liveUrl: "https://focusinteriors.com.pk",
       githubUrl: "#"
     },
@@ -19,14 +19,14 @@ const Portfolio = () => {
       title: "Five Stars Galway Taxis",
       description: "Taxi booking service with online booking and Google Maps integration",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop",
-      technologies: ["WordPress", "Elementor", "Booking Plugin", "Google Maps"],
+      technologies: ["WordPress", "Wow Commerce", "Booking Plugin", "Google Maps"],
       liveUrl: "https://www.fivestarsgalwaytaxis.ie",
       githubUrl: "#"
     },
     {
       id: 3,
       title: "Solutions Zilla Call Portal",
-      description: "Call center management portal with CRM workflows and analytics. Responsive design with Laravel and Next.js.",
+      description: "Call center management portal with CRM workflows and analytics.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
       technologies: ["Laravel", "Bootstrap", "MySQL","NEXT JS", "TailwindCSS"],
       liveUrl: "https://call.solutionszilla.com",
