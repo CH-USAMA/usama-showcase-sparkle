@@ -3,8 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { ExternalLink, Github, Search, Filter } from "lucide-react";
+import { ExternalLink, Github, Search, Filter, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+import HireMe from "@/components/HireMe";
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -105,6 +106,14 @@ const Projects = () => {
       {/* Header */}
       <section className="bg-hero-gradient py-20">
         <div className="container mx-auto px-6">
+          <div className="flex justify-between items-start mb-6">
+            <Link to="/">
+              <Button variant="outline-white" className="gap-2">
+                <Home className="w-4 h-4" />
+                Home
+              </Button>
+            </Link>
+          </div>
           <div className="text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-white">
               MY PROJECTS
@@ -257,11 +266,14 @@ const Projects = () => {
             <p className="text-muted-foreground text-lg">
               Let's discuss how we can bring your ideas to life with cutting-edge technology and innovative solutions.
             </p>
-            <Link to="/#contact">
-              <Button size="lg" variant="hero" className="shadow-glow">
-                Get In Touch
-              </Button>
-            </Link>
+            <div className="flex gap-4 justify-center">
+              <Link to="/">
+                <Button variant="outline" size="lg">
+                  Back to Home
+                </Button>
+              </Link>
+              <HireMe />
+            </div>
           </div>
         </div>
       </section>

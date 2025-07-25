@@ -2,8 +2,9 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award, Home } from "lucide-react";
 import { projectsData } from "@/data/projects";
+import HireMe from "@/components/HireMe";
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -40,14 +41,22 @@ const ProjectDetail = () => {
       {/* Header */}
       <section className="bg-hero-gradient py-12">
         <div className="container mx-auto px-6">
-          <Button 
-            variant="outline-white" 
-            onClick={() => navigate(-1)}
-            className="mb-6"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Projects
-          </Button>
+          <div className="flex justify-between items-start mb-6">
+            <Button 
+              variant="outline-white" 
+              onClick={() => navigate(-1)}
+              className="gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Projects
+            </Button>
+            <Link to="/">
+              <Button variant="outline-white" className="gap-2">
+                <Home className="w-4 h-4" />
+                Home
+              </Button>
+            </Link>
+          </div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -263,11 +272,12 @@ const ProjectDetail = () => {
                   View All Projects
                 </Button>
               </Link>
-              <Link to="/#contact">
-                <Button size="lg" variant="hero" className="shadow-glow">
-                  Start Your Project
+              <Link to="/">
+                <Button variant="outline" size="lg">
+                  Back to Home
                 </Button>
               </Link>
+              <HireMe />
             </div>
           </div>
         </div>
