@@ -13,73 +13,84 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with payment integration, inventory management, and admin dashboard",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      category: "Web Development",
-      liveUrl: "#",
+      title: "Focus Interiors",
+      description: "Luxury Interior Design Studio website with premium aesthetics, fast-loading pages, and SEO optimization to attract elite clientele",
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
+      technologies: ["WordPress", "Elementor", "Custom CSS", "SEO"],
+      category: "Interior Design",
+      liveUrl: "https://focusinteriors.com.pk",
       githubUrl: "#",
       featured: true
     },
     {
       id: 2,
-      title: "Social Media Dashboard",
-      description: "Analytics dashboard for social media management with real-time data visualization",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      technologies: ["Vue.js", "Express", "PostgreSQL", "Chart.js"],
-      category: "Dashboard",
-      liveUrl: "#",
+      title: "Five Stars Galway Taxis",
+      description: "Responsive taxi booking website enabling online booking, fare inquiries, and contactless service requests with local SEO optimization",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
+      technologies: ["WordPress", "Elementor", "Booking Plugin", "Google Maps"],
+      category: "Transportation",
+      liveUrl: "https://www.fivestarsgalwaytaxis.ie",
       githubUrl: "#",
       featured: true
     },
     {
       id: 3,
-      title: "Healthcare Management System",
-      description: "Complete healthcare solution with patient records, appointment scheduling, and telemedicine features",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop",
-      technologies: ["Angular", "Firebase", "TypeScript", "WebRTC"],
-      category: "Healthcare",
-      liveUrl: "#",
+      title: "Solutions Zilla Call Portal",
+      description: "Functional web portal for managing call center leads, client interactions, and service details with CRM-like workflows",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      technologies: ["Laravel", "Bootstrap", "MySQL"],
+      category: "BPO Services",
+      liveUrl: "https://call.solutionszilla.com",
       githubUrl: "#",
       featured: false
     },
     {
       id: 4,
-      title: "Learning Management System",
-      description: "Educational platform with course management, video streaming, and progress tracking",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
-      technologies: ["React", "Node.js", "MySQL", "Socket.io"],
-      category: "Education",
-      liveUrl: "#",
+      title: "Munawar & Co",
+      description: "Professional corporate website for chartered accountancy firm showcasing tax consultation, audit, and corporate advisory services",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+      technologies: ["WordPress", "Custom Theme", "SEO"],
+      category: "Finance",
+      liveUrl: "https://munawarandco.com",
       githubUrl: "#",
       featured: false
     },
     {
       id: 5,
-      title: "Real Estate Platform",
-      description: "Property listing and management platform with advanced search and virtual tours",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
-      technologies: ["Next.js", "Prisma", "PostgreSQL", "Mapbox"],
-      category: "Real Estate",
-      liveUrl: "#",
+      title: "Marian Holy Art",
+      description: "Custom e-commerce platform for religious art and sculptures with clean design, product filtering, and secure checkout",
+      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+      technologies: ["WooCommerce", "WordPress", "Payment Gateway"],
+      category: "E-commerce",
+      liveUrl: "https://marianholyart.com",
       githubUrl: "#",
       featured: true
     },
     {
       id: 6,
-      title: "Restaurant Management",
-      description: "Complete restaurant solution with POS system, inventory, and online ordering",
-      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
-      technologies: ["React", "Django", "Redis", "Stripe"],
-      category: "Food & Beverage",
-      liveUrl: "#",
+      title: "VoxBucket",
+      description: "Digital marketing agency portfolio website highlighting services, case studies, and lead generation with sleek UI/UX design",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      technologies: ["WordPress", "Elementor", "SEO"],
+      category: "Marketing",
+      liveUrl: "https://voxbucket.com",
+      githubUrl: "#",
+      featured: false
+    },
+    {
+      id: 7,
+      title: "Solutions Zilla Digital",
+      description: "Corporate website showcasing digital outsourcing services including software development, IT support, and call center operations",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
+      technologies: ["WordPress", "Elementor", "Custom CSS"],
+      category: "IT Services",
+      liveUrl: "https://digital.solutionszilla.com",
       githubUrl: "#",
       featured: false
     }
   ];
 
-  const categories = ["All", "Web Development", "Dashboard", "Healthcare", "Education", "Real Estate", "Food & Beverage"];
+  const categories = ["All", "Interior Design", "Transportation", "BPO Services", "Finance", "E-commerce", "Marketing", "IT Services"];
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -147,74 +158,69 @@ const Projects = () => {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
-              <Card key={project.id} className="group overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 bg-card-gradient border-border/50">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  {project.featured && (
-                    <Badge className="absolute top-4 left-4 bg-accent-gradient border-0">
-                      Featured
-                    </Badge>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-4 left-4 right-4 flex gap-2">
-                      <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Live Demo
-                        </a>
-                      </Button>
-                      <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-4 h-4 mr-2" />
-                          Code
-                        </a>
-                      </Button>
+              <Link key={project.id} to={`/project/${project.id}`}>
+                <Card className="group overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 bg-card-gradient border-border/50 cursor-pointer">
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {project.featured && (
+                      <Badge className="absolute top-4 left-4 bg-accent-gradient border-0">
+                        Featured
+                      </Badge>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="absolute bottom-4 left-4 right-4 flex gap-2">
+                        <Button size="sm" variant="outline-white" className="flex-1" asChild>
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Live Demo
+                          </a>
+                        </Button>
+                        <Button size="sm" variant="outline-white" className="flex-1" asChild>
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                            <Github className="w-4 h-4 mr-2" />
+                            Code
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="p-6 space-y-4">
-                  <div className="space-y-2">
-                    <Link 
-                      to={`/project/${project.id}`}
-                      className="block"
-                    >
-                      <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors cursor-pointer">
+                  
+                  <div className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
                         {project.title}
                       </h3>
-                    </Link>
-                    <Badge variant="secondary" className="text-xs">
-                      {project.category}
-                    </Badge>
-                  </div>
-                  
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge 
-                        key={techIndex}
-                        variant="tech"
-                        className="text-xs bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {tech}
+                      <Badge variant="secondary" className="text-xs">
+                        {project.category}
                       </Badge>
-                    ))}
-                  </div>
+                    </div>
+                    
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <Badge 
+                          key={techIndex}
+                          variant="tech"
+                          className="text-xs bg-primary/10 text-primary border border-primary/20"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
 
-                  <Link to={`/project/${project.id}`}>
                     <Button variant="ghost" className="w-full mt-4 group-hover:bg-primary/10">
                       View Details →
                     </Button>
-                  </Link>
-                </div>
-              </Card>
+                  </div>
+                </Card>
+              </Link>
             ))}
           </div>
 

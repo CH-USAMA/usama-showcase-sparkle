@@ -3,85 +3,37 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award } from "lucide-react";
+import { projectsData } from "@/data/projects";
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Mock project data - in real app, this would come from API
-  const project = {
-    id: parseInt(id || "1"),
-    title: "E-Commerce Platform",
-    description: "A comprehensive e-commerce solution built with modern web technologies, featuring advanced product management, secure payment processing, and real-time inventory tracking.",
-    fullDescription: `This project represents a complete overhaul of traditional e-commerce experiences. Built from the ground up with scalability in mind, the platform handles everything from product catalog management to complex order fulfillment workflows.
+  const projectId = parseInt(id || "1");
+  const project = projectsData[projectId as keyof typeof projectsData];
 
-    The system includes a sophisticated admin dashboard for inventory management, customer relationship tools, and detailed analytics. The frontend provides an intuitive shopping experience with advanced search capabilities, product recommendations, and seamless checkout process.
+  if (!project) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-4">Project Not Found</h1>
+          <Link to="/projects">
+            <Button>Back to Projects</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
-    Key achievements include 40% improvement in conversion rates, 60% reduction in page load times, and successful handling of 10,000+ concurrent users during peak traffic periods.`,
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
-    gallery: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&h=500&fit=crop"
-    ],
-    technologies: ["React", "Node.js", "MongoDB", "Stripe", "AWS", "Docker", "Redis"],
-    category: "Web Development",
-    client: "TechCorp Solutions",
-    duration: "6 months",
-    teamSize: "5 developers",
-    completionDate: "December 2023",
-    liveUrl: "#",
-    githubUrl: "#",
-    features: [
-      "User Authentication & Authorization",
-      "Product Catalog Management", 
-      "Shopping Cart & Checkout",
-      "Payment Processing (Stripe)",
-      "Order Management System",
-      "Inventory Tracking",
-      "Admin Dashboard",
-      "Real-time Notifications",
-      "Advanced Search & Filtering",
-      "Product Recommendations",
-      "Mobile Responsive Design",
-      "SEO Optimization"
-    ],
-    challenges: [
-      {
-        title: "Scalability",
-        description: "Designing architecture to handle rapid user growth and high traffic volumes"
-      },
-      {
-        title: "Performance",
-        description: "Optimizing database queries and implementing caching strategies for fast page loads"
-      },
-      {
-        title: "Security",
-        description: "Implementing robust security measures for payment processing and user data protection"
-      }
-    ],
-    results: [
-      "40% increase in conversion rate",
-      "60% improvement in page load speed",
-      "10,000+ concurrent users supported",
-      "99.9% uptime achievement"
-    ]
-  };
-
-  const relatedProjects = [
-    {
-      id: 2,
-      title: "Social Media Dashboard",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-      category: "Dashboard"
-    },
-    {
-      id: 3,
-      title: "Healthcare Management",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop",
-      category: "Healthcare"
-    }
-  ];
+  const relatedProjects = Object.values(projectsData)
+    .filter(p => p.id !== project.id)
+    .slice(0, 2)
+    .map(p => ({
+      id: p.id,
+      title: p.title,
+      image: p.image,
+      category: p.category
+    }));
 
   return (
     <div className="min-h-screen bg-background">
