@@ -32,7 +32,7 @@ const About = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold text-center mb-16 text-foreground">
-            ABOUT ME
+            ABOUT THE BEST WEB DEVELOPER
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-12 items-start">
