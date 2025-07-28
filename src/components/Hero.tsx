@@ -53,14 +53,12 @@ const Hero = () => {
               style={{ animationDelay: "0.2s" }}
             >
               <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                CREATIVE WEB
+                BEST WEB
                 <br />
                 <span className="text-white/90">DEVELOPER</span>
               </h1>
               <p className="text-xl text-white/80 max-w-2xl">
-                Hi! I'm Usama Munawar, a Creative Web Developer & Software
-                Engineer based in Pakistan. I turn your amazing designs into
-                stunning websites.
+                Hi! I'm Usama Munawar, Pakistan's Best Web Developer & Full Stack Engineer with 5+ years of experience. I transform your innovative ideas into high-performing, SEO-optimized websites that drive results.
               </p>
             </div>
 
