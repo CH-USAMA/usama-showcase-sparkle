@@ -68,6 +68,16 @@ const Hero = () => {
             >
               <HireMe />
 
+              <a href="/blog">
+                <Button
+                  size="lg"
+                  variant="outline-white"
+                  className="gap-2 hover:scale-105 transition-all duration-300"
+                >
+                  View Blog
+                </Button>
+              </a>
+
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
