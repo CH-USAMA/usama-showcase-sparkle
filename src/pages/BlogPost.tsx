@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
+export const dynamic = "force-dynamic";
 
 interface BlogPost {
   id: string;
@@ -94,8 +95,10 @@ const BlogPost = () => {
       </div>
     );
   }
-
+    console.log("Fetched posts:", post);
   return (
+
+    
     <div className="min-h-screen bg-background">
       <header className="bg-primary text-primary-foreground py-16">
         <div className="container mx-auto px-4">
