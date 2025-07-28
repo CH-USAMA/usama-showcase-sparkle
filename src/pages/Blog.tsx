@@ -46,6 +46,10 @@ const Blog = () => {
         .eq('status', 'published')
         .order('published_at', { ascending: false });
 
+
+        console.log("Fetched posts:", data);
+        console.log("Supabase error:", error);
+
       if (error) throw error;
       setPosts(data || []);
     } catch (error) {
