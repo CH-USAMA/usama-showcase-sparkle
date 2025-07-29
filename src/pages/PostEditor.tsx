@@ -245,17 +245,43 @@ const PostEditor = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="content">Content *</Label>
+                <div className="mb-3 p-4 bg-muted/50 rounded-lg">
+                  <p className="font-medium text-sm mb-2">Formatting Guide:</p>
+                  <div className="grid gap-2 text-sm text-muted-foreground">
+                    <div><code className="bg-background px-1 rounded">**bold text**</code> → <strong>bold text</strong></div>
+                    <div><code className="bg-background px-1 rounded">*italic text*</code> → <em>italic text</em></div>
+                    <div><code className="bg-background px-1 rounded">`inline code`</code> → <code className="bg-background px-1 rounded">inline code</code></div>
+                    <div><code className="bg-background px-1 rounded">```javascript</code> → Code blocks with syntax highlighting</div>
+                  </div>
+                </div>
                 <Textarea
                   id="content"
                   value={post.content}
                   onChange={(e) => setPost(prev => ({ ...prev, content: e.target.value }))}
-                  placeholder="Write your post content here..."
-                  rows={15}
-                  className="font-mono"
+                  placeholder="Write your post content here...
+
+Example with formatting:
+
+## Introduction
+This is a **bold** statement with *italic* text and `inline code`.
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));
+```
+
+You can also use:
+- Lists like this
+- With multiple items
+
+> Blockquotes for important notes
+"
+                  rows={20}
+                  className="font-mono text-sm"
                 />
-                <p className="text-sm text-muted-foreground">
-                  You can use HTML tags for formatting
-                </p>
               </div>
 
               <div className="space-y-2">

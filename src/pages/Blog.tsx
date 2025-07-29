@@ -4,7 +4,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ArrowLeft, Calendar, User, Search } from 'lucide-react';
 
 interface BlogPost {
   id: string;
@@ -21,11 +22,26 @@ interface BlogPost {
 
 const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const filtered = posts.filter(post =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.content.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredPosts(filtered);
+    } else {
+      setFilteredPosts(posts);
+    }
+  }, [searchTerm, posts]);
 
   const fetchPosts = async () => {
     try {
@@ -52,6 +68,7 @@ const Blog = () => {
 
       if (error) throw error;
       setPosts(data || []);
+      setFilteredPosts(data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
@@ -94,14 +111,30 @@ const Blog = () => {
 
       <main className="py-16">
         <div className="container mx-auto px-4">
-          {posts.length === 0 ? (
+          <div className="max-w-md mx-auto mb-12">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search blog posts..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+
+          {filteredPosts.length === 0 ? (
             <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">No blog posts yet</h2>
-              <p className="text-muted-foreground">Check back soon for new content!</p>
+              <h2 className="text-2xl font-semibold mb-4">
+                {searchTerm ? 'No matching posts found' : 'No blog posts yet'}
+              </h2>
+              <p className="text-muted-foreground">
+                {searchTerm ? 'Try adjusting your search terms.' : 'Check back soon for new content!'}
+              </p>
             </div>
           ) : (
             <div className="grid gap-8 md:gap-12">
-              {posts.map((post) => (
+              {filteredPosts.map((post) => (
                 <Card key={post.id} className="overflow-hidden">
                   <div className="md:flex">
                     {post.featured_image && (
