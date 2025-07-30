@@ -45,27 +45,47 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
 
   const fetchComments = async () => {
     try {
-      const { data, error } = await supabase
+      // Fetch comments
+      const { data: commentsData, error: commentsError } = await supabase
         .from('blog_comments')
-        .select(`
-          id,
-          content,
-          created_at,
-          updated_at,
-          user_id,
-          parent_comment_id,
-          profiles (
-            full_name,
-            role
-          )
-        `)
+        .select('*')
         .eq('blog_post_id', blogPostId)
         .order('created_at', { ascending: true });
 
-      if (error) throw error;
+      if (commentsError) throw commentsError;
+
+      if (!commentsData || commentsData.length === 0) {
+        setComments([]);
+        return;
+      }
+
+      // Get unique user IDs
+      const userIds = [...new Set(commentsData.map(comment => comment.user_id))];
+
+      // Fetch profiles for these users
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('user_id, full_name, role')
+        .in('user_id', userIds);
+
+      if (profilesError) throw profilesError;
+
+      // Create a map of user_id to profile
+      const profilesMap = new Map(
+        (profilesData || []).map(profile => [profile.user_id, profile])
+      );
+
+      // Merge comments with profiles
+      const commentsWithProfiles = commentsData.map(comment => ({
+        ...comment,
+        profiles: profilesMap.get(comment.user_id) || {
+          full_name: 'Unknown User',
+          role: 'user'
+        }
+      }));
 
       // Organize comments into parent-child structure
-      const organizedComments = organizeComments(data || []);
+      const organizedComments = organizeComments(commentsWithProfiles);
       setComments(organizedComments);
     } catch (error) {
       console.error('Error fetching comments:', error);
