@@ -3,10 +3,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Reply, Trash2, Edit } from 'lucide-react';
+import { MessageCircle, Reply, Trash2, Edit, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 
@@ -15,9 +16,11 @@ interface Comment {
   content: string;
   created_at: string;
   updated_at: string;
-  user_id: string;
+  user_id: string | null;
   parent_comment_id: string | null;
-  profiles: {
+  guest_name: string | null;
+  guest_email: string | null;
+  profiles?: {
     full_name: string;
     role: string;
   };
@@ -33,6 +36,8 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
   const { toast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
+  const [guestName, setGuestName] = useState('');
+  const [guestEmail, setGuestEmail] = useState('');
   const [replyTo, setReplyTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState('');
   const [editingComment, setEditingComment] = useState<string | null>(null);
@@ -78,10 +83,7 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
       // Merge comments with profiles
       const commentsWithProfiles = commentsData.map(comment => ({
         ...comment,
-        profiles: profilesMap.get(comment.user_id) || {
-          full_name: 'Unknown User',
-          role: 'user'
-        }
+        profiles: comment.user_id ? profilesMap.get(comment.user_id) : null
       }));
 
       // Organize comments into parent-child structure
@@ -119,22 +121,42 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
   };
 
   const handleSubmitComment = async () => {
-    if (!user || !newComment.trim()) return;
+    if (!newComment.trim()) return;
+    if (!user && (!guestName.trim() || !guestEmail.trim())) {
+      toast({
+        title: "Missing Information",
+        description: "Please provide your name and email to comment",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setLoading(true);
     try {
+      const insertData: any = {
+        blog_post_id: blogPostId,
+        content: newComment.trim(),
+        parent_comment_id: null
+      };
+
+      if (user) {
+        insertData.user_id = user.id;
+      } else {
+        insertData.guest_name = guestName.trim();
+        insertData.guest_email = guestEmail.trim();
+      }
+
       const { error } = await supabase
         .from('blog_comments')
-        .insert([{
-          blog_post_id: blogPostId,
-          user_id: user.id,
-          content: newComment.trim(),
-          parent_comment_id: null
-        }]);
+        .insert([insertData]);
 
       if (error) throw error;
 
       setNewComment('');
+      if (!user) {
+        setGuestName('');
+        setGuestEmail('');
+      }
       await fetchComments();
       toast({
         title: "Success",
@@ -152,18 +174,34 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
   };
 
   const handleSubmitReply = async (parentId: string) => {
-    if (!user || !replyContent.trim()) return;
+    if (!replyContent.trim()) return;
+    if (!user && (!guestName.trim() || !guestEmail.trim())) {
+      toast({
+        title: "Missing Information", 
+        description: "Please provide your name and email to reply",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setLoading(true);
     try {
+      const insertData: any = {
+        blog_post_id: blogPostId,
+        content: replyContent.trim(),
+        parent_comment_id: parentId
+      };
+
+      if (user) {
+        insertData.user_id = user.id;
+      } else {
+        insertData.guest_name = guestName.trim();
+        insertData.guest_email = guestEmail.trim();
+      }
+
       const { error } = await supabase
         .from('blog_comments')
-        .insert([{
-          blog_post_id: blogPostId,
-          user_id: user.id,
-          content: replyContent.trim(),
-          parent_comment_id: parentId
-        }]);
+        .insert([insertData]);
 
       if (error) throw error;
 
@@ -258,21 +296,41 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
     return comment.user_id === user.id || user.user_metadata?.role === 'admin';
   };
 
+  const getDisplayName = (comment: Comment) => {
+    if (comment.profiles?.full_name) {
+      return comment.profiles.full_name;
+    }
+    if (comment.guest_name) {
+      return comment.guest_name;
+    }
+    return 'Anonymous User';
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   const CommentItem = ({ comment, isReply = false }: { comment: Comment; isReply?: boolean }) => (
-    <Card className={`${isReply ? 'ml-8 mt-4' : 'mb-6'}`}>
+    <Card className={`${isReply ? 'ml-8 mt-4' : 'mb-6'} animate-fade-in`}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar className="h-8 w-8">
-              <AvatarFallback>
-                {comment.profiles.full_name.split(' ').map(n => n[0]).join('')}
+              <AvatarFallback className="bg-primary/10 text-primary">
+                {getInitials(getDisplayName(comment))}
               </AvatarFallback>
             </Avatar>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-medium text-sm">{comment.profiles.full_name}</span>
-                {comment.profiles.role === 'admin' && (
+                <span className="font-medium text-sm">{getDisplayName(comment)}</span>
+                {comment.profiles?.role === 'admin' && (
                   <Badge variant="secondary" className="text-xs">Admin</Badge>
+                )}
+                {comment.guest_name && (
+                  <Badge variant="outline" className="text-xs">
+                    <User className="h-3 w-3 mr-1" />
+                    Guest
+                  </Badge>
                 )}
               </div>
               <span className="text-xs text-muted-foreground">
@@ -339,7 +397,7 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
           <>
             <p className="text-sm whitespace-pre-wrap mb-3">{comment.content}</p>
             
-            {!isReply && user && (
+            {!isReply && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -353,6 +411,21 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
 
             {replyTo === comment.id && (
               <div className="mt-4 space-y-3">
+                {!user && (
+                  <div className="grid grid-cols-2 gap-3">
+                    <Input
+                      placeholder="Your name *"
+                      value={guestName}
+                      onChange={(e) => setGuestName(e.target.value)}
+                    />
+                    <Input
+                      placeholder="Your email *"
+                      type="email"
+                      value={guestEmail}
+                      onChange={(e) => setGuestEmail(e.target.value)}
+                    />
+                  </div>
+                )}
                 <Textarea
                   value={replyContent}
                   onChange={(e) => setReplyContent(e.target.value)}
@@ -403,37 +476,40 @@ const BlogComments = ({ blogPostId }: BlogCommentsProps) => {
         </h3>
       </div>
 
-      {user ? (
-        <Card>
-          <CardContent className="pt-6">
-            <div className="space-y-4">
-              <Textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Share your thoughts about this post..."
-                className="min-h-[100px]"
-              />
-              <Button
-                onClick={handleSubmitComment}
-                disabled={loading || !newComment.trim()}
-              >
-                Post Comment
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <p className="text-muted-foreground mb-4">
-              You need to be signed in to post comments.
-            </p>
-            <Button asChild>
-              <Link to="/auth">Sign In</Link>
+      <Card className="bg-gradient-to-r from-card/50 to-card">
+        <CardContent className="pt-6">
+          <div className="space-y-4">
+            {!user && (
+              <div className="grid grid-cols-2 gap-3">
+                <Input
+                  placeholder="Your name *"
+                  value={guestName}
+                  onChange={(e) => setGuestName(e.target.value)}
+                />
+                <Input
+                  placeholder="Your email *"
+                  type="email"
+                  value={guestEmail}
+                  onChange={(e) => setGuestEmail(e.target.value)}
+                />
+              </div>
+            )}
+            <Textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder={user ? "Share your thoughts about this post..." : "Share your thoughts about this post... (Name and email required)"}
+              className="min-h-[100px]"
+            />
+            <Button
+              onClick={handleSubmitComment}
+              disabled={loading || !newComment.trim() || (!user && (!guestName.trim() || !guestEmail.trim()))}
+              className="w-full sm:w-auto"
+            >
+              Post Comment
             </Button>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+        </CardContent>
+      </Card>
 
       <div>
         {comments.length === 0 ? (

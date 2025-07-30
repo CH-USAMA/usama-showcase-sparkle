@@ -19,6 +19,8 @@ export type Database = {
           blog_post_id: string
           content: string
           created_at: string
+          guest_email: string | null
+          guest_name: string | null
           id: string
           parent_comment_id: string | null
           updated_at: string
@@ -28,6 +30,8 @@ export type Database = {
           blog_post_id: string
           content: string
           created_at?: string
+          guest_email?: string | null
+          guest_name?: string | null
           id?: string
           parent_comment_id?: string | null
           updated_at?: string
@@ -37,6 +41,8 @@ export type Database = {
           blog_post_id?: string
           content?: string
           created_at?: string
+          guest_email?: string | null
+          guest_name?: string | null
           id?: string
           parent_comment_id?: string | null
           updated_at?: string

@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import BlogComments from '@/components/BlogComments';
+import BlogRecommendations from '@/components/BlogRecommendations';
+import { ArrowLeft, Calendar, User, Clock, Share2 } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 export const dynamic = "force-dynamic";
@@ -195,26 +198,47 @@ const BlogContent = ({ content }: { content: string }) => {
 
     
     <div className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground py-16">
-        <div className="container mx-auto px-4">
-          <Link to="/blog" className="inline-flex items-center text-primary-foreground/80 hover:text-primary-foreground mb-8">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Blog
-          </Link>
+      {/* Enhanced Hero Section */}
+      <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
+        <div className="absolute inset-0 opacity-20" />
+        
+        <div className="container mx-auto px-4 py-16 relative">
+          <div className="flex justify-between items-start mb-12">
+            <Link to="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors group">
+              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back to Blog
+            </Link>
+            <ThemeToggle />
+          </div>
+          
           <div className="max-w-4xl">
-            <div className="flex items-center gap-4 text-sm text-primary-foreground/80 mb-4">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+              <div className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
-                {formatDate(post.published_at)}
+                <span>{formatDate(post.published_at)}</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <User className="h-4 w-4" />
-                {post.profiles.full_name}
+                <span>{post.profiles.full_name}</span>
               </div>
+              <div className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                <span>{Math.ceil(post.content.length / 1000)} min read</span>
+              </div>
+              <Button variant="ghost" size="sm" className="ml-auto">
+                <Share2 className="h-4 w-4 mr-2" />
+                Share
+              </Button>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">{post.title}</h1>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-foreground via-foreground/90 to-muted-foreground bg-clip-text text-transparent">
+              {post.title}
+            </h1>
+            
             {post.excerpt && (
-              <p className="text-xl text-primary-foreground/80">{post.excerpt}</p>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed max-w-3xl">
+                {post.excerpt}
+              </p>
             )}
           </div>
         </div>
@@ -224,69 +248,86 @@ const BlogContent = ({ content }: { content: string }) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {post.featured_image && (
-              <div className="mb-8">
+              <div className="mb-12 group">
                 <img
                   src={post.featured_image}
                   alt={post.title}
-                  className="w-full h-64 md:h-96 object-cover rounded-lg"
+                  className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-2xl group-hover:shadow-3xl transition-shadow duration-500"
                 />
               </div>
             )}
             
-            <div className="prose prose-lg max-w-none blog-content">
+            <article className="prose prose-lg max-w-none blog-content">
               <style>{`
                 .blog-content .inline-code {
                   background-color: hsl(var(--muted));
                   padding: 0.2rem 0.4rem;
-                  border-radius: 0.25rem;
+                  border-radius: 0.375rem;
                   font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
                   font-size: 0.875rem;
                   color: hsl(var(--foreground));
+                  border: 1px solid hsl(var(--border));
+                }
+                .blog-content h1, .blog-content h2 {
+                  margin-top: 3rem;
+                  margin-bottom: 1.5rem;
+                  color: hsl(var(--foreground));
+                  font-weight: 700;
+                  line-height: 1.2;
                 }
                 .blog-content h2 {
+                  font-size: 2rem;
+                  border-bottom: 2px solid hsl(var(--border));
+                  padding-bottom: 0.5rem;
+                }
+                .blog-content h3 {
                   margin-top: 2rem;
                   margin-bottom: 1rem;
                   color: hsl(var(--foreground));
                   font-size: 1.5rem;
                   font-weight: 600;
                 }
-                .blog-content h3 {
-                  margin-top: 1.5rem;
-                  margin-bottom: 0.75rem;
-                  color: hsl(var(--foreground));
-                  font-size: 1.25rem;
-                  font-weight: 600;
-                }
                 .blog-content p {
-                  margin-bottom: 1rem;
-                  line-height: 1.7;
+                  margin-bottom: 1.5rem;
+                  line-height: 1.8;
                   color: hsl(var(--foreground));
+                  font-size: 1.125rem;
                 }
                 .blog-content ul, .blog-content ol {
-                  margin: 1rem 0;
-                  padding-left: 1.5rem;
+                  margin: 1.5rem 0;
+                  padding-left: 2rem;
                 }
                 .blog-content li {
-                  margin-bottom: 0.5rem;
-                  line-height: 1.6;
+                  margin-bottom: 0.75rem;
+                  line-height: 1.7;
+                  font-size: 1.125rem;
                 }
                 .blog-content blockquote {
                   border-left: 4px solid hsl(var(--primary));
-                  padding-left: 1rem;
-                  margin: 1.5rem 0;
+                  padding: 1.5rem;
+                  margin: 2rem 0;
                   font-style: italic;
-                  background-color: hsl(var(--muted)/0.3);
-                  padding: 1rem;
-                  border-radius: 0.5rem;
+                  background: linear-gradient(135deg, hsl(var(--muted)/0.3), hsl(var(--muted)/0.1));
+                  border-radius: 0.75rem;
+                  font-size: 1.125rem;
                 }
                 .blog-content pre {
-                  margin: 1.5rem 0;
-                  border-radius: 0.5rem;
+                  margin: 2rem 0;
+                  border-radius: 0.75rem;
                   overflow-x: auto;
+                  box-shadow: 0 10px 25px -5px hsl(var(--shadow)/0.1);
                 }
               `}</style>
               <BlogContent content={post.content} />
+            </article>
+
+            {/* Comments Section */}
+            <div className="mt-16 pt-8 border-t border-border">
+              <BlogComments blogPostId={post.id} />
             </div>
+
+            {/* Recommendations Section */}
+            <BlogRecommendations currentPostId={post.id} />
           </div>
         </div>
       </main>
