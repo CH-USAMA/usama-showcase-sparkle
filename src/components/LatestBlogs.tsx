@@ -1,57 +1,12 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { blogsData } from '@/data/blogs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  featured_image: string | null;
-  published_at: string;
-  profiles: {
-    full_name: string;
-  };
-}
-
 const LatestBlogs = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchLatestPosts();
-  }, []);
-
-  const fetchLatestPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .select(`
-          id,
-          title,
-          slug,
-          excerpt,
-          featured_image,
-          published_at,
-          profiles (
-            full_name
-          )
-        `)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .limit(3);
-
-      if (error) throw error;
-      setPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching latest posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const posts = blogsData.slice(0, 3);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -61,17 +16,15 @@ const LatestBlogs = () => {
     });
   };
 
-  if (loading || posts.length === 0) {
-    return null;
-  }
+  if (posts.length === 0) return null;
 
   return (
     <section className="py-16 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Blog Posts</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest from the Blog</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Stay updated with the latest insights, tutorials, and thoughts on web development
+            Deep dives into AI engineering, agent architecture, and building production systems
           </p>
         </div>
 
@@ -95,26 +48,24 @@ const LatestBlogs = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <User className="h-3 w-3" />
-                    {post.profiles.full_name}
+                    {post.author}
                   </div>
                 </div>
                 <CardTitle className="text-xl leading-tight">
-                  <Link 
-                    to={`/blog/${post.slug}`}
-                    className="hover:text-primary transition-colors"
-                  >
+                  <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
                     {post.title}
                   </Link>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="mb-4 line-clamp-3">
-                  {post.excerpt}
-                </CardDescription>
+                <CardDescription className="mb-4 line-clamp-3">{post.excerpt}</CardDescription>
+                <div className="flex flex-wrap gap-1 mb-4">
+                  {post.tags.slice(0, 3).map(tag => (
+                    <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+                  ))}
+                </div>
                 <Button asChild variant="outline" size="sm">
-                  <Link to={`/blog/${post.slug}`}>
-                    Read More
-                  </Link>
+                  <Link to={`/blog/${post.slug}`}>Read More</Link>
                 </Button>
               </CardContent>
             </Card>
