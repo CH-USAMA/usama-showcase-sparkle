@@ -213,9 +213,9 @@ const AIChatbot = () => {
                       ? "bg-primary text-primary-foreground rounded-tr-sm"
                       : "bg-muted text-foreground rounded-tl-sm"
                   }`}>
-                    <ReactMarkdown className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>p]:leading-relaxed">
-                      {msg.content}
-                    </ReactMarkdown>
+                    <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>p]:leading-relaxed">
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
                   </div>
                 </motion.div>
               ))}

@@ -6,6 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import LatestBlogs from "@/components/LatestBlogs";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AIChatbot from "@/components/AIChatbot";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <LatestBlogs />
       <Contact />
       <Footer />
+      <AIChatbot />
     </div>
   );
 };
