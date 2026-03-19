@@ -1,103 +1,88 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Code, BrainCircuit, Rocket, Cpu, Workflow, Bot } from "lucide-react";
+import { Workflow, Rocket, Building2, Bot } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const About = () => {
-  const skills = {
-    "AI & Machine Learning": [
-      "LangChain", "OpenAI API", "Claude API", "RAG Systems",
-      "Vector Databases", "Fine-Tuning", "Prompt Engineering",
-      "TensorFlow", "PyTorch", "Hugging Face", "Deep Learning"
-    ],
-    "Agent & Automation": [
-      "Multi-Agent Systems", "MCP Protocol", "n8n Workflows",
-      "Autonomous Agents", "Task Orchestration", "AI Pipelines",
-      "OpenClaw", "CrewAI", "AutoGPT Patterns"
-    ],
-    "Full Stack Development": [
-      "React.js", "Next.js", "TypeScript", "Node.js",
-      "Laravel", "Python", "PostgreSQL", "Supabase",
-      "Docker", "AWS", "CI/CD", "MLOps"
-    ],
-    "AI-Powered Tools": [
-      "Lovable", "Replit AI", "Cursor", "GPT-4",
-      "Claude", "Copilot", "v0.dev", "Midjourney"
-    ],
-  };
-
-  const iconMap: Record<string, JSX.Element> = {
-    "AI & Machine Learning": <BrainCircuit className="w-5 h-5 text-primary" />,
-    "Agent & Automation": <Bot className="w-5 h-5 text-primary" />,
-    "Full Stack Development": <Code className="w-5 h-5 text-primary" />,
-    "AI-Powered Tools": <Cpu className="w-5 h-5 text-primary" />,
-  };
+  const services = [
+    {
+      icon: Building2,
+      title: "Business Digitization",
+      desc: "Transform manual workflows into automated digital systems. From CRMs to inventory management — I build the digital backbone your business needs.",
+      tags: ["Process Automation", "Digital Transformation", "SaaS Products"],
+    },
+    {
+      icon: Bot,
+      title: "AI-Powered Solutions",
+      desc: "Custom chatbots, RAG pipelines, and intelligent agents that handle customer support, content generation, and data analysis autonomously.",
+      tags: ["Chatbots", "RAG Systems", "AI Agents"],
+    },
+    {
+      icon: Workflow,
+      title: "Automation & Integration",
+      desc: "Connect your tools with n8n workflows, API integrations, and MCP-powered agent systems that eliminate repetitive work.",
+      tags: ["n8n", "API Integration", "MCP Protocol"],
+    },
+    {
+      icon: Rocket,
+      title: "Full Stack Development",
+      desc: "Production-ready web apps with React, Laravel, Node.js. Scalable architecture on AWS/Supabase with CI/CD pipelines.",
+      tags: ["React", "Laravel", "Node.js", "AWS"],
+    },
+  ];
 
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <AnimatedSection>
-            <h2 className="text-4xl lg:text-5xl font-bold text-center mb-4 text-foreground">WHO I AM</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-center mb-4 text-foreground">HOW I HELP BUSINESSES</h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto">
-              An AI Engineer & Full Stack Developer who doesn't just write code — I architect intelligent systems that automate, scale, and deliver real business impact.
+              I help companies digitize their operations, automate workflows, and build AI-powered products that drive real growth.
             </p>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              {[
-                { icon: BrainCircuit, text: <>With <strong>5+ years in software engineering</strong> and a deep pivot into AI, I build <span className="text-foreground font-semibold">autonomous agents, RAG pipelines, and multi-agent systems</span> that solve problems no single API call can handle. I understand <strong>MCP protocol, agent orchestration, and production ML</strong>.</> },
-                { icon: Workflow, text: <>I'm not just using AI tools — I'm <span className="text-foreground font-semibold">building with them and building them</span>. From setting up <strong>n8n automation workflows</strong> to deploying <strong>fine-tuned models</strong>, I help businesses <strong>digitize operations and automate repetitive work</strong>.</> },
-                { icon: Rocket, text: <>I ship fast using tools like <strong>Lovable, Replit, and Cursor</strong> — and I architect for scale with <strong>Docker, AWS, and CI/CD</strong>. Whether it's a <span className="text-foreground font-semibold">custom AI chatbot, an automated content pipeline, or a full SaaS product</span> — I deliver end-to-end.</> },
-              ].map((item, i) => (
-                <AnimatedSection key={i} delay={i * 0.15} direction="left">
-                  <div className="flex items-start gap-4">
-                    <motion.div whileHover={{ rotate: 360, scale: 1.2 }} transition={{ duration: 0.5 }} className="p-2 bg-primary/10 rounded-full">
-                      <item.icon className="w-6 h-6 text-primary" />
-                    </motion.div>
-                    <p className="text-lg text-muted-foreground leading-relaxed">{item.text}</p>
-                  </div>
-                </AnimatedSection>
-              ))}
-
-              <AnimatedSection delay={0.5}>
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/10"
-                >
-                  <p className="text-sm text-muted-foreground italic">
-                    💡 <strong className="text-foreground">My motto:</strong> "Don't just build software — build systems that think, adapt, and scale autonomously."
-                  </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {services.map((s, i) => (
+              <AnimatedSection key={i} delay={i * 0.12} direction={i % 2 === 0 ? "left" : "right"}>
+                <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
+                  <Card className="p-6 hover:shadow-glow transition-all duration-300 rounded-xl border border-border/50 h-full">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <s.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground">{s.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {s.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs px-3 py-1">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </Card>
                 </motion.div>
               </AnimatedSection>
-            </div>
-
-            <div className="space-y-6">
-              {Object.entries(skills).map(([category, skillList], catIdx) => (
-                <AnimatedSection key={category} delay={catIdx * 0.12} direction="right">
-                  <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
-                    <Card className="p-6 hover:shadow-glow transition-all duration-300 rounded-xl border border-border/50">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 bg-primary/10 rounded-lg">{iconMap[category]}</div>
-                        <h3 className="text-xl font-semibold text-foreground">{category}</h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {skillList.map((skill, index) => (
-                          <motion.div key={index} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                            <Badge variant="secondary" className="text-sm px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors duration-200 cursor-default">
-                              {skill}
-                            </Badge>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </Card>
-                  </motion.div>
-                </AnimatedSection>
-              ))}
-            </div>
+            ))}
           </div>
+
+          {/* TeacherOn Badge */}
+          <AnimatedSection delay={0.5}>
+            <div className="flex justify-center mt-12">
+              <a href="https://www.teacheron.com/tutor/3aif?r=3aif" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://www.teacheron.com/resources/assets/img/badges/recommendedOn.png"
+                  alt="Recommended on TeacherOn"
+                  width={336}
+                  height={144}
+                  loading="lazy"
+                  className="hover:opacity-80 transition-opacity"
+                />
+              </a>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
