@@ -21,6 +21,7 @@ const Index = () => {
       <Motto />
       <Suspense fallback={<Fallback />}>
         <About />
+        <Skills />
         <Portfolio />
         <FreelancingPlatforms />
         <Testimonials />
