@@ -1,25 +1,33 @@
+import { lazy, Suspense } from "react";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Portfolio from "@/components/Portfolio";
-import FreelancingPlatforms from "@/components/FreelancingPlatforms";
-import Testimonials from "@/components/Testimonials";
-import LatestBlogs from "@/components/LatestBlogs";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import AIChatbot from "@/components/AIChatbot";
+import Motto from "@/components/Motto";
+
+const About = lazy(() => import("@/components/About"));
+const Portfolio = lazy(() => import("@/components/Portfolio"));
+const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
+const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
+const Contact = lazy(() => import("@/components/Contact"));
+const Footer = lazy(() => import("@/components/Footer"));
+const AIChatbot = lazy(() => import("@/components/AIChatbot"));
+
+const Fallback = () => <div className="py-20" />;
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Hero />
-      <About />
-      <Portfolio />
-      <FreelancingPlatforms />
-      <Testimonials />
-      <LatestBlogs />
-      <Contact />
-      <Footer />
-      <AIChatbot />
+      <Motto />
+      <Suspense fallback={<Fallback />}>
+        <About />
+        <Portfolio />
+        <FreelancingPlatforms />
+        <Testimonials />
+        <LatestBlogs />
+        <Contact />
+        <Footer />
+        <AIChatbot />
+      </Suspense>
     </div>
   );
 };

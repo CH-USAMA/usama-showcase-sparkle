@@ -1,32 +1,36 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { blogsData } from '@/data/blogs';
+import { useTrendingBlogs } from '@/hooks/useTrendingBlogs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { ArrowLeft, Calendar, User, Search, BookOpen, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Search, BookOpen, TrendingUp, Rss } from 'lucide-react';
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { data: trendingPosts = [] } = useTrendingBlogs();
+
+  const allPosts = useMemo(() => {
+    const combined = [...blogsData, ...trendingPosts];
+    combined.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+    return combined;
+  }, [trendingPosts]);
 
   const filteredPosts = useMemo(() => {
-    if (!searchTerm) return blogsData;
+    if (!searchTerm) return allPosts;
     const term = searchTerm.toLowerCase();
-    return blogsData.filter(post =>
+    return allPosts.filter(post =>
       post.title.toLowerCase().includes(term) ||
       post.excerpt.toLowerCase().includes(term) ||
       post.tags.some(tag => tag.toLowerCase().includes(term))
     );
-  }, [searchTerm]);
+  }, [searchTerm, allPosts]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
 
   return (
@@ -50,6 +54,12 @@ const Blog = () => {
                 <TrendingUp className="h-3 w-3 mr-1" />
                 Latest Articles
               </Badge>
+              {trendingPosts.length > 0 && (
+                <Badge variant="outline" className="px-3 py-1">
+                  <Rss className="h-3 w-3 mr-1" />
+                  +{trendingPosts.length} Trending
+                </Badge>
+              )}
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
@@ -57,16 +67,9 @@ const Blog = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8 leading-relaxed">
-              Deep dives into AI engineering, agent architecture, automation, and building production ML systems.
-              <span className="text-primary font-medium"> Ship fast. Think deep.</span>
+              Deep dives into AI, automation, web development, Laravel, and business digitization.
+              <span className="text-primary font-medium"> Updated daily with trending topics.</span>
             </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Badge variant="outline" className="px-4 py-2">AI Agents</Badge>
-              <Badge variant="outline" className="px-4 py-2">RAG Systems</Badge>
-              <Badge variant="outline" className="px-4 py-2">Automation</Badge>
-              <Badge variant="outline" className="px-4 py-2">Full Stack</Badge>
-            </div>
           </div>
         </div>
       </header>
@@ -77,7 +80,7 @@ const Blog = () => {
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />
               <Input
-                placeholder="Search articles, tutorials, insights..."
+                placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-12 h-12 text-base border-2 focus:border-primary/50 rounded-xl bg-card/50 backdrop-blur-sm"
@@ -87,13 +90,10 @@ const Blog = () => {
 
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <div className="max-w-md mx-auto">
-                <div className="p-4 rounded-full bg-muted/50 w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <Search className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <h2 className="text-2xl font-semibold mb-4">No matching articles found</h2>
-                <p className="text-muted-foreground">Try adjusting your search terms.</p>
+              <div className="p-4 rounded-full bg-muted/50 w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                <Search className="h-8 w-8 text-muted-foreground" />
               </div>
+              <h2 className="text-2xl font-semibold mb-4">No matching articles found</h2>
             </div>
           ) : (
             <div className="grid gap-8 md:gap-12 max-w-4xl mx-auto">
@@ -101,11 +101,7 @@ const Blog = () => {
                 <Card key={post.id} className={`group overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-gradient-to-br from-card/80 to-card backdrop-blur-sm ${index === 0 ? 'md:grid md:grid-cols-5 md:gap-8' : ''}`}>
                   {post.featured_image && (
                     <div className={`overflow-hidden ${index === 0 ? 'md:col-span-2' : ''}`}>
-                      <img
-                        src={post.featured_image}
-                        alt={post.title}
-                        className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${index === 0 ? 'h-64 md:h-full' : 'h-48'}`}
-                      />
+                      <img src={post.featured_image} alt={post.title} loading="lazy" className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${index === 0 ? 'h-64 md:h-full' : 'h-48'}`} />
                     </div>
                   )}
                   <div className={`${post.featured_image && index === 0 ? "md:col-span-3" : ""} p-8`}>
@@ -119,12 +115,10 @@ const Blog = () => {
                           <User className="h-4 w-4" />
                           <span>{post.author}</span>
                         </div>
-                        {index === 0 && (
-                          <Badge variant="secondary" className="ml-auto">Latest</Badge>
-                        )}
+                        {(post as any).is_auto && <Badge variant="outline" className="text-xs">Trending</Badge>}
                       </div>
                       <CardTitle className={`${index === 0 ? 'text-3xl md:text-4xl' : 'text-2xl'} mb-4 leading-tight`}>
-                        <Link to={`/blog/${post.slug}`} className="group-hover:text-primary transition-colors duration-300">
+                        <Link to={(post as any).source_url || `/blog/${post.slug}`} target={(post as any).source_url ? "_blank" : undefined} className="group-hover:text-primary transition-colors duration-300">
                           {post.title}
                         </Link>
                       </CardTitle>
@@ -138,10 +132,9 @@ const Blog = () => {
                           <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
                         ))}
                       </div>
-                      <Button asChild variant="ghost" className="p-0 h-auto text-primary font-medium hover:text-primary/80 group/btn">
-                        <Link to={`/blog/${post.slug}`} className="flex items-center gap-2">
-                          Read Article
-                          <ArrowLeft className="h-4 w-4 rotate-180 group-hover/btn:translate-x-1 transition-transform" />
+                      <Button asChild variant="ghost" className="p-0 h-auto text-primary font-medium hover:text-primary/80">
+                        <Link to={(post as any).source_url || `/blog/${post.slug}`} target={(post as any).source_url ? "_blank" : undefined}>
+                          Read Article →
                         </Link>
                       </Button>
                     </CardContent>

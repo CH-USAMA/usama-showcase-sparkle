@@ -4,37 +4,16 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
 import HireMe from "@/components/HireMe";
-import ParticleBackground from "@/components/ParticleBackground";
+import { lazy, Suspense } from "react";
+
+const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
 
 const Hero = () => {
-  const techStack = [
-    "React", "Next.js", "TypeScript", "Python",
-    "LangChain", "OpenAI API", "GPT-4", "Claude API",
-    "n8n", "MCP Protocol", "RAG Systems", "Vector DBs",
-    "Lovable", "Replit", "Cursor AI",
-    "TensorFlow", "PyTorch", "Hugging Face",
-    "Node.js", "Laravel", "PostgreSQL", "Docker",
-    "AWS", "Supabase", "Pinecone", "Redis",
-    "CI/CD", "MLOps", "Agent Architecture"
-  ];
-
   return (
     <section className="min-h-screen bg-hero-gradient relative overflow-hidden">
-      <ParticleBackground />
-
-      {/* Animated background blobs */}
-      <div className="absolute inset-0">
-        <motion.div
-          animate={{ y: [0, -30, 0], x: [0, 15, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -20, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-        />
-      </div>
+      <Suspense fallback={null}>
+        <ParticleBackground />
+      </Suspense>
 
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
@@ -47,7 +26,7 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <Badge variant="tech" className="text-sm py-2 px-4 mb-4 inline-block">
-                  🤖 AI Engineer • Full Stack Developer • Automation Architect
+                  🚀 Digitizing Businesses with AI & Automation
                 </Badge>
               </motion.div>
 
@@ -58,21 +37,9 @@ const Hero = () => {
                 className="text-5xl lg:text-7xl font-bold leading-tight"
                 style={{ color: "hsl(var(--foreground))" }}
               >
-                I BUILD
+                I DIGITIZE
                 <br />
-                <motion.span
-                  initial={{ backgroundSize: "0% 3px" }}
-                  animate={{ backgroundSize: "100% 3px" }}
-                  transition={{ duration: 1.5, delay: 1.2 }}
-                  className="text-foreground/90"
-                  style={{
-                    backgroundImage: "linear-gradient(hsl(var(--primary)), hsl(var(--primary)))",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "0 100%",
-                  }}
-                >
-                  INTELLIGENT SYSTEMS
-                </motion.span>
+                <span className="text-primary">YOUR BUSINESS</span>
               </motion.h1>
 
               <motion.p
@@ -81,9 +48,9 @@ const Hero = () => {
                 transition={{ duration: 0.7, delay: 0.6 }}
                 className="text-xl text-muted-foreground max-w-2xl"
               >
-                Hi, I'm Usama Munawar — an AI Engineer & Full Stack Developer who builds
-                <strong className="text-foreground"> autonomous agents, RAG pipelines, and AI-powered products</strong> that
-                automate businesses and solve real problems.
+                Hi, I'm <strong className="text-foreground">Usama Munawar</strong> — I help businesses
+                <strong className="text-foreground"> automate operations, build AI-powered products, and scale digitally</strong>.
+                From intelligent chatbots to end-to-end automation pipelines.
               </motion.p>
             </div>
 
@@ -136,19 +103,15 @@ const Hero = () => {
 
           {/* Right - Profile */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, type: "spring" }}
             className="flex justify-center lg:justify-end"
           >
             <div className="relative">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant"
-              >
-                <img src={profileImage} alt="Usama Munawar - AI Engineer" className="w-full h-full object-cover" />
-              </motion.div>
+              <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant">
+                <img src={profileImage} alt="Usama Munawar - AI Engineer & Business Digitization Expert" className="w-full h-full object-cover" loading="eager" />
+              </div>
 
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
@@ -173,46 +136,9 @@ const Hero = () => {
                   <div className="text-xs text-muted-foreground">Full Stack</div>
                 </div>
               </motion.div>
-
-              {/* Orbiting dot */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0"
-                style={{ transformOrigin: "center" }}
-              >
-                <div className="absolute top-0 left-1/2 w-3 h-3 bg-primary rounded-full shadow-glow -translate-x-1/2 -translate-y-1/2" />
-              </motion.div>
             </div>
           </motion.div>
         </div>
-
-        {/* Tech Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 mt-16 border border-border/30"
-        >
-          <p className="text-center text-muted-foreground text-sm mb-4 uppercase tracking-wider">Tech Arsenal</p>
-          <div className="flex flex-wrap gap-3 justify-center items-center">
-            {techStack.map((tech, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.03, type: "spring", stiffness: 200 }}
-                whileHover={{ scale: 1.15, y: -4 }}
-              >
-                <Badge variant="tech" className="text-sm py-2 px-4 hover:shadow-cool transition-shadow">
-                  {tech}
-                </Badge>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
