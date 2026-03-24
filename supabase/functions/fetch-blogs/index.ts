@@ -8,6 +8,28 @@ const RSS_FEEDS = [
   { url: 'https://hnrss.org/newest?q=Laravel+OR+PHP+OR+MySQL+OR+web+development&count=5', category: 'Web Dev' },
 ];
 
+async function scrapeContent(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'UsamaBlogBot/1.0' },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return '';
+    const html = await res.text();
+    // Extract text from paragraphs
+    const paragraphs: string[] = [];
+    const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+    let m;
+    while ((m = pRegex.exec(html)) !== null && paragraphs.length < 15) {
+      const text = m[1].replace(/<[^>]*>/g, '').replace(/&[a-z]+;/gi, ' ').trim();
+      if (text.length > 50) paragraphs.push(text);
+    }
+    return paragraphs.join('\n\n').slice(0, 3000);
+  } catch {
+    return '';
+  }
+}
+
 function parseRSSItems(xml: string, category: string) {
   const items: any[] = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
@@ -26,7 +48,7 @@ function parseRSSItems(xml: string, category: string) {
         title: title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
         slug,
         excerpt: description.replace(/&amp;/g, '&').replace(/&#x27;/g, "'").slice(0, 200),
-        content: `Read the full article: [${title}](${link})\n\n${description}`,
+        rawDescription: description,
         featured_image: null,
         published_at: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
         author: 'Usama Munawar',
@@ -65,6 +87,19 @@ Deno.serve(async (req) => {
     // Sort by date, limit to 10
     allItems.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
     const latest = allItems.slice(0, 10);
+
+    // Scrape content for top posts in parallel
+    await Promise.all(
+      latest.map(async (post) => {
+        if (post.source_url) {
+          const scraped = await scrapeContent(post.source_url);
+          post.content = scraped
+            ? `${scraped}\n\n---\n\n**Source:** [${post.title}](${post.source_url}) — *Curated by Usama Munawar*`
+            : `${post.rawDescription}\n\nRead the full article: [${post.title}](${post.source_url})\n\n---\n*Curated by Usama Munawar*`;
+        }
+        delete post.rawDescription;
+      })
+    );
 
     return new Response(JSON.stringify({ success: true, posts: latest }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' },

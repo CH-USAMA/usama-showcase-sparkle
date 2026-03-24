@@ -1,19 +1,23 @@
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogsData } from '@/data/blogs';
+import { useTrendingBlogs } from '@/hooks/useTrendingBlogs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import BlogComments from '@/components/BlogComments';
 import BlogRecommendations from '@/components/BlogRecommendations';
-import { ArrowLeft, Calendar, User, Clock, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Clock, ExternalLink } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { data: trendingPosts = [] } = useTrendingBlogs();
 
-  const post = useMemo(() => blogsData.find(p => p.slug === slug), [slug]);
+  const post = useMemo(() => {
+    return blogsData.find(p => p.slug === slug) || trendingPosts.find((p: any) => p.slug === slug);
+  }, [slug, trendingPosts]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -170,6 +174,19 @@ const BlogPost = () => {
               `}</style>
               <BlogContent content={post.content} />
             </article>
+
+            {(post as any).source_url && (
+              <div className="mt-8 p-4 rounded-xl border border-border bg-muted/50">
+                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  <ExternalLink className="h-4 w-4" />
+                  <span>Source: </span>
+                  <a href={(post as any).source_url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    {(post as any).source_url}
+                  </a>
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">Curated and commented by Usama Munawar</p>
+              </div>
+            )}
 
             <div className="mt-16 pt-8 border-t border-border">
               <BlogComments blogPostId={post.id} />
