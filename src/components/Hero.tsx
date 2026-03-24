@@ -125,17 +125,6 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.4, type: "spring" }}
-                className="absolute -bottom-2 -left-4 bg-card/90 backdrop-blur-sm rounded-2xl p-3 shadow-elegant border border-border"
-              >
-                <div className="text-center">
-                  <div className="text-lg font-bold text-foreground">AI + Dev</div>
-                  <div className="text-xs text-muted-foreground">Full Stack</div>
-                </div>
-              </motion.div>
             </div>
           </motion.div>
         </div>
