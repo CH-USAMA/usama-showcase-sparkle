@@ -88,10 +88,21 @@ const Projects = () => {
       liveUrl: "https://digital.solutionszilla.com",
       githubUrl: "#",
       featured: false
+    },
+    {
+      id: 8,
+      title: "iSmart Clinic — Healthcare SaaS",
+      description: "Enterprise-grade multi-tenant healthcare platform featuring AI-powered patient engagement, automated WhatsApp appointment booking & reminders, real-time billing, and comprehensive audit trails — built to scale modern clinics",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+      technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Supabase"],
+      category: "Healthcare",
+      liveUrl: "https://solutionzilla.ismart.link",
+      githubUrl: "#",
+      featured: true
     }
   ];
 
-  const categories = ["All", "Interior Design", "Transportation", "BPO Services", "Finance", "E-commerce", "Marketing", "IT Services"];
+  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "Finance", "E-commerce", "Marketing", "IT Services"];
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
