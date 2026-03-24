@@ -99,6 +99,28 @@ const Projects = () => {
       liveUrl: "https://solutionzilla.ismart.link",
       githubUrl: "#",
       featured: true
+    },
+    {
+      id: 9,
+      title: "Jabulani Hardware Store",
+      description: "Full-featured South African hardware e-commerce platform with Stripe payment integration, Google login authentication, lightning-fast product search, and a streamlined checkout experience",
+      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&h=400&fit=crop",
+      technologies: ["E-Commerce", "Stripe", "Google Auth", "Fast Search", "Responsive"],
+      category: "E-commerce",
+      liveUrl: "https://store.jabulanigroupofcompanies.co.za",
+      githubUrl: "#",
+      featured: true
+    },
+    {
+      id: 10,
+      title: "Solutions Zilla Software",
+      description: "Professional software house website showcasing custom software development services, team expertise, technology stack, and client success stories with modern design",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop",
+      technologies: ["Web Development", "UI/UX Design", "SEO", "Branding"],
+      category: "IT Services",
+      liveUrl: "https://software.solutionszilla.com",
+      githubUrl: "#",
+      featured: false
     }
   ];
 

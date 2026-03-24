@@ -62,6 +62,22 @@ const Portfolio = () => {
       technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Real-Time"],
       liveUrl: "https://solutionzilla.ismart.link",
       badge: "🏥 Healthcare AI"
+    },
+    {
+      title: "Jabulani Hardware Store",
+      description: "Complete South African hardware e-commerce platform with Stripe payments, Google login, fast product search, and optimized checkout flow.",
+      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop",
+      technologies: ["E-Commerce", "Stripe", "Google Auth", "Fast Search"],
+      liveUrl: "https://store.jabulanigroupofcompanies.co.za",
+      badge: "🛒 E-Commerce"
+    },
+    {
+      title: "Solutions Zilla Software",
+      description: "Professional software house website showcasing development services, team expertise, and client portfolio with modern UI/UX.",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop",
+      technologies: ["Web Development", "UI/UX", "SEO", "Branding"],
+      liveUrl: "https://software.solutionszilla.com",
+      badge: "💻 Software House"
     }
   ];
 
