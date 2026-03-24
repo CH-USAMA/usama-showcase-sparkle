@@ -54,6 +54,14 @@ const Portfolio = () => {
       technologies: ["WordPress", "Google Maps API", "Booking System", "SEO"],
       liveUrl: "https://www.fivestarsgalwaytaxis.ie",
       badge: "🚕 Transport"
+    },
+    {
+      title: "iSmart Clinic — Healthcare SaaS",
+      description: "Enterprise multi-tenant healthcare platform with AI-powered patient engagement, automated WhatsApp appointment reminders, real-time billing, and audit trails.",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop",
+      technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Real-Time"],
+      liveUrl: "https://solutionzilla.ismart.link",
+      badge: "🏥 Healthcare AI"
     }
   ];
 
