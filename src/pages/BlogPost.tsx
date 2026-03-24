@@ -175,6 +175,19 @@ const BlogPost = () => {
               <BlogContent content={post.content} />
             </article>
 
+            {(post as any).source_url && (
+              <div className="mt-8 p-4 rounded-xl border border-border bg-muted/50">
+                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  <ExternalLink className="h-4 w-4" />
+                  <span>Source: </span>
+                  <a href={(post as any).source_url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    {(post as any).source_url}
+                  </a>
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">Curated and commented by Usama Munawar</p>
+              </div>
+            )}
+
             <div className="mt-16 pt-8 border-t border-border">
               <BlogComments blogPostId={post.id} />
             </div>
