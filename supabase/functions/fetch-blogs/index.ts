@@ -8,6 +8,23 @@ const RSS_FEEDS = [
   { url: 'https://hnrss.org/newest?q=Laravel+OR+PHP+OR+MySQL+OR+web+development&count=5', category: 'Web Dev' },
 ];
 
+const STOCK_IMAGES: Record<string, string[]> = {
+  AI: [
+    'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=400&fit=crop',
+  ],
+  'Web Dev': [
+    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+  ],
+};
+
 async function scrapeContent(url: string): Promise<string> {
   try {
     const res = await fetch(url, {
@@ -43,13 +60,17 @@ function parseRSSItems(xml: string, category: string) {
 
     if (title) {
       const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+      const images = STOCK_IMAGES[category] || STOCK_IMAGES['AI'];
+      const imageIndex = items.length % images.length;
+      const cleanTitle = title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      const cleanExcerpt = description.replace(/&amp;/g, '&').replace(/&#x27;/g, "'").slice(0, 200);
       items.push({
         id: `auto-${slug}`,
-        title: title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
+        title: cleanTitle,
         slug,
-        excerpt: description.replace(/&amp;/g, '&').replace(/&#x27;/g, "'").slice(0, 200),
+        excerpt: cleanExcerpt || `Explore the latest insights on ${cleanTitle.split(' ').slice(0, 5).join(' ')} — covering trends, practical applications, and what it means for developers and businesses.`,
         rawDescription: description,
-        featured_image: null,
+        featured_image: images[imageIndex],
         published_at: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
         author: 'Usama Munawar',
         tags: [category],
