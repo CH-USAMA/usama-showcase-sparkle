@@ -127,11 +127,6 @@ const Blog = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {post.tags.map(tag => (
-                          <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
-                        ))}
-                      </div>
                       <Button asChild variant="ghost" className="p-0 h-auto text-primary font-medium hover:text-primary/80">
                         <Link to={(post as any).source_url || `/blog/${post.slug}`} target={(post as any).source_url ? "_blank" : undefined}>
                           Read Article →
