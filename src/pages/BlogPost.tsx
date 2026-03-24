@@ -1,19 +1,23 @@
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogsData } from '@/data/blogs';
+import { useTrendingBlogs } from '@/hooks/useTrendingBlogs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import BlogComments from '@/components/BlogComments';
 import BlogRecommendations from '@/components/BlogRecommendations';
-import { ArrowLeft, Calendar, User, Clock, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Clock, ExternalLink } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { data: trendingPosts = [] } = useTrendingBlogs();
 
-  const post = useMemo(() => blogsData.find(p => p.slug === slug), [slug]);
+  const post = useMemo(() => {
+    return blogsData.find(p => p.slug === slug) || trendingPosts.find((p: any) => p.slug === slug);
+  }, [slug, trendingPosts]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
