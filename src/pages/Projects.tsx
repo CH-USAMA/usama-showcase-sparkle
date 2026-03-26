@@ -207,6 +207,7 @@ const Projects = () => {
                       src={project.image} 
                       alt={project.title}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                     {project.featured && (
                       <Badge className="absolute top-4 left-4 bg-accent-gradient border-0">

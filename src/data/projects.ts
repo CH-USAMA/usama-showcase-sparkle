@@ -319,5 +319,99 @@ export const projectsData = {
       "Enhanced market positioning",
       "AI-driven visitor engagement"
     ]
+  },
+  8: {
+    id: 8,
+    title: "Jabulani Hardware Store",
+    description: "Complete South African hardware e-commerce platform with Stripe payments, Google login, and fast search",
+    fullDescription: `Jabulani Hardware Store is a full-featured e-commerce platform built for a South African hardware and building materials retailer. The platform serves thousands of customers across South Africa with a comprehensive product catalog spanning construction materials, tools, plumbing, electrical, and home improvement categories.
+
+    The store features Stripe payment integration for secure credit/debit card transactions, Google OAuth login for frictionless user authentication, and a blazing-fast product search powered by indexed database queries with real-time filtering and autocomplete.
+
+    Performance was a top priority — the platform loads in under 2 seconds on 3G connections, with optimized product images served via CDN and aggressive caching strategies. The admin panel enables inventory management, order tracking, and sales analytics.
+
+    The checkout flow was optimized through A/B testing, reducing cart abandonment by 35% with a streamlined 3-step process including guest checkout, saved addresses, and multiple payment options.`,
+    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&h=500&fit=crop"
+    ],
+    technologies: ["Laravel", "React", "Stripe", "Google Auth", "MySQL", "Redis", "CDN"],
+    category: "E-Commerce",
+    client: "Jabulani Group of Companies (South Africa)",
+    duration: "2.5 months",
+    teamSize: "Solo developer",
+    completionDate: "February 2025",
+    liveUrl: "https://store.jabulanigroupofcompanies.co.za",
+    githubUrl: "#",
+    features: [
+      "Stripe Payment Integration",
+      "Google OAuth Login",
+      "Lightning-Fast Product Search",
+      "Real-time Inventory Management",
+      "Optimized Checkout Flow",
+      "Admin Analytics Dashboard",
+      "Mobile-First Responsive Design",
+      "CDN-Optimized Product Images"
+    ],
+    challenges: [
+      { title: "Payment Integration", description: "Implementing Stripe for the South African market with ZAR currency support and local payment methods" },
+      { title: "Search Performance", description: "Building sub-200ms product search across 5,000+ SKUs with filtering, sorting, and autocomplete" },
+      { title: "Mobile Optimization", description: "Ensuring fast load times on slower mobile networks common in South Africa" }
+    ],
+    results: [
+      "35% reduction in cart abandonment",
+      "Sub-2 second page loads on 3G",
+      "60% of users login via Google Auth",
+      "4.8/5 customer satisfaction rating"
+    ]
+  },
+  9: {
+    id: 9,
+    title: "Solutions Zilla Software",
+    description: "Professional software house website showcasing development services and client portfolio",
+    fullDescription: `Solutions Zilla Software is the flagship website for a full-service software development company, designed to establish authority in the competitive IT services market and generate high-quality leads.
+
+    The site features a modern, conversion-optimized design with dynamic service pages, interactive technology stack showcases, and detailed case study presentations. Each service page is tailored with industry-specific content and social proof.
+
+    SEO was central to the strategy — the site ranks for key terms like "custom software development," "Laravel development company," and "IT outsourcing Pakistan." Technical SEO includes schema markup, optimized Core Web Vitals, and a comprehensive content strategy.
+
+    The portfolio section includes filterable project showcases with before/after metrics, client testimonials with video integration, and detailed technology breakdowns that demonstrate expertise to potential clients.`,
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop"
+    ],
+    technologies: ["WordPress", "Custom Theme", "SEO", "UI/UX Design", "Analytics", "Schema Markup"],
+    category: "IT Services",
+    client: "Solutions Zilla",
+    duration: "6 weeks",
+    teamSize: "Solo project",
+    completionDate: "January 2025",
+    liveUrl: "https://software.solutionszilla.com",
+    githubUrl: "#",
+    features: [
+      "Conversion-Optimized Design",
+      "Dynamic Service Pages",
+      "Interactive Tech Stack Showcase",
+      "Detailed Case Studies",
+      "Client Testimonial Videos",
+      "SEO & Schema Markup",
+      "Lead Generation Forms",
+      "Performance Analytics"
+    ],
+    challenges: [
+      { title: "Brand Positioning", description: "Differentiating from hundreds of competing software companies with a unique value proposition" },
+      { title: "SEO Competition", description: "Ranking for highly competitive software development keywords in a saturated market" },
+      { title: "Conversion Rate", description: "Designing a journey that converts technical decision-makers into qualified leads" }
+    ],
+    results: [
+      "45% increase in organic traffic",
+      "3x more qualified lead submissions",
+      "Top 5 ranking for target keywords",
+      "2.5% visitor-to-lead conversion rate"
+    ]
   }
 };

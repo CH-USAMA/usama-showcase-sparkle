@@ -109,6 +109,7 @@ const Portfolio = () => {
                       src={project.image}
                       alt={project.title}
                       className="w-full h-48 object-cover"
+                      loading="lazy"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="bg-background/90 backdrop-blur-sm text-foreground text-xs font-medium px-3 py-1 rounded-full">
