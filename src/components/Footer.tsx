@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 items-center">
           <div>
             <h3 className="text-2xl font-bold mb-2 text-foreground">Usama Munawar</h3>
-            <p className="text-muted-foreground">AI Engineer & Full Stack Developer</p>
+            <p className="text-muted-foreground">Laravel PHP MySQL Developer · AI Engineer · Vibe Coding Expert</p>
           </div>
 
           <div className="flex justify-center gap-4">

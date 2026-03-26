@@ -26,7 +26,7 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <Badge variant="tech" className="text-sm py-2 px-4 mb-4 inline-block">
-                  🚀 Digitizing Businesses with AI & Automation
+                  🚀 Laravel · PHP · MySQL · AI · Vibe Coding Expert
                 </Badge>
               </motion.div>
 
@@ -48,9 +48,8 @@ const Hero = () => {
                 transition={{ duration: 0.7, delay: 0.6 }}
                 className="text-xl text-muted-foreground max-w-2xl"
               >
-                Hi, I'm <strong className="text-foreground">Usama Munawar</strong> — I help businesses
-                <strong className="text-foreground"> automate operations, build AI-powered products, and scale digitally</strong>.
-                From intelligent chatbots to end-to-end automation pipelines.
+                Hi, I'm <strong className="text-foreground">Usama Munawar</strong> — a <strong className="text-foreground">Laravel, PHP & MySQL developer</strong> and
+                <strong className="text-foreground"> AI engineer</strong> who uses <strong className="text-foreground">vibe coding with Claude, Lovable & Cursor</strong> to build and automate businesses 10x faster.
               </motion.p>
             </div>
 
