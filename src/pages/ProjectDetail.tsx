@@ -93,6 +93,7 @@ const ProjectDetail = () => {
                 src={project.image} 
                 alt={project.title}
                 className="w-full rounded-2xl shadow-elegant"
+                loading="lazy"
               />
             </div>
           </div>
@@ -155,6 +156,7 @@ const ProjectDetail = () => {
                       src={image}
                       alt={`${project.title} screenshot ${index + 1}`}
                       className="w-full rounded-xl hover:shadow-elegant transition-shadow duration-300"
+                      loading="lazy"
                     />
                   ))}
                 </div>
