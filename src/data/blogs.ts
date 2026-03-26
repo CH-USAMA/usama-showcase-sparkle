@@ -12,6 +12,182 @@ export interface BlogPost {
 
 export const blogsData: BlogPost[] = [
   {
+    id: "10",
+    title: "Vibe Coding in 2025: How I Build Apps 10x Faster with Claude, Lovable & Cursor",
+    slug: "vibe-coding-2025-claude-lovable-cursor",
+    excerpt: "Vibe coding is revolutionizing software development. Learn how I use Claude AI, Lovable, Cursor, and Replit to ship production-ready Laravel and React apps in hours, not weeks.",
+    content: `## What is Vibe Coding?
+
+**Vibe coding** is the future of software development — using AI-powered tools to write, debug, and deploy code at unprecedented speed. Instead of typing every line manually, you describe what you want and let AI handle the implementation.
+
+## My Vibe Coding Stack
+
+| Tool | What I Use It For |
+|------|-------------------|
+| **Claude (Anthropic)** | Complex reasoning, architecture decisions, code review |
+| **Lovable** | Full-stack React app generation with instant preview |
+| **Cursor AI** | AI-first code editor for Laravel, PHP, and TypeScript |
+| **Replit** | Quick prototypes and collaborative coding |
+
+## How Vibe Coding Works in Practice
+
+### Step 1: Describe Your Vision
+Instead of writing boilerplate, I describe the feature to Claude or Lovable:
+
+\`\`\`
+"Build a Laravel REST API for appointment booking with MySQL, 
+including WhatsApp notification integration and Stripe payments"
+\`\`\`
+
+### Step 2: AI Generates the Foundation
+Claude generates the Laravel migrations, models, controllers, and routes. Lovable builds the React frontend simultaneously.
+
+### Step 3: Refine with Cursor
+I use Cursor AI to refine business logic, add edge cases, and optimize database queries in MySQL.
+
+## Real Results
+
+- **Healthcare SaaS** — Built in 2 weeks instead of 3 months
+- **E-commerce Platform** — Stripe + Google Auth in 3 days
+- **AI Chatbot System** — Production-ready in 1 week
+
+## Is Vibe Coding Replacing Traditional Development?
+
+No — it's **augmenting** it. You still need deep knowledge of Laravel, PHP, MySQL, React, and system architecture. Vibe coding just removes the tedious parts so you can focus on solving real problems.
+
+**The developers who embrace vibe coding will outpace those who don't.**`,
+    featured_image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+    published_at: "2025-08-01T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Vibe Coding", "Claude", "Lovable", "Cursor AI", "AI Tools"]
+  },
+  {
+    id: "11",
+    title: "Laravel + MySQL Best Practices: Building Scalable SaaS Applications in 2025",
+    slug: "laravel-mysql-best-practices-scalable-saas-2025",
+    excerpt: "A comprehensive guide to building production-ready SaaS applications with Laravel and MySQL — covering multi-tenancy, query optimization, caching, and deployment strategies.",
+    content: `## Why Laravel + MySQL is Still King for SaaS
+
+In 2025, **Laravel** remains the most productive PHP framework for building SaaS applications. Combined with **MySQL**, it offers:
+
+- Elegant ORM (Eloquent) for complex data relationships
+- Built-in queue system for background jobs
+- Robust authentication and authorization
+- Excellent testing tools
+
+## Architecture Patterns I Use
+
+### Multi-Tenant Architecture
+
+\`\`\`php
+// Laravel Multi-Tenant Middleware
+class TenantMiddleware
+{
+    public function handle(Request $request, Closure $next)
+    {
+        $tenant = Tenant::where('domain', $request->getHost())->first();
+        
+        if (!$tenant) {
+            abort(404, 'Tenant not found');
+        }
+        
+        app()->instance('tenant', $tenant);
+        config(['database.connections.mysql.database' => $tenant->database]);
+        
+        return $next($request);
+    }
+}
+\`\`\`
+
+### MySQL Query Optimization
+
+\`\`\`sql
+-- Composite indexes for common queries
+CREATE INDEX idx_appointments_tenant_date 
+ON appointments(tenant_id, appointment_date, status);
+
+-- Use EXPLAIN to analyze slow queries
+EXPLAIN SELECT * FROM orders 
+WHERE tenant_id = 1 AND status = 'pending' 
+ORDER BY created_at DESC LIMIT 20;
+\`\`\`
+
+## Performance Tips
+
+1. **Use Redis for caching** — Cache frequently accessed queries
+2. **Implement database read replicas** — Scale reads horizontally
+3. **Use Laravel Horizon** — Monitor and manage queues
+4. **Optimize Eloquent** — Avoid N+1 queries with eager loading
+
+## Real-World Projects
+
+I've built multiple SaaS platforms with this stack:
+- **iSmart Clinic** — Multi-tenant healthcare platform
+- **Solutions Zilla** — Call center management system
+- **Custom CRMs** — For businesses across Pakistan and globally
+
+**Laravel + MySQL isn't going anywhere.** It's the backbone of modern PHP development.`,
+    featured_image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop",
+    published_at: "2025-07-25T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Laravel", "PHP", "MySQL", "SaaS", "Web Development"]
+  },
+  {
+    id: "12",
+    title: "Claude vs ChatGPT for Developers: Which AI Tool Should You Use in 2025?",
+    slug: "claude-vs-chatgpt-developers-ai-tools-2025",
+    excerpt: "An honest comparison of Claude (Anthropic) and ChatGPT (OpenAI) for software development — code generation, debugging, architecture planning, and vibe coding workflows.",
+    content: `## The AI Tools Every Developer Needs
+
+As an AI engineer who uses both **Claude** and **ChatGPT** daily, here's my honest breakdown for developers.
+
+## Claude (Anthropic)
+
+### Strengths
+- **Superior code understanding** — Handles large codebases better
+- **Better reasoning** — Excels at architecture decisions
+- **Longer context window** — Can process entire projects
+- **More nuanced responses** — Less generic, more tailored
+
+### Best For
+- Complex Laravel/PHP refactoring
+- System design and architecture
+- Code review and bug analysis
+- Technical writing and documentation
+
+## ChatGPT (OpenAI)
+
+### Strengths
+- **Broader knowledge** — More training data
+- **Better at creative tasks** — UI/UX suggestions
+- **Plugin ecosystem** — Extensive integrations
+- **Image generation** — DALL-E integration
+
+### Best For
+- Quick code snippets
+- Exploring new technologies
+- Generating boilerplate code
+- Learning new frameworks
+
+## My Daily Workflow
+
+\`\`\`
+Morning: Claude for architecture planning & complex coding
+Afternoon: Cursor AI (Claude-powered) for implementation
+Evening: ChatGPT for research & exploring ideas
+\`\`\`
+
+## The Verdict
+
+**Use both.** Claude is my go-to for serious development work — Laravel APIs, MySQL optimization, React architecture. ChatGPT is great for brainstorming and quick lookups.
+
+The real power is in **combining them with vibe coding tools** like Lovable and Cursor for maximum productivity.`,
+    featured_image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=800&h=400&fit=crop",
+    published_at: "2025-07-20T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Claude", "ChatGPT", "AI Tools", "Vibe Coding", "Developer Tools"]
+  },
+  {
     id: "1",
     title: "Building Multi-Agent Systems with OpenAI & LangChain",
     slug: "building-multi-agent-systems-openai-langchain",
@@ -209,5 +385,58 @@ For a legal tech client, this architecture achieved **94% accuracy** on domain-s
     published_at: "2025-06-10T10:00:00Z",
     author: "Usama Munawar",
     tags: ["RAG", "AI", "Vector DB", "Production"]
+  },
+  {
+    id: "13",
+    title: "PHP in 2025: Why It's Still the Best Choice for Web Development",
+    slug: "php-2025-best-choice-web-development",
+    excerpt: "PHP powers 77% of the web. With PHP 8.3, Laravel 11, and modern tooling, it's faster, safer, and more developer-friendly than ever. Here's why PHP is thriving.",
+    content: `## PHP Is Not Dead — It's Thriving
+
+Every year someone declares PHP dead. Every year, PHP powers more of the web than before. **77% of all websites** use PHP, and with PHP 8.3, the language has never been better.
+
+## What's New in PHP 8.3
+
+- **Typed class constants** — Better type safety
+- **json_validate()** — Native JSON validation
+- **Randomizer additions** — Improved randomness APIs
+- **Performance improvements** — 5-15% faster than PHP 8.2
+
+## Laravel 11: The PHP Framework That Changed Everything
+
+\`\`\`php
+// Laravel 11 streamlined application structure
+// Minimal bootstrap, maximum productivity
+
+Route::get('/api/projects', function () {
+    return Project::with(['client', 'technologies'])
+        ->where('status', 'active')
+        ->latest()
+        ->paginate(15);
+});
+\`\`\`
+
+## PHP + MySQL: The Unbeatable Combo
+
+For most web applications, **PHP + MySQL** remains the most cost-effective, scalable, and well-supported stack:
+
+- Hosting is dirt cheap (shared hosting works for small apps)
+- Massive ecosystem of packages and tools
+- Battle-tested at scale (Facebook, Wikipedia, WordPress)
+- Laravel makes it a joy to work with
+
+## When to Choose PHP
+
+✅ E-commerce platforms
+✅ SaaS applications
+✅ Content management systems
+✅ REST APIs and microservices
+✅ Business automation tools
+
+**PHP isn't just surviving — it's the backbone of the modern web.**`,
+    featured_image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
+    published_at: "2025-07-10T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["PHP", "Laravel", "MySQL", "Web Development", "2025"]
   }
 ];
