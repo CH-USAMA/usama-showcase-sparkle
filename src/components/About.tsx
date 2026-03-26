@@ -39,7 +39,7 @@ const About = () => {
           <AnimatedSection>
             <h2 className="text-4xl lg:text-5xl font-bold text-center mb-4 text-foreground">HOW I HELP BUSINESSES</h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto">
-              I help companies digitize their operations, automate workflows, and build AI-powered products that drive real growth.
+              As a Laravel PHP MySQL developer and AI engineer, I help companies digitize operations, automate workflows with n8n, and build AI-powered products using Claude, LangChain, and vibe coding tools.
             </p>
           </AnimatedSection>
 

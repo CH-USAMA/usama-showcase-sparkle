@@ -8,6 +8,7 @@ const Portfolio = lazy(() => import("@/components/Portfolio"));
 const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
 const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
+const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
@@ -26,6 +27,7 @@ const Index = () => {
         <FreelancingPlatforms />
         <Testimonials />
         <LatestBlogs />
+        <SEOFaq />
         <Contact />
         <Footer />
         <AIChatbot />
