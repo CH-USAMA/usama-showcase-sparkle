@@ -15,6 +15,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const PostEditor = lazy(() => import("./pages/PostEditor"));
+const GitHubReadme = lazy(() => import("./pages/GitHubReadme"));
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/posts/new" element={<PostEditor />} />
             <Route path="/admin/posts/:id/edit" element={<PostEditor />} />
+            <Route path="/github/:repoId" element={<GitHubReadme />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
