@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { ArrowLeft, Calendar, User, Search, BookOpen, TrendingUp, Rss } from 'lucide-react';
+import { lazy, Suspense } from 'react';
+
+const TrendingRepos = lazy(() => import('@/components/TrendingRepos'));
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -140,6 +143,9 @@ const Blog = () => {
           )}
         </div>
       </main>
+      <Suspense fallback={<div className="py-16" />}>
+        <TrendingRepos />
+      </Suspense>
     </div>
   );
 };
