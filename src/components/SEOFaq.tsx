@@ -36,31 +36,36 @@ const faqs = [
 
 const SEOFaq = () => {
   return (
-    <section className="py-20 bg-secondary/30">
+    <section className="py-24 bg-secondary/20 relative">
       <div className="container mx-auto px-6">
         <AnimatedSection>
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-12 bg-primary/40" />
+              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">FAQ</span>
+              <div className="h-px w-12 bg-primary/40" />
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">
               FREQUENTLY ASKED QUESTIONS
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
               Common questions about hiring a Laravel PHP developer, AI engineering, vibe coding, and my services
             </p>
           </div>
         </AnimatedSection>
 
         <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, i) => (
               <AnimatedSection key={i} delay={i * 0.08}>
                 <AccordionItem
                   value={`faq-${i}`}
-                  className="border border-border/50 rounded-xl px-6 bg-card/50 backdrop-blur-sm"
+                  className="border border-border/30 rounded-2xl px-6 bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-colors"
                 >
-                  <AccordionTrigger className="text-left text-foreground font-semibold hover:text-primary transition-colors">
+                  <AccordionTrigger className="text-left text-foreground font-display font-bold hover:text-primary transition-colors text-base">
                     {faq.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                  <AccordionContent className="text-muted-foreground leading-relaxed font-inter">
                     {faq.a}
                   </AccordionContent>
                 </AccordionItem>
