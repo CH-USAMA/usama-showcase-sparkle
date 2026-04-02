@@ -2,100 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cool modern design system with cyan-blue gradients */
+/* Elevated design system — dark editorial with electric cyan */
 
 @layer base {
   :root {
-    --background: 0 0% 3%;
-    --foreground: 0 0% 95%;
+    --background: 220 20% 4%;
+    --foreground: 210 20% 94%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 220 18% 8%;
+    --card-foreground: 210 20% 94%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 220 18% 8%;
+    --popover-foreground: 210 20% 94%;
 
-    /* Cool cyan accent on black */
-    --primary: 180 100% 50%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 180 100% 60%;
+    /* Electric cyan accent */
+    --primary: 175 95% 45%;
+    --primary-foreground: 220 20% 4%;
+    --primary-glow: 175 100% 55%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 220 15% 13%;
+    --secondary-foreground: 210 20% 94%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 220 12% 14%;
+    --muted-foreground: 215 12% 55%;
 
-    --accent: 180 100% 50%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 175 95% 45%;
+    --accent-foreground: 220 20% 4%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 20% 94%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 180 100% 50%;
+    --border: 220 12% 16%;
+    --input: 220 15% 13%;
+    --ring: 175 95% 45%;
 
     --radius: 0.75rem;
 
-    /* Cool black gradient portfolio colors */
-    --hero-gradient: linear-gradient(135deg, hsl(0 0% 5%), hsl(0 0% 10%), hsl(180 100% 50% / 0.1));
-    --dark-section: 0 0% 3%;
-    --card-gradient: linear-gradient(145deg, hsl(0 0% 8%), hsl(0 0% 12%));
-    --accent-gradient: linear-gradient(90deg, hsl(180 100% 50%), hsl(180 100% 60%));
-    --cool-gradient: linear-gradient(135deg, hsl(0 0% 5% / 0.8), hsl(180 100% 50% / 0.1));
+    /* Premium gradients */
+    --hero-gradient: linear-gradient(160deg, hsl(220 20% 3%), hsl(220 25% 7%), hsl(175 60% 10% / 0.4));
+    --dark-section: 220 20% 4%;
+    --card-gradient: linear-gradient(145deg, hsl(220 18% 9%), hsl(220 15% 13%));
+    --accent-gradient: linear-gradient(135deg, hsl(175 95% 45%), hsl(190 100% 50%));
+    --cool-gradient: linear-gradient(135deg, hsl(220 20% 5% / 0.9), hsl(175 60% 20% / 0.15));
+    --text-gradient: linear-gradient(135deg, hsl(175 95% 50%), hsl(190 100% 60%), hsl(160 90% 50%));
     
+    /* Grain overlay */
+    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+
     /* Smooth animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     
-    /* Cool theme shadows */
-    --shadow-glow: 0 10px 40px -10px hsl(180 100% 50% / 0.3);
-    --shadow-elegant: 0 20px 25px -5px hsl(0 0% 0% / 0.4), 0 10px 10px -5px hsl(0 0% 0% / 0.2);
-    --shadow-cool: 0 8px 32px -8px hsl(180 100% 50% / 0.2);
+    /* Premium shadows */
+    --shadow-glow: 0 10px 50px -12px hsl(175 95% 45% / 0.35);
+    --shadow-elegant: 0 25px 50px -12px hsl(220 20% 0% / 0.5), 0 12px 24px -8px hsl(220 20% 0% / 0.3);
+    --shadow-cool: 0 8px 40px -8px hsl(175 95% 45% / 0.2);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
     --background: 222 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 217 32.6% 17.5%;
     --card-foreground: 210 40% 98%;
-
     --popover: 217 32.6% 17.5%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 199 89% 48%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 217 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 188 100% 45%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217 32.6% 17.5%;
     --input: 217 32.6% 17.5%;
     --ring: 199 89% 48%;
@@ -120,10 +109,54 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-inter font-semibold;
+    @apply font-display font-bold tracking-tight;
   }
   
   code, pre {
     @apply font-mono;
   }
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Grain texture overlay */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-url);
+  background-repeat: repeat;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glow line */
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(175 95% 45% / 0.6), transparent);
+}
+
+/* Animated underline */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  transition: width 0.3s ease;
+}
+.hover-underline:hover::after {
+  width: 100%;
 }

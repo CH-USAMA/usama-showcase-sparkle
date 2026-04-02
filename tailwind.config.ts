@@ -18,10 +18,11 @@ export default {
 			}
 		},
 		extend: {
-			fontFamily: {
-				'inter': ['Inter', 'sans-serif'],
-				'mono': ['JetBrains Mono', 'monospace'],
-			},
+		fontFamily: {
+			'display': ['Syne', 'sans-serif'],
+			'inter': ['Inter', 'sans-serif'],
+			'mono': ['JetBrains Mono', 'monospace'],
+		},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
