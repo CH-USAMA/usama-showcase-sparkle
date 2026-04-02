@@ -34,32 +34,37 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted/10">
+    <section className="py-24 bg-muted/5 relative">
       <div className="container mx-auto px-6">
         <AnimatedSection>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">CLIENT TESTIMONIALS</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Don't just take my word for it - here's what my clients say about working with me
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-12 bg-primary/40" />
+              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Testimonials</span>
+              <div className="h-px w-12 bg-primary/40" />
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
+              Don't just take my word for it — here's what my clients say
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-4 gap-4 mb-16">
           {stats.map((stat, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
               <motion.div whileHover={{ y: -6, scale: 1.03 }} transition={{ type: "spring" }}>
-                <Card className="p-6 text-center bg-card-gradient border-border/50 hover:shadow-glow transition-all duration-300">
+                <Card className="p-6 text-center bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl">
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ type: "spring", delay: 0.2 + index * 0.1 }}
-                    className="text-3xl font-bold text-primary mb-2"
+                    className="text-3xl font-display font-extrabold text-gradient mb-2"
                   >
                     {stat.value}
                   </motion.div>
-                  <div className="text-muted-foreground">{stat.label}</div>
+                  <div className="text-muted-foreground font-inter text-sm">{stat.label}</div>
                 </Card>
               </motion.div>
             </AnimatedSection>
@@ -71,21 +76,21 @@ const Testimonials = () => {
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {testimonials.map((t, index) => (
-                  <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] px-4">
-                    <Card className="p-6 pt-10 bg-card-gradient border-border/50 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 relative h-full">
-                      <div className="space-y-4">
+                  <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] px-3">
+                    <Card className="p-8 bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 hover:-translate-y-2 relative h-full rounded-2xl">
+                      <div className="space-y-5">
                         <div className="flex gap-1">
                           {Array.from({ length: t.rating }).map((_, i) => (
                             <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                           ))}
                         </div>
-                        <p className="text-muted-foreground leading-relaxed">"{t.content}"</p>
-                        <Badge variant="secondary" className="text-xs">{t.project}</Badge>
-                        <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-                          <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                        <p className="text-muted-foreground leading-relaxed font-inter italic">"{t.content}"</p>
+                        <Badge variant="secondary" className="text-xs rounded-lg font-inter">{t.project}</Badge>
+                        <div className="flex items-center gap-3 pt-4 border-t border-border/30">
+                          <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20" />
                           <div>
-                            <h4 className="font-semibold text-foreground">{t.name}</h4>
-                            <p className="text-sm text-muted-foreground">{t.position} at {t.company}</p>
+                            <h4 className="font-display font-bold text-foreground text-sm">{t.name}</h4>
+                            <p className="text-xs text-muted-foreground font-inter">{t.position} at {t.company}</p>
                           </div>
                         </div>
                       </div>
@@ -95,11 +100,11 @@ const Testimonials = () => {
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
-              <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={scrollPrev} className="p-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/80 shadow-md">
+            <div className="flex justify-center gap-3 mt-8">
+              <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={scrollPrev} className="p-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/80 shadow-glow transition-colors">
                 <ChevronLeft className="w-5 h-5" />
               </motion.button>
-              <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={scrollNext} className="p-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/80 shadow-md">
+              <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={scrollNext} className="p-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/80 shadow-glow transition-colors">
                 <ChevronRight className="w-5 h-5" />
               </motion.button>
             </div>
