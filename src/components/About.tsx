@@ -42,7 +42,7 @@ const About = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Services</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
               HOW I HELP BUSINESSES
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-20 max-w-3xl mx-auto font-inter">
