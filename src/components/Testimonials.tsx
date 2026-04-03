@@ -35,7 +35,7 @@ const Testimonials = () => {
 
   return (
     <section className="py-24 bg-muted/5 relative">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -43,14 +43,14 @@ const Testimonials = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Testimonials</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
               Don't just take my word for it — here's what my clients say
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {stats.map((stat, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
               <motion.div whileHover={{ y: -6, scale: 1.03 }} transition={{ type: "spring" }}>

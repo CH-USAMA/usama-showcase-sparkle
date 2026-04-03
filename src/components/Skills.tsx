@@ -35,14 +35,14 @@ const Skills = () => {
       {/* Decorative top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px glow-line" />
       
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-12 bg-primary/40" />
             <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Expertise</span>
             <div className="h-px w-12 bg-primary/40" />
           </div>
-          <h2 className="text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
             SKILLS & TECH STACK
           </h2>
           <p className="text-center text-muted-foreground text-lg mb-20 max-w-3xl mx-auto font-inter">

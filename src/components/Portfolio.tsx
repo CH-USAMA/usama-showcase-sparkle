@@ -83,7 +83,7 @@ const Portfolio = () => {
 
   return (
     <section className="py-24 bg-muted/10 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -91,7 +91,7 @@ const Portfolio = () => {
               <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Featured Work</span>
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
               AI-POWERED SOLUTIONS
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">

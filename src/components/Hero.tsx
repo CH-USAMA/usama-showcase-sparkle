@@ -21,8 +21,8 @@ const Hero = () => {
         backgroundSize: '80px 80px'
       }} />
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
           <div className="text-center lg:text-left space-y-10">
             <div className="space-y-6">
@@ -41,7 +41,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-6xl lg:text-8xl font-display font-extrabold leading-[0.9] tracking-tighter"
+                className="text-4xl sm:text-6xl lg:text-8xl font-display font-extrabold leading-[0.9] tracking-tighter"
                 style={{ color: "hsl(var(--foreground))" }}
               >
                 I DIGITIZE
@@ -121,9 +121,9 @@ const Hero = () => {
           >
             <div className="relative">
               {/* Glowing ring behind image */}
-              <div className="absolute inset-0 w-80 h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
+              <div className="absolute inset-0 w-56 h-56 sm:w-80 sm:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
               
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
+              <div className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
                 <img src={profileImage} alt="Usama Munawar - AI Engineer & Business Digitization Expert" className="w-full h-full object-cover" loading="eager" />
               </div>
 
