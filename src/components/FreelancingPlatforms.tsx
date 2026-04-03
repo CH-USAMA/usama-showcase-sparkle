@@ -31,7 +31,7 @@ const FreelancingPlatforms = () => {
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
             { value: totalStats.totalEarnings, label: "Total Earnings" },
             { value: `${totalStats.totalProjects}+`, label: "Projects Completed" },
