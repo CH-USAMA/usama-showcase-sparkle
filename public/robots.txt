@@ -1,13 +1,6 @@
 User-agent: *
 Allow: /
-
-# Disallow access to sensitive areas
 Disallow: /admin/
-Disallow: /private/
-Disallow: /*.json$
+Disallow: /auth
 
-# Sitemap location
 Sitemap: https://dev-usama-portfolio.vercel.app/sitemap.xml
-
-# Crawl-delay for polite crawling
-Crawl-delay: 1
