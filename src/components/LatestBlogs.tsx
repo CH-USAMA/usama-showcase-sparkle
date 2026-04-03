@@ -27,7 +27,7 @@ const LatestBlogs = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Blog</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">Latest from the Blog</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">Latest from the Blog</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-inter">
               AI engineering, automation, web development & business digitization insights
             </p>
