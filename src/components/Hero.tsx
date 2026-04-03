@@ -121,9 +121,9 @@ const Hero = () => {
           >
             <div className="relative">
               {/* Glowing ring behind image */}
-              <div className="absolute inset-0 w-80 h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
+              <div className="absolute inset-0 w-56 h-56 sm:w-80 sm:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
               
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
+              <div className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
                 <img src={profileImage} alt="Usama Munawar - AI Engineer & Business Digitization Expert" className="w-full h-full object-cover" loading="eager" />
               </div>
 

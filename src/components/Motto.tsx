@@ -6,7 +6,7 @@ const Motto = () => {
       {/* Glow line top */}
       <div className="glow-line w-full" />
       
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

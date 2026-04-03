@@ -34,7 +34,7 @@ const About = () => {
 
   return (
     <section className="py-24 bg-background relative">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
             <div className="flex items-center justify-center gap-3 mb-4">

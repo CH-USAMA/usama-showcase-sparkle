@@ -62,7 +62,7 @@ const FreelancingPlatforms = () => {
                     </motion.div>
                     <div className="flex-1 space-y-4">
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <h3 className="text-xl font-display font-bold text-foreground">{platform.name}</h3>
                           <Badge className="bg-accent-gradient border-0 text-xs rounded-lg">{platform.badge}</Badge>
                         </div>

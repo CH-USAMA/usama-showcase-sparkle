@@ -83,7 +83,7 @@ const Portfolio = () => {
 
   return (
     <section className="py-24 bg-muted/10 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-3 mb-4">
