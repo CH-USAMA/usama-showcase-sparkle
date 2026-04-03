@@ -26,7 +26,7 @@ const FreelancingPlatforms = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Platforms</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">FREELANCING PLATFORMS</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">FREELANCING PLATFORMS</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">Trusted by clients worldwide across multiple freelancing platforms</p>
           </div>
         </AnimatedSection>
