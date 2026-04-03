@@ -22,7 +22,7 @@ const Hero = () => {
       }} />
 
       <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
           <div className="text-center lg:text-left space-y-10">
             <div className="space-y-6">
