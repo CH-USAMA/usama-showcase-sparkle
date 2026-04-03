@@ -21,7 +21,7 @@ const Hero = () => {
         backgroundSize: '80px 80px'
       }} />
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
           <div className="text-center lg:text-left space-y-10">
