@@ -50,7 +50,7 @@ const Testimonials = () => {
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {stats.map((stat, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
               <motion.div whileHover={{ y: -6, scale: 1.03 }} transition={{ type: "spring" }}>
