@@ -41,7 +41,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-6xl lg:text-8xl font-display font-extrabold leading-[0.9] tracking-tighter"
+                className="text-4xl sm:text-6xl lg:text-8xl font-display font-extrabold leading-[0.9] tracking-tighter"
                 style={{ color: "hsl(var(--foreground))" }}
               >
                 I DIGITIZE
