@@ -56,8 +56,8 @@ const FreelancingPlatforms = () => {
                 <Card className="p-8 bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
-                  <div className="relative flex items-start gap-6">
-                    <motion.div whileHover={{ rotate: 12 }} className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
+                  <div className="relative flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                    <motion.div whileHover={{ rotate: 12 }} className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
                       <img src={platform.logo} alt={platform.name} className="w-10 h-10 rounded-xl object-cover" />
                     </motion.div>
                     <div className="flex-1 space-y-4">
