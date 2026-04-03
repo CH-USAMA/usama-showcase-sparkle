@@ -45,7 +45,7 @@ const SEOFaq = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">FAQ</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">
               FREQUENTLY ASKED QUESTIONS
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
