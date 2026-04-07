@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -17,13 +17,14 @@ const Footer = () => {
 
           <div className="flex justify-center gap-3">
             {[
-              { href: "https://github.com/CH-USAMA", icon: Github },
-              { href: "https://www.linkedin.com/in/usama-works/", icon: Linkedin },
-              { href: "mailto:devusamaworks@gmail.com", icon: Mail },
+              { href: "https://github.com/CH-USAMA", icon: Github, label: "GitHub" },
+              { href: "https://www.linkedin.com/in/usama-works/", icon: Linkedin, label: "LinkedIn" },
+              { href: "https://x.com/usloopsama", icon: Twitter, label: "X" },
+              { href: "mailto:devusamaworks@gmail.com", icon: Mail, label: "Email" },
             ].map((s, i) => (
               <motion.div key={i} whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.9 }}>
                 <Button size="icon" variant="outline" className="rounded-full border-border/40 text-foreground hover:text-primary hover:border-primary/50 transition-colors" asChild>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer">
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
                     <s.icon className="w-5 h-5" />
                   </a>
                 </Button>

@@ -4,6 +4,7 @@ import Motto from "@/components/Motto";
 
 const About = lazy(() => import("@/components/About"));
 const Skills = lazy(() => import("@/components/Skills"));
+const ExperienceStats = lazy(() => import("@/components/ExperienceStats"));
 const Portfolio = lazy(() => import("@/components/Portfolio"));
 const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
@@ -12,6 +13,7 @@ const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
+const FloatingHireMe = lazy(() => import("@/components/FloatingHireMe"));
 
 const Fallback = () => <div className="py-20" />;
 
@@ -23,6 +25,7 @@ const Index = () => {
       <Suspense fallback={<Fallback />}>
         <About />
         <Skills />
+        <ExperienceStats />
         <Portfolio />
         <FreelancingPlatforms />
         <Testimonials />
@@ -31,6 +34,7 @@ const Index = () => {
         <Contact />
         <Footer />
         <AIChatbot />
+        <FloatingHireMe />
       </Suspense>
     </div>
   );

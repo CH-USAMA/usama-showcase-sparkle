@@ -1,31 +1,38 @@
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
+import { Database, Brain, Layout, Workflow, Cloud, Briefcase } from "lucide-react";
 
 const skillCategories = [
   {
-    title: "AI & Machine Learning",
-    skills: ["OpenAI / GPT", "LangChain", "RAG Pipelines", "AI Agents", "Deep Learning", "NLP", "Computer Vision", "Hugging Face", "TensorFlow", "PyTorch"],
+    title: "Backend",
+    icon: Database,
+    skills: ["Laravel", "PHP", "MySQL", "PostgreSQL", "REST APIs", "Node.js"],
   },
   {
-    title: "Automation & Integration",
-    skills: ["n8n", "MCP Protocol", "API Integration", "Zapier", "Make.com", "Webhooks", "Cron Jobs", "ETL Pipelines"],
+    title: "AI & Agents",
+    icon: Brain,
+    skills: ["LangChain", "RAG Pipelines", "OpenAI / GPT", "Claude", "AI Agents", "Hugging Face", "Deep Learning", "NLP", "Computer Vision", "TensorFlow", "PyTorch"],
   },
   {
-    title: "AI Tools & Platforms",
-    skills: ["ChatGPT", "Claude", "Lovable", "Replit", "Cursor", "OpenRouter", "Vercel AI SDK", "Supabase AI"],
+    title: "Frontend",
+    icon: Layout,
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
-    title: "Full Stack Development",
-    skills: ["React", "Next.js", "TypeScript", "Node.js", "Laravel", "PHP", "MySQL", "PostgreSQL", "Tailwind CSS", "REST APIs"],
+    title: "Automation",
+    icon: Workflow,
+    skills: ["n8n", "Zapier", "Make.com", "Webhooks", "MCP Protocol", "ETL Pipelines", "Cron Jobs"],
   },
   {
     title: "Cloud & DevOps",
+    icon: Cloud,
     skills: ["AWS", "Supabase", "Vercel", "Docker", "CI/CD", "GitHub Actions", "Linux", "Nginx"],
   },
   {
-    title: "Business & Strategy",
-    skills: ["Digital Transformation", "Process Automation", "SaaS Architecture", "Product Strategy", "Agile / Scrum"],
+    title: "AI Tools & Strategy",
+    icon: Briefcase,
+    skills: ["ChatGPT", "Claude", "Lovable", "Cursor", "Replit", "OpenRouter", "Digital Transformation", "SaaS Architecture", "Product Strategy"],
   },
 ];
 
@@ -62,7 +69,12 @@ const Skills = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative">
-                  <h3 className="text-lg font-display font-bold text-primary mb-5">{cat.title}</h3>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-cool transition-all duration-300">
+                      <cat.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-display font-bold text-primary">{cat.title}</h3>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill, j) => (
                       <motion.div
@@ -72,7 +84,7 @@ const Skills = () => {
                         viewport={{ once: true }}
                         transition={{ delay: j * 0.03 + i * 0.05 }}
                       >
-                        <Badge variant="tech" className="text-xs px-3 py-1.5 rounded-lg border border-border/20 font-inter">
+                        <Badge variant="tech" className="text-xs px-3 py-1.5 rounded-lg border border-border/20 font-inter hover:shadow-cool hover:border-primary/30 transition-all duration-300 cursor-default">
                           {skill}
                         </Badge>
                       </motion.div>
