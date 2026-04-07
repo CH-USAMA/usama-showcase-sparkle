@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, Github, Linkedin, Mail, ChevronRight } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Download, Code2, Brain, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
 import HireMe from "@/components/HireMe";
@@ -24,14 +24,15 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
-          <div className="text-center lg:text-left space-y-10">
+          <div className="text-center lg:text-left space-y-8">
             <div className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex items-center gap-3 justify-center lg:justify-start"
               >
-                <Badge variant="tech" className="text-sm py-2 px-5 mb-4 inline-flex items-center gap-2 border border-primary/20 bg-primary/5">
+                <Badge variant="tech" className="text-sm py-2 px-5 inline-flex items-center gap-2 border border-primary/20 bg-primary/5">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   Laravel · PHP · MySQL · AI · Vibe Coding
                 </Badge>
@@ -41,43 +42,75 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl sm:text-6xl lg:text-8xl font-display font-extrabold leading-[0.9] tracking-tighter"
+                className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold leading-[0.95] tracking-tighter"
                 style={{ color: "hsl(var(--foreground))" }}
               >
-                I DIGITIZE
+                Laravel & AI Engineer
                 <br />
-                <span className="text-gradient">YOUR BUSINESS</span>
+                <span className="text-gradient text-2xl sm:text-4xl lg:text-5xl leading-tight block mt-2">
+                  I Build Fast, Scalable Systems That Automate & Scale Businesses
+                </span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.6 }}
-                className="text-lg text-muted-foreground max-w-xl leading-relaxed"
+                className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-inter"
               >
-                Hi, I'm <strong className="text-foreground">Usama Munawar</strong> — a{" "}
-                <strong className="text-foreground">Laravel, PHP & MySQL developer</strong> and{" "}
-                <strong className="text-foreground">AI engineer</strong> who uses{" "}
-                <strong className="text-foreground">vibe coding with Claude, Lovable & Cursor</strong>{" "}
-                to build and automate businesses 10x faster.
+                I'm <strong className="text-foreground">Usama Munawar</strong> — I combine{" "}
+                <strong className="text-foreground">Laravel, PHP, MySQL</strong> with{" "}
+                <strong className="text-foreground">AI agents, RAG pipelines</strong>, and{" "}
+                <strong className="text-foreground">vibe coding (Claude + Cursor + Lovable)</strong>{" "}
+                to deliver production-ready solutions 10x faster.
               </motion.p>
+
+              {/* Floating code + AI icons */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="flex items-center gap-4 justify-center lg:justify-start"
+              >
+                {[
+                  { icon: Terminal, label: "Code" },
+                  { icon: Brain, label: "AI" },
+                  { icon: Code2, label: "Vibe" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/10"
+                  >
+                    <item.icon className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-inter text-muted-foreground">{item.label}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="flex flex-wrap gap-4 justify-center lg:justify-start"
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="flex flex-wrap gap-3 justify-center lg:justify-start"
             >
-              <HireMe />
-              <a href="/blog">
-                <Button size="lg" variant="outline-white" className="gap-2 group">
-                  Read My Blog
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <a href="#portfolio">
+                <Button size="lg" variant="hero" className="gap-2 shadow-glow rounded-xl px-8">
+                  View My Projects
                 </Button>
               </a>
+              <a href="https://www.upwork.com/freelancers/~01007bf0a0286da654" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline-white" className="gap-2 group">
+                  <ExternalLink className="w-4 h-4" />
+                  Hire Me on Upwork
+                </Button>
+              </a>
+              <HireMe />
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="outline-white" className="gap-2">
+                  <Download className="w-4 h-4" />
                   Download CV
                 </Button>
               </a>
@@ -124,8 +157,8 @@ const Hero = () => {
               <div className="absolute inset-0 w-56 h-56 sm:w-80 sm:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
               
               <div className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
-                <img src={profileImage} alt="Usama Munawar - AI Engineer & Business Digitization Expert" className="w-full h-full object-cover object-top scale-125" loading="eager" />
-                {/* Dark vignette overlay to blend bright background with dark theme */}
+                <img src={profileImage} alt="Usama Munawar - Laravel & AI Engineer" className="w-full h-full object-cover object-top scale-125" loading="eager" />
+                {/* Dark vignette overlay */}
                 <div className="absolute inset-0 rounded-full" style={{
                   background: 'radial-gradient(circle at 50% 30%, transparent 35%, hsl(var(--background) / 0.6) 70%, hsl(var(--background)) 100%)'
                 }} />
@@ -152,6 +185,18 @@ const Hero = () => {
                 <div className="text-center">
                   <div className="text-2xl font-display font-extrabold text-gradient">180+</div>
                   <div className="text-xs text-muted-foreground uppercase tracking-widest">Projects</div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.8, type: "spring" }}
+                className="absolute top-1/2 -right-6 bg-card/95 backdrop-blur-md rounded-2xl p-3 shadow-elegant border border-border/50"
+              >
+                <div className="text-center">
+                  <div className="text-lg font-display font-extrabold text-gradient">$145K+</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-widest">Earned</div>
                 </div>
               </motion.div>
             </div>

@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const Contact = () => {
+  const whatsappUrl = "https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20discuss%20a%20project";
+
   return (
     <section className="py-24 bg-background relative">
       <div className="container mx-auto px-4 sm:px-6">
@@ -37,9 +39,9 @@ const Contact = () => {
 
             <div className="space-y-5">
               {[
-                { icon: Mail, title: "Email", value: "devusamaworks@gmail.com" },
-                { icon: Phone, title: "Phone", value: "+92 303 8004684" },
-                { icon: MapPin, title: "Location", value: "Pakistan" },
+                { icon: Mail, title: "Email", value: "devusamaworks@gmail.com", href: "mailto:devusamaworks@gmail.com" },
+                { icon: Phone, title: "Phone / WhatsApp", value: "+92 303 8004684", href: whatsappUrl },
+                { icon: MapPin, title: "Location", value: "Lahore, Pakistan", href: undefined },
               ].map((item, i) => (
                 <AnimatedSection key={i} delay={i * 0.1} direction="left">
                   <motion.div whileHover={{ x: 8 }} className="flex items-center gap-4 group">
@@ -48,16 +50,32 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="font-display font-bold text-foreground text-sm">{item.title}</h4>
-                      <p className="text-muted-foreground font-inter">{item.value}</p>
+                      {item.href ? (
+                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground font-inter hover:text-primary transition-colors">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-muted-foreground font-inter">{item.value}</p>
+                      )}
                     </div>
                   </motion.div>
                 </AnimatedSection>
               ))}
             </div>
 
+            {/* WhatsApp CTA */}
+            <AnimatedSection delay={0.3}>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="gap-2 bg-[hsl(142,70%,45%)] hover:bg-[hsl(142,70%,40%)] text-white rounded-xl">
+                  <MessageCircle className="w-5 h-5" />
+                  Chat on WhatsApp
+                </Button>
+              </a>
+            </AnimatedSection>
+
             <div className="grid grid-cols-2 gap-6 pt-4">
               {[
-                { num: "50+", label: "Projects Completed" },
+                { num: "180+", label: "Projects Completed" },
                 { num: "5+", label: "Years Experience" },
               ].map((s, i) => (
                 <AnimatedSection key={i} delay={0.2 + i * 0.1}>
@@ -98,6 +116,7 @@ const Contact = () => {
                     <option>Website Development</option>
                     <option>Web Application</option>
                     <option>AI Integration</option>
+                    <option>Automation (n8n / Zapier)</option>
                     <option>System Upgrade / Maintenance</option>
                     <option>Other</option>
                   </select>
