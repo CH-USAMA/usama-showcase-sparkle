@@ -220,7 +220,7 @@ const AIChatbot = () => {
               <Button
                 size="icon"
                 variant="ghost"
-                onClick={() => setIsOpen(false)}
+                onClick={handleClose}
                 className="text-primary-foreground hover:bg-primary-foreground/20 h-8 w-8"
               >
                 <X className="w-4 h-4" />
