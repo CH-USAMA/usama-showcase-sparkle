@@ -65,6 +65,8 @@ async function streamChat({
   }
 }
 
+const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
+
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
@@ -74,6 +76,7 @@ const AIChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatSentRef = useRef(false);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -84,6 +87,36 @@ const AIChatbot = () => {
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
+
+  const emailChatTranscript = async () => {
+    // Only email if there were user messages and not already sent
+    const userMessages = messages.filter(m => m.role === "user");
+    if (userMessages.length === 0 || chatSentRef.current) return;
+    chatSentRef.current = true;
+
+    const transcript = messages
+      .map(m => `${m.role === "user" ? "Visitor" : "AI Assistant"}: ${m.content}`)
+      .join("\n\n");
+
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _subject: "New Chat Transcript from Portfolio",
+          message: transcript,
+          source: "AI Chatbot",
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to email chat transcript:", e);
+    }
+  };
+
+  const handleClose = () => {
+    emailChatTranscript();
+    setIsOpen(false);
+  };
 
   const send = async () => {
     if (!input.trim() || isLoading) return;
@@ -187,7 +220,7 @@ const AIChatbot = () => {
               <Button
                 size="icon"
                 variant="ghost"
-                onClick={() => setIsOpen(false)}
+                onClick={handleClose}
                 className="text-primary-foreground hover:bg-primary-foreground/20 h-8 w-8"
               >
                 <X className="w-4 h-4" />
