@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/((?!api|sitemap\\.xml|robots\\.txt|usama-profile\\.jpg|google6d7b29d71fa21ec1\\.html).*)", "destination": "/index.html" }
+    { "source": "/((?!api|sitemap\\.xml|robots\\.txt|usama-profile\\.jpg|og-image\\.png|google6d7b29d71fa21ec1\\.html).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
