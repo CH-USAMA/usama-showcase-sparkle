@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Hero from "@/components/Hero";
 import Motto from "@/components/Motto";
+import SEOHead from "@/components/SEOHead";
 
 const About = lazy(() => import("@/components/About"));
 const Skills = lazy(() => import("@/components/Skills"));
@@ -20,6 +21,11 @@ const Fallback = () => <div className="py-20" />;
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead
+        canonical="https://dev-usama-portfolio.vercel.app/"
+        title="Hire Laravel PHP MySQL Developer | AI Engineer & Vibe Coding Expert — Usama Munawar"
+        description="Hire Usama Munawar — expert Laravel, PHP & MySQL developer with 5+ years experience. AI engineer specializing in Claude, vibe coding, React, n8n automation & business digitization. Top-rated on Upwork & Fiverr."
+      />
       <Hero />
       <Motto />
       <Suspense fallback={<Fallback />}>

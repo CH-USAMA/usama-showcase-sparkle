@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Preconnect & font loading optimized -->
+    <!-- DNS prefetch for external domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" />
@@ -14,8 +19,8 @@
       <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
     </noscript>
 
-    <!-- Preload hero image -->
-    <link rel="preload" as="image" href="/usama-profile.jpg" />
+    <!-- Preload hero image with fetchpriority -->
+    <link rel="preload" as="image" href="/usama-profile.jpg" fetchpriority="high" />
 
     <title>Hire Laravel PHP MySQL Developer | AI Engineer & Vibe Coding Expert — Usama Munawar</title>
     <meta name="description" content="Hire Usama Munawar — expert Laravel, PHP & MySQL developer with 5+ years experience. AI engineer specializing in Claude, vibe coding, React, n8n automation & business digitization. Top-rated on Upwork & Fiverr." />

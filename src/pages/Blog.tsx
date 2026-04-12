@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { ArrowLeft, Calendar, User, Search, BookOpen, TrendingUp, Rss } from 'lucide-react';
 import { lazy, Suspense } from 'react';
+import SEOHead from '@/components/SEOHead';
 
 const TrendingRepos = lazy(() => import('@/components/TrendingRepos'));
 
@@ -37,6 +38,13 @@ const Blog = () => {
   };
 
   return (
+    <>
+    <SEOHead
+      title="Tech Blog — Laravel, AI Engineering & Vibe Coding | Usama Munawar"
+      description="Technical articles on Laravel, PHP, MySQL, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development by Usama Munawar."
+      canonical="https://dev-usama-portfolio.vercel.app/blog"
+      ogType="blog"
+    />
     <div className="min-h-screen bg-background">
       <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
         <div className="container mx-auto px-4 py-20 relative">
@@ -147,6 +155,7 @@ const Blog = () => {
         <TrendingRepos />
       </Suspense>
     </div>
+    </>
   );
 };
 

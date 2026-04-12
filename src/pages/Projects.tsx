@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ExternalLink, Github, Search, Filter, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import HireMe from "@/components/HireMe";
+import SEOHead from "@/components/SEOHead";
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -135,6 +136,12 @@ const Projects = () => {
   });
 
   return (
+    <>
+    <SEOHead
+      title="Projects — Laravel, AI & Full Stack Portfolio | Usama Munawar"
+      description="Browse 180+ projects by Usama Munawar including Laravel web apps, AI-powered solutions, e-commerce platforms, and automation systems."
+      canonical="https://dev-usama-portfolio.vercel.app/projects"
+    />
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-hero-gradient py-20">
@@ -312,6 +319,7 @@ const Projects = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

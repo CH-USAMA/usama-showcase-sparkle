@@ -10,6 +10,7 @@ import BlogRecommendations from '@/components/BlogRecommendations';
 import { ArrowLeft, Calendar, User, Clock, ExternalLink } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import SEOHead from '@/components/SEOHead';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -103,6 +104,22 @@ const BlogPost = () => {
   }
 
   return (
+    <>
+    <SEOHead
+      title={`${post.title} | Usama Munawar Blog`}
+      description={post.excerpt}
+      canonical={`https://dev-usama-portfolio.vercel.app/blog/${post.slug}`}
+      ogType="article"
+      jsonLd={{
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "author": { "@type": "Person", "name": "Usama Munawar" },
+        "datePublished": post.published_at,
+        "url": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
+      }}
+    />
     <div className="min-h-screen bg-background">
       <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
         <div className="container mx-auto px-4 py-16 relative">
@@ -197,6 +214,7 @@ const BlogPost = () => {
         </div>
       </main>
     </div>
+    </>
   );
 };
 
