@@ -136,6 +136,12 @@ const Projects = () => {
   });
 
   return (
+    <>
+    <SEOHead
+      title="Projects — Laravel, AI & Full Stack Portfolio | Usama Munawar"
+      description="Browse 180+ projects by Usama Munawar including Laravel web apps, AI-powered solutions, e-commerce platforms, and automation systems."
+      canonical="https://dev-usama-portfolio.vercel.app/projects"
+    />
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-hero-gradient py-20">
