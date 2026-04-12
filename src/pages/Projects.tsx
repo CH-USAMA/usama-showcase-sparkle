@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ExternalLink, Github, Search, Filter, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import HireMe from "@/components/HireMe";
+import SEOHead from "@/components/SEOHead";
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
