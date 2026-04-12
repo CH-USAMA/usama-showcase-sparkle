@@ -101,12 +101,6 @@ const Hero = () => {
                   View My Projects
                 </Button>
               </a>
-              <a href="https://www.upwork.com/freelancers/~01007bf0a0286da654" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline-white" className="gap-2 group">
-                  <ExternalLink className="w-4 h-4" />
-                  Hire Me on Upwork
-                </Button>
-              </a>
               <HireMe />
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="outline-white" className="gap-2">

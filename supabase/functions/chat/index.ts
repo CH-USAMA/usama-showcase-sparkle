@@ -36,8 +36,11 @@ Usama Munawar is an AI Engineer & Full Stack Developer with 5+ years experience.
 
 He's available for hire and can help with AI integration, automation, web development, and consulting.
 Contact: devusamaworks@gmail.com
+Phone/WhatsApp: +92 303 8004684
 
-Keep responses concise (2-3 sentences max). Be enthusiastic about AI. If asked about pricing, suggest they reach out directly via the contact form or email.`
+When someone asks for Usama's phone number, mobile number, WhatsApp, or contact number, always share: +92 303 8004684
+
+Keep responses concise (2-3 sentences max). Be enthusiastic about AI. If asked about pricing, suggest they reach out directly via the contact form, email, or WhatsApp.`
           },
           ...messages,
         ],
