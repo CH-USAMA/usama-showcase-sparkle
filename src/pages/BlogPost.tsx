@@ -10,6 +10,7 @@ import BlogRecommendations from '@/components/BlogRecommendations';
 import { ArrowLeft, Calendar, User, Clock, ExternalLink } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import SEOHead from '@/components/SEOHead';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
