@@ -17,15 +17,6 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { data: trendingPosts = [] } = useTrendingBlogs();
 
-  return (
-    <>
-      <SEOHead
-        title="Tech Blog — Laravel, AI Engineering & Vibe Coding | Usama Munawar"
-        description="Technical articles on Laravel, PHP, MySQL, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development by Usama Munawar."
-        canonical="https://dev-usama-portfolio.vercel.app/blog"
-        ogType="blog"
-      />
-
   const allPosts = useMemo(() => {
     const combined = [...blogsData, ...trendingPosts];
     combined.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
@@ -47,6 +38,13 @@ const Blog = () => {
   };
 
   return (
+    <>
+    <SEOHead
+      title="Tech Blog — Laravel, AI Engineering & Vibe Coding | Usama Munawar"
+      description="Technical articles on Laravel, PHP, MySQL, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development by Usama Munawar."
+      canonical="https://dev-usama-portfolio.vercel.app/blog"
+      ogType="blog"
+    />
     <div className="min-h-screen bg-background">
       <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
         <div className="container mx-auto px-4 py-20 relative">
@@ -157,6 +155,7 @@ const Blog = () => {
         <TrendingRepos />
       </Suspense>
     </div>
+    </>
   );
 };
 
