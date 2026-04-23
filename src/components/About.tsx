@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Workflow, Rocket, Building2, Bot, Sparkles, Zap } from "lucide-react";
+import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -8,27 +8,51 @@ const About = () => {
   const services = [
     {
       icon: Building2,
-      title: "Business Digitization",
-      desc: "Transform manual workflows into automated digital systems. From CRMs to inventory management — I build the digital backbone your business needs.",
-      tags: ["Process Automation", "Digital Transformation", "SaaS Products"],
+      title: "SaaS Development",
+      desc: "Multi-tenant SaaS platforms architected for scale — billing, role-based access, audit trails, and zero-downtime deployments.",
+      tags: ["Multi-Tenant", "Stripe Billing", "RBAC", "Zero-Downtime"],
     },
     {
-      icon: Bot,
-      title: "AI-Powered Solutions",
-      desc: "Custom chatbots, RAG pipelines, and intelligent agents that handle customer support, content generation, and data analysis autonomously.",
-      tags: ["Chatbots", "RAG Systems", "AI Agents"],
+      icon: Server,
+      title: "Laravel Backend Systems",
+      desc: "Production-grade Laravel apps with queue workers, event-driven architecture, and clean domain-driven design.",
+      tags: ["Laravel 11", "Domain-Driven", "Horizon", "Octane"],
+    },
+    {
+      icon: Plug,
+      title: "API Development",
+      desc: "Versioned REST and GraphQL APIs with rate limiting, OAuth2, OpenAPI specs, and predictable contracts your team can trust.",
+      tags: ["REST", "GraphQL", "OAuth2", "OpenAPI"],
     },
     {
       icon: Workflow,
-      title: "Automation & Integration",
-      desc: "Connect your tools with n8n workflows, API integrations, and MCP-powered agent systems that eliminate repetitive work.",
-      tags: ["n8n", "API Integration", "MCP Protocol"],
+      title: "Automation Systems",
+      desc: "End-to-end automation infrastructure — n8n workflows, MCP agents, and orchestration that eliminates manual operations.",
+      tags: ["n8n", "MCP", "Webhooks", "Cron"],
     },
     {
-      icon: Rocket,
-      title: "Full Stack Development",
-      desc: "Production-ready web apps with React, Laravel, Node.js. Scalable architecture on AWS/Supabase with CI/CD pipelines.",
-      tags: ["React", "Laravel", "Node.js", "AWS"],
+      icon: PhoneCall,
+      title: "VoIP & Asterisk",
+      desc: "Self-hosted call centers, IVR flows, predictive dialers, and SIP trunking integrated with your CRM and analytics.",
+      tags: ["Asterisk", "FreePBX", "SIP", "AGI / AMI"],
+    },
+    {
+      icon: Bot,
+      title: "AI Integrations",
+      desc: "RAG pipelines, autonomous agents, and LLM features wired safely into existing backends with evals and guardrails.",
+      tags: ["RAG", "LangChain", "Claude / GPT", "Vectors"],
+    },
+    {
+      icon: Radio,
+      title: "Real-Time Systems",
+      desc: "WebSockets, presence, live dashboards, and chat infrastructure built on Laravel Reverb, Pusher, or Socket.IO.",
+      tags: ["WebSockets", "Reverb", "Pusher", "Socket.IO"],
+    },
+    {
+      icon: ShieldCheck,
+      title: "High-Availability Infra",
+      desc: "Load-balanced deployments on AWS / DigitalOcean with CI/CD, observability, backups, and incident-ready runbooks.",
+      tags: ["AWS", "Docker", "CI/CD", "Monitoring"],
     },
   ];
 
