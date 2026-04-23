@@ -34,7 +34,7 @@ const Hero = () => {
               >
                 <Badge variant="tech" className="text-sm py-2 px-5 inline-flex items-center gap-2 border border-primary/20 bg-primary/5">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  Laravel · PHP · MySQL · AI · Vibe Coding
+                  Backend Systems Engineer · Laravel · Automation · VoIP · AI
                 </Badge>
               </motion.div>
 
@@ -45,10 +45,10 @@ const Hero = () => {
                 className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold leading-[0.95] tracking-tighter"
                 style={{ color: "hsl(var(--foreground))" }}
               >
-                Laravel & AI Engineer
+                Production-Grade Backend
                 <br />
                 <span className="text-gradient text-2xl sm:text-4xl lg:text-5xl leading-tight block mt-2">
-                  I Build Fast, Scalable Systems That Automate & Scale Businesses
+                  Scalable Laravel Systems, Automation Infrastructure & Real-Time Communication Platforms
                 </span>
               </motion.h1>
 
@@ -58,11 +58,10 @@ const Hero = () => {
                 transition={{ duration: 0.7, delay: 0.6 }}
                 className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-inter"
               >
-                I'm <strong className="text-foreground">Usama Munawar</strong> — I combine{" "}
-                <strong className="text-foreground">Laravel, PHP, MySQL</strong> with{" "}
-                <strong className="text-foreground">AI agents, RAG pipelines</strong>, and{" "}
-                <strong className="text-foreground">vibe coding (Claude + Cursor + Lovable)</strong>{" "}
-                to deliver production-ready solutions 10x faster.
+                I'm <strong className="text-foreground">Usama Munawar</strong> — a Backend Systems Engineer helping{" "}
+                <strong className="text-foreground">SaaS founders, startups, and operations-heavy businesses</strong> ship{" "}
+                <strong className="text-foreground">high-availability Laravel applications</strong>, robust APIs,{" "}
+                <strong className="text-foreground">VoIP/Asterisk platforms</strong>, and AI-powered automation that drives measurable operational efficiency.
               </motion.p>
 
               {/* Floating code + AI icons */}
@@ -96,14 +95,18 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-wrap gap-3 justify-center lg:justify-start"
             >
-              <a href="#portfolio">
+              <a href="#contact">
                 <Button size="lg" variant="hero" className="gap-2 shadow-glow rounded-xl px-8">
-                  View My Projects
+                  Book a Consultation
                 </Button>
               </a>
-              <HireMe />
+              <a href="#portfolio">
+                <Button size="lg" variant="outline-white" className="gap-2 rounded-xl">
+                  View Projects
+                </Button>
+              </a>
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline-white" className="gap-2">
+                <Button size="lg" variant="ghost" className="gap-2 rounded-xl">
                   <Download className="w-4 h-4" />
                   Download CV
                 </Button>

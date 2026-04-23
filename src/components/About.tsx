@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Workflow, Rocket, Building2, Bot, Sparkles, Zap } from "lucide-react";
+import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -8,27 +8,51 @@ const About = () => {
   const services = [
     {
       icon: Building2,
-      title: "Business Digitization",
-      desc: "Transform manual workflows into automated digital systems. From CRMs to inventory management — I build the digital backbone your business needs.",
-      tags: ["Process Automation", "Digital Transformation", "SaaS Products"],
+      title: "SaaS Development",
+      desc: "Multi-tenant SaaS platforms architected for scale — billing, role-based access, audit trails, and zero-downtime deployments.",
+      tags: ["Multi-Tenant", "Stripe Billing", "RBAC", "Zero-Downtime"],
     },
     {
-      icon: Bot,
-      title: "AI-Powered Solutions",
-      desc: "Custom chatbots, RAG pipelines, and intelligent agents that handle customer support, content generation, and data analysis autonomously.",
-      tags: ["Chatbots", "RAG Systems", "AI Agents"],
+      icon: Server,
+      title: "Laravel Backend Systems",
+      desc: "Production-grade Laravel apps with queue workers, event-driven architecture, and clean domain-driven design.",
+      tags: ["Laravel 11", "Domain-Driven", "Horizon", "Octane"],
+    },
+    {
+      icon: Plug,
+      title: "API Development",
+      desc: "Versioned REST and GraphQL APIs with rate limiting, OAuth2, OpenAPI specs, and predictable contracts your team can trust.",
+      tags: ["REST", "GraphQL", "OAuth2", "OpenAPI"],
     },
     {
       icon: Workflow,
-      title: "Automation & Integration",
-      desc: "Connect your tools with n8n workflows, API integrations, and MCP-powered agent systems that eliminate repetitive work.",
-      tags: ["n8n", "API Integration", "MCP Protocol"],
+      title: "Automation Systems",
+      desc: "End-to-end automation infrastructure — n8n workflows, MCP agents, and orchestration that eliminates manual operations.",
+      tags: ["n8n", "MCP", "Webhooks", "Cron"],
     },
     {
-      icon: Rocket,
-      title: "Full Stack Development",
-      desc: "Production-ready web apps with React, Laravel, Node.js. Scalable architecture on AWS/Supabase with CI/CD pipelines.",
-      tags: ["React", "Laravel", "Node.js", "AWS"],
+      icon: PhoneCall,
+      title: "VoIP & Asterisk",
+      desc: "Self-hosted call centers, IVR flows, predictive dialers, and SIP trunking integrated with your CRM and analytics.",
+      tags: ["Asterisk", "FreePBX", "SIP", "AGI / AMI"],
+    },
+    {
+      icon: Bot,
+      title: "AI Integrations",
+      desc: "RAG pipelines, autonomous agents, and LLM features wired safely into existing backends with evals and guardrails.",
+      tags: ["RAG", "LangChain", "Claude / GPT", "Vectors"],
+    },
+    {
+      icon: Radio,
+      title: "Real-Time Systems",
+      desc: "WebSockets, presence, live dashboards, and chat infrastructure built on Laravel Reverb, Pusher, or Socket.IO.",
+      tags: ["WebSockets", "Reverb", "Pusher", "Socket.IO"],
+    },
+    {
+      icon: ShieldCheck,
+      title: "High-Availability Infra",
+      desc: "Load-balanced deployments on AWS / DigitalOcean with CI/CD, observability, backups, and incident-ready runbooks.",
+      tags: ["AWS", "Docker", "CI/CD", "Monitoring"],
     },
   ];
 
@@ -54,21 +78,24 @@ const About = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
                 <div className="relative space-y-5">
                   <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter">
-                    I'm <strong className="text-foreground">Usama Munawar</strong>, a battle-tested Laravel developer and AI engineer from Lahore, Pakistan with{" "}
-                    <strong className="text-foreground">5+ years of experience</strong> and{" "}
-                    <strong className="text-gradient">$145K+ earned</strong> on Upwork, Toptal, and Fiverr.
+                    I'm <strong className="text-foreground">Usama Munawar</strong> — a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
+                    <strong className="text-foreground">5+ years</strong> shipping production systems and{" "}
+                    <strong className="text-gradient">$145K+ delivered</strong> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed font-inter">
-                    I help businesses digitize manual processes, automate workflows with n8n, and build intelligent AI-powered products that save time and generate revenue.
+                    I specialise in <strong className="text-foreground">scalable Laravel applications</strong>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations — designed for high availability, operational efficiency, and long-term maintainability.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed font-inter">
+                    I work best with founders and engineering leaders who need a senior pair of hands to architect, harden, and ship the backend their business actually depends on.
                   </p>
                   <div className="flex flex-wrap items-center gap-3 pt-4">
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter font-semibold text-foreground">Vibe Coding Expert</span>
+                      <ShieldCheck className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-inter font-semibold text-foreground">Production-Grade Architecture</span>
                     </div>
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <Zap className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter text-muted-foreground">Claude · Lovable · Cursor</span>
+                      <Sparkles className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-inter text-muted-foreground">Laravel · Asterisk · n8n · Claude</span>
                     </div>
                   </div>
                 </div>
@@ -84,32 +111,30 @@ const About = () => {
               <div className="h-px w-12 bg-primary/40" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
-              HOW I HELP BUSINESSES
+              ENGINEERING SERVICES
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto font-inter">
-              As a Laravel PHP MySQL developer and AI engineer, I help companies digitize operations, automate workflows with n8n, and build AI-powered products using Claude, LangChain, and vibe coding tools.
+              Senior backend engineering for teams that need scalable Laravel systems, automation infrastructure, real-time communication, and AI integrations — delivered with production discipline.
             </p>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((s, i) => (
-              <AnimatedSection key={i} delay={i * 0.12} direction={i % 2 === 0 ? "left" : "right"}>
-                <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Card className="p-8 hover:shadow-glow transition-all duration-500 rounded-2xl border border-border/30 bg-card/60 backdrop-blur-sm h-full group relative overflow-hidden">
-                    {/* Subtle corner accent */}
+              <AnimatedSection key={i} delay={i * 0.06}>
+                <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+                  <Card className="p-6 hover:shadow-glow transition-all duration-500 rounded-2xl border border-border/30 bg-card/60 backdrop-blur-sm h-full group relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
                     <div className="relative">
-                      <div className="flex items-center gap-4 mb-5">
-                        <div className="p-3 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
-                          <s.icon className="w-6 h-6 text-primary" />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
+                          <s.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <h3 className="text-xl font-display font-bold text-foreground">{s.title}</h3>
+                        <h3 className="text-base font-display font-bold text-foreground leading-tight">{s.title}</h3>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed mb-5 font-inter">{s.desc}</p>
-                      <div className="flex flex-wrap gap-2">
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-inter">{s.desc}</p>
+                      <div className="flex flex-wrap gap-1.5">
                         {s.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs px-3 py-1 rounded-lg font-inter">
+                          <Badge key={tag} variant="secondary" className="text-[11px] px-2 py-0.5 rounded-md font-inter">
                             {tag}
                           </Badge>
                         ))}

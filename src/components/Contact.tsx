@@ -10,18 +10,18 @@ const Contact = () => {
   const whatsappUrl = "https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20discuss%20a%20project";
 
   return (
-    <section className="py-24 bg-background relative">
+    <section id="contact" className="py-24 bg-background relative">
       <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-primary/40" />
-              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Contact</span>
+              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Book a Consultation</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">GET IN TOUCH</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">LET'S BUILD SOMETHING SOLID</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Ready to bring your ideas to life? Let's discuss your next project
+              Share your architecture, automation, or VoIP challenge — I'll reply within 24 hours with an honest assessment.
             </p>
           </div>
         </AnimatedSection>
@@ -29,11 +29,9 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
           <div className="space-y-10">
             <AnimatedSection direction="left">
-              <h3 className="text-2xl font-display font-bold mb-6 text-foreground">Let's Start a Conversation</h3>
+              <h3 className="text-2xl font-display font-bold mb-6 text-foreground">Talk to a Senior Engineer</h3>
               <p className="text-muted-foreground text-lg leading-relaxed font-inter">
-                I'm always excited to work on new projects and collaborate with amazing people.
-                Whether you have a specific project in mind or just want to explore possibilities,
-                I'd love to hear from you.
+                Whether you're scoping a new SaaS, scaling a Laravel monolith, designing a call-center stack, or wiring AI into existing workflows — let's get on a call and map the right next step.
               </p>
             </AnimatedSection>
 

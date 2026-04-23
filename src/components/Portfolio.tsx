@@ -14,29 +14,38 @@ const Portfolio = () => {
   const projects = [
     {
       title: "Solutions Zilla Call Portal",
-      description: "Call center management portal with AI-powered analytics. Reduced manual call routing time by 70% with intelligent dispatch and CRM workflows.",
+      description: "Asterisk-powered call center platform with intelligent dispatch, live agent monitoring, and CRM-integrated workflows.",
+      problem: "Manual call routing across 40+ agents caused dropped leads and inconsistent SLAs.",
+      solution: "Built a Laravel + Asterisk dispatch engine with real-time queues, AGI scripting, and CRM webhooks.",
+      stack: "Laravel · Asterisk · MySQL · Redis · WebSockets",
       image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop",
-      technologies: ["Laravel", "Next.js", "MySQL", "TailwindCSS", "AI Analytics"],
+      technologies: ["Laravel", "Asterisk", "MySQL", "WebSockets", "Redis"],
       liveUrl: "https://call.solutionszilla.com",
-      badge: "Enterprise",
+      badge: "VoIP Platform",
       category: "Laravel Projects",
       result: "70% faster call routing"
     },
     {
       title: "iSmart Clinic — Healthcare SaaS",
-      description: "Enterprise multi-tenant healthcare platform with AI-powered patient engagement, automated WhatsApp reminders, real-time billing, and audit trails.",
+      description: "Multi-tenant healthcare platform with automated patient engagement, billing, and audit trails.",
+      problem: "Clinics were losing patients to no-shows and manual billing reconciliation errors.",
+      solution: "Designed a multi-tenant Laravel backend with WhatsApp automation, role-based access, and event-sourced audit logs.",
+      stack: "Next.js · Laravel API · PostgreSQL · WhatsApp API · Multi-Tenant",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
-      technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Real-Time"],
+      technologies: ["Next.js", "Laravel", "Multi-Tenant", "WhatsApp API", "Real-Time"],
       liveUrl: "https://solutionzilla.ismart.link",
-      badge: "Healthcare AI",
+      badge: "Healthcare SaaS",
       category: "AI Projects",
       result: "40% more patient retention"
     },
     {
       title: "Smart Lead Qualification Engine",
-      description: "AI-driven lead scoring system with n8n automation, reducing manual qualification time by 85% for a SaaS company.",
+      description: "Automation infrastructure that scores, routes, and enriches inbound leads end-to-end.",
+      problem: "SaaS sales team spent 6+ hours/day manually qualifying low-fit leads.",
+      solution: "n8n orchestration + LLM scoring + CRM sync, with retries, dead-letter queues, and observability baked in.",
+      stack: "n8n · OpenAI · PostgreSQL · Webhooks · Sentry",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      technologies: ["n8n", "OpenAI", "PostgreSQL", "Next.js", "Webhook"],
+      technologies: ["n8n", "OpenAI", "PostgreSQL", "Webhooks"],
       liveUrl: "#",
       badge: "Automation",
       category: "Automation",
@@ -44,29 +53,38 @@ const Portfolio = () => {
     },
     {
       title: "RAG-Powered Legal Assistant",
-      description: "Production RAG system achieving 94% accuracy on legal queries using hybrid search (vector + BM25) and validation agents.",
+      description: "Production RAG system with hybrid search and validation agents for legal Q&A.",
+      problem: "Generic LLM answers hallucinated case law, blocking adoption inside the firm.",
+      solution: "Built hybrid (vector + BM25) retrieval, citation-grounded answers, and an evaluation harness.",
+      stack: "Python · FastAPI · Pinecone · Postgres · React",
       image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=400&fit=crop",
-      technologies: ["RAG", "Pinecone", "Python", "FastAPI", "React"],
+      technologies: ["RAG", "Pinecone", "FastAPI", "React"],
       liveUrl: "#",
-      badge: "Deep Learning",
+      badge: "AI Integration",
       category: "AI Projects",
       result: "94% query accuracy"
     },
     {
-      title: "Focus Interiors — AI-Enhanced E-Commerce",
-      description: "Luxury interior design platform with AI product recommendations, automated SEO, and intelligent search boosting conversions by 35%.",
+      title: "Focus Interiors — Commerce Platform",
+      description: "Headless commerce with AI recommendations, automated SEO, and intelligent search.",
+      problem: "Low conversion rates and poor product discoverability on a luxury catalog.",
+      solution: "Migrated to a headless stack with AI-driven search, automated metadata, and Core Web Vitals tuning.",
+      stack: "Shopify · React · OpenAI · Edge Functions",
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
-      technologies: ["Shopify", "React", "OpenAI", "SEO Automation"],
+      technologies: ["Shopify", "React", "OpenAI", "SEO"],
       liveUrl: "https://focusinteriors.com.pk",
-      badge: "E-Commerce",
+      badge: "Commerce",
       category: "E-Commerce",
-      result: "35% conversion boost"
+      result: "35% conversion lift"
     },
     {
-      title: "AI-Powered Content Pipeline",
-      description: "Multi-agent system that autonomously generates, reviews, and publishes SEO-optimized content using GPT-4 + LangChain orchestration.",
+      title: "AI Content Operations Pipeline",
+      description: "Multi-agent system that drafts, reviews, and publishes SEO content autonomously.",
+      problem: "Editorial team couldn't scale output without sacrificing quality or brand voice.",
+      solution: "Built a LangChain-based agent graph with reviewer agents, brand-voice evals, and CMS publishing hooks.",
+      stack: "LangChain · GPT-4 · n8n · Supabase · React",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
-      technologies: ["LangChain", "GPT-4", "n8n", "React", "Supabase"],
+      technologies: ["LangChain", "GPT-4", "n8n", "Supabase"],
       liveUrl: "#",
       badge: "AI Agents",
       category: "AI Projects",
@@ -120,14 +138,14 @@ const Portfolio = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Featured Work</span>
+              <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Case Studies</span>
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
-              AI-POWERED SOLUTIONS
+              SHIPPED TO PRODUCTION
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
-              From autonomous agents to production ML systems — here's how I'm helping businesses automate, digitize, and scale with AI
+              Real backend systems, automation pipelines, and VoIP platforms — each one engineered to solve a specific business bottleneck.
             </p>
           </div>
         </AnimatedSection>
@@ -208,7 +226,21 @@ const Portfolio = () => {
                     <div className="p-6 space-y-4">
                       <h3 className="text-lg font-display font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
                       <p className="text-muted-foreground text-sm font-inter leading-relaxed">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5">
+
+                      {("problem" in project && (project as any).problem) && (
+                        <div className="space-y-2 pt-2 border-t border-border/30">
+                          <div className="flex gap-2 text-xs font-inter">
+                            <span className="text-primary font-semibold uppercase tracking-wider shrink-0">Problem</span>
+                            <span className="text-muted-foreground leading-relaxed">{(project as any).problem}</span>
+                          </div>
+                          <div className="flex gap-2 text-xs font-inter">
+                            <span className="text-primary font-semibold uppercase tracking-wider shrink-0">Solution</span>
+                            <span className="text-muted-foreground leading-relaxed">{(project as any).solution}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex flex-wrap gap-1.5 pt-1">
                         {project.technologies.map((tech, i) => (
                           <span key={i} className="px-2.5 py-1 bg-primary/8 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
                         ))}
