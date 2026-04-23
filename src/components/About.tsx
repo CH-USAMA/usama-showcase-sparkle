@@ -78,21 +78,24 @@ const About = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
                 <div className="relative space-y-5">
                   <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter">
-                    I'm <strong className="text-foreground">Usama Munawar</strong>, a battle-tested Laravel developer and AI engineer from Lahore, Pakistan with{" "}
-                    <strong className="text-foreground">5+ years of experience</strong> and{" "}
-                    <strong className="text-gradient">$145K+ earned</strong> on Upwork, Toptal, and Fiverr.
+                    I'm <strong className="text-foreground">Usama Munawar</strong> — a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
+                    <strong className="text-foreground">5+ years</strong> shipping production systems and{" "}
+                    <strong className="text-gradient">$145K+ delivered</strong> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed font-inter">
-                    I help businesses digitize manual processes, automate workflows with n8n, and build intelligent AI-powered products that save time and generate revenue.
+                    I specialise in <strong className="text-foreground">scalable Laravel applications</strong>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations — designed for high availability, operational efficiency, and long-term maintainability.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed font-inter">
+                    I work best with founders and engineering leaders who need a senior pair of hands to architect, harden, and ship the backend their business actually depends on.
                   </p>
                   <div className="flex flex-wrap items-center gap-3 pt-4">
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter font-semibold text-foreground">Vibe Coding Expert</span>
+                      <ShieldCheck className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-inter font-semibold text-foreground">Production-Grade Architecture</span>
                     </div>
                     <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <Zap className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter text-muted-foreground">Claude · Lovable · Cursor</span>
+                      <Sparkles className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-inter text-muted-foreground">Laravel · Asterisk · n8n · Claude</span>
                     </div>
                   </div>
                 </div>
@@ -108,14 +111,14 @@ const About = () => {
               <div className="h-px w-12 bg-primary/40" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
-              HOW I HELP BUSINESSES
+              ENGINEERING SERVICES
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto font-inter">
-              As a Laravel PHP MySQL developer and AI engineer, I help companies digitize operations, automate workflows with n8n, and build AI-powered products using Claude, LangChain, and vibe coding tools.
+              Senior backend engineering for teams that need scalable Laravel systems, automation infrastructure, real-time communication, and AI integrations — delivered with production discipline.
             </p>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((s, i) => (
               <AnimatedSection key={i} delay={i * 0.12} direction={i % 2 === 0 ? "left" : "right"}>
                 <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }}>
