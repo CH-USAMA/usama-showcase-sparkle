@@ -120,23 +120,21 @@ const About = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((s, i) => (
-              <AnimatedSection key={i} delay={i * 0.12} direction={i % 2 === 0 ? "left" : "right"}>
-                <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Card className="p-8 hover:shadow-glow transition-all duration-500 rounded-2xl border border-border/30 bg-card/60 backdrop-blur-sm h-full group relative overflow-hidden">
-                    {/* Subtle corner accent */}
+              <AnimatedSection key={i} delay={i * 0.06}>
+                <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+                  <Card className="p-6 hover:shadow-glow transition-all duration-500 rounded-2xl border border-border/30 bg-card/60 backdrop-blur-sm h-full group relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
                     <div className="relative">
-                      <div className="flex items-center gap-4 mb-5">
-                        <div className="p-3 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
-                          <s.icon className="w-6 h-6 text-primary" />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
+                          <s.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <h3 className="text-xl font-display font-bold text-foreground">{s.title}</h3>
+                        <h3 className="text-base font-display font-bold text-foreground leading-tight">{s.title}</h3>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed mb-5 font-inter">{s.desc}</p>
-                      <div className="flex flex-wrap gap-2">
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-inter">{s.desc}</p>
+                      <div className="flex flex-wrap gap-1.5">
                         {s.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs px-3 py-1 rounded-lg font-inter">
+                          <Badge key={tag} variant="secondary" className="text-[11px] px-2 py-0.5 rounded-md font-inter">
                             {tag}
                           </Badge>
                         ))}
