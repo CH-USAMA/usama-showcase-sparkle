@@ -19,13 +19,37 @@ const FloatingHireMe = lazy(() => import("@/components/FloatingHireMe"));
 
 const Fallback = () => <div className="py-20" />;
 
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://dev-usama-portfolio.vercel.app/#webpage",
+      "url": "https://dev-usama-portfolio.vercel.app/",
+      "name": "Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar",
+      "description": "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
+      "inLanguage": "en",
+      "primaryImageOfPage": "https://dev-usama-portfolio.vercel.app/og-image.png"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dev-usama-portfolio.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://dev-usama-portfolio.vercel.app/projects" },
+        { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://dev-usama-portfolio.vercel.app/blog" }
+      ]
+    }
+  ]
+};
+
 const Index = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
         canonical="https://dev-usama-portfolio.vercel.app/"
-        title="Hire Laravel PHP MySQL Developer | AI Engineer & Vibe Coding Expert — Usama Munawar"
-        description="Hire Usama Munawar — expert Laravel, PHP & MySQL developer with 5+ years experience. AI engineer specializing in Claude, vibe coding, React, n8n automation & business digitization. Top-rated on Upwork & Fiverr."
+        title="Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar"
+        description="Hire Usama Munawar — Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations. 180+ shipped, $145K+ delivered."
+        jsonLd={homeJsonLd}
       />
       <Hero />
       <Motto />
