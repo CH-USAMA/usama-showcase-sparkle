@@ -226,7 +226,21 @@ const Portfolio = () => {
                     <div className="p-6 space-y-4">
                       <h3 className="text-lg font-display font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
                       <p className="text-muted-foreground text-sm font-inter leading-relaxed">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5">
+
+                      {("problem" in project && (project as any).problem) && (
+                        <div className="space-y-2 pt-2 border-t border-border/30">
+                          <div className="flex gap-2 text-xs font-inter">
+                            <span className="text-primary font-semibold uppercase tracking-wider shrink-0">Problem</span>
+                            <span className="text-muted-foreground leading-relaxed">{(project as any).problem}</span>
+                          </div>
+                          <div className="flex gap-2 text-xs font-inter">
+                            <span className="text-primary font-semibold uppercase tracking-wider shrink-0">Solution</span>
+                            <span className="text-muted-foreground leading-relaxed">{(project as any).solution}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex flex-wrap gap-1.5 pt-1">
                         {project.technologies.map((tech, i) => (
                           <span key={i} className="px-2.5 py-1 bg-primary/8 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
                         ))}
