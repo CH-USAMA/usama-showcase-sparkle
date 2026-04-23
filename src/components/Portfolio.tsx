@@ -138,14 +138,14 @@ const Portfolio = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Featured Work</span>
+              <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Case Studies</span>
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
-              AI-POWERED SOLUTIONS
+              SHIPPED TO PRODUCTION
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
-              From autonomous agents to production ML systems — here's how I'm helping businesses automate, digitize, and scale with AI
+              Real backend systems, automation pipelines, and VoIP platforms — each one engineered to solve a specific business bottleneck.
             </p>
           </div>
         </AnimatedSection>
