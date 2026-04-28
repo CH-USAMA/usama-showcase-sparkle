@@ -224,7 +224,7 @@ const Portfolio = () => {
                     </div>
 
                     <div className="p-6 space-y-4">
-                      <h3 className="text-lg font-display font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
+                      <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground group-hover:text-primary transition-colors tracking-tight leading-tight">{project.title}</h3>
                       <p className="text-muted-foreground text-sm font-inter leading-relaxed">{project.description}</p>
 
                       {("problem" in project && (project as any).problem) && (

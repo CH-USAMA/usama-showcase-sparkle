@@ -64,7 +64,7 @@ const WhoIWorkWith = () => {
                     <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 w-fit mb-4 group-hover:bg-primary/15 transition-colors">
                       <a.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="text-base font-display font-bold text-foreground mb-2">{a.title}</h3>
+                    <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground mb-2 tracking-tight leading-tight">{a.title}</h3>
                     <p className="text-sm text-muted-foreground font-inter leading-relaxed">{a.desc}</p>
                   </div>
                 </Card>

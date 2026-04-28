@@ -129,7 +129,7 @@ const About = () => {
                         <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
                           <s.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <h3 className="text-base font-display font-bold text-foreground leading-tight">{s.title}</h3>
+                        <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground leading-tight tracking-tight">{s.title}</h3>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-inter">{s.desc}</p>
                       <div className="flex flex-wrap gap-1.5">

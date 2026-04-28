@@ -73,7 +73,7 @@ const Skills = () => {
                     <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-cool transition-all duration-300">
                       <cat.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="text-lg font-display font-bold text-primary">{cat.title}</h3>
+                    <h3 className="text-2xl font-display font-normal italic text-gradient tracking-tight leading-none">{cat.title}</h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill, j) => (
