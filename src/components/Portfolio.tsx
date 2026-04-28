@@ -178,7 +178,7 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-7xl mx-auto"
           >
             {filteredProjects.map((project, index) => (
               <motion.div
@@ -195,7 +195,7 @@ const Portfolio = () => {
                         transition={{ duration: 0.6 }}
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-52 object-cover"
+                        className="w-full h-44 sm:h-48 lg:h-52 object-cover"
                         loading="lazy"
                       />
                       <div className="absolute top-3 left-3 flex gap-2">
