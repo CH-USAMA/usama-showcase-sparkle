@@ -45,7 +45,7 @@ const Testimonials = () => {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Don't just take my word for it — here's what my clients say
+              Don't just take my word for it, here's what my clients say
             </p>
           </div>
         </AnimatedSection>

@@ -21,7 +21,7 @@ const Contact = () => {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">LET'S BUILD SOMETHING SOLID</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Share your architecture, automation, or VoIP challenge — I'll reply within 24 hours with an honest assessment.
+              Share your architecture, automation, or VoIP challenge, I'll reply within 24 hours with an honest assessment.
             </p>
           </div>
         </AnimatedSection>
@@ -31,7 +31,7 @@ const Contact = () => {
             <AnimatedSection direction="left">
               <h3 className="text-2xl font-display font-bold mb-6 text-foreground">Talk to a Senior Engineer</h3>
               <p className="text-muted-foreground text-lg leading-relaxed font-inter">
-                Whether you're scoping a new SaaS, scaling a Laravel monolith, designing a call-center stack, or wiring AI into existing workflows — let's get on a call and map the right next step.
+                Whether you're scoping a new SaaS, scaling a Laravel monolith, designing a call-center stack, or wiring AI into existing workflows, let's get on a call and map the right next step.
               </p>
             </AnimatedSection>
 

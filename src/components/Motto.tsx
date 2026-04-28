@@ -21,7 +21,7 @@ const Motto = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.7 }}
           >
-            <span className="text-foreground">"Don't just build software — </span>
+            <span className="text-foreground">"Don't just build software, </span>
             <span className="text-gradient">digitize, automate, and scale</span>
             <span className="text-foreground"> your entire business."</span>
           </motion.p>
@@ -32,7 +32,7 @@ const Motto = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            — Usama Munawar
+           , Usama Munawar
           </motion.p>
         </motion.div>
       </div>

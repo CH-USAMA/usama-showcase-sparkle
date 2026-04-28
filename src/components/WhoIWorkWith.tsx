@@ -8,7 +8,7 @@ const audiences = [
   {
     icon: Rocket,
     title: "Startup Founders",
-    desc: "Need a senior backend engineer to architect your MVP correctly the first time — without rebuilds in 12 months.",
+    desc: "Need a senior backend engineer to architect your MVP correctly the first time, without rebuilds in 12 months.",
   },
   {
     icon: Building,
@@ -49,7 +49,7 @@ const WhoIWorkWith = () => {
               BUILT FOR SERIOUS TEAMS
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
-              I partner with teams that treat their backend as a long-term asset — not a throwaway prototype.
+              I partner with teams that treat their backend as a long-term asset, not a throwaway prototype.
             </p>
           </div>
         </AnimatedSection>
@@ -90,7 +90,7 @@ const WhoIWorkWith = () => {
                     Let's pressure-test your backend roadmap.
                   </h3>
                   <p className="text-muted-foreground font-inter leading-relaxed max-w-2xl">
-                    Bring your architecture questions, scaling bottlenecks, automation ideas, or VoIP requirements. You'll leave with a clear, opinionated next step — no sales pitch.
+                    Bring your architecture questions, scaling bottlenecks, automation ideas, or VoIP requirements. You'll leave with a clear, opinionated next step, no sales pitch.
                   </p>
                 </div>
 
