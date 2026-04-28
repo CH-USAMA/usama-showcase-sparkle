@@ -24,7 +24,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
-          <div className="text-center lg:text-left space-y-8">
+          <div className="text-center lg:text-left space-y-7">
             <div className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -32,36 +32,40 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="flex items-center gap-3 justify-center lg:justify-start"
               >
-                <Badge variant="tech" className="text-sm py-2 px-5 inline-flex items-center gap-2 border border-primary/20 bg-primary/5">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  Backend Systems Engineer · Laravel · Automation · VoIP · AI
-                </Badge>
+                <div className="inline-flex items-center gap-2.5 py-1.5 px-3 rounded-full border border-border/40 bg-background/40 backdrop-blur-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="text-[11px] font-inter font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Backend Engineer · Laravel · Automation · VoIP · AI
+                  </span>
+                </div>
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold leading-[0.95] tracking-tighter"
-                style={{ color: "hsl(var(--foreground))" }}
+                className="font-display font-normal leading-[1.02] tracking-[-0.02em] text-foreground"
               >
-                Production-Grade Backend
-                <br />
-                <span className="text-gradient text-2xl sm:text-4xl lg:text-5xl leading-tight block mt-2">
-                  Scalable Laravel Systems, Automation Infrastructure & Real-Time Communication Platforms
+                <span className="block text-4xl sm:text-5xl lg:text-6xl">
+                  Production-grade
+                </span>
+                <span className="block text-4xl sm:text-5xl lg:text-6xl italic text-gradient">
+                  backend, engineered.
+                </span>
+                <span className="block mt-3 text-base sm:text-lg lg:text-xl font-inter font-normal text-muted-foreground tracking-normal max-w-xl">
+                  Scalable Laravel systems, automation infrastructure & real-time communication platforms.
                 </span>
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.6 }}
-                className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-inter"
+                className="text-sm sm:text-base text-muted-foreground/90 max-w-xl leading-relaxed font-inter"
               >
-                I'm <strong className="text-foreground">Usama Munawar</strong> — a Backend Systems Engineer helping{" "}
-                <strong className="text-foreground">SaaS founders, startups, and operations-heavy businesses</strong> ship{" "}
-                <strong className="text-foreground">high-availability Laravel applications</strong>, robust APIs,{" "}
-                <strong className="text-foreground">VoIP/Asterisk platforms</strong>, and AI-powered automation that drives measurable operational efficiency.
+                I'm <span className="text-foreground font-medium">Usama Munawar</span> — a Backend Systems Engineer helping
+                SaaS founders, startups, and operations-heavy teams ship high-availability Laravel applications, robust APIs,
+                VoIP/Asterisk platforms, and AI-powered automation that drives measurable operational efficiency.
               </motion.p>
 
               {/* Floating code + AI icons */}
