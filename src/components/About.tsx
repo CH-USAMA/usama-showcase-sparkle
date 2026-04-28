@@ -67,8 +67,8 @@ const About = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">About Me</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-6 text-foreground tracking-tight">
-              WHO I AM
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic text-center mb-6 text-foreground tracking-tight">
+              Who I am
             </h2>
           </AnimatedSection>
 
@@ -77,15 +77,15 @@ const About = () => {
               <Card className="p-8 sm:p-10 bg-card/60 backdrop-blur-sm border-border/30 rounded-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
                 <div className="relative space-y-5">
-                  <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter">
-                    I'm <strong className="text-foreground">Usama Munawar</strong> — a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
-                    <strong className="text-foreground">5+ years</strong> shipping production systems and{" "}
-                    <strong className="text-gradient">$145K+ delivered</strong> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
+                  <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter font-light">
+                    I'm <span className="text-foreground font-normal">Usama Munawar</span> — a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
+                    <span className="text-foreground font-normal">5+ years</span> shipping production systems and{" "}
+                    <span className="text-gradient font-normal">$145K+ delivered</span> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed font-inter">
-                    I specialise in <strong className="text-foreground">scalable Laravel applications</strong>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations — designed for high availability, operational efficiency, and long-term maintainability.
+                  <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
+                    I specialise in <span className="text-foreground font-normal">scalable Laravel applications</span>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations — designed for high availability, operational efficiency, and long-term maintainability.
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed font-inter">
+                  <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
                     I work best with founders and engineering leaders who need a senior pair of hands to architect, harden, and ship the backend their business actually depends on.
                   </p>
                   <div className="flex flex-wrap items-center gap-3 pt-4">
@@ -110,8 +110,8 @@ const About = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Services</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
-              ENGINEERING SERVICES
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic text-center mb-4 text-foreground tracking-tight">
+              Engineering services
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto font-inter">
               Senior backend engineering for teams that need scalable Laravel systems, automation infrastructure, real-time communication, and AI integrations — delivered with production discipline.
