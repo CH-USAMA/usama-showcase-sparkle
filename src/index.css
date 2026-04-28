@@ -104,10 +104,14 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-inter;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-normal tracking-tight;
     font-feature-settings: "ss01", "liga";
