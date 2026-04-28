@@ -14,15 +14,15 @@ const faqs = [
   },
   {
     q: "What is vibe coding and do you offer it as a service?",
-    a: "Vibe coding is a modern development approach where I use AI tools like Claude, Lovable, Cursor AI, and Replit to build production-ready applications 10x faster. I combine vibe coding with deep expertise in Laravel, React, and PHP to deliver high-quality projects in record time — often weeks instead of months.",
+    a: "Vibe coding is a modern development approach where I use AI tools like Claude, Lovable, Cursor AI, and Replit to build production-ready applications 10x faster. I combine vibe coding with deep expertise in Laravel, React, and PHP to deliver high-quality projects in record time, often weeks instead of months.",
   },
   {
-    q: "Which AI tools do you specialize in — Claude, ChatGPT, or others?",
+    q: "Which AI tools do you specialize in, Claude, ChatGPT, or others?",
     a: "I work extensively with Claude (Anthropic), ChatGPT (OpenAI), LangChain, and the full AI development ecosystem. I build custom chatbots, RAG systems, multi-agent pipelines, and integrate AI into existing business workflows using n8n automation.",
   },
   {
     q: "Can you build an AI chatbot or automation system for my business?",
-    a: "Yes! I specialize in AI-powered business solutions — from intelligent chatbots and customer support agents to end-to-end workflow automation with n8n, WhatsApp API integration, and AI-driven lead qualification systems. I've helped businesses automate 20+ hours of manual work per week.",
+    a: "Yes! I specialize in AI-powered business solutions, from intelligent chatbots and customer support agents to end-to-end workflow automation with n8n, WhatsApp API integration, and AI-driven lead qualification systems. I've helped businesses automate 20+ hours of manual work per week.",
   },
   {
     q: "Do you teach Laravel, PHP, AI, or vibe coding?",

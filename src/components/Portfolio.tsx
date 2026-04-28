@@ -26,7 +26,7 @@ const Portfolio = () => {
       result: "70% faster call routing"
     },
     {
-      title: "iSmart Clinic — Healthcare SaaS",
+      title: "iSmart Clinic, Healthcare SaaS",
       description: "Multi-tenant healthcare platform with automated patient engagement, billing, and audit trails.",
       problem: "Clinics were losing patients to no-shows and manual billing reconciliation errors.",
       solution: "Designed a multi-tenant Laravel backend with WhatsApp automation, role-based access, and event-sourced audit logs.",
@@ -65,7 +65,7 @@ const Portfolio = () => {
       result: "94% query accuracy"
     },
     {
-      title: "Focus Interiors — Commerce Platform",
+      title: "Focus Interiors, Commerce Platform",
       description: "Headless commerce with AI recommendations, automated SEO, and intelligent search.",
       problem: "Low conversion rates and poor product discoverability on a luxury catalog.",
       solution: "Migrated to a headless stack with AI-driven search, automated metadata, and Core Web Vitals tuning.",
@@ -94,7 +94,7 @@ const Portfolio = () => {
 
   const moreProjects = [
     {
-      title: "Five Stars Galway — Smart Booking",
+      title: "Five Stars Galway, Smart Booking",
       description: "Taxi booking platform with intelligent route optimization, Google Maps integration, and automated dispatch.",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
       technologies: ["WordPress", "Google Maps API", "Booking System", "SEO"],
@@ -145,7 +145,7 @@ const Portfolio = () => {
               SHIPPED TO PRODUCTION
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
-              Real backend systems, automation pipelines, and VoIP platforms — each one engineered to solve a specific business bottleneck.
+              Real backend systems, automation pipelines, and VoIP platforms, each one engineered to solve a specific business bottleneck.
             </p>
           </div>
         </AnimatedSection>
@@ -178,7 +178,7 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-7xl mx-auto"
           >
             {filteredProjects.map((project, index) => (
               <motion.div
@@ -195,7 +195,7 @@ const Portfolio = () => {
                         transition={{ duration: 0.6 }}
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-52 object-cover"
+                        className="w-full h-44 sm:h-48 lg:h-52 object-cover"
                         loading="lazy"
                       />
                       <div className="absolute top-3 left-3 flex gap-2">
@@ -224,7 +224,7 @@ const Portfolio = () => {
                     </div>
 
                     <div className="p-6 space-y-4">
-                      <h3 className="text-lg font-display font-bold text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
+                      <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground group-hover:text-primary transition-colors tracking-tight leading-tight">{project.title}</h3>
                       <p className="text-muted-foreground text-sm font-inter leading-relaxed">{project.description}</p>
 
                       {("problem" in project && (project as any).problem) && (

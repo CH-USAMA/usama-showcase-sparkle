@@ -63,7 +63,7 @@ const Hero = () => {
                 transition={{ duration: 0.7, delay: 0.6 }}
                 className="text-sm sm:text-base text-muted-foreground/90 max-w-xl leading-relaxed font-inter"
               >
-                I'm <span className="text-foreground font-medium">Usama Munawar</span> — a Backend Systems Engineer helping
+                I'm <span className="text-foreground font-medium">Usama Munawar</span>, a Backend Systems Engineer helping
                 SaaS founders, startups, and operations-heavy teams ship high-availability Laravel applications, robust APIs,
                 VoIP/Asterisk platforms, and AI-powered automation that drives measurable operational efficiency.
               </motion.p>

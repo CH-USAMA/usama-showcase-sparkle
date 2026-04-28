@@ -29,7 +29,7 @@ const TrendingRepos = () => {
               <h2 className="text-3xl md:text-4xl font-bold">Trending GitHub Repos</h2>
             </div>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
-              Top open-source projects in AI & Web Development — curated with full README access
+              Top open-source projects in AI & Web Development, curated with full README access
             </p>
             <div className="flex justify-center gap-2">
               {(['all', 'AI', 'Web Dev'] as const).map(cat => (

@@ -9,7 +9,7 @@ const About = () => {
     {
       icon: Building2,
       title: "SaaS Development",
-      desc: "Multi-tenant SaaS platforms architected for scale — billing, role-based access, audit trails, and zero-downtime deployments.",
+      desc: "Multi-tenant SaaS platforms architected for scale, billing, role-based access, audit trails, and zero-downtime deployments.",
       tags: ["Multi-Tenant", "Stripe Billing", "RBAC", "Zero-Downtime"],
     },
     {
@@ -27,7 +27,7 @@ const About = () => {
     {
       icon: Workflow,
       title: "Automation Systems",
-      desc: "End-to-end automation infrastructure — n8n workflows, MCP agents, and orchestration that eliminates manual operations.",
+      desc: "End-to-end automation infrastructure, n8n workflows, MCP agents, and orchestration that eliminates manual operations.",
       tags: ["n8n", "MCP", "Webhooks", "Cron"],
     },
     {
@@ -78,12 +78,12 @@ const About = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
                 <div className="relative space-y-5">
                   <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter font-light">
-                    I'm <span className="text-foreground font-normal">Usama Munawar</span> — a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
+                    I'm <span className="text-foreground font-normal">Usama Munawar</span>, a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
                     <span className="text-foreground font-normal">5+ years</span> shipping production systems and{" "}
                     <span className="text-gradient font-normal">$145K+ delivered</span> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
-                    I specialise in <span className="text-foreground font-normal">scalable Laravel applications</span>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations — designed for high availability, operational efficiency, and long-term maintainability.
+                    I specialise in <span className="text-foreground font-normal">scalable Laravel applications</span>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations, designed for high availability, operational efficiency, and long-term maintainability.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
                     I work best with founders and engineering leaders who need a senior pair of hands to architect, harden, and ship the backend their business actually depends on.
@@ -114,7 +114,7 @@ const About = () => {
               Engineering services
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto font-inter">
-              Senior backend engineering for teams that need scalable Laravel systems, automation infrastructure, real-time communication, and AI integrations — delivered with production discipline.
+              Senior backend engineering for teams that need scalable Laravel systems, automation infrastructure, real-time communication, and AI integrations, delivered with production discipline.
             </p>
           </AnimatedSection>
 
@@ -129,7 +129,7 @@ const About = () => {
                         <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
                           <s.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <h3 className="text-base font-display font-bold text-foreground leading-tight">{s.title}</h3>
+                        <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground leading-tight tracking-tight">{s.title}</h3>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-inter">{s.desc}</p>
                       <div className="flex flex-wrap gap-1.5">

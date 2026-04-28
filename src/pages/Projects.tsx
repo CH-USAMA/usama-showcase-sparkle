@@ -92,8 +92,8 @@ const Projects = () => {
     },
     {
       id: 8,
-      title: "iSmart Clinic — Healthcare SaaS",
-      description: "Enterprise-grade multi-tenant healthcare platform featuring AI-powered patient engagement, automated WhatsApp appointment booking & reminders, real-time billing, and comprehensive audit trails — built to scale modern clinics",
+      title: "iSmart Clinic, Healthcare SaaS",
+      description: "Enterprise-grade multi-tenant healthcare platform featuring AI-powered patient engagement, automated WhatsApp appointment booking & reminders, real-time billing, and comprehensive audit trails, built to scale modern clinics",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
       technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Supabase"],
       category: "Healthcare",
@@ -138,7 +138,7 @@ const Projects = () => {
   return (
     <>
     <SEOHead
-      title="Projects — Laravel, AI & Full Stack Portfolio | Usama Munawar"
+      title="Projects, Laravel, AI & Full Stack Portfolio | Usama Munawar"
       description="Browse 180+ projects by Usama Munawar including Laravel web apps, AI-powered solutions, e-commerce platforms, and automation systems."
       canonical="https://dev-usama-portfolio.vercel.app/projects"
     />

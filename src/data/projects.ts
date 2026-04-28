@@ -5,7 +5,7 @@ export const projectsData = {
     description: "Multi-agent system that autonomously generates, reviews, and publishes content using GPT-4 + LangChain",
     fullDescription: `This project is a production-grade multi-agent content pipeline that I architected from scratch. It uses a Main Orchestrator Agent that delegates tasks to specialized sub-agents for research, writing, SEO optimization, and quality review.
 
-    The system leverages LangChain for agent orchestration, GPT-4 for content generation, and n8n for workflow automation. Each piece of content goes through a 4-stage pipeline: Research → Draft → Review → Publish — all autonomously.
+    The system leverages LangChain for agent orchestration, GPT-4 for content generation, and n8n for workflow automation. Each piece of content goes through a 4-stage pipeline: Research → Draft → Review → Publish, all autonomously.
 
     The RAG component pulls from a curated knowledge base stored in Pinecone, ensuring content is factually grounded and brand-consistent. The review agent uses a custom evaluation rubric to score content quality before publishing.
 
@@ -99,7 +99,7 @@ export const projectsData = {
     description: "Production RAG system with 94% accuracy on legal queries using hybrid search",
     fullDescription: `Designed and deployed a Retrieval-Augmented Generation system for a legal tech company that needed accurate, reliable answers to complex legal questions.
 
-    The system uses a hybrid search approach combining vector similarity (Pinecone) with BM25 keyword matching, achieving 94% accuracy — up from 67% with naive vector-only RAG.
+    The system uses a hybrid search approach combining vector similarity (Pinecone) with BM25 keyword matching, achieving 94% accuracy, up from 67% with naive vector-only RAG.
 
     Key innovations include semantic chunking that respects document structure, a re-ranking layer using a cross-encoder model, and a validation agent that cross-references generated answers against retrieved context to prevent hallucinations.
 
@@ -129,7 +129,7 @@ export const projectsData = {
       "Admin Analytics"
     ],
     challenges: [
-      { title: "Accuracy Requirements", description: "Legal domain requires extremely high accuracy — hallucinations are unacceptable" },
+      { title: "Accuracy Requirements", description: "Legal domain requires extremely high accuracy, hallucinations are unacceptable" },
       { title: "Document Complexity", description: "Processing complex legal documents with nested structures and cross-references" },
       { title: "Latency Optimization", description: "Keeping response times under 3 seconds despite complex retrieval pipeline" }
     ],
@@ -187,13 +187,13 @@ export const projectsData = {
   },
   5: {
     id: 5,
-    title: "Focus Interiors — AI-Enhanced E-Commerce",
+    title: "Focus Interiors, AI-Enhanced E-Commerce",
     description: "Luxury interior design platform with AI recommendations and automated SEO",
     fullDescription: `Focus Interiors is a premium interior design company. This project involved creating a sophisticated e-commerce platform enhanced with AI-powered product recommendations and automated SEO optimization.
 
     The AI recommendation engine analyzes user behavior, browsing patterns, and purchase history to suggest relevant products. Automated SEO tools generate optimized meta tags, alt text, and structured data for every product listing.
 
-    Performance optimization was critical — the site achieves 95+ Lighthouse scores while serving high-resolution imagery through intelligent lazy loading and CDN optimization.`,
+    Performance optimization was critical, the site achieves 95+ Lighthouse scores while serving high-resolution imagery through intelligent lazy loading and CDN optimization.`,
     image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=500&fit=crop",
@@ -232,7 +232,7 @@ export const projectsData = {
   },
   6: {
     id: 6,
-    title: "Five Stars Galway — Smart Booking",
+    title: "Five Stars Galway, Smart Booking",
     description: "Taxi booking platform with intelligent route optimization and automated dispatch",
     fullDescription: `Five Stars Galway Taxis is a premium taxi service in Ireland. The project focused on creating an intelligent booking platform with route optimization and automated dispatch capabilities.
 
@@ -328,7 +328,7 @@ export const projectsData = {
 
     The store features Stripe payment integration for secure credit/debit card transactions, Google OAuth login for frictionless user authentication, and a blazing-fast product search powered by indexed database queries with real-time filtering and autocomplete.
 
-    Performance was a top priority — the platform loads in under 2 seconds on 3G connections, with optimized product images served via CDN and aggressive caching strategies. The admin panel enables inventory management, order tracking, and sales analytics.
+    Performance was a top priority, the platform loads in under 2 seconds on 3G connections, with optimized product images served via CDN and aggressive caching strategies. The admin panel enables inventory management, order tracking, and sales analytics.
 
     The checkout flow was optimized through A/B testing, reducing cart abandonment by 35% with a streamlined 3-step process including guest checkout, saved addresses, and multiple payment options.`,
     image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
@@ -375,7 +375,7 @@ export const projectsData = {
 
     The site features a modern, conversion-optimized design with dynamic service pages, interactive technology stack showcases, and detailed case study presentations. Each service page is tailored with industry-specific content and social proof.
 
-    SEO was central to the strategy — the site ranks for key terms like "custom software development," "Laravel development company," and "IT outsourcing Pakistan." Technical SEO includes schema markup, optimized Core Web Vitals, and a comprehensive content strategy.
+    SEO was central to the strategy, the site ranks for key terms like "custom software development," "Laravel development company," and "IT outsourcing Pakistan." Technical SEO includes schema markup, optimized Core Web Vitals, and a comprehensive content strategy.
 
     The portfolio section includes filterable project showcases with before/after metrics, client testimonials with video integration, and detailed technology breakdowns that demonstrate expertise to potential clients.`,
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop",
