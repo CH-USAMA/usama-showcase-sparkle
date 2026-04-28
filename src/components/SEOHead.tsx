@@ -14,8 +14,8 @@ const BASE_URL = "https://dev-usama-portfolio.vercel.app";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const SEOHead = ({
-  title = "Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar",
-  description = "Hire Usama Munawar — Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations.",
+  title = "Backend Systems Engineer | Laravel, Automation, VoIP & AI, Usama Munawar",
+  description = "Hire Usama Munawar, Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations.",
   canonical,
   ogImage = DEFAULT_OG_IMAGE,
   ogType = "website",

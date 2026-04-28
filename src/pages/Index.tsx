@@ -27,7 +27,7 @@ const homeJsonLd = {
       "@type": "WebPage",
       "@id": "https://dev-usama-portfolio.vercel.app/#webpage",
       "url": "https://dev-usama-portfolio.vercel.app/",
-      "name": "Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar",
+      "name": "Backend Systems Engineer | Laravel, Automation, VoIP & AI, Usama Munawar",
       "description": "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
       "inLanguage": "en",
       "primaryImageOfPage": "https://dev-usama-portfolio.vercel.app/og-image.png"
@@ -48,8 +48,8 @@ const Index = () => {
     <div id="top" className="min-h-screen">
       <SEOHead
         canonical="https://dev-usama-portfolio.vercel.app/"
-        title="Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar"
-        description="Hire Usama Munawar — Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations. 180+ shipped, $145K+ delivered."
+        title="Backend Systems Engineer | Laravel, Automation, VoIP & AI, Usama Munawar"
+        description="Hire Usama Munawar, Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations. 180+ shipped, $145K+ delivered."
         jsonLd={homeJsonLd}
       />
       <Navbar />
