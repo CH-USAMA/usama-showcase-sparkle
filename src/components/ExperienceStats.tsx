@@ -34,8 +34,8 @@ const ExperienceStats = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Track Record</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">
-              EXPERIENCE & STATS
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic mb-4 text-foreground tracking-tight">
+              Experience &amp; stats
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
               Numbers that speak for themselves
@@ -43,24 +43,20 @@ const ExperienceStats = () => {
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
           {stats.map((stat, i) => (
-            <AnimatedSection key={i} delay={i * 0.08}>
-              <motion.div whileHover={{ y: -8, scale: 1.05 }} transition={{ type: "spring", stiffness: 300 }}>
-                <Card className="p-5 text-center bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl h-full">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: "spring", delay: i * 0.1 }}
-                    className="flex flex-col items-center gap-2"
-                  >
-                    <div className="p-2 bg-primary/10 rounded-xl mb-1">
-                      <stat.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="text-2xl sm:text-3xl font-display font-extrabold text-gradient">{stat.value}</div>
-                    <div className="text-muted-foreground font-inter text-xs sm:text-sm">{stat.label}</div>
-                  </motion.div>
+            <AnimatedSection key={i} delay={i * 0.08} className="h-full">
+              <motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300 }} className="h-full">
+                <Card className="p-5 text-center bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl h-full min-h-[180px] flex flex-col items-center justify-center gap-2">
+                  <div className="p-2 bg-primary/10 rounded-xl">
+                    <stat.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-display font-normal italic text-gradient leading-none break-words w-full">
+                    {stat.value}
+                  </div>
+                  <div className="text-muted-foreground font-inter text-xs sm:text-sm leading-snug">
+                    {stat.label}
+                  </div>
                 </Card>
               </motion.div>
             </AnimatedSection>
