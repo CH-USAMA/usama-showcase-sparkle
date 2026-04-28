@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 		fontFamily: {
-			'display': ['Syne', 'sans-serif'],
+			'display': ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
 			'inter': ['Inter', 'sans-serif'],
 			'mono': ['JetBrains Mono', 'monospace'],
 		},
