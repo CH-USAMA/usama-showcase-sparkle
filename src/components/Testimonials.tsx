@@ -43,9 +43,9 @@ const Testimonials = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Testimonials</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Don't just take my word for it, here's what my clients say
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">What clients say</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
+              Don't just take my word for it, here's what teams I've worked with have shared.
             </p>
           </div>
         </AnimatedSection>

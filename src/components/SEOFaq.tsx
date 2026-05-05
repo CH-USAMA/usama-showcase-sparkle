@@ -45,11 +45,11 @@ const SEOFaq = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">FAQ</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-2xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">
-              FREQUENTLY ASKED QUESTIONS
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">
+              Frequently asked questions
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
-              Common questions about hiring a Laravel PHP developer, AI engineering, vibe coding, and my services
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
+              Common questions about hiring a senior backend engineer, automation, AI, and VoIP work.
             </p>
           </div>
         </AnimatedSection>

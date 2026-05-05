@@ -19,8 +19,8 @@ const Contact = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Book a Consultation</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">LET'S BUILD SOMETHING SOLID</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">Let's build something solid</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
               Share your architecture, automation, or VoIP challenge, I'll reply within 24 hours with an honest assessment.
             </p>
           </div>

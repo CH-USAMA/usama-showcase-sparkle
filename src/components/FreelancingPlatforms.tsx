@@ -26,8 +26,8 @@ const FreelancingPlatforms = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Platforms</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">FREELANCING PLATFORMS</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">Trusted by clients worldwide across multiple freelancing platforms</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">Trusted across leading platforms</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">Top-rated on Upwork, Fiverr, Toptal, and Freelancer, with consistent 5-star delivery.</p>
           </div>
         </AnimatedSection>
 
