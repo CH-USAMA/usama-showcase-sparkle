@@ -34,11 +34,11 @@ const ExperienceStats = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Track Record</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic mb-4 text-foreground tracking-tight">
-              Experience &amp; stats
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">
+              Experience & impact
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Numbers that speak for themselves
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
+              Five years of shipping production systems for startups, SaaS teams, and enterprise clients.
             </p>
           </div>
         </AnimatedSection>
@@ -51,7 +51,7 @@ const ExperienceStats = () => {
                   <div className="p-2 bg-primary/10 rounded-xl">
                     <stat.icon className="w-5 h-5 text-primary" />
                   </div>
-                  <div className="text-2xl sm:text-3xl font-display font-normal italic text-gradient leading-none break-words w-full">
+                  <div className="text-2xl sm:text-3xl font-inter font-bold text-gradient leading-none break-words w-full tracking-tight">
                     {stat.value}
                   </div>
                   <div className="text-muted-foreground font-inter text-xs sm:text-sm leading-snug">
@@ -65,7 +65,7 @@ const ExperienceStats = () => {
 
         <AnimatedSection delay={0.3}>
           <Card className="p-8 sm:p-10 bg-card/60 backdrop-blur-sm border-border/30 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="text-xl font-display font-bold text-foreground mb-6">Key Achievements</h3>
+            <h3 className="text-lg font-inter font-semibold text-foreground mb-6 tracking-tight">Key achievements</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {achievements.map((item, i) => (
                 <motion.div

@@ -27,9 +27,9 @@ const LatestBlogs = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Blog</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">Latest from the Blog</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-inter">
-              AI engineering, automation, web development & business digitization insights
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">Latest from the blog</h2>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto font-inter leading-relaxed">
+              Notes on backend architecture, automation, AI engineering, and shipping production systems.
             </p>
           </div>
         </AnimatedSection>
@@ -48,7 +48,7 @@ const LatestBlogs = () => {
                     <div className="flex items-center gap-1"><Calendar className="h-3 w-3" />{formatDate(post.published_at)}</div>
                     <div className="flex items-center gap-1"><User className="h-3 w-3" />{post.author}</div>
                   </div>
-                  <CardTitle className="text-lg font-display leading-tight">
+                  <CardTitle className="text-base sm:text-lg font-inter font-semibold leading-snug tracking-tight">
                     <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">{post.title}</Link>
                   </CardTitle>
                 </CardHeader>

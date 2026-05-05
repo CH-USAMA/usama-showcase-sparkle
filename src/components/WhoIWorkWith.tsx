@@ -45,10 +45,10 @@ const WhoIWorkWith = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Who I Work With</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
-              BUILT FOR SERIOUS TEAMS
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-5 text-foreground tracking-tight">
+              Built for serious teams
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
               I partner with teams that treat their backend as a long-term asset, not a throwaway prototype.
             </p>
           </div>
@@ -64,7 +64,7 @@ const WhoIWorkWith = () => {
                     <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 w-fit mb-4 group-hover:bg-primary/15 transition-colors">
                       <a.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground mb-2 tracking-tight leading-tight">{a.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-inter font-semibold text-foreground mb-2 tracking-tight leading-snug">{a.title}</h3>
                     <p className="text-sm text-muted-foreground font-inter leading-relaxed">{a.desc}</p>
                   </div>
                 </Card>
@@ -86,7 +86,7 @@ const WhoIWorkWith = () => {
                     <CalendarCheck className="w-4 h-4 text-primary" />
                     <span className="text-xs font-inter font-semibold uppercase tracking-[0.25em] text-primary">Free 30-min Consultation</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-foreground mb-3 tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-inter font-bold text-foreground mb-3 tracking-tight">
                     Let's pressure-test your backend roadmap.
                   </h3>
                   <p className="text-muted-foreground font-inter leading-relaxed max-w-2xl">

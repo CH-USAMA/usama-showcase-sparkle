@@ -43,9 +43,9 @@ const Testimonials = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Testimonials</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">CLIENT TESTIMONIALS</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
-              Don't just take my word for it, here's what my clients say
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">What clients say</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
+              Don't just take my word for it, here's what teams I've worked with have shared.
             </p>
           </div>
         </AnimatedSection>
@@ -60,7 +60,7 @@ const Testimonials = () => {
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ type: "spring", delay: 0.2 + index * 0.1 }}
-                    className="text-3xl font-display font-extrabold text-gradient mb-2"
+                    className="text-3xl font-inter font-bold text-gradient mb-2"
                   >
                     {stat.value}
                   </motion.div>
@@ -89,7 +89,7 @@ const Testimonials = () => {
                         <div className="flex items-center gap-3 pt-4 border-t border-border/30">
                           <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20" />
                           <div>
-                            <h4 className="font-display font-bold text-foreground text-sm">{t.name}</h4>
+                            <h4 className="font-inter font-semibold text-foreground text-sm">{t.name}</h4>
                             <p className="text-xs text-muted-foreground font-inter">{t.position} at {t.company}</p>
                           </div>
                         </div>

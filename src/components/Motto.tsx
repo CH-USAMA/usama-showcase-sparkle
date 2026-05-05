@@ -15,7 +15,7 @@ const Motto = () => {
           className="text-center max-w-5xl mx-auto space-y-6"
         >
           <motion.p
-            className="text-2xl sm:text-4xl lg:text-6xl font-display font-extrabold leading-[1.1] tracking-tight"
+            className="text-2xl sm:text-3xl lg:text-5xl font-inter font-semibold leading-[1.25] tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -26,13 +26,13 @@ const Motto = () => {
             <span className="text-foreground"> your entire business."</span>
           </motion.p>
           <motion.p
-            className="text-lg text-muted-foreground tracking-widest uppercase"
+            className="text-xs sm:text-sm text-muted-foreground tracking-[0.3em] uppercase font-inter"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-           , Usama Munawar
+            — Usama Munawar
           </motion.p>
         </motion.div>
       </div>

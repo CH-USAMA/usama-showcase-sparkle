@@ -49,11 +49,11 @@ const Skills = () => {
             <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Expertise</span>
             <div className="h-px w-12 bg-primary/40" />
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold text-center mb-4 text-foreground tracking-tight">
-            SKILLS & TECH STACK
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold text-center mb-4 text-foreground tracking-tight">
+            Skills & tech stack
           </h2>
-          <p className="text-center text-muted-foreground text-lg mb-20 max-w-3xl mx-auto font-inter">
-            Constantly evolving with the latest in AI, automation, and full-stack development.
+          <p className="text-center text-muted-foreground text-base sm:text-lg mb-20 max-w-2xl mx-auto font-inter leading-relaxed">
+            A focused toolkit, sharpened on production systems across SaaS, automation, VoIP, and AI.
           </p>
         </AnimatedSection>
 
@@ -73,7 +73,7 @@ const Skills = () => {
                     <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-cool transition-all duration-300">
                       <cat.icon className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-display font-normal italic text-gradient tracking-tight leading-none">{cat.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-inter font-semibold text-foreground tracking-tight leading-none">{cat.title}</h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.skills.map((skill, j) => (

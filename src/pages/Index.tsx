@@ -6,6 +6,7 @@ import SEOHead from "@/components/SEOHead";
 
 const About = lazy(() => import("@/components/About"));
 const Skills = lazy(() => import("@/components/Skills"));
+const ProcessTimeline = lazy(() => import("@/components/ProcessTimeline"));
 const ExperienceStats = lazy(() => import("@/components/ExperienceStats"));
 const Portfolio = lazy(() => import("@/components/Portfolio"));
 const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
@@ -58,6 +59,7 @@ const Index = () => {
       <Suspense fallback={<Fallback />}>
         <section id="about" className="scroll-mt-24"><About /></section>
         <section id="skills" className="scroll-mt-24"><Skills /></section>
+        <section id="process" className="scroll-mt-24"><ProcessTimeline /></section>
         <section id="experience" className="scroll-mt-24"><ExperienceStats /></section>
         <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
         <WhoIWorkWith />
