@@ -48,7 +48,7 @@ const LatestBlogs = () => {
                     <div className="flex items-center gap-1"><Calendar className="h-3 w-3" />{formatDate(post.published_at)}</div>
                     <div className="flex items-center gap-1"><User className="h-3 w-3" />{post.author}</div>
                   </div>
-                  <CardTitle className="text-lg font-display leading-tight">
+                  <CardTitle className="text-base sm:text-lg font-inter font-semibold leading-snug tracking-tight">
                     <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">{post.title}</Link>
                   </CardTitle>
                 </CardHeader>
