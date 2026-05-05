@@ -65,7 +65,7 @@ const ExperienceStats = () => {
 
         <AnimatedSection delay={0.3}>
           <Card className="p-8 sm:p-10 bg-card/60 backdrop-blur-sm border-border/30 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="text-xl font-inter font-semibold text-foreground mb-6">Key Achievements</h3>
+            <h3 className="text-lg font-inter font-semibold text-foreground mb-6 tracking-tight">Key achievements</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               {achievements.map((item, i) => (
                 <motion.div
