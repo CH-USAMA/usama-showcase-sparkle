@@ -67,7 +67,7 @@ const About = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">About Me</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic text-center mb-6 text-foreground tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-inter font-semibold text-center mb-6 text-foreground tracking-tight">
               Who I am
             </h2>
           </AnimatedSection>
@@ -110,7 +110,7 @@ const About = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Services</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal italic text-center mb-4 text-foreground tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-inter font-semibold text-center mb-4 text-foreground tracking-tight">
               Engineering services
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto font-inter">
@@ -129,7 +129,7 @@ const About = () => {
                         <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-glow transition-all duration-300">
                           <s.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground leading-tight tracking-tight">{s.title}</h3>
+                        <h3 className="text-xl sm:text-2xl font-inter font-semibold text-foreground leading-tight tracking-tight">{s.title}</h3>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 font-inter">{s.desc}</p>
                       <div className="flex flex-wrap gap-1.5">

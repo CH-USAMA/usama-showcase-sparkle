@@ -141,7 +141,7 @@ const Portfolio = () => {
               <span className="text-primary font-inter font-medium uppercase tracking-[0.25em] text-sm">Case Studies</span>
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-5 text-foreground tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-5 text-foreground tracking-tight">
               SHIPPED TO PRODUCTION
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-inter">
@@ -224,7 +224,7 @@ const Portfolio = () => {
                     </div>
 
                     <div className="p-6 space-y-4">
-                      <h3 className="text-xl sm:text-2xl font-display font-normal italic text-foreground group-hover:text-primary transition-colors tracking-tight leading-tight">{project.title}</h3>
+                      <h3 className="text-xl sm:text-2xl font-inter font-semibold text-foreground group-hover:text-primary transition-colors tracking-tight leading-tight">{project.title}</h3>
                       <p className="text-muted-foreground text-sm font-inter leading-relaxed">{project.description}</p>
 
                       {("problem" in project && (project as any).problem) && (

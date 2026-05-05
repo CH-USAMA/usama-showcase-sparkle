@@ -15,7 +15,7 @@ const Motto = () => {
           className="text-center max-w-5xl mx-auto space-y-6"
         >
           <motion.p
-            className="text-2xl sm:text-4xl lg:text-6xl font-display font-extrabold leading-[1.1] tracking-tight"
+            className="text-2xl sm:text-4xl lg:text-6xl font-inter font-bold leading-[1.1] tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

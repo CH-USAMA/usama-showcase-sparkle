@@ -19,7 +19,7 @@ const Contact = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Book a Consultation</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">LET'S BUILD SOMETHING SOLID</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">LET'S BUILD SOMETHING SOLID</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">
               Share your architecture, automation, or VoIP challenge, I'll reply within 24 hours with an honest assessment.
             </p>
@@ -29,7 +29,7 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
           <div className="space-y-10">
             <AnimatedSection direction="left">
-              <h3 className="text-2xl font-display font-bold mb-6 text-foreground">Talk to a Senior Engineer</h3>
+              <h3 className="text-2xl font-inter font-semibold mb-6 text-foreground">Talk to a Senior Engineer</h3>
               <p className="text-muted-foreground text-lg leading-relaxed font-inter">
                 Whether you're scoping a new SaaS, scaling a Laravel monolith, designing a call-center stack, or wiring AI into existing workflows, let's get on a call and map the right next step.
               </p>
@@ -47,7 +47,7 @@ const Contact = () => {
                       <item.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h4 className="font-display font-bold text-foreground text-sm">{item.title}</h4>
+                      <h4 className="font-inter font-semibold text-foreground text-sm">{item.title}</h4>
                       {item.href ? (
                         <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground font-inter hover:text-primary transition-colors">
                           {item.value}
@@ -79,7 +79,7 @@ const Contact = () => {
                 <AnimatedSection key={i} delay={0.2 + i * 0.1}>
                   <motion.div whileHover={{ scale: 1.05, y: -4 }}>
                     <Card className="p-6 text-center hover:shadow-cool transition-all duration-300 rounded-2xl border-border/30 bg-card/60">
-                      <div className="text-3xl font-display font-extrabold text-gradient mb-2">{s.num}</div>
+                      <div className="text-3xl font-inter font-bold text-gradient mb-2">{s.num}</div>
                       <div className="text-muted-foreground font-inter text-sm">{s.label}</div>
                     </Card>
                   </motion.div>

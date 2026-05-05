@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-3 gap-8 items-center text-center md:text-left">
           <div>
-            <h3 className="text-2xl font-display font-extrabold mb-2 text-foreground tracking-tight">Usama Munawar</h3>
+            <h3 className="text-2xl font-inter font-bold mb-2 text-foreground tracking-tight">Usama Munawar</h3>
             <p className="text-muted-foreground font-inter text-sm">Laravel PHP MySQL Developer · AI Engineer · Vibe Coding Expert</p>
           </div>
 

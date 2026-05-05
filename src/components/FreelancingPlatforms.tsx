@@ -26,7 +26,7 @@ const FreelancingPlatforms = () => {
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Platforms</span>
               <div className="h-px w-12 bg-primary/40" />
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-display font-extrabold mb-4 text-foreground tracking-tight">FREELANCING PLATFORMS</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-inter font-bold mb-4 text-foreground tracking-tight">FREELANCING PLATFORMS</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-inter">Trusted by clients worldwide across multiple freelancing platforms</p>
           </div>
         </AnimatedSection>
@@ -41,7 +41,7 @@ const FreelancingPlatforms = () => {
             <AnimatedSection key={i} delay={i * 0.1}>
               <motion.div whileHover={{ y: -6 }}>
                 <Card className="p-6 text-center bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl">
-                  <motion.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: i * 0.1 }} className="text-3xl font-display font-extrabold text-gradient mb-2">{s.value}</motion.div>
+                  <motion.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ type: "spring", delay: i * 0.1 }} className="text-3xl font-inter font-bold text-gradient mb-2">{s.value}</motion.div>
                   <div className="text-muted-foreground font-inter text-sm">{s.label}</div>
                 </Card>
               </motion.div>
@@ -63,7 +63,7 @@ const FreelancingPlatforms = () => {
                     <div className="flex-1 space-y-4">
                       <div className="space-y-2">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                          <h3 className="text-xl font-display font-bold text-foreground">{platform.name}</h3>
+                          <h3 className="text-xl font-inter font-semibold text-foreground">{platform.name}</h3>
                           <Badge className="bg-accent-gradient border-0 text-xs rounded-lg">{platform.badge}</Badge>
                         </div>
                         <div className="flex items-center gap-4 text-sm font-inter">
@@ -92,7 +92,7 @@ const FreelancingPlatforms = () => {
         <AnimatedSection delay={0.4}>
           <div className="text-center mt-16">
             <div className="max-w-2xl mx-auto space-y-6">
-              <h3 className="text-2xl font-display font-bold text-foreground">Ready to Work Together?</h3>
+              <h3 className="text-2xl font-inter font-semibold text-foreground">Ready to Work Together?</h3>
               <p className="text-muted-foreground font-inter">Whether through these platforms or direct contact, I'm always excited to take on new challenges.</p>
               <HireMe />
             </div>
