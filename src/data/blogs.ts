@@ -438,5 +438,191 @@ For most web applications, **PHP + MySQL** remains the most cost-effective, scal
     published_at: "2025-07-10T10:00:00Z",
     author: "Usama Munawar",
     tags: ["PHP", "Laravel", "MySQL", "Web Development", "2025"]
+  },
+  {
+    id: "14",
+    title: "Asterisk + Laravel: Building a Real-Time VoIP Call Center from Scratch",
+    slug: "asterisk-laravel-voip-call-center",
+    excerpt: "How I integrated Asterisk PBX with Laravel to build Solutions Zilla, a real-time call center portal with live agent monitoring, call routing, and CDR analytics.",
+    content: `## The Challenge
+
+Most call center software is expensive, locked-in, and hard to customize. So I built one from scratch using **Asterisk**, **Laravel**, and **WebSockets**.
+
+## The Architecture
+
+\`\`\`
+SIP Trunk → Asterisk PBX → AMI/ARI → Laravel API → WebSocket → React Dashboard
+\`\`\`
+
+### Asterisk Manager Interface (AMI)
+
+Laravel listens to AMI events in real time:
+
+\`\`\`php
+$ami = new AMIClient('127.0.0.1', 5038);
+$ami->on('Newchannel', function ($event) {
+    broadcast(new CallStarted($event['CallerIDNum'], $event['Channel']));
+});
+\`\`\`
+
+### Live Agent Dashboard
+
+Every agent state change (ringing, talking, idle, wrap-up) is pushed to the React dashboard via Laravel Reverb WebSockets, so supervisors see what's happening *as it happens*.
+
+## What I Learned
+
+- **AMI is noisy**, filter aggressively or you'll drown in events
+- **Always queue CDR writes**, never block the call flow
+- **Use ARI for new builds**, AMI is legacy but still reliable
+- **Audio quality wins clients**, codec choice matters more than UI polish
+
+## Real Impact
+
+The Solutions Zilla portal handles thousands of calls per day with sub-second dashboard updates and full CDR analytics, all on a single mid-tier server.
+
+**Telephony is one of the most underrated areas where Laravel shines.**`,
+    featured_image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&h=400&fit=crop",
+    published_at: "2025-08-10T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Asterisk", "Laravel", "VoIP", "Call Center", "WebSockets"]
+  },
+  {
+    id: "15",
+    title: "Supabase Edge Functions vs Laravel APIs: When to Use Which",
+    slug: "supabase-edge-functions-vs-laravel-apis",
+    excerpt: "A practical comparison of Supabase Edge Functions and Laravel APIs based on real production projects, covering cost, latency, DX, and scaling.",
+    content: `## Two Tools, Different Jobs
+
+I ship products with both **Supabase Edge Functions** (Deno) and **Laravel APIs** (PHP). They are not competitors, they solve different problems.
+
+## When Supabase Edge Functions Win
+
+- Lightweight webhooks and integrations
+- Server-side AI calls (OpenAI, Anthropic, Lovable AI Gateway)
+- Scheduled scrapers and data sync jobs
+- Anything that needs zero infra management
+
+\`\`\`ts
+Deno.serve(async (req) => {
+  const { prompt } = await req.json();
+  const ai = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: \`Bearer \${Deno.env.get("LOVABLE_API_KEY")}\` },
+    body: JSON.stringify({ model: "google/gemini-2.5-flash", messages: [{ role: "user", content: prompt }] })
+  });
+  return new Response(await ai.text());
+});
+\`\`\`
+
+## When Laravel Wins
+
+- Complex domain logic with relationships
+- Multi-tenant SaaS with heavy business rules
+- Background queues, scheduled jobs, Horizon
+- Anything with deep MySQL transactions
+
+## My Default Stack
+
+For new projects I usually combine both: **Laravel for the core business app**, **Supabase Edge Functions for the glue**, scrapers, AI calls, third-party webhooks. The result is fast to ship and easy to scale.`,
+    featured_image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
+    published_at: "2025-09-05T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Supabase", "Laravel", "Edge Functions", "Architecture"]
+  },
+  {
+    id: "16",
+    title: "Lovable AI Gateway: One API for Gemini, GPT, and Claude in Production",
+    slug: "lovable-ai-gateway-production-guide",
+    excerpt: "How I use the Lovable AI Gateway to ship AI features without juggling API keys, rate limits, and SDKs from OpenAI, Anthropic, and Google.",
+    content: `## The Multi-Model Problem
+
+Every serious AI feature eventually needs more than one model: a cheap fast one for classification, a smart one for reasoning, and a vision-capable one for images. Managing three SDKs and three billing dashboards is painful.
+
+## Why I Use the Lovable AI Gateway
+
+- **Single API key**, single billing, OpenAI-compatible schema
+- Access to Gemini 2.5, GPT-5, and other top models
+- Built-in rate limiting and usage analytics
+- Works seamlessly inside Supabase Edge Functions
+
+## A Real Example, AI Chatbot Streaming
+
+\`\`\`ts
+const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    Authorization: \`Bearer \${Deno.env.get("LOVABLE_API_KEY")}\`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "google/gemini-2.5-flash",
+    stream: true,
+    messages,
+  }),
+});
+\`\`\`
+
+Stream the response back to the React client and you have a production chatbot in under 50 lines.
+
+## Tips From Shipping
+
+1. **Default to Gemini Flash**, it is fast and cheap for 90% of cases
+2. **Escalate to a stronger model** only when confidence is low
+3. **Always handle 429 and 402** gracefully in the UI
+4. **Cache aggressively** for repeated prompts
+
+The AI Gateway is the easiest way I have found to ship multi-model AI features without operational overhead.`,
+    featured_image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=400&fit=crop",
+    published_at: "2025-10-01T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Lovable", "AI Gateway", "Gemini", "OpenAI", "Production"]
+  },
+  {
+    id: "17",
+    title: "Stripe + Laravel: Building Subscription Billing That Does Not Break",
+    slug: "stripe-laravel-subscription-billing",
+    excerpt: "A field guide to building robust Stripe subscription billing in Laravel, covering Cashier, webhooks, proration, dunning, and the edge cases nobody warns you about.",
+    content: `## Billing Is Where SaaS Apps Die
+
+Most SaaS apps do not fail because of features. They fail because billing is buggy, confusing, or insecure. Here is how I build Stripe subscriptions in Laravel that actually hold up in production.
+
+## Start With Cashier, Not Raw Stripe
+
+Laravel Cashier handles 80% of the boilerplate: customers, subscriptions, invoices, trials, and webhook routing.
+
+\`\`\`php
+$user->newSubscription('pro', 'price_xxx')
+    ->trialDays(14)
+    ->create($paymentMethod);
+\`\`\`
+
+## Always Trust Webhooks, Never the Frontend
+
+The browser can lie. Stripe webhooks cannot. Every state change (subscription created, payment failed, plan changed) must update your database from a verified webhook, not from a redirect.
+
+\`\`\`php
+Route::post('/stripe/webhook', [WebhookController::class, 'handle']);
+
+// In WebhookController
+public function handleInvoicePaymentFailed($payload) {
+    $user = User::where('stripe_id', $payload['data']['object']['customer'])->first();
+    $user->notify(new PaymentFailedNotification());
+}
+\`\`\`
+
+## Edge Cases Nobody Tells You About
+
+- **Proration on plan changes**, decide upfront if upgrades charge immediately
+- **Failed renewals**, configure Stripe smart retries + your own dunning emails
+- **Tax**, use Stripe Tax unless you enjoy pain
+- **Refunds**, always log who issued them and why
+
+## The Result
+
+For my SaaS clients, this pattern means **zero billing disputes**, predictable MRR, and clean accounting. Billing should be the most boring part of your app, not the scariest.`,
+    featured_image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&h=400&fit=crop",
+    published_at: "2025-10-20T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Stripe", "Laravel", "Billing", "SaaS", "Cashier"]
   }
 ];
