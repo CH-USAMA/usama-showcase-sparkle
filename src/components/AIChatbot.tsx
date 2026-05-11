@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/input";
 import ReactMarkdown from "react-markdown";
 
 type Msg = { role: "user" | "assistant"; content: string };
+type Lead = { name: string; email: string; phone: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
+const LEAD_KEY = "usama_chat_lead_v1";
 
 async function streamChat({
   messages,
@@ -65,10 +68,17 @@ async function streamChat({
   }
 }
 
-const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
-
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lead, setLead] = useState<Lead | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem(LEAD_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  });
+  const [leadForm, setLeadForm] = useState<Lead>({ name: "", email: "", phone: "" });
+  const [leadError, setLeadError] = useState("");
   const [messages, setMessages] = useState<Msg[]>([
     { role: "assistant", content: "Hey! 👋 I'm Usama's AI assistant. Ask me anything about his skills, services, or how he can help your project!" }
   ]);
@@ -76,6 +86,7 @@ const AIChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const chatSentRef = useRef(false);
 
   useEffect(() => {
@@ -85,17 +96,53 @@ const AIChatbot = () => {
   }, [messages]);
 
   useEffect(() => {
-    if (isOpen) inputRef.current?.focus();
-  }, [isOpen]);
+    if (!isOpen) return;
+    if (lead) inputRef.current?.focus();
+    else nameRef.current?.focus();
+  }, [isOpen, lead]);
+
+  const submitLead = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = leadForm.name.trim();
+    const email = leadForm.email.trim();
+    const phone = leadForm.phone.trim();
+    if (!name) { setLeadError("Please enter your name."); return; }
+    if (!email && !phone) { setLeadError("Please share an email or phone number."); return; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setLeadError("Please enter a valid email address."); return;
+    }
+    setLeadError("");
+    const newLead: Lead = { name, email, phone };
+    setLead(newLead);
+    try { localStorage.setItem(LEAD_KEY, JSON.stringify(newLead)); } catch {}
+
+    // Notify Usama immediately about the new lead
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _subject: "New Chatbot Lead",
+          name, email, phone,
+          source: "AI Chatbot - Lead Capture",
+        }),
+      });
+    } catch (err) {
+      console.error("Lead submit failed:", err);
+    }
+
+    setMessages([
+      { role: "assistant", content: `Thanks ${name.split(" ")[0]}! 🎉 I've saved your details. Now, what can I help you with today?` }
+    ]);
+  };
 
   const emailChatTranscript = async () => {
-    // Only email if there were user messages and not already sent
     const userMessages = messages.filter(m => m.role === "user");
-    if (userMessages.length === 0 || chatSentRef.current) return;
+    if (userMessages.length === 0 || chatSentRef.current || !lead) return;
     chatSentRef.current = true;
 
     const transcript = messages
-      .map(m => `${m.role === "user" ? "Visitor" : "AI Assistant"}: ${m.content}`)
+      .map(m => `${m.role === "user" ? lead.name : "AI Assistant"}: ${m.content}`)
       .join("\n\n");
 
     try {
@@ -103,7 +150,10 @@ const AIChatbot = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          _subject: "New Chat Transcript from Portfolio",
+          _subject: `Chat Transcript: ${lead.name}`,
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
           message: transcript,
           source: "AI Chatbot",
         }),
@@ -119,7 +169,7 @@ const AIChatbot = () => {
   };
 
   const send = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !lead) return;
     const userMsg: Msg = { role: "user", content: input.trim() };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
@@ -138,8 +188,14 @@ const AIChatbot = () => {
       });
     };
 
+    const contextMsg: Msg = {
+      role: "user",
+      content: `[Visitor info — Name: ${lead.name}${lead.email ? `, Email: ${lead.email}` : ""}${lead.phone ? `, Phone: ${lead.phone}` : ""}]\n\n${userMsg.content}`,
+    };
+    const apiMessages = [...newMessages.slice(1, -1), contextMsg];
+
     await streamChat({
-      messages: newMessages.filter(m => m.role === "user" || m.content !== messages[0].content),
+      messages: apiMessages,
       onDelta: updateAssistant,
       onDone: () => setIsLoading(false),
       onError: (err) => {
@@ -169,6 +225,7 @@ const AIChatbot = () => {
             <Button
               onClick={() => setIsOpen(true)}
               className="w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-glow hover:shadow-cool hover:scale-110 transition-all duration-300 relative"
+              aria-label="Open chat"
             >
               <Bot className="w-7 h-7" />
               <motion.div
@@ -201,7 +258,7 @@ const AIChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] h-[520px] bg-background border border-border rounded-2xl shadow-elegant flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[calc(100vh-2rem)] bg-background border border-border rounded-2xl shadow-elegant flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-primary p-4 flex items-center justify-between">
@@ -222,97 +279,157 @@ const AIChatbot = () => {
                 variant="ghost"
                 onClick={handleClose}
                 className="text-primary-foreground hover:bg-primary-foreground/20 h-8 w-8"
+                aria-label="Close chat"
               >
                 <X className="w-4 h-4" />
               </Button>
             </div>
 
-            {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((msg, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
-                >
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    msg.role === "user" ? "bg-primary/20" : "bg-accent/20"
-                  }`}>
-                    {msg.role === "user" ? <User className="w-3.5 h-3.5 text-primary" /> : <Bot className="w-3.5 h-3.5 text-accent" />}
+            {!lead ? (
+              /* Lead capture */
+              <div className="flex-1 overflow-y-auto p-5">
+                <div className="text-center mb-5">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-6 h-6 text-primary" />
                   </div>
-                  <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-tr-sm"
-                      : "bg-muted text-foreground rounded-tl-sm"
-                  }`}>
-                    <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>p]:leading-relaxed">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
-                    </div>
+                  <h4 className="text-base font-semibold text-foreground mb-1">Before we start</h4>
+                  <p className="text-xs text-muted-foreground">
+                    Quick intro so Usama can follow up if needed.
+                  </p>
+                </div>
+                <form onSubmit={submitLead} className="space-y-3">
+                  <div>
+                    <label className="text-xs font-medium text-foreground mb-1 block">Your name *</label>
+                    <Input
+                      ref={nameRef}
+                      value={leadForm.name}
+                      onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                      placeholder="Jane Doe"
+                      className="h-9 text-sm"
+                      required
+                    />
                   </div>
-                </motion.div>
-              ))}
-              {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
-                  <div className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Bot className="w-3.5 h-3.5 text-accent" />
+                  <div>
+                    <label className="text-xs font-medium text-foreground mb-1 block">Email</label>
+                    <Input
+                      type="email"
+                      value={leadForm.email}
+                      onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                      placeholder="you@company.com"
+                      className="h-9 text-sm"
+                    />
                   </div>
-                  <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3">
-                    <div className="flex gap-1.5">
-                      {[0, 1, 2].map(i => (
-                        <motion.div
+                  <div>
+                    <label className="text-xs font-medium text-foreground mb-1 block">Phone / WhatsApp</label>
+                    <Input
+                      type="tel"
+                      value={leadForm.phone}
+                      onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
+                      placeholder="+1 555 000 1234"
+                      className="h-9 text-sm"
+                    />
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Share at least one: email or phone number.
+                  </p>
+                  {leadError && (
+                    <p className="text-xs text-destructive">{leadError}</p>
+                  )}
+                  <Button type="submit" className="w-full h-9 text-sm">
+                    Start chatting
+                  </Button>
+                </form>
+              </div>
+            ) : (
+              <>
+                {/* Messages */}
+                <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {messages.map((msg, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                    >
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        msg.role === "user" ? "bg-primary/20" : "bg-accent/20"
+                      }`}>
+                        {msg.role === "user" ? <User className="w-3.5 h-3.5 text-primary" /> : <Bot className="w-3.5 h-3.5 text-accent" />}
+                      </div>
+                      <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
+                        msg.role === "user"
+                          ? "bg-primary text-primary-foreground rounded-tr-sm"
+                          : "bg-muted text-foreground rounded-tl-sm"
+                      }`}>
+                        <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>p]:leading-relaxed">
+                          <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                  {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
+                      <div className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center">
+                        <Bot className="w-3.5 h-3.5 text-accent" />
+                      </div>
+                      <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3">
+                        <div className="flex gap-1.5">
+                          {[0, 1, 2].map(i => (
+                            <motion.div
+                              key={i}
+                              className="w-2 h-2 rounded-full bg-muted-foreground/50"
+                              animate={{ y: [0, -6, 0] }}
+                              transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {messages.length === 1 && (
+                    <div className="space-y-2 pt-2">
+                      <p className="text-xs text-muted-foreground">Quick questions:</p>
+                      {suggestions.map((s, i) => (
+                        <motion.button
                           key={i}
-                          className="w-2 h-2 rounded-full bg-muted-foreground/50"
-                          animate={{ y: [0, -6, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
-                        />
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 + i * 0.1 }}
+                          onClick={() => { setInput(s); }}
+                          className="block w-full text-left text-xs px-3 py-2 rounded-lg border border-border hover:bg-muted transition-colors text-foreground"
+                        >
+                          {s}
+                        </motion.button>
                       ))}
                     </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Quick suggestions */}
-              {messages.length === 1 && (
-                <div className="space-y-2 pt-2">
-                  <p className="text-xs text-muted-foreground">Quick questions:</p>
-                  {suggestions.map((s, i) => (
-                    <motion.button
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      onClick={() => { setInput(s); }}
-                      className="block w-full text-left text-xs px-3 py-2 rounded-lg border border-border hover:bg-muted transition-colors text-foreground"
-                    >
-                      {s}
-                    </motion.button>
-                  ))}
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Input */}
-            <div className="p-3 border-t border-border bg-card">
-              <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex gap-2">
-                <Input
-                  ref={inputRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about Usama's services..."
-                  className="flex-1 text-sm h-9 bg-background"
-                  disabled={isLoading}
-                />
-                <Button
-                  type="submit"
-                  size="icon"
-                  disabled={!input.trim() || isLoading}
-                  className="h-9 w-9 rounded-lg"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </form>
-            </div>
+                {/* Input */}
+                <div className="p-3 border-t border-border bg-card">
+                  <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex gap-2">
+                    <Input
+                      ref={inputRef}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="Ask about Usama's services..."
+                      className="flex-1 text-sm h-9 bg-background"
+                      disabled={isLoading}
+                    />
+                    <Button
+                      type="submit"
+                      size="icon"
+                      disabled={!input.trim() || isLoading}
+                      className="h-9 w-9 rounded-lg"
+                      aria-label="Send"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </form>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
