@@ -48,14 +48,14 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: "Munawar & Co",
-      description: "Professional corporate website for chartered accountancy firm showcasing tax consultation, audit, and corporate advisory services",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Custom Theme", "SEO"],
-      category: "Finance",
-      liveUrl: "https://munawarandco.com",
-      githubUrl: "#",
-      featured: false
+      title: "MOE Limo, Operations Platform",
+      description: "Premium omnichannel operations and ticket management platform built for the modern limousine and transport industry, with dispatch, scheduling, and real-time agent workflows",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
+      technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
+      category: "BPO Services",
+      liveUrl: "https://moelimo.solutionszilla.com/login",
+      githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
+      featured: true
     },
     {
       id: 5,
