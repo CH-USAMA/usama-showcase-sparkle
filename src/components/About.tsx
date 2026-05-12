@@ -74,28 +74,44 @@ const About = () => {
 
           <AnimatedSection delay={0.15}>
             <div className="max-w-4xl mx-auto mb-20">
-              <Card className="p-8 sm:p-10 bg-card/60 backdrop-blur-sm border-border/30 rounded-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
-                <div className="relative space-y-5">
-                  <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed font-inter font-light">
-                    I'm <span className="text-foreground font-normal">Usama Munawar</span>, a Backend Systems Engineer based in Lahore, Pakistan, with{" "}
-                    <span className="text-foreground font-normal">5+ years</span> shipping production systems and{" "}
-                    <span className="text-gradient font-normal">$145K+ delivered</span> to startups and SaaS teams across Upwork, Toptal, and Fiverr.
+              <Card className="p-6 sm:p-10 bg-card/40 backdrop-blur-sm border border-border/40 rounded-2xl relative overflow-hidden">
+                <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
+                {/* Key stats strip */}
+                <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8 pb-8 border-b border-border/30">
+                  <div className="text-center">
+                    <div className="text-2xl sm:text-3xl font-inter font-bold text-foreground tracking-tight">5+</div>
+                    <div className="text-[11px] sm:text-xs text-muted-foreground font-inter mt-1 uppercase tracking-wider">Years Experience</div>
+                  </div>
+                  <div className="text-center border-x border-border/30">
+                    <div className="text-2xl sm:text-3xl font-inter font-bold text-primary tracking-tight">$145K+</div>
+                    <div className="text-[11px] sm:text-xs text-muted-foreground font-inter mt-1 uppercase tracking-wider">Delivered</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl sm:text-3xl font-inter font-bold text-foreground tracking-tight">180+</div>
+                    <div className="text-[11px] sm:text-xs text-muted-foreground font-inter mt-1 uppercase tracking-wider">Projects Shipped</div>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-inter">
+                    I'm <span className="text-foreground font-medium">Usama Munawar</span>, a Backend Systems Engineer based in Lahore, Pakistan. For the past 5+ years I have been shipping production systems for startups and SaaS teams across Upwork, Toptal, and Fiverr.
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
-                    I specialise in <span className="text-foreground font-normal">scalable Laravel applications</span>, automation infrastructure, VoIP/Asterisk platforms, and AI integrations, designed for high availability, operational efficiency, and long-term maintainability.
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-inter">
+                    I specialise in scalable Laravel applications, automation infrastructure, VoIP/Asterisk platforms, and AI integrations, designed for high availability, operational efficiency, and long-term maintainability.
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed font-inter font-light">
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-inter">
                     I work best with founders and engineering leaders who need a senior pair of hands to architect, harden, and ship the backend their business actually depends on.
                   </p>
-                  <div className="flex flex-wrap items-center gap-3 pt-4">
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <ShieldCheck className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter font-semibold text-foreground">Production-Grade Architecture</span>
+
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60 border border-border/50">
+                      <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                      <span className="text-xs sm:text-sm font-inter font-medium text-foreground">Production-Grade Architecture</span>
                     </div>
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/15">
-                      <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-inter text-muted-foreground">Laravel · Asterisk · n8n · Claude</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/60 border border-border/50">
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />
+                      <span className="text-xs sm:text-sm font-inter text-muted-foreground">Laravel · Asterisk · n8n · Claude</span>
                     </div>
                   </div>
                 </div>
