@@ -122,10 +122,21 @@ const Projects = () => {
       liveUrl: "https://software.solutionszilla.com",
       githubUrl: "#",
       featured: false
+    },
+    {
+      id: 11,
+      title: "Jabulani Quarries, Corporate Site",
+      description: "Corporate portfolio site for a South African quarry and crushing operation, featuring fast-loading pages, responsive design, and SEO-ready architecture",
+      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
+      technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
+      category: "IT Services",
+      liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
+      githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
+      featured: true
     }
   ];
 
-  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "Finance", "E-commerce", "Marketing", "IT Services"];
+  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "E-commerce", "Marketing", "IT Services"];
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
