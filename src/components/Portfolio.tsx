@@ -94,6 +94,28 @@ const Portfolio = () => {
 
   const moreProjects = [
     {
+      title: "MOE Limo, Omnichannel Operations Platform",
+      description: "Premium ticket management and dispatch platform for the modern limousine and transport industry.",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
+      technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
+      liveUrl: "https://moelimo.solutionszilla.com/login",
+      githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
+      badge: "SaaS Platform",
+      category: "Laravel Projects",
+      result: "Omnichannel ops"
+    },
+    {
+      title: "Jabulani Quarries, Corporate Site",
+      description: "Corporate portfolio site for a South African quarry and crushing operation, fast, responsive, and SEO-ready.",
+      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
+      technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
+      liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
+      githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
+      badge: "Corporate",
+      category: "E-Commerce",
+      result: "Open source"
+    },
+    {
       title: "Five Stars Galway, Smart Booking",
       description: "Taxi booking platform with intelligent route optimization, Google Maps integration, and automated dispatch.",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
