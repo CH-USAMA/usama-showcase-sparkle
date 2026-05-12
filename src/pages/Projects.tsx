@@ -48,14 +48,14 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: "Munawar & Co",
-      description: "Professional corporate website for chartered accountancy firm showcasing tax consultation, audit, and corporate advisory services",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Custom Theme", "SEO"],
-      category: "Finance",
-      liveUrl: "https://munawarandco.com",
-      githubUrl: "#",
-      featured: false
+      title: "MOE Limo, Operations Platform",
+      description: "Premium omnichannel operations and ticket management platform built for the modern limousine and transport industry, with dispatch, scheduling, and real-time agent workflows",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
+      technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
+      category: "BPO Services",
+      liveUrl: "https://moelimo.solutionszilla.com/login",
+      githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
+      featured: true
     },
     {
       id: 5,
@@ -122,10 +122,21 @@ const Projects = () => {
       liveUrl: "https://software.solutionszilla.com",
       githubUrl: "#",
       featured: false
+    },
+    {
+      id: 11,
+      title: "Jabulani Quarries, Corporate Site",
+      description: "Corporate portfolio site for a South African quarry and crushing operation, featuring fast-loading pages, responsive design, and SEO-ready architecture",
+      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
+      technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
+      category: "IT Services",
+      liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
+      githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
+      featured: true
     }
   ];
 
-  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "Finance", "E-commerce", "Marketing", "IT Services"];
+  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "E-commerce", "Marketing", "IT Services"];
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -223,18 +234,22 @@ const Projects = () => {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <div className="absolute bottom-4 left-4 right-4 flex gap-2">
-                        <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Live Demo
-                          </a>
-                        </Button>
-                        <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                            <Github className="w-4 h-4 mr-2" />
-                            Code
-                          </a>
-                        </Button>
+                        {project.liveUrl && project.liveUrl !== "#" && (
+                          <Button size="sm" variant="outline-white" className="flex-1" asChild>
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Live Demo
+                            </a>
+                          </Button>
+                        )}
+                        {project.githubUrl && project.githubUrl !== "#" && (
+                          <Button size="sm" variant="outline-white" className="flex-1" asChild>
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                              <Github className="w-4 h-4 mr-2" />
+                              Code
+                            </a>
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Sparkles } from "lucide-react";
+import { ExternalLink, Github, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -93,6 +93,28 @@ const Portfolio = () => {
   ];
 
   const moreProjects = [
+    {
+      title: "MOE Limo, Omnichannel Operations Platform",
+      description: "Premium ticket management and dispatch platform for the modern limousine and transport industry.",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
+      technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
+      liveUrl: "https://moelimo.solutionszilla.com/login",
+      githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
+      badge: "SaaS Platform",
+      category: "Laravel Projects",
+      result: "Omnichannel ops"
+    },
+    {
+      title: "Jabulani Quarries, Corporate Site",
+      description: "Corporate portfolio site for a South African quarry and crushing operation, fast, responsive, and SEO-ready.",
+      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
+      technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
+      liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
+      githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
+      badge: "Corporate",
+      category: "E-Commerce",
+      result: "Open source"
+    },
     {
       title: "Five Stars Galway, Smart Booking",
       description: "Taxi booking platform with intelligent route optimization, Google Maps integration, and automated dispatch.",
@@ -219,6 +241,13 @@ const Portfolio = () => {
                               </a>
                             </Button>
                           )}
+                          {(project as any).githubUrl && (project as any).githubUrl !== "#" && (
+                            <Button size="sm" variant="outline-white" className="flex-1 rounded-lg" asChild>
+                              <a href={(project as any).githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                <Github className="w-4 h-4 mr-2" />Code
+                              </a>
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -244,6 +273,31 @@ const Portfolio = () => {
                         {project.technologies.map((tech, i) => (
                           <span key={i} className="px-2.5 py-1 bg-primary/8 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
                         ))}
+                      </div>
+
+                      <div className="flex gap-2 pt-2 border-t border-border/30">
+                        {project.liveUrl && project.liveUrl !== "#" && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 text-xs font-inter text-primary hover:text-primary/80 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" /> Live Demo
+                          </a>
+                        )}
+                        {(project as any).githubUrl && (project as any).githubUrl !== "#" && (
+                          <a
+                            href={(project as any).githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 text-xs font-inter text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            <Github className="w-3.5 h-3.5" /> Source Code
+                          </a>
+                        )}
                       </div>
                     </div>
                   </Card>
