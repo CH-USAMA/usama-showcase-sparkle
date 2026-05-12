@@ -274,6 +274,31 @@ const Portfolio = () => {
                           <span key={i} className="px-2.5 py-1 bg-primary/8 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
                         ))}
                       </div>
+
+                      <div className="flex gap-2 pt-2 border-t border-border/30">
+                        {project.liveUrl && project.liveUrl !== "#" && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 text-xs font-inter text-primary hover:text-primary/80 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" /> Live Demo
+                          </a>
+                        )}
+                        {(project as any).githubUrl && (project as any).githubUrl !== "#" && (
+                          <a
+                            href={(project as any).githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 text-xs font-inter text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            <Github className="w-3.5 h-3.5" /> Source Code
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
