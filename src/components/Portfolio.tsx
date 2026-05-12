@@ -241,6 +241,13 @@ const Portfolio = () => {
                               </a>
                             </Button>
                           )}
+                          {(project as any).githubUrl && (project as any).githubUrl !== "#" && (
+                            <Button size="sm" variant="outline-white" className="flex-1 rounded-lg" asChild>
+                              <a href={(project as any).githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                                <Github className="w-4 h-4 mr-2" />Code
+                              </a>
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
