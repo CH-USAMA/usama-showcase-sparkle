@@ -40,10 +40,10 @@ const Blog = () => {
   return (
     <>
     <SEOHead
-      title="Tech Blog, Laravel, AI Engineering & Vibe Coding | Usama Munawar"
-      description="Technical articles on Laravel, PHP, MySQL, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development by Usama Munawar."
+      title="Blog — Laravel, AI Engineering & Automation | Usama Munawar"
+      description="Articles on Laravel, PHP, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development."
       canonical="https://dev-usama-portfolio.vercel.app/blog"
-      ogType="blog"
+      ogType="website"
     />
     <div className="min-h-screen bg-background">
       <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
@@ -91,6 +91,7 @@ const Blog = () => {
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />
               <Input
+                aria-label="Search articles"
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

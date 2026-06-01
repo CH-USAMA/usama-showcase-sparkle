@@ -4,9 +4,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import SEOHead from '@/components/SEOHead';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -92,10 +93,17 @@ const Auth = () => {
   };
 
   return (
+    <>
+    <SEOHead
+      title="Admin Login — Usama Munawar"
+      description="Secure admin sign-in for managing portfolio blog posts and content."
+      canonical="https://dev-usama-portfolio.vercel.app/auth"
+      noindex
+    />
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Admin Access</CardTitle>
+          <h1 className="text-2xl font-bold text-foreground">Admin Access</h1>
           <CardDescription>
             Sign in to manage your blog posts
           </CardDescription>
@@ -177,6 +185,7 @@ const Auth = () => {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 };
 

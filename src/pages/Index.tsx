@@ -49,8 +49,8 @@ const Index = () => {
     <div id="top" className="min-h-screen">
       <SEOHead
         canonical="https://dev-usama-portfolio.vercel.app/"
-        title="Backend Systems Engineer | Laravel, Automation, VoIP & AI, Usama Munawar"
-        description="Hire Usama Munawar, Senior Backend Systems Engineer specializing in scalable Laravel applications, API development, n8n automation, VoIP/Asterisk platforms, real-time systems, and AI integrations. 180+ shipped, $145K+ delivered."
+        title="Usama Munawar — Laravel, VoIP & AI Backend Engineer"
+        description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. 180+ projects, $145K+ delivered."
         jsonLd={homeJsonLd}
       />
       <Navbar />
