@@ -1,0 +1,23 @@
+# Usama Munawar — Backend Systems Engineer
+
+> Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years, 180+ projects, $145K+ delivered.
+
+## Pages
+
+- [Home](/): Portfolio overview, services, stats, and contact.
+- [Projects](/projects): 11+ shipped projects across Laravel, AI, e-commerce, VoIP, and healthcare SaaS.
+- [Blog](/blog): Articles on Laravel, AI engineering, n8n automation, VoIP, and modern web development.
+
+## Featured Projects
+
+- [MOE Limo Operations Platform](/project/4): Omnichannel ticketing and dispatch for limo industry.
+- [iSmart Clinic Healthcare SaaS](/project/8): Multi-tenant AI-powered clinic platform with WhatsApp automation.
+- [Jabulani Hardware Store](/project/9): South African e-commerce with Stripe and Google Auth.
+- [Jabulani Quarries Site](/project/11): Corporate site for quarry and crushing operation.
+
+## Featured Articles
+
+- [Vibe Coding 2025: Claude, Lovable, Cursor](/blog/vibe-coding-2025-claude-lovable-cursor)
+- [Laravel + MySQL Best Practices for Scalable SaaS](/blog/laravel-mysql-best-practices-scalable-saas-2025)
+- [Building Multi-Agent Systems with OpenAI + LangChain](/blog/building-multi-agent-systems-openai-langchain)
+- [Production RAG Systems: Lessons Learned](/blog/production-rag-systems-lessons)

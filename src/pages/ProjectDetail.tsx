@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award, Home } from "lucide-react";
 import { projectsData } from "@/data/projects";
 import HireMe from "@/components/HireMe";
+import SEOHead from "@/components/SEOHead";
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -38,6 +39,13 @@ const ProjectDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={`${project.title} — Case Study | Usama Munawar`}
+        description={project.description.slice(0, 155)}
+        canonical={`https://dev-usama-portfolio.vercel.app/project/${project.id}`}
+        ogImage={project.image}
+        ogType="article"
+      />
       {/* Header */}
       <section className="bg-hero-gradient py-12">
         <div className="container mx-auto px-6">
