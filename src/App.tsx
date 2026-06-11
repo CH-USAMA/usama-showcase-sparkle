@@ -27,6 +27,7 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
+        <Analytics />
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
           <Routes>
             <Route path="/" element={<Index />} />
