@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="Scy-TdWa9dxXXjUAgqLTna7DViH9djM3xsjKHpuiMoo" />
 
-    <!-- Google tag (gtag.js) — GA4 -->
+    <!-- Google tag (gtag.js) — GA4 Property 1 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JEYSR3YVV"></script>
+    <!-- Google tag (gtag.js) — GA4 Property 2 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZHRMH3HLK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -24,6 +26,11 @@
       });
       // SPA-friendly: we send page_views manually from the router
       gtag('config', 'G-6JEYSR3YVV', {
+        send_page_view: false,
+        anonymize_ip: true,
+        transport_type: 'beacon'
+      });
+      gtag('config', 'G-2ZHRMH3HLK', {
         send_page_view: false,
         anonymize_ip: true,
         transport_type: 'beacon'
