@@ -6,13 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="Scy-TdWa9dxXXjUAgqLTna7DViH9djM3xsjKHpuiMoo" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) — GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JEYSR3YVV"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
       gtag('js', new Date());
-      gtag('config', 'G-6JEYSR3YVV');
+      // Consent Mode v2 defaults — denied until user grants (safe for EU/UK)
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'granted',
+        functionality_storage: 'granted',
+        security_storage: 'granted'
+      });
+      // SPA-friendly: we send page_views manually from the router
+      gtag('config', 'G-6JEYSR3YVV', {
+        send_page_view: false,
+        anonymize_ip: true,
+        transport_type: 'beacon'
+      });
     </script>
     
     <!-- Preconnect & font loading optimized -->
