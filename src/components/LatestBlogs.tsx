@@ -60,7 +60,7 @@ const LatestBlogs = () => {
                     ))}
                   </div>
                   <Button asChild variant="outline" size="sm" className="rounded-lg">
-                    <Link to={`/blog/${post.slug}`}>Read More</Link>
+                    <Link to={`/blog/${post.slug}`} aria-label={`Read full article: ${post.title}`}>Read full article</Link>
                   </Button>
                 </CardContent>
               </Card>
