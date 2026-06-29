@@ -106,7 +106,7 @@ const BlogPost = () => {
   return (
     <>
     <SEOHead
-      title={`${post.title} | Usama Munawar Blog`}
+      title={post.title.length > 55 ? post.title.slice(0, 55).replace(/[\s,.;:]+\S*$/, '') + '…' : post.title}
       description={post.excerpt}
       canonical={`https://dev-usama-portfolio.vercel.app/blog/${post.slug}`}
       ogType="article"
