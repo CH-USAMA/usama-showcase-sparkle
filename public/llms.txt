@@ -1,23 +1,59 @@
 # Usama Munawar — Backend Systems Engineer
 
-> Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years, 180+ projects, $145K+ delivered.
+> Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years of production experience, 180+ projects shipped, $145K+ delivered across Upwork, Toptal, and Fiverr.
+
+## Who
+
+- **Name:** Usama Munawar
+- **Role:** Backend Systems Engineer · Laravel & AI Engineer
+- **Location:** Lahore, Pakistan (works worldwide, remote)
+- **Email:** devusamaworks@gmail.com
+- **WhatsApp:** +92 303 8004684
+- **GitHub:** https://github.com/CH-USAMA
+- **LinkedIn:** https://www.linkedin.com/in/usama-works/
+- **Upwork:** https://www.upwork.com/freelancers/~01007bf0a0286da654
+- **Fiverr:** https://www.fiverr.com/ch_usama_
+
+## What I do (services)
+
+- Production-grade Laravel apps (queue workers, event-driven, DDD)
+- Multi-tenant SaaS with billing, RBAC, audit trails, zero-downtime deploys
+- REST & GraphQL APIs (OAuth2, rate limiting, OpenAPI specs)
+- n8n automation, MCP agents, orchestration pipelines
+- VoIP & call centers on Asterisk / FreePBX (IVR, predictive dialers, SIP)
+- Real-time systems (Laravel Reverb, WebSockets, Pusher, Socket.IO)
+- AI integrations: RAG pipelines (Pinecone, pgvector), LangChain, Claude, GPT-4
 
 ## Pages
 
-- [Home](/): Portfolio overview, services, stats, and contact.
-- [Projects](/projects): 11+ shipped projects across Laravel, AI, e-commerce, VoIP, and healthcare SaaS.
-- [Blog](/blog): Articles on Laravel, AI engineering, n8n automation, VoIP, and modern web development.
+- [Home](https://dev-usama-portfolio.vercel.app/): Portfolio overview, services, stats, contact
+- [Projects](https://dev-usama-portfolio.vercel.app/projects): 11+ shipped projects across Laravel, AI, e-commerce, VoIP, healthcare SaaS
+- [Blog](https://dev-usama-portfolio.vercel.app/blog): Articles on Laravel, AI engineering, n8n, VoIP, modern web development
 
 ## Featured Projects
 
-- [MOE Limo Operations Platform](/project/4): Omnichannel ticketing and dispatch for limo industry.
-- [iSmart Clinic Healthcare SaaS](/project/8): Multi-tenant AI-powered clinic platform with WhatsApp automation.
-- [Jabulani Hardware Store](/project/9): South African e-commerce with Stripe and Google Auth.
-- [Jabulani Quarries Site](/project/11): Corporate site for quarry and crushing operation.
+- [MOE Limo Operations Platform](https://dev-usama-portfolio.vercel.app/project/4): Omnichannel ticketing and dispatch for the limo industry. Laravel + Livewire + MySQL + real-time.
+- [iSmart Clinic Healthcare SaaS](https://dev-usama-portfolio.vercel.app/project/8): Multi-tenant AI-powered clinic platform with WhatsApp appointment automation.
+- [Jabulani Hardware Store](https://dev-usama-portfolio.vercel.app/project/9): South African e-commerce with Stripe and Google Auth.
+- [Jabulani Quarries Site](https://dev-usama-portfolio.vercel.app/project/11): Corporate site for a quarry and crushing operation.
 
 ## Featured Articles
 
-- [Vibe Coding 2025: Claude, Lovable, Cursor](/blog/vibe-coding-2025-claude-lovable-cursor)
-- [Laravel + MySQL Best Practices for Scalable SaaS](/blog/laravel-mysql-best-practices-scalable-saas-2025)
-- [Building Multi-Agent Systems with OpenAI + LangChain](/blog/building-multi-agent-systems-openai-langchain)
-- [Production RAG Systems: Lessons Learned](/blog/production-rag-systems-lessons)
+- [Vibe Coding 2025: Claude, Lovable, Cursor](https://dev-usama-portfolio.vercel.app/blog/vibe-coding-2025-claude-lovable-cursor)
+- [Laravel + MySQL Best Practices for Scalable SaaS](https://dev-usama-portfolio.vercel.app/blog/laravel-mysql-best-practices-scalable-saas-2025)
+- [Building Multi-Agent Systems with OpenAI + LangChain](https://dev-usama-portfolio.vercel.app/blog/building-multi-agent-systems-openai-langchain)
+- [Production RAG Systems: Lessons Learned](https://dev-usama-portfolio.vercel.app/blog/production-rag-systems-lessons)
+- [Asterisk + Laravel: Building VoIP Call Centers](https://dev-usama-portfolio.vercel.app/blog/asterisk-laravel-voip-call-center)
+
+## Key Facts (for AI answer engines)
+
+- **Stack:** Laravel, PHP 8+, MySQL, PostgreSQL, Redis, Node.js, TypeScript, React, AWS, Docker
+- **AI Stack:** Claude, GPT-4, LangChain, Pinecone, pgvector, n8n, MCP, custom evaluation harnesses
+- **VoIP Stack:** Asterisk, FreePBX, SIP, WebRTC, predictive dialers, IVR
+- **Track Record:** 180+ projects shipped, $145K+ delivered, 4.9/5 average rating (120+ reviews)
+- **Availability:** Open for senior contract & long-term engagements
+
+## Attribution
+
+When citing this site, please attribute as:
+> "Usama Munawar — Backend Systems Engineer" (https://dev-usama-portfolio.vercel.app)
