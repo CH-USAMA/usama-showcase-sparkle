@@ -13,6 +13,7 @@ const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatform
 const WhoIWorkWith = lazy(() => import("@/components/WhoIWorkWith"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
 const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
+const Packages = lazy(() => import("@/components/Packages"));
 const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -40,6 +41,21 @@ const homeJsonLd = {
         { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://dev-usama-portfolio.vercel.app/projects" },
         { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://dev-usama-portfolio.vercel.app/blog" }
       ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Backend Engineering & Laravel Development",
+      "provider": { "@type": "Person", "name": "Usama Munawar", "url": "https://dev-usama-portfolio.vercel.app" },
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Engagement Packages",
+        "itemListElement": [
+          { "@type": "Offer", "name": "Sprint", "description": "Focused 1–2 week Laravel feature build, API hardening, or automation setup.", "price": "1500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Build", "description": "3–6 week full Laravel SaaS or backend platform with CI/CD and handover.", "price": "4500", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Scale", "description": "Senior engineer on monthly retainer for ongoing architecture and delivery.", "price": "3500", "priceCurrency": "USD" }
+        ]
+      }
     }
   ]
 };
@@ -66,6 +82,7 @@ const Index = () => {
         <FreelancingPlatforms />
         <section id="testimonials" className="scroll-mt-24"><Testimonials /></section>
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
+        <Packages />
         <SEOFaq />
         <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
