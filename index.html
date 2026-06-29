@@ -51,22 +51,17 @@
       <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
     </noscript>
 
-    <!-- Preload hero image with fetchpriority -->
-    <link rel="preload" as="image" href="/usama-profile.jpg" fetchpriority="high" />
-
     <title>Usama Munawar — Laravel, VoIP & AI Backend Engineer</title>
     <meta name="description" content="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. 180+ projects, $145K+ delivered." />
     <meta name="keywords" content="backend systems engineer, senior laravel developer, laravel automation specialist, hire laravel developer, php developer, mysql expert, saas backend developer, asterisk voip developer, freepbx, sip trunking, n8n automation, api developer, real-time websockets, laravel reverb, ai engineer, claude developer, langchain, rag, multi-tenant saas, high availability, full stack developer pakistan" />
     <meta name="author" content="Usama Munawar" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <link rel="canonical" href="https://dev-usama-portfolio.vercel.app/" />
     <link rel="alternate" hreflang="en" href="https://dev-usama-portfolio.vercel.app/" />
     <link rel="alternate" hreflang="x-default" href="https://dev-usama-portfolio.vercel.app/" />
     <meta name="theme-color" content="#0a0d14" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook (canonical & og:url are set per-route via SEOHead) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dev-usama-portfolio.vercel.app/" />
     <meta property="og:title" content="Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar" />
     <meta property="og:description" content="Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP/Asterisk platforms, and AI integrations. 180+ projects shipped to production." />
     <meta property="og:image" content="https://dev-usama-portfolio.vercel.app/og-image.png" />
@@ -196,6 +191,23 @@
       "author": { "@type": "Person", "name": "Usama Munawar" }
     }
     </script>
+
+    <!-- Schema.org SpeakableSpecification (AEO — voice assistants & answer engines) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "https://dev-usama-portfolio.vercel.app/",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "h2", ".speakable", "[data-speakable]"]
+      }
+    }
+    </script>
+
+    <!-- AI-friendly answer engine hints -->
+    <meta name="ai-content-declaration" content="human-authored" />
+    <meta name="generator" content="Hand-crafted by Usama Munawar" />
 </head>
 
 <body>
