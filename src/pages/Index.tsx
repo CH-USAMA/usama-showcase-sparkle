@@ -67,6 +67,7 @@ const Index = () => {
         <FreelancingPlatforms />
         <section id="testimonials" className="scroll-mt-24"><Testimonials /></section>
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
+        <Packages />
         <SEOFaq />
         <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
