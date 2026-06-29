@@ -109,6 +109,7 @@ const Blog = () => {
             </div>
           ) : (
             <div className="grid gap-8 md:gap-12 max-w-4xl mx-auto">
+              <h2 className="sr-only">Recent Articles</h2>
               {filteredPosts.map((post, index) => (
                 <Card key={post.id} className={`group overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-gradient-to-br from-card/80 to-card backdrop-blur-sm ${index === 0 ? 'md:grid md:grid-cols-5 md:gap-8' : ''}`}>
                   {post.featured_image && (
