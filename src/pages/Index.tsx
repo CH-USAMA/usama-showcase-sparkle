@@ -13,6 +13,7 @@ const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatform
 const WhoIWorkWith = lazy(() => import("@/components/WhoIWorkWith"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
 const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
+const Packages = lazy(() => import("@/components/Packages"));
 const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
