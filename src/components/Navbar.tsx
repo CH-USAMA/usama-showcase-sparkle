@@ -105,18 +105,20 @@ const Navbar = () => {
         </div>
 
         <button
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
           aria-expanded={open}
+          aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
           className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted/40"
         >
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {open ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
         </button>
       </nav>
 
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -136,7 +138,7 @@ const Navbar = () => {
                 </li>
               ))}
               <li>
-                <a href="#contact" onClick={(e) => handleClick(e, "#contact")}>
+                <a href="#contact" onClick={(e) => handleClick(e, "#contact")} aria-label="Hire Usama, jump to contact section">
                   <Button variant="hero" size="sm" className="w-full mt-2 rounded-full">
                     Hire me
                   </Button>

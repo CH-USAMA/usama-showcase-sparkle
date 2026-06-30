@@ -216,7 +216,7 @@ const Portfolio = () => {
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.6 }}
                         src={project.image}
-                        alt={project.title}
+                        alt={`Screenshot of ${project.title}, ${project.badge} built with ${project.technologies.slice(0,3).join(", ")}`}
                         className="w-full h-44 sm:h-48 lg:h-52 object-cover"
                         loading="lazy"
                       />
@@ -309,7 +309,7 @@ const Portfolio = () => {
 
         <AnimatedSection delay={0.3}>
           <div className="text-center mt-16">
-            <Link to="/projects">
+            <Link to="/projects" aria-label="View all projects in the full portfolio">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button size="lg" variant="hero" className="shadow-glow rounded-xl px-10">View All Projects</Button>
               </motion.div>
