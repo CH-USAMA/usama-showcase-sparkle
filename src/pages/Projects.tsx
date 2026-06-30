@@ -167,7 +167,7 @@ const Projects = () => {
           </div>
           <div className="text-center space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold text-white">
-              MY PROJECTS
+              My Projects
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
               Explore my portfolio of web applications, mobile apps, and digital solutions
@@ -225,7 +225,7 @@ const Projects = () => {
                   <div className="relative overflow-hidden">
                     <img 
                       src={project.image} 
-                      alt={project.title}
+                      alt={`Screenshot of ${project.title}, ${project.category} project built with ${project.technologies.slice(0,3).join(", ")}`}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
