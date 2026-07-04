@@ -409,6 +409,25 @@ const AIChatbot = () => {
                   )}
                 </div>
 
+                {/* Booking CTA appears after a few exchanges */}
+                {showBookingCTA && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="px-3 pt-2 pb-1 border-t border-border/60 bg-gradient-to-r from-primary/5 to-accent/5"
+                  >
+                    <a
+                      href="https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20book%20a%2015-min%20intro%20call"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full text-xs font-medium px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Book a free 15-min intro call →
+                    </a>
+                  </motion.div>
+                )}
+
                 {/* Input */}
                 <div className="p-3 border-t border-border bg-card">
                   <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex gap-2">
