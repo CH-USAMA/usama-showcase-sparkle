@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Usama Munawar — Laravel, VoIP &amp; AI Engineering Blog</title>
+    <link>https://dev-usama-portfolio.vercel.app/blog</link>
+    <atom:link href="https://dev-usama-portfolio.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Deep dives on Laravel, VoIP/Asterisk, n8n automation, AI agents, and production engineering by Usama Munawar.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 Jul 2026 00:00:00 GMT</lastBuildDate>
+
+    <item>
+      <title>Stripe + Laravel: Building Subscription Billing That Does Not Break</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/stripe-laravel-subscription-billing</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/stripe-laravel-subscription-billing</guid>
+      <pubDate>Mon, 20 Oct 2025 10:00:00 GMT</pubDate>
+      <description>A field guide to building robust Stripe subscription billing in Laravel, covering Cashier, webhooks, proration, dunning, and the edge cases nobody warns you about.</description>
+    </item>
+    <item>
+      <title>Lovable AI Gateway: One API for Gemini, GPT, and Claude in Production</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/lovable-ai-gateway-production-guide</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/lovable-ai-gateway-production-guide</guid>
+      <pubDate>Wed, 01 Oct 2025 10:00:00 GMT</pubDate>
+      <description>How I use the Lovable AI Gateway to ship AI features without juggling API keys, rate limits, and SDKs from OpenAI, Anthropic, and Google.</description>
+    </item>
+    <item>
+      <title>Supabase Edge Functions vs Laravel APIs: When to Use Which</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/supabase-edge-functions-vs-laravel-apis</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/supabase-edge-functions-vs-laravel-apis</guid>
+      <pubDate>Fri, 05 Sep 2025 10:00:00 GMT</pubDate>
+      <description>A practical comparison of Supabase Edge Functions and Laravel APIs based on real production projects, covering cost, latency, DX, and scaling.</description>
+    </item>
+    <item>
+      <title>Asterisk + Laravel: Building a Real-Time VoIP Call Center from Scratch</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/asterisk-laravel-voip-call-center</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/asterisk-laravel-voip-call-center</guid>
+      <pubDate>Sun, 10 Aug 2025 10:00:00 GMT</pubDate>
+      <description>How I integrated Asterisk PBX with Laravel to build Solutions Zilla, a real-time call center portal with live agent monitoring, call routing, and CDR analytics.</description>
+    </item>
+    <item>
+      <title>Vibe Coding in 2025: How I Build Apps 10x Faster with Claude, Lovable &amp; Cursor</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/vibe-coding-2025-claude-lovable-cursor</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/vibe-coding-2025-claude-lovable-cursor</guid>
+      <pubDate>Fri, 01 Aug 2025 10:00:00 GMT</pubDate>
+      <description>Vibe coding is revolutionizing software development. Learn how I use Claude AI, Lovable, Cursor, and Replit to ship production-ready Laravel and React apps in hours, not weeks.</description>
+    </item>
+    <item>
+      <title>Laravel + MySQL Best Practices: Building Scalable SaaS Applications in 2025</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/laravel-mysql-best-practices-scalable-saas-2025</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/laravel-mysql-best-practices-scalable-saas-2025</guid>
+      <pubDate>Fri, 25 Jul 2025 10:00:00 GMT</pubDate>
+      <description>A comprehensive guide to building production-ready SaaS applications with Laravel and MySQL, covering multi-tenancy, query optimization, caching, and deployment strategies.</description>
+    </item>
+    <item>
+      <title>Claude vs ChatGPT for Developers: Which AI Tool Should You Use in 2025?</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/claude-vs-chatgpt-developers-ai-tools-2025</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/claude-vs-chatgpt-developers-ai-tools-2025</guid>
+      <pubDate>Sun, 20 Jul 2025 10:00:00 GMT</pubDate>
+      <description>An honest comparison of Claude (Anthropic) and ChatGPT (OpenAI) for software development, code generation, debugging, architecture planning, and vibe coding workflows.</description>
+    </item>
+    <item>
+      <title>Building Multi-Agent Systems with OpenAI &amp; LangChain</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/building-multi-agent-systems-openai-langchain</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/building-multi-agent-systems-openai-langchain</guid>
+      <pubDate>Tue, 15 Jul 2025 10:00:00 GMT</pubDate>
+      <description>A deep dive into architecting main agent and sub-agent patterns for complex AI workflows, from task decomposition to autonomous execution.</description>
+    </item>
+    <item>
+      <title>PHP in 2025: Why It's Still the Best Choice for Web Development</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/php-2025-best-choice-web-development</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/php-2025-best-choice-web-development</guid>
+      <pubDate>Thu, 10 Jul 2025 10:00:00 GMT</pubDate>
+      <description>PHP powers 77% of the web. With PHP 8.3, Laravel 11, and modern tooling, it's faster, safer, and more developer-friendly than ever. Here's why PHP is thriving.</description>
+    </item>
+    <item>
+      <title>Automating Everything with n8n + AI: A Practical Guide</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/automating-everything-n8n-ai</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/automating-everything-n8n-ai</guid>
+      <pubDate>Tue, 01 Jul 2025 10:00:00 GMT</pubDate>
+      <description>How I use n8n workflows combined with OpenAI, custom APIs, and webhooks to automate business processes end-to-end.</description>
+    </item>
+    <item>
+      <title>From Developer to AI Engineer: Skills That Actually Matter in 2025</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/developer-to-ai-engineer-skills-2025</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/developer-to-ai-engineer-skills-2025</guid>
+      <pubDate>Fri, 20 Jun 2025 10:00:00 GMT</pubDate>
+      <description>The transition from traditional web development to AI engineering, what skills to learn, what to skip, and how to stay relevant.</description>
+    </item>
+    <item>
+      <title>Building Production RAG Systems: Lessons from the Trenches</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/production-rag-systems-lessons</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/production-rag-systems-lessons</guid>
+      <pubDate>Tue, 10 Jun 2025 10:00:00 GMT</pubDate>
+      <description>What I learned building RAG (Retrieval-Augmented Generation) systems for real clients, the gotchas, optimizations, and architecture decisions.</description>
+    </item>
+  </channel>
+</rss>
