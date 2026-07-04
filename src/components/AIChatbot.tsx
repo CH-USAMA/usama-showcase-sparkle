@@ -211,6 +211,9 @@ const AIChatbot = () => {
     "How to hire Usama?",
   ];
 
+  const userMessageCount = messages.filter(m => m.role === "user").length;
+  const showBookingCTA = userMessageCount >= 2;
+
   return (
     <>
       {/* Floating Button */}
