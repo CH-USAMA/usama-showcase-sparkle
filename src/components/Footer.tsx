@@ -34,7 +34,7 @@ const Footer = () => {
 
           <div className="text-center md:text-right">
             <p className="text-muted-foreground font-inter text-sm">Made by Usama</p>
-            <p className="text-muted-foreground/50 text-xs mt-1 font-inter">© 2026 All rights reserved</p>
+            <p className="text-muted-foreground text-xs mt-1 font-inter">© 2026 All rights reserved</p>
           </div>
         </div>
       </div>
