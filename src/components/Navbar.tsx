@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import logoUsama from "@/assets/logo-usama.png";
+
 
 const links = [
   { href: "#about", label: "About" },
@@ -65,9 +67,17 @@ const Navbar = () => {
         <a
           href="#top"
           onClick={(e) => handleClick(e, "#top")}
-          className="font-display text-xl sm:text-2xl tracking-tight text-foreground"
+          className="flex items-center gap-2"
+          aria-label="Usama Munawar — Home"
         >
-          Usama<span className="text-primary">.</span>
+          <img
+            src={logoUsama}
+            alt="Usama Munawar logo"
+            width={1280}
+            height={512}
+            className="h-8 sm:h-9 w-auto dark:invert dark:brightness-0 dark:contrast-100"
+            style={{ filter: "var(--logo-filter, none)" }}
+          />
         </a>
 
         <ul className="hidden lg:flex items-center gap-1">
