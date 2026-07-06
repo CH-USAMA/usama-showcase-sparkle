@@ -75,8 +75,7 @@ const Navbar = () => {
             alt="Usama Munawar logo"
             width={1280}
             height={512}
-            className="h-8 sm:h-9 w-auto dark:invert dark:brightness-0 dark:contrast-100"
-            style={{ filter: "var(--logo-filter, none)" }}
+            className="h-8 sm:h-9 w-auto"
           />
         </a>
 
