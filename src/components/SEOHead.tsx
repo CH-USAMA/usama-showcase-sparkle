@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 interface SEOHeadProps {
   title?: string;
@@ -7,7 +7,7 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: string;
   noindex?: boolean;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const BASE_URL = "https://dev-usama-portfolio.vercel.app";
@@ -22,59 +22,38 @@ const SEOHead = ({
   noindex = false,
   jsonLd,
 }: SEOHeadProps) => {
-  useEffect(() => {
-    // Update document title
-    document.title = title;
+  const url = canonical || (typeof window !== "undefined" ? window.location.href : BASE_URL);
+  const robots = noindex
+    ? "noindex, nofollow"
+    : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 
-    // Helper to set meta tag
-    const setMeta = (attr: string, key: string, content: string) => {
-      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute(attr, key);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", content);
-    };
+  const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
-    setMeta("name", "description", description);
-    setMeta("name", "robots", noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="robots" content={robots} />
+      <link rel="canonical" href={url} />
 
-    // OG tags
-    setMeta("property", "og:title", title);
-    setMeta("property", "og:description", description);
-    setMeta("property", "og:image", ogImage);
-    setMeta("property", "og:type", ogType);
-    setMeta("property", "og:url", canonical || window.location.href);
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:url" content={url} />
 
-    // Twitter tags
-    setMeta("name", "twitter:title", title);
-    setMeta("name", "twitter:description", description);
-    setMeta("name", "twitter:image", ogImage);
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
 
-    // Canonical
-    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!link) {
-      link = document.createElement("link");
-      link.setAttribute("rel", "canonical");
-      document.head.appendChild(link);
-    }
-    link.setAttribute("href", canonical || window.location.href);
-
-    // JSON-LD
-    if (jsonLd) {
-      const existingScript = document.querySelector('script[data-seo-page]');
-      if (existingScript) existingScript.remove();
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.setAttribute("data-seo-page", "true");
-      script.textContent = JSON.stringify(jsonLd);
-      document.head.appendChild(script);
-      return () => { script.remove(); };
-    }
-  }, [title, description, canonical, ogImage, ogType, noindex, jsonLd]);
-
-  return null;
+      {jsonLdArray.map((data, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(data)}
+        </script>
+      ))}
+    </Helmet>
+  );
 };
 
 export default SEOHead;
