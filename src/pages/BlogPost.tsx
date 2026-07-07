@@ -110,15 +110,50 @@ const BlogPost = () => {
       description={post.excerpt}
       canonical={`https://dev-usama-portfolio.vercel.app/blog/${post.slug}`}
       ogType="article"
-      jsonLd={{
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": post.title,
-        "description": post.excerpt,
-        "author": { "@type": "Person", "name": "Usama Munawar" },
-        "datePublished": post.published_at,
-        "url": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
-      }}
+      ogImage={post.featured_image || undefined}
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt,
+          "image": post.featured_image ? [post.featured_image] : undefined,
+          "author": {
+            "@type": "Person",
+            "name": post.author || "Usama Munawar",
+            "url": "https://dev-usama-portfolio.vercel.app",
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "Usama Munawar",
+            "url": "https://dev-usama-portfolio.vercel.app",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://dev-usama-portfolio.vercel.app/favicon.png",
+            },
+          },
+          "datePublished": post.published_at,
+          "dateModified": post.published_at,
+          "keywords": (post.tags || []).join(", "),
+          "articleSection": post.tags?.[0] || "Engineering",
+          "url": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
+          },
+          "wordCount": post.content ? post.content.split(/\s+/).length : undefined,
+          "inLanguage": "en-US",
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dev-usama-portfolio.vercel.app/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dev-usama-portfolio.vercel.app/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}` },
+          ],
+        },
+      ]}
     />
     <div className="min-h-screen bg-background">
       <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
