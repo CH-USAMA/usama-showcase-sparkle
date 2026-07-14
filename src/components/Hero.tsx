@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Download, Code2, Brain, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
+import profileImageWebp from "@/assets/usama-profile.webp";
 import HireMe from "@/components/HireMe";
 import { lazy, Suspense } from "react";
 
