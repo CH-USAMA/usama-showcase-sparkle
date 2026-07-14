@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Download, Code2, Brain, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
+import profileImageWebp from "@/assets/usama-profile.webp";
 import HireMe from "@/components/HireMe";
 import { lazy, Suspense } from "react";
 
@@ -158,7 +159,10 @@ const Hero = () => {
               <div className="absolute inset-0 w-56 h-56 sm:w-80 sm:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
               
               <div className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
-                <img src={profileImage} alt="Usama Munawar - Laravel & AI Engineer" className="w-full h-full object-cover object-top scale-125" loading="eager" fetchPriority="high" decoding="async" width="384" height="384" />
+                <picture>
+                  <source srcSet={profileImageWebp} type="image/webp" />
+                  <img src={profileImage} alt="Usama Munawar - Laravel & AI Engineer" className="w-full h-full object-cover object-top scale-125" loading="eager" fetchPriority="high" decoding="async" width="384" height="384" />
+                </picture>
                 {/* Dark vignette overlay */}
                 <div className="absolute inset-0 rounded-full" style={{
                   background: 'radial-gradient(circle at 50% 30%, transparent 35%, hsl(var(--background) / 0.6) 70%, hsl(var(--background)) 100%)'

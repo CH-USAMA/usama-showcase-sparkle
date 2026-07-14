@@ -55,7 +55,7 @@ const GitHubReadme = () => {
 
       <main className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="flex items-start gap-4 mb-8">
-          <img src={repo.owner_avatar} alt={repo.full_name} className="w-16 h-16 rounded-xl" />
+          <img loading="lazy" decoding="async" src={repo.owner_avatar} alt={repo.full_name} className="w-16 h-16 rounded-xl" />
           <div>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">{repo.full_name}</h1>
             <p className="text-lg text-muted-foreground mb-3">{repo.description}</p>

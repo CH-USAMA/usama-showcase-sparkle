@@ -187,7 +187,7 @@ echo "✅ Updated ${repos.length} repos in src/data/github-trending/"
                 <Card key={repo.id} className="border-border/50">
                   <CardHeader className="pb-2">
                     <div className="flex items-start gap-3">
-                      <img src={repo.owner_avatar} alt="" className="w-8 h-8 rounded-lg" />
+                      <img loading="lazy" decoding="async" src={repo.owner_avatar} alt="" className="w-8 h-8 rounded-lg" />
                       <div className="flex-1 min-w-0">
                         <CardTitle className="text-sm truncate">{repo.full_name}</CardTitle>
                         <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
