@@ -31,7 +31,7 @@ const BlogRecommendations = ({ currentPostId, maxRecommendations = 3 }: BlogReco
             <Link to={`/blog/${post.slug}`} className="block">
               {post.featured_image && (
                 <div className="aspect-video overflow-hidden rounded-t-lg">
-                  <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img loading="lazy" decoding="async" src={post.featured_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
               )}
               <CardHeader className="pb-2">

@@ -87,7 +87,7 @@ const Testimonials = () => {
                         <p className="text-muted-foreground leading-relaxed font-inter italic">"{t.content}"</p>
                         <Badge variant="secondary" className="text-xs rounded-lg font-inter">{t.project}</Badge>
                         <div className="flex items-center gap-3 pt-4 border-t border-border/30">
-                          <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20" />
+                          <img loading="lazy" decoding="async" src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20" />
                           <div>
                             <h4 className="font-inter font-semibold text-foreground text-sm">{t.name}</h4>
                             <p className="text-xs text-muted-foreground font-inter">{t.position} at {t.company}</p>

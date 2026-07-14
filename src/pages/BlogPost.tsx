@@ -204,7 +204,7 @@ const BlogPost = () => {
           <div className="max-w-4xl mx-auto">
             {post.featured_image && (
               <div className="mb-12">
-                <img src={post.featured_image} alt={post.title} className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-2xl" />
+                <img loading="lazy" decoding="async" src={post.featured_image} alt={post.title} className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-2xl" />
               </div>
             )}
 
