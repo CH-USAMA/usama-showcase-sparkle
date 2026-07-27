@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ShieldCheck, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -23,6 +23,17 @@ const Contact = () => {
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
               Share your architecture, automation, or VoIP challenge, I'll reply within 24 hours with an honest assessment.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
+                <Clock className="w-3.5 h-3.5 text-primary" /> Usually replies within 4 hours
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
+                <Star className="w-3.5 h-3.5 text-primary" /> Upwork Top Rated · 4.9★ (120+)
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
+                <ShieldCheck className="w-3.5 h-3.5 text-primary" /> NDA-friendly · Free 30-min scoping call
+              </span>
+            </div>
           </div>
         </AnimatedSection>
 
