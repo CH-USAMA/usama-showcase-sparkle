@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackPageView } from "@/lib/analytics";
+import { trackPageView, initWebVitals } from "@/lib/analytics";
 
 /**
  * Tracks SPA route changes as GA4 page_views.
@@ -9,6 +9,14 @@ import { trackPageView } from "@/lib/analytics";
 const Analytics = () => {
   const location = useLocation();
   const lastPath = useRef<string | null>(null);
+  const vitalsInit = useRef(false);
+
+  useEffect(() => {
+    if (!vitalsInit.current) {
+      vitalsInit.current = true;
+      initWebVitals();
+    }
+  }, []);
 
   useEffect(() => {
     const path = location.pathname + location.search;
