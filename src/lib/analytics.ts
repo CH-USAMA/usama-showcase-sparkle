@@ -64,3 +64,20 @@ export const updateConsent = (granted: boolean) => {
     analytics_storage: granted ? "granted" : "denied",
   });
 };
+
+/** Report Core Web Vitals (LCP, INP, CLS, FCP, TTFB) as GA4 events. */
+export const initWebVitals = () => {
+  if (!isBrowser()) return;
+  import("web-vitals").then(({ onCLS, onINP, onLCP, onFCP, onTTFB }) => {
+    const send = (metric: { name: string; value: number; id: string; rating?: string }) => {
+      trackEvent("web_vitals", {
+        metric_name: metric.name,
+        metric_value: Math.round(metric.name === "CLS" ? metric.value * 1000 : metric.value),
+        metric_id: metric.id,
+        metric_rating: metric.rating,
+        non_interaction: true,
+      });
+    };
+    onCLS(send); onINP(send); onLCP(send); onFCP(send); onTTFB(send);
+  }).catch(() => {});
+};
