@@ -87,6 +87,33 @@ const Blog = () => {
 
       <main className="py-16">
         <div className="container mx-auto px-4">
+          {/* Newsletter capture */}
+          <div className="max-w-2xl mx-auto mb-12 rounded-2xl border border-primary/20 bg-primary/5 p-6 md:p-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1">Get one deep-dive per month</h2>
+                <p className="text-sm text-muted-foreground">Laravel, VoIP, and AI engineering write-ups. No spam. Unsubscribe anytime.</p>
+              </div>
+              <form
+                action="https://formspree.io/f/mkgzjlde"
+                method="POST"
+                className="flex gap-2 w-full md:w-auto"
+              >
+                <input type="hidden" name="_subject" value="New newsletter subscriber" />
+                <input type="hidden" name="source" value="blog-newsletter" />
+                <Input
+                  type="email"
+                  name="email"
+                  required
+                  aria-label="Email address"
+                  placeholder="you@example.com"
+                  className="rounded-xl md:w-64"
+                />
+                <Button type="submit" className="rounded-xl">Subscribe</Button>
+              </form>
+            </div>
+          </div>
+
           <div className="max-w-lg mx-auto mb-16">
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />

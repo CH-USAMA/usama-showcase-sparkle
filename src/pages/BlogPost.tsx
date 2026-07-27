@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogsData } from '@/data/blogs';
 import { useTrendingBlogs } from '@/hooks/useTrendingBlogs';
@@ -8,9 +8,10 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import BlogComments from '@/components/BlogComments';
 import BlogRecommendations from '@/components/BlogRecommendations';
 import { ArrowLeft, Calendar, User, Clock, ExternalLink } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import SEOHead from '@/components/SEOHead';
+
+// Lazy-load the syntax highlighter (~631KB) so it only downloads for posts that actually render code blocks.
+const CodeBlock = lazy(() => import('@/components/CodeBlock'));
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -55,15 +56,9 @@ const BlogPost = () => {
         const language = match[1] || 'javascript';
         const code = match[2].trim();
         parts.push(
-          <SyntaxHighlighter
-            key={`code-${match.index}`}
-            language={language}
-            style={vscDarkPlus}
-            customStyle={{ borderRadius: '8px', fontSize: '14px', lineHeight: '1.5', margin: '1.5rem 0' }}
-            showLineNumbers
-          >
-            {code}
-          </SyntaxHighlighter>
+          <Suspense key={`code-${match.index}`} fallback={<pre className="rounded-lg p-4 my-6 bg-muted overflow-x-auto text-sm"><code>{code}</code></pre>}>
+            <CodeBlock language={language} code={code} />
+          </Suspense>
         );
 
         lastIndex = match.index + match[0].length;
