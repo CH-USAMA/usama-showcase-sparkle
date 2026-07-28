@@ -15,6 +15,7 @@ const links = [
   { href: "#blog", label: "Blog" },
   { href: "#packages", label: "Pricing" },
   { href: "#contact", label: "Contact" },
+  { href: "/book", label: "Book a Call" },
 ];
 
 const Navbar = () => {
@@ -46,8 +47,10 @@ const Navbar = () => {
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setOpen(false);
+    // Let standard browser navigation happen for route links
+    if (href.startsWith("/")) return;
+    e.preventDefault();
     const el = document.getElementById(href.slice(1));
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -106,9 +109,9 @@ const Navbar = () => {
         </ul>
 
         <div className="hidden lg:block">
-          <a href="#contact" onClick={(e) => handleClick(e, "#contact")}>
+          <a href="/book">
             <Button variant="hero" size="sm" className="rounded-full px-5">
-              Hire me
+              Book a Call
             </Button>
           </a>
         </div>
@@ -147,9 +150,9 @@ const Navbar = () => {
                 </li>
               ))}
               <li>
-                <a href="#contact" onClick={(e) => handleClick(e, "#contact")} aria-label="Hire Usama, jump to contact section">
+                <a href="/book" aria-label="Book a free consultation call with Usama">
                   <Button variant="hero" size="sm" className="w-full mt-2 rounded-full">
-                    Hire me
+                    Book a Call
                   </Button>
                 </a>
               </li>

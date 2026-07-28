@@ -100,7 +100,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-wrap gap-3 justify-center lg:justify-start"
             >
-              <a href="#contact">
+              <a href="/book">
                 <Button size="lg" variant="hero" className="gap-2 shadow-glow rounded-xl px-8">
                   Book a Consultation
                 </Button>
