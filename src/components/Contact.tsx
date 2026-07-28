@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ShieldCheck, Star } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ShieldCheck, Star, CalendarCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
+
+const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
 
 const Contact = () => {
   const whatsappUrl = "https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20discuss%20a%20project";
@@ -143,6 +146,39 @@ const Contact = () => {
             </Card>
           </AnimatedSection>
         </div>
+
+        {/* Calendly booking widget */}
+        <AnimatedSection delay={0.3}>
+          <div className="max-w-4xl mx-auto mt-20">
+            <Card className="relative overflow-hidden rounded-3xl border-primary/20 bg-card-gradient p-6 sm:p-10">
+              <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
+              <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
+
+              <div className="relative text-center mb-8">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <CalendarCheck className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-inter font-semibold uppercase tracking-[0.25em] text-primary">Prefer to book directly?</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-inter font-bold text-foreground mb-3 tracking-tight">
+                  Pick a time for your free 30-min call
+                </h3>
+                <p className="text-muted-foreground font-inter leading-relaxed max-w-2xl mx-auto">
+                  Skip the email thread. Choose a slot below and we'll walk through your backend, automation, or VoIP challenge together.
+                </p>
+              </div>
+
+              <Suspense fallback={<div className="min-h-[700px] bg-card/30 rounded-2xl animate-pulse" />}>
+                <CalendlyEmbed height={720} />
+              </Suspense>
+
+              <div className="relative mt-8 text-center">
+                <a href="/book" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-inter font-medium transition-colors">
+                  Open booking page in full view <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </Card>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
