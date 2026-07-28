@@ -47,8 +47,10 @@ const Navbar = () => {
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setOpen(false);
+    // Let standard browser navigation happen for route links
+    if (href.startsWith("/")) return;
+    e.preventDefault();
     const el = document.getElementById(href.slice(1));
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
