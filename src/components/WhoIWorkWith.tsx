@@ -95,7 +95,7 @@ const WhoIWorkWith = () => {
                 </div>
 
                 <div className="flex flex-col gap-3 md:min-w-[220px]">
-                  <a href="#contact">
+                  <a href="/book">
                     <Button size="lg" variant="hero" className="w-full gap-2 shadow-glow rounded-xl">
                       Book a Consultation
                       <ArrowRight className="w-4 h-4" />
