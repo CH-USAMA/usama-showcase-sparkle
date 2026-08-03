@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 
 interface CalendlyEmbedProps {
@@ -6,6 +6,8 @@ interface CalendlyEmbedProps {
   height?: number;
   className?: string;
   title?: string;
+  /** Only load the Calendly script once the widget scrolls into view. */
+  lazy?: boolean;
 }
 
 const CalendlyEmbed = ({
@@ -13,13 +15,37 @@ const CalendlyEmbed = ({
   height = 700,
   className = "",
   title = "Book a free 30-minute consultation",
+  lazy = true,
 }: CalendlyEmbedProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(!lazy);
+
+  // Defer loading until the embed is close to the viewport
+  useEffect(() => {
+    if (visible || typeof IntersectionObserver === "undefined") {
+      if (!visible) setVisible(true);
+      return;
+    }
+    const node = sentinelRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [visible]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!visible || !containerRef.current) return;
 
-    // Load Calendly widget script only once
     const existing = document.getElementById("calendly-widget-script") as HTMLScriptElement | null;
     if (!existing) {
       const script = document.createElement("script");
@@ -35,18 +61,29 @@ const CalendlyEmbed = ({
         utm: {},
       });
     }
-  }, [url]);
+  }, [url, visible]);
 
   return (
     <Card className={`overflow-hidden rounded-2xl border-border/30 bg-card/60 ${className}`}>
-      <div
-        ref={containerRef}
-        className="calendly-inline-widget"
-        data-url={url}
-        style={{ minWidth: "320px", height: `${height}px` }}
-        aria-label={title}
-        role="region"
-      />
+      <div ref={sentinelRef} />
+      {visible ? (
+        <div
+          ref={containerRef}
+          className="calendly-inline-widget"
+          data-url={url}
+          style={{ minWidth: "320px", height: `${height}px` }}
+          aria-label={title}
+          role="region"
+        />
+      ) : (
+        <div
+          className="flex items-center justify-center bg-card/30 animate-pulse"
+          style={{ minWidth: "320px", height: `${height}px` }}
+          aria-hidden="true"
+        >
+          <span className="text-sm text-muted-foreground font-inter">Loading calendar…</span>
+        </div>
+      )}
     </Card>
   );
 };

@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
 import profileImageWebp from "@/assets/usama-profile.webp";
 import HireMe from "@/components/HireMe";
+import cvAsset from "@/assets/usama-cv.pdf.asset.json";
+
 import { lazy, Suspense } from "react";
 
 const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
@@ -110,12 +112,13 @@ const Hero = () => {
                   View Projects
                 </Button>
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf">
                 <Button size="lg" variant="ghost" className="gap-2 rounded-xl">
                   <Download className="w-4 h-4" />
                   Download CV
                 </Button>
               </a>
+
             </motion.div>
 
             {/* Social Links */}
