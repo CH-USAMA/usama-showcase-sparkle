@@ -1,6 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck } from "lucide-react";
+import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck, Download } from "lucide-react";
+import cvAsset from "@/assets/usama-cv.pdf.asset.json";
+
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -161,6 +164,22 @@ const About = () => {
               </AnimatedSection>
             ))}
           </div>
+
+          {/* CV download */}
+          <AnimatedSection delay={0.3}>
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+              <p className="text-muted-foreground font-inter text-sm">
+                Prefer the full background in one page?
+              </p>
+              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf">
+                <Button variant="outline" className="gap-2 rounded-xl">
+                  <Download className="w-4 h-4" />
+                  Download CV (PDF)
+                </Button>
+              </a>
+            </div>
+          </AnimatedSection>
+
 
           {/* TeacherOn Badge */}
           <AnimatedSection delay={0.5}>

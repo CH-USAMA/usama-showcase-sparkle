@@ -235,9 +235,35 @@ const BlogPost = () => {
               </div>
             )}
 
+            {/* Conversion CTA for warm blog traffic */}
+            <aside className="mt-16 rounded-2xl border border-primary/20 bg-card/60 p-6 sm:p-8 text-center">
+              <p className="text-primary text-xs font-inter font-semibold uppercase tracking-[0.25em] mb-3">
+                Working on something similar?
+              </p>
+              <h2 className="text-xl sm:text-2xl font-inter font-bold text-foreground mb-3 tracking-tight">
+                Get a second opinion on your architecture
+              </h2>
+              <p className="text-muted-foreground font-inter leading-relaxed max-w-2xl mx-auto mb-6">
+                Free 30-minute call. Bring your Laravel scaling, automation, VoIP, or AI integration challenge and leave with a clear next step.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <a href="/book">
+                  <Button size="lg" variant="hero" className="rounded-xl px-8 shadow-glow">
+                    Book a free call
+                  </Button>
+                </a>
+                <a href="https://wa.me/923038004684?text=Hi%20Usama%2C%20I%20read%20your%20article%20and%20have%20a%20question" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" variant="outline" className="rounded-xl">
+                    Ask on WhatsApp
+                  </Button>
+                </a>
+              </div>
+            </aside>
+
             <div className="mt-16 pt-8 border-t border-border">
               <BlogComments blogPostId={post.id} />
             </div>
+
 
             <BlogRecommendations currentPostId={post.id} />
           </div>

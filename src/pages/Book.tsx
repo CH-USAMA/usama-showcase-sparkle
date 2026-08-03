@@ -18,6 +18,40 @@ const bookJsonLd = {
   "primaryImageOfPage": "https://dev-usama-portfolio.vercel.app/og-image.png",
 };
 
+const faqs = [
+  {
+    q: "How much does it cost to hire a senior Laravel developer?",
+    a: "Engagements typically start around $2,500 for a scoped sprint and scale with team size and duration. Retainers for ongoing backend and automation work are quoted after the free 30-minute call, once the scope is clear.",
+  },
+  {
+    q: "Is the 30-minute consultation really free?",
+    a: "Yes. It is a free, no-obligation call. You bring the Laravel scaling, automation, VoIP, or AI integration challenge and you leave with an opinionated technical next step, whether or not we work together.",
+  },
+  {
+    q: "What happens on the call?",
+    a: "We review your current architecture, identify the bottleneck, and outline the shortest path to a fix. If a project makes sense, you get a scope, timeline, and price within 24 hours.",
+  },
+  {
+    q: "Do you sign NDAs?",
+    a: "Yes. NDAs are signed before any sensitive architecture, codebase, or business detail is shared.",
+  },
+  {
+    q: "What technologies do you work with?",
+    a: "Laravel and PHP, MySQL and PostgreSQL, REST and GraphQL APIs, n8n and workflow automation, Asterisk and VoIP call platforms, plus AI and LLM integrations including RAG and agent systems.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
+
+
 const Book = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -25,7 +59,7 @@ const Book = () => {
         title="Book a Free 30-Min Consultation — Usama Munawar"
         description="Schedule a free 30-minute backend engineering consultation. Laravel, automation, VoIP & AI systems. No sales pitch, just a clear next step."
         canonical="https://dev-usama-portfolio.vercel.app/book"
-        jsonLd={bookJsonLd}
+        jsonLd={[bookJsonLd, faqJsonLd]}
       />
       <Navbar />
 
@@ -59,9 +93,33 @@ const Book = () => {
           </AnimatedSection>
 
           <Suspense fallback={<div className="min-h-[700px] bg-card/30 rounded-2xl animate-pulse" />}>
-            <CalendlyEmbed height={720} />
+            <CalendlyEmbed height={720} lazy={false} />
           </Suspense>
+
+          {/* FAQ */}
+          <AnimatedSection delay={0.2}>
+            <section className="mt-20" aria-labelledby="book-faq-heading">
+              <h2 id="book-faq-heading" className="text-2xl sm:text-3xl font-inter font-bold text-foreground tracking-tight text-center mb-8">
+                Frequently asked questions
+              </h2>
+              <div className="space-y-3">
+                {faqs.map((f) => (
+                  <details
+                    key={f.q}
+                    className="group rounded-2xl border border-border/30 bg-card/60 p-5 open:border-primary/30 transition-colors"
+                  >
+                    <summary className="cursor-pointer list-none font-inter font-semibold text-foreground flex items-center justify-between gap-4">
+                      {f.q}
+                      <span className="text-primary shrink-0 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                    </summary>
+                    <p className="mt-3 text-muted-foreground font-inter leading-relaxed text-sm sm:text-base">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </AnimatedSection>
         </div>
+
       </main>
 
       <Footer />
