@@ -1,6 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck } from "lucide-react";
+import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck, Download } from "lucide-react";
+import cvAsset from "@/assets/usama-cv.pdf.asset.json";
+
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
