@@ -18,6 +18,40 @@ const bookJsonLd = {
   "primaryImageOfPage": "https://dev-usama-portfolio.vercel.app/og-image.png",
 };
 
+const faqs = [
+  {
+    q: "How much does it cost to hire a senior Laravel developer?",
+    a: "Engagements typically start around $2,500 for a scoped sprint and scale with team size and duration. Retainers for ongoing backend and automation work are quoted after the free 30-minute call, once the scope is clear.",
+  },
+  {
+    q: "Is the 30-minute consultation really free?",
+    a: "Yes. It is a free, no-obligation call. You bring the Laravel scaling, automation, VoIP, or AI integration challenge and you leave with an opinionated technical next step, whether or not we work together.",
+  },
+  {
+    q: "What happens on the call?",
+    a: "We review your current architecture, identify the bottleneck, and outline the shortest path to a fix. If a project makes sense, you get a scope, timeline, and price within 24 hours.",
+  },
+  {
+    q: "Do you sign NDAs?",
+    a: "Yes. NDAs are signed before any sensitive architecture, codebase, or business detail is shared.",
+  },
+  {
+    q: "What technologies do you work with?",
+    a: "Laravel and PHP, MySQL and PostgreSQL, REST and GraphQL APIs, n8n and workflow automation, Asterisk and VoIP call platforms, plus AI and LLM integrations including RAG and agent systems.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
+
+
 const Book = () => {
   return (
     <div className="min-h-screen bg-background">
