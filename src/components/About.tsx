@@ -162,6 +162,22 @@ const About = () => {
             ))}
           </div>
 
+          {/* CV download */}
+          <AnimatedSection delay={0.3}>
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+              <p className="text-muted-foreground font-inter text-sm">
+                Prefer the full background in one page?
+              </p>
+              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf">
+                <Button variant="outline" className="gap-2 rounded-xl">
+                  <Download className="w-4 h-4" />
+                  Download CV (PDF)
+                </Button>
+              </a>
+            </div>
+          </AnimatedSection>
+
+
           {/* TeacherOn Badge */}
           <AnimatedSection delay={0.5}>
             <div className="flex justify-center mt-16">
