@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CalendarCheck, FolderKanban, Home, Newspaper } from "lucide-react";
-import { blogs } from "@/data/blogs";
+import { blogsData } from "@/data/blogs";
 
 const NotFound = () => {
   const location = useLocation();
@@ -15,7 +15,7 @@ const NotFound = () => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
 
-  const suggestedPosts = blogs.slice(0, 3);
+  const suggestedPosts = blogsData.slice(0, 3);
 
   const destinations = [
     { to: "/", icon: Home, title: "Home", desc: "Backend engineering services and case studies." },
