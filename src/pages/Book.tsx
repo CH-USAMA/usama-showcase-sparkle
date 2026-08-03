@@ -59,7 +59,7 @@ const Book = () => {
         title="Book a Free 30-Min Consultation — Usama Munawar"
         description="Schedule a free 30-minute backend engineering consultation. Laravel, automation, VoIP & AI systems. No sales pitch, just a clear next step."
         canonical="https://dev-usama-portfolio.vercel.app/book"
-        jsonLd={bookJsonLd}
+        jsonLd={[bookJsonLd, faqJsonLd]}
       />
       <Navbar />
 
@@ -93,9 +93,33 @@ const Book = () => {
           </AnimatedSection>
 
           <Suspense fallback={<div className="min-h-[700px] bg-card/30 rounded-2xl animate-pulse" />}>
-            <CalendlyEmbed height={720} />
+            <CalendlyEmbed height={720} lazy={false} />
           </Suspense>
+
+          {/* FAQ */}
+          <AnimatedSection delay={0.2}>
+            <section className="mt-20" aria-labelledby="book-faq-heading">
+              <h2 id="book-faq-heading" className="text-2xl sm:text-3xl font-inter font-bold text-foreground tracking-tight text-center mb-8">
+                Frequently asked questions
+              </h2>
+              <div className="space-y-3">
+                {faqs.map((f) => (
+                  <details
+                    key={f.q}
+                    className="group rounded-2xl border border-border/30 bg-card/60 p-5 open:border-primary/30 transition-colors"
+                  >
+                    <summary className="cursor-pointer list-none font-inter font-semibold text-foreground flex items-center justify-between gap-4">
+                      {f.q}
+                      <span className="text-primary shrink-0 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                    </summary>
+                    <p className="mt-3 text-muted-foreground font-inter leading-relaxed text-sm sm:text-base">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </AnimatedSection>
         </div>
+
       </main>
 
       <Footer />
