@@ -232,7 +232,7 @@ const AIChatbot = () => {
             >
               <Bot className="w-7 h-7" />
               <motion.div
-                className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-background"
                 animate={{ scale: [1, 1.3, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
               />
@@ -272,7 +272,7 @@ const AIChatbot = () => {
                 <div>
                   <h3 className="font-semibold text-primary-foreground text-sm">Usama's AI Assistant</h3>
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="text-xs text-primary-foreground/80">Online • Powered by AI</span>
                   </div>
                 </div>

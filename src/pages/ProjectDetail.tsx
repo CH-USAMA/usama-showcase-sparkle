@@ -72,10 +72,10 @@ const ProjectDetail = () => {
                 <Badge className="bg-accent-gradient border-0">
                   {project.category}
                 </Badge>
-                <h1 className="text-4xl lg:text-5xl font-bold text-white">
+                <h1 className="text-4xl lg:text-5xl font-bold text-foreground">
                   {project.title}
                 </h1>
-                <p className="text-xl text-white/80">
+                <p className="text-xl text-foreground/80">
                   {project.description}
                 </p>
               </div>
