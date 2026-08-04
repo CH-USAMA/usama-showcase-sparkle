@@ -8,6 +8,15 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 const categories = ["All", "AI Projects", "Laravel Projects", "Automation", "E-Commerce"];
 
+const projectGradients = [
+  "from-blue-500/20 to-cyan-500/10",
+  "from-emerald-500/20 to-teal-500/10",
+  "from-violet-500/20 to-purple-500/10",
+  "from-amber-500/20 to-orange-500/10",
+  "from-rose-500/20 to-pink-500/10",
+  "from-indigo-500/20 to-blue-500/10",
+];
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -18,7 +27,6 @@ const Portfolio = () => {
       problem: "Manual call routing across 40+ agents caused dropped leads and inconsistent SLAs.",
       solution: "Built a Laravel + Asterisk dispatch engine with real-time queues, AGI scripting, and CRM webhooks.",
       stack: "Laravel · Asterisk · MySQL · Redis · WebSockets",
-      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop",
       technologies: ["Laravel", "Asterisk", "MySQL", "WebSockets", "Redis"],
       liveUrl: "https://call.solutionszilla.com",
       badge: "VoIP Platform",
@@ -31,7 +39,6 @@ const Portfolio = () => {
       problem: "Clinics were losing patients to no-shows and manual billing reconciliation errors.",
       solution: "Designed a multi-tenant Laravel backend with WhatsApp automation, role-based access, and event-sourced audit logs.",
       stack: "Next.js · Laravel API · PostgreSQL · WhatsApp API · Multi-Tenant",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
       technologies: ["Next.js", "Laravel", "Multi-Tenant", "WhatsApp API", "Real-Time"],
       liveUrl: "https://solutionzilla.ismart.link",
       badge: "Healthcare SaaS",
@@ -44,7 +51,6 @@ const Portfolio = () => {
       problem: "SaaS sales team spent 6+ hours/day manually qualifying low-fit leads.",
       solution: "n8n orchestration + LLM scoring + CRM sync, with retries, dead-letter queues, and observability baked in.",
       stack: "n8n · OpenAI · PostgreSQL · Webhooks · Sentry",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       technologies: ["n8n", "OpenAI", "PostgreSQL", "Webhooks"],
       liveUrl: "#",
       badge: "Automation",
@@ -57,7 +63,6 @@ const Portfolio = () => {
       problem: "Generic LLM answers hallucinated case law, blocking adoption inside the firm.",
       solution: "Built hybrid (vector + BM25) retrieval, citation-grounded answers, and an evaluation harness.",
       stack: "Python · FastAPI · Pinecone · Postgres · React",
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=400&fit=crop",
       technologies: ["RAG", "Pinecone", "FastAPI", "React"],
       liveUrl: "#",
       badge: "AI Integration",
@@ -70,7 +75,6 @@ const Portfolio = () => {
       problem: "Low conversion rates and poor product discoverability on a luxury catalog.",
       solution: "Migrated to a headless stack with AI-driven search, automated metadata, and Core Web Vitals tuning.",
       stack: "Shopify · React · OpenAI · Edge Functions",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
       technologies: ["Shopify", "React", "OpenAI", "SEO"],
       liveUrl: "https://focusinteriors.com.pk",
       badge: "Commerce",
@@ -83,7 +87,6 @@ const Portfolio = () => {
       problem: "Editorial team couldn't scale output without sacrificing quality or brand voice.",
       solution: "Built a LangChain-based agent graph with reviewer agents, brand-voice evals, and CMS publishing hooks.",
       stack: "LangChain · GPT-4 · n8n · Supabase · React",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
       technologies: ["LangChain", "GPT-4", "n8n", "Supabase"],
       liveUrl: "#",
       badge: "AI Agents",
@@ -96,7 +99,6 @@ const Portfolio = () => {
     {
       title: "MOE Limo, Omnichannel Operations Platform",
       description: "Premium ticket management and dispatch platform for the modern limousine and transport industry.",
-      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
       technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
       liveUrl: "https://moelimo.solutionszilla.com/login",
       githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
@@ -107,7 +109,6 @@ const Portfolio = () => {
     {
       title: "Jabulani Quarries, Corporate Site",
       description: "Corporate portfolio site for a South African quarry and crushing operation, fast, responsive, and SEO-ready.",
-      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
       technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
       liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
       githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
@@ -118,7 +119,6 @@ const Portfolio = () => {
     {
       title: "Five Stars Galway, Smart Booking",
       description: "Taxi booking platform with intelligent route optimization, Google Maps integration, and automated dispatch.",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
       technologies: ["WordPress", "Google Maps API", "Booking System", "SEO"],
       liveUrl: "https://www.fivestarsgalwaytaxis.ie",
       badge: "Transport",
@@ -128,7 +128,6 @@ const Portfolio = () => {
     {
       title: "Jabulani Hardware Store",
       description: "Complete South African hardware e-commerce platform with Stripe payments, Google login, fast product search, and optimized checkout flow.",
-      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&h=400&fit=crop",
       technologies: ["E-Commerce", "Stripe", "Google Auth", "Fast Search"],
       liveUrl: "https://store.jabulanigroupofcompanies.co.za",
       badge: "E-Commerce",
@@ -138,7 +137,6 @@ const Portfolio = () => {
     {
       title: "Solutions Zilla Software",
       description: "Professional software house website showcasing development services, team expertise, and client portfolio with modern UI/UX.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop",
       technologies: ["Web Development", "UI/UX", "SEO", "Branding"],
       liveUrl: "https://software.solutionszilla.com",
       badge: "Software House",
@@ -152,6 +150,10 @@ const Portfolio = () => {
   const filteredProjects = activeFilter === "All"
     ? projects
     : allProjects.filter(p => p.category === activeFilter);
+
+  const getInitials = (title: string) => {
+    return title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
+  };
 
   return (
     <section id="portfolio" className="py-24 bg-muted/10 relative overflow-hidden">
@@ -212,14 +214,17 @@ const Portfolio = () => {
                 <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
                   <Card className="group overflow-hidden hover:shadow-elegant transition-all duration-500 cursor-pointer h-full border-border/30 bg-card/60 backdrop-blur-sm rounded-2xl">
                     <div className="relative overflow-hidden">
-                      <motion.img
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                        src={project.image}
-                        alt={`Screenshot of ${project.title}, ${project.badge} built with ${project.technologies.slice(0,3).join(", ")}`}
-                        className="w-full h-44 sm:h-48 lg:h-52 object-cover"
-                        loading="lazy"
-                      />
+                      {/* CSS gradient placeholder instead of stock photos */}
+                      <div className={`w-full h-44 sm:h-48 lg:h-52 bg-gradient-to-br ${projectGradients[index % projectGradients.length]} flex items-center justify-center relative`}>
+                        <div className="absolute inset-0 opacity-30" style={{
+                          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+                          backgroundSize: '24px 24px'
+                        }} />
+                        <div className="relative text-center">
+                          <div className="text-3xl sm:text-4xl font-display font-bold text-foreground/80 mb-2">{getInitials(project.title)}</div>
+                          <div className="text-xs font-inter text-muted-foreground uppercase tracking-widest">{project.badge}</div>
+                        </div>
+                      </div>
                       <div className="absolute top-3 left-3 flex gap-2">
                         <span className="bg-card/90 backdrop-blur-md text-primary text-xs font-inter font-semibold px-3 py-1.5 rounded-lg border border-border/30">
                           {project.badge}
