@@ -276,7 +276,7 @@ const Portfolio = () => {
 
                       <div className="flex flex-wrap gap-1.5 pt-1">
                         {project.technologies.map((tech, i) => (
-                          <span key={i} className="px-2.5 py-1 bg-primary/8 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
+                          <span key={i} className="px-2.5 py-1 bg-primary/10 text-primary text-xs rounded-md font-inter border border-primary/10">{tech}</span>
                         ))}
                       </div>
 
