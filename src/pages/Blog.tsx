@@ -41,7 +41,7 @@ const Blog = () => {
     <>
     <SEOHead
       title="Blog — Laravel, AI Engineering & Automation | Usama Munawar"
-      description="Articles on Laravel, PHP, AI engineering, vibe coding with Claude & Cursor, n8n automation, and modern web development."
+      description="Articles on Laravel, PHP, backend architecture, AI engineering, n8n automation, VoIP/Asterisk, and modern web development."
       canonical="https://dev-usama-portfolio.vercel.app/blog"
       ogType="website"
     />
