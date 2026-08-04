@@ -3,15 +3,30 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import HireMe from "@/components/HireMe";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const FreelancingPlatforms = () => {
   const platforms = [
-    { name: "Upwork", rating: 5.0, reviews: 47, earnings: "$50,000+", badge: "Top Rated Plus", description: "Specialized in full-stack web development with focus on React and Node.js projects", profileUrl: "https://www.upwork.com/freelancers/~01007bf0a0286da654", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center" },
-    { name: "Fiverr", rating: 4.9, reviews: 89, earnings: "$30,000+", badge: "Level 2 Seller", description: "Offering premium web development gigs with quick turnaround times", profileUrl: "https://www.fiverr.com/ch_usama_", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center" },
-    { name: "Freelancer", rating: 4.8, reviews: 32, earnings: "$25,000+", badge: "Preferred Freelancer", description: "Building custom web applications and providing technical consultation", profileUrl: "#", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center" },
-    { name: "Toptal", rating: 5.0, reviews: 15, earnings: "$40,000+", badge: "Top 3% Developer", description: "Working with enterprise clients on complex, high-stakes projects", profileUrl: "#", logo: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center" },
+    {
+      name: "Upwork",
+      rating: 5.0,
+      reviews: 47,
+      earnings: "$50,000+",
+      badge: "Top Rated Plus",
+      description: "Enterprise Laravel, SaaS, and backend engineering projects for global clients.",
+      profileUrl: "https://www.upwork.com/freelancers/~01007bf0a0286da654",
+      initials: "UP",
+    },
+    {
+      name: "Fiverr",
+      rating: 4.9,
+      reviews: 89,
+      earnings: "$30,000+",
+      badge: "Level 2 Seller",
+      description: "Premium backend development gigs with fast turnaround and production discipline.",
+      profileUrl: "https://www.fiverr.com/ch_usama_",
+      initials: "FV",
+    },
   ];
 
   const totalStats = { totalEarnings: "$145,000+", totalProjects: 180, totalClients: 95, averageRating: 4.9 };
@@ -27,7 +42,7 @@ const FreelancingPlatforms = () => {
               <div className="h-px w-12 bg-primary/40" />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">Trusted across leading platforms</h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">Top-rated on Upwork, Fiverr, Toptal, and Freelancer, with consistent 5-star delivery.</p>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">Top-rated on Upwork and Fiverr, with consistent 5-star delivery across 180+ projects.</p>
           </div>
         </AnimatedSection>
 
@@ -49,22 +64,22 @@ const FreelancingPlatforms = () => {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {platforms.map((platform, index) => (
             <AnimatedSection key={index} delay={index * 0.12} direction={index % 2 === 0 ? "left" : "right"}>
               <motion.div whileHover={{ y: -8 }} transition={{ type: "spring", stiffness: 300 }}>
                 <Card className="p-8 bg-card/60 backdrop-blur-sm border-border/30 hover:shadow-glow transition-all duration-500 rounded-2xl group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   <div className="relative flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                    <motion.div whileHover={{ rotate: 12 }} className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
-                      <img loading="lazy" decoding="async" src={platform.logo} alt={platform.name} className="w-10 h-10 rounded-xl object-cover" />
-                    </motion.div>
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
+                      <span className="text-xl sm:text-2xl font-inter font-bold text-primary">{platform.initials}</span>
+                    </div>
                     <div className="flex-1 space-y-4">
                       <div className="space-y-2">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <h3 className="text-xl font-inter font-semibold text-foreground">{platform.name}</h3>
-                          <Badge className="bg-accent-gradient border-0 text-xs rounded-lg">{platform.badge}</Badge>
+                          <Badge className="bg-accent-gradient border-0 text-xs rounded-lg w-fit">{platform.badge}</Badge>
                         </div>
                         <div className="flex items-center gap-4 text-sm font-inter">
                           <div className="flex items-center gap-1">
@@ -88,16 +103,6 @@ const FreelancingPlatforms = () => {
             </AnimatedSection>
           ))}
         </div>
-
-        <AnimatedSection delay={0.4}>
-          <div className="text-center mt-16">
-            <div className="max-w-2xl mx-auto space-y-6">
-              <h3 className="text-2xl font-inter font-semibold text-foreground">Ready to Work Together?</h3>
-              <p className="text-muted-foreground font-inter">Whether through these platforms or direct contact, I'm always excited to take on new challenges.</p>
-              <HireMe />
-            </div>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );

@@ -78,8 +78,8 @@ const Contact = () => {
             {/* WhatsApp CTA */}
             <AnimatedSection delay={0.3}>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="gap-2 bg-[hsl(142,70%,45%)] hover:bg-[hsl(142,70%,40%)] text-white rounded-xl">
-                  <MessageCircle className="w-5 h-5" />
+                <Button size="lg" variant="outline" className="gap-2 rounded-xl border-primary/30 hover:bg-primary/10 hover:border-primary/50">
+                  <MessageCircle className="w-5 h-5 text-primary" />
                   Chat on WhatsApp
                 </Button>
               </a>

@@ -15,10 +15,10 @@ const stats = [
 const achievements = [
   "Top Rated Plus on Upwork, top 3% of freelancers",
   "Level 2 Seller on Fiverr with 89+ reviews",
-  "Top 3% Developer on Toptal",
   "Built enterprise SaaS products serving 10K+ users",
   "Specialized in AI agents, RAG pipelines & n8n automation",
-  "Vibe coding expert, ship 10x faster with Claude + Cursor + Lovable",
+  "Production VoIP/Asterisk deployments for 40+ agent call centers",
+  "Zero-downtime Laravel deployments with CI/CD on AWS & Vercel",
 ];
 
 const ExperienceStats = () => {

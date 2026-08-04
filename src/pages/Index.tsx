@@ -11,14 +11,12 @@ const ExperienceStats = lazy(() => import("@/components/ExperienceStats"));
 const Portfolio = lazy(() => import("@/components/Portfolio"));
 const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
 const WhoIWorkWith = lazy(() => import("@/components/WhoIWorkWith"));
-const Testimonials = lazy(() => import("@/components/Testimonials"));
 const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
 const Packages = lazy(() => import("@/components/Packages"));
 const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
-const FloatingHireMe = lazy(() => import("@/components/FloatingHireMe"));
 
 const Fallback = () => <div className="py-20" />;
 
@@ -80,14 +78,12 @@ const Index = () => {
         <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
         <WhoIWorkWith />
         <FreelancingPlatforms />
-        <section id="testimonials" className="scroll-mt-24"><Testimonials /></section>
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
         <Packages />
         <SEOFaq />
         <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
         <AIChatbot />
-        <FloatingHireMe />
       </Suspense>
     </div>
   );

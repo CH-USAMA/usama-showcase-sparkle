@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Download, Code2, Brain, Terminal } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
 import profileImageWebp from "@/assets/usama-profile.webp";
-import HireMe from "@/components/HireMe";
 import cvAsset from "@/assets/usama-cv.pdf.asset.json";
 
 import { lazy, Suspense } from "react";
@@ -27,7 +25,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
           {/* Left Content */}
-          <div className="text-center lg:text-left space-y-7">
+          <div className="text-center lg:text-left space-y-7 order-1">
             <div className="space-y-6">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -70,30 +68,6 @@ const Hero = () => {
                 SaaS founders, startups, and operations-heavy teams ship high-availability Laravel applications, robust APIs,
                 VoIP/Asterisk platforms, and AI-powered automation that drives measurable operational efficiency.
               </motion.p>
-
-              {/* Floating code + AI icons */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="flex items-center gap-4 justify-center lg:justify-start"
-              >
-                {[
-                  { icon: Terminal, label: "Code" },
-                  { icon: Brain, label: "AI" },
-                  { icon: Code2, label: "Vibe" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.label}
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/10"
-                  >
-                    <item.icon className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-inter text-muted-foreground">{item.label}</span>
-                  </motion.div>
-                ))}
-              </motion.div>
             </div>
 
             <motion.div
@@ -118,7 +92,6 @@ const Hero = () => {
                   Download CV
                 </Button>
               </a>
-
             </motion.div>
 
             {/* Social Links */}
@@ -131,7 +104,7 @@ const Hero = () => {
               {[
                 { href: "https://github.com/CH-USAMA", icon: Github, label: "GitHub" },
                 { href: "https://www.linkedin.com/in/usama-works/", icon: Linkedin, label: "LinkedIn" },
-                { href: "mailto:devusamaworks@gmail.com?subject=Hire%20Me&body=Hi%20Usama,", icon: Mail, label: "Email" },
+                { href: "mailto:devusamaworks@gmail.com?subject=Project%20Inquiry", icon: Mail, label: "Email" },
               ].map((s, i) => (
                 <motion.a
                   key={i}
@@ -141,10 +114,10 @@ const Hero = () => {
                   aria-label={s.label}
                   whileHover={{ scale: 1.15, y: -3 }}
                   whileTap={{ scale: 0.9 }}
+                  className="group flex items-center gap-2 px-3 py-2 rounded-full border border-border/40 bg-background/40 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 transition-colors"
                 >
-                  <Button size="icon" variant="outline-white" className="rounded-full border-border/40 hover:border-primary/50 hover:bg-primary/10">
-                    <s.icon className="w-5 h-5" />
-                  </Button>
+                  <s.icon className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-inter text-muted-foreground group-hover:text-foreground transition-colors hidden sm:inline">{s.label}</span>
                 </motion.a>
               ))}
             </motion.div>
@@ -155,16 +128,24 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.85, rotate: 3 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.5, type: "spring", damping: 20 }}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center lg:justify-end order-2"
           >
             <div className="relative">
               {/* Glowing ring behind image */}
-              <div className="absolute inset-0 w-56 h-56 sm:w-80 sm:h-80 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
-              
-              <div className="relative w-56 h-56 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
+              <div className="absolute inset-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
+
+              <div className="relative w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
                 <picture>
                   <source srcSet={profileImageWebp} type="image/webp" />
-                  <img src={profileImage} alt="Usama Munawar - Laravel & AI Engineer" className="w-full h-full object-cover object-top scale-125" loading="eager" fetchPriority="high" decoding="async" width="384" height="384" />
+                  <img
+                    src={profileImage}
+                    alt="Usama Munawar - Laravel & AI Engineer"
+                    className="w-full h-full object-cover object-top scale-125"
+                    loading="eager"
+                    decoding="async"
+                    width="384"
+                    height="384"
+                  />
                 </picture>
                 {/* Dark vignette overlay */}
                 <div className="absolute inset-0 rounded-full" style={{
@@ -172,11 +153,12 @@ const Hero = () => {
                 }} />
               </div>
 
+              {/* Floating stats - desktop only */}
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.4, type: "spring" }}
-                className="absolute -top-3 -right-3 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
+                className="hidden sm:block absolute -top-3 -right-3 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
               >
                 <div className="text-center">
                   <div className="text-2xl font-display font-extrabold text-gradient">5+</div>
@@ -188,7 +170,7 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.6, type: "spring" }}
-                className="absolute -bottom-2 -left-4 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
+                className="hidden sm:block absolute -bottom-2 -left-4 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
               >
                 <div className="text-center">
                   <div className="text-2xl font-display font-extrabold text-gradient">180+</div>
@@ -200,7 +182,7 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.8, type: "spring" }}
-                className="absolute top-1/2 -right-6 bg-card/95 backdrop-blur-md rounded-2xl p-3 shadow-elegant border border-border/50"
+                className="hidden sm:block absolute top-1/2 -right-6 bg-card/95 backdrop-blur-md rounded-2xl p-3 shadow-elegant border border-border/50"
               >
                 <div className="text-center">
                   <div className="text-lg font-display font-extrabold text-gradient">$145K+</div>
@@ -211,16 +193,33 @@ const Hero = () => {
           </motion.div>
         </div>
 
+        {/* Mobile stat strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="sm:hidden mt-10 grid grid-cols-3 gap-3 max-w-sm mx-auto"
+        >
+          {[
+            { value: "5+", label: "Years" },
+            { value: "180+", label: "Projects" },
+            { value: "$145K+", label: "Earned" },
+          ].map((stat, i) => (
+            <div key={i} className="text-center p-3 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/30">
+              <div className="text-lg font-display font-extrabold text-gradient">{stat.value}</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+
         {/* Scroll Indicator */}
         <motion.div
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
         >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-xs text-muted-foreground uppercase tracking-[0.3em]">Scroll</span>
-            <ArrowDown className="w-4 h-4 text-primary" />
-          </div>
+          <span className="text-xs text-muted-foreground uppercase tracking-[0.3em]">Scroll</span>
+          <ArrowDown className="w-4 h-4 text-primary" />
         </motion.div>
       </div>
     </section>

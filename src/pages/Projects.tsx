@@ -166,10 +166,10 @@ const Projects = () => {
             </Link>
           </div>
           <div className="text-center space-y-6">
-            <h1 className="text-5xl lg:text-6xl font-bold text-white">
+            <h1 className="text-5xl lg:text-6xl font-bold text-foreground">
               My Projects
             </h1>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
               Explore my portfolio of web applications, mobile apps, and digital solutions
             </p>
           </div>

@@ -1,23 +1,23 @@
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
-import { Database, Brain, Layout, Workflow, Cloud, Briefcase } from "lucide-react";
+import { Database, Brain, Layout, Workflow, Cloud, Shield } from "lucide-react";
 
 const skillCategories = [
   {
     title: "Backend",
     icon: Database,
-    skills: ["Laravel", "PHP", "MySQL", "PostgreSQL", "REST APIs", "Node.js"],
+    skills: ["Laravel", "PHP", "MySQL", "PostgreSQL", "REST APIs", "GraphQL", "Node.js", "Redis", "Queue Workers"],
   },
   {
     title: "AI & Agents",
     icon: Brain,
-    skills: ["LangChain", "RAG Pipelines", "OpenAI / GPT", "Claude", "AI Agents", "Hugging Face", "Deep Learning", "NLP", "Computer Vision", "TensorFlow", "PyTorch"],
+    skills: ["LangChain", "RAG Pipelines", "OpenAI / GPT", "Claude", "AI Agents", "Vector Search", "Embeddings", "NLP"],
   },
   {
     title: "Frontend",
     icon: Layout,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Livewire", "Inertia.js"],
   },
   {
     title: "Automation",
@@ -30,9 +30,9 @@ const skillCategories = [
     skills: ["AWS", "Supabase", "Vercel", "Docker", "CI/CD", "GitHub Actions", "Linux", "Nginx"],
   },
   {
-    title: "AI Tools & Strategy",
-    icon: Briefcase,
-    skills: ["ChatGPT", "Claude", "Lovable", "Cursor", "Replit", "OpenRouter", "Digital Transformation", "SaaS Architecture", "Product Strategy"],
+    title: "Security & Architecture",
+    icon: Shield,
+    skills: ["RBAC", "OAuth2", "API Rate Limiting", "Multi-Tenant Design", "Audit Trails", "Data Encryption"],
   },
 ];
 
@@ -41,7 +41,7 @@ const Skills = () => {
     <section className="py-24 bg-secondary/20 relative">
       {/* Decorative top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px glow-line" />
-      
+
       <div className="container mx-auto px-4 sm:px-6">
         <AnimatedSection>
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -67,7 +67,7 @@ const Skills = () => {
               >
                 {/* Hover gradient reveal */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 group-hover:bg-primary/15 group-hover:shadow-cool transition-all duration-300">

@@ -223,7 +223,7 @@ const AIChatbot = () => {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, rotate: 180 }}
-            className="fixed bottom-6 right-6 z-50"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
           >
             <Button
               onClick={() => setIsOpen(true)}
@@ -232,7 +232,7 @@ const AIChatbot = () => {
             >
               <Bot className="w-7 h-7" />
               <motion.div
-                className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-background"
                 animate={{ scale: [1, 1.3, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
               />
@@ -261,7 +261,7 @@ const AIChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[calc(100vh-2rem)] bg-background border border-border rounded-2xl shadow-elegant flex flex-col overflow-hidden"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[calc(100vh-2rem)] bg-background border border-border rounded-2xl shadow-elegant flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-primary p-4 flex items-center justify-between">
@@ -272,7 +272,7 @@ const AIChatbot = () => {
                 <div>
                   <h3 className="font-semibold text-primary-foreground text-sm">Usama's AI Assistant</h3>
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="text-xs text-primary-foreground/80">Online • Powered by AI</span>
                   </div>
                 </div>

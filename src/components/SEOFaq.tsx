@@ -9,28 +9,28 @@ import {
 
 const faqs = [
   {
-    q: "Can I hire you as a Laravel, PHP & MySQL developer?",
-    a: "Absolutely! I'm a top-rated Laravel, PHP, and MySQL developer with 5+ years of experience and 180+ projects delivered. I build custom web applications, REST APIs, SaaS platforms, e-commerce solutions, and CRM systems. I'm available on Upwork, Fiverr, or for direct hire.",
+    q: "Can I hire you as a senior Laravel, PHP & MySQL developer?",
+    a: "Yes. I'm a top-rated Laravel, PHP, and MySQL developer with 5+ years of production experience and 180+ projects delivered. I build custom web applications, REST APIs, SaaS platforms, e-commerce backends, and CRM systems. I'm available on Upwork, Fiverr, or for direct hire.",
   },
   {
-    q: "What is vibe coding and do you offer it as a service?",
-    a: "Vibe coding is a modern development approach where I use AI tools like Claude, Lovable, Cursor AI, and Replit to build production-ready applications 10x faster. I combine vibe coding with deep expertise in Laravel, React, and PHP to deliver high-quality projects in record time, often weeks instead of months.",
+    q: "Which AI and automation stacks do you specialize in?",
+    a: "I work with Claude, OpenAI GPT models, LangChain, RAG pipelines, vector databases like Pinecone and pgvector, n8n workflow automation, and MCP agents. I integrate these safely into existing Laravel and Node backends with proper guardrails and observability.",
   },
   {
-    q: "Which AI tools do you specialize in, Claude, ChatGPT, or others?",
-    a: "I work extensively with Claude (Anthropic), ChatGPT (OpenAI), LangChain, and the full AI development ecosystem. I build custom chatbots, RAG systems, multi-agent pipelines, and integrate AI into existing business workflows using n8n automation.",
+    q: "Can you build a VoIP or call-center system for my business?",
+    a: "Yes. I build self-hosted call centers on Asterisk and FreePBX with intelligent dispatch, IVR flows, predictive dialers, SIP trunking, and CRM-integrated call workflows. I also build real-time communication systems on Laravel Reverb, Pusher, and Socket.IO.",
   },
   {
-    q: "Can you build an AI chatbot or automation system for my business?",
-    a: "Yes! I specialize in AI-powered business solutions, from intelligent chatbots and customer support agents to end-to-end workflow automation with n8n, WhatsApp API integration, and AI-driven lead qualification systems. I've helped businesses automate 20+ hours of manual work per week.",
+    q: "Do you offer ongoing support and maintenance?",
+    a: "Yes. Beyond the initial build, I offer monthly retainers for new features, scaling, performance tuning, incident response, and technical debt reviews. This keeps your backend compounding value over time.",
   },
   {
-    q: "Do you teach Laravel, PHP, AI, or vibe coding?",
-    a: "Yes, I'm a recommended tutor on TeacherOn and offer mentoring in Laravel, PHP, MySQL, AI engineering, and vibe coding. Whether you want to learn modern PHP development or how to use Claude and Cursor AI for faster coding, I can help you level up.",
+    q: "What's your process for starting a new project?",
+    a: "Every engagement starts with a free 30-minute discovery call to understand your goals and constraints. I then deliver a clear technical proposal with stack, architecture, milestones, timeline, and a fixed quote before any code is written.",
   },
   {
     q: "What's your tech stack for full-stack development?",
-    a: "My primary stack includes Laravel (PHP) with MySQL for backends, React/Next.js with TypeScript for frontends, and Supabase/AWS for cloud infrastructure. I also use n8n for automation, LangChain for AI orchestration, and Docker for containerized deployments.",
+    a: "My primary stack includes Laravel with MySQL/PostgreSQL for backends, React/Next.js with TypeScript for frontends, and Supabase/AWS for cloud infrastructure. I use n8n for automation, LangChain for AI orchestration, and Docker for containerized deployments.",
   },
 ];
 
