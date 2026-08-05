@@ -326,11 +326,15 @@ export const projectsData = {
     description: "Complete South African hardware e-commerce platform with Stripe payments, Google login, and fast search",
     fullDescription: `Jabulani Hardware Store is a full-featured e-commerce platform built for a South African hardware and building materials retailer. The platform serves thousands of customers across South Africa with a comprehensive product catalog spanning construction materials, tools, plumbing, electrical, and home improvement categories.
 
-    The store features Stripe payment integration for secure credit/debit card transactions, Google OAuth login for frictionless user authentication, and a blazing-fast product search powered by indexed database queries with real-time filtering and autocomplete.
+    THE PROBLEM: The retailer was running an entirely offline operation with a paper-based stock ledger. Customers in outlying areas had no way to check availability before driving to the branch, and staff were spending hours a day answering price and stock calls. Any online store had to work on slow mobile connections and had to reflect real branch stock, otherwise it would generate more phone calls, not fewer.
 
-    Performance was a top priority, the platform loads in under 2 seconds on 3G connections, with optimized product images served via CDN and aggressive caching strategies. The admin panel enables inventory management, order tracking, and sales analytics.
+    ARCHITECTURE: The backend is a Laravel application with a React storefront. Products, variants, and stock levels live in MySQL with a denormalized search table rebuilt by a queued job whenever inventory changes, which keeps the catalog query path free of joins. Redis handles session storage, cart state, and a short-lived cache layer on category and product pages. Product imagery is processed on upload into three responsive WebP sizes and served through a CDN, which is where most of the mobile performance gain came from.
 
-    The checkout flow was optimized through A/B testing, reducing cart abandonment by 35% with a streamlined 3-step process including guest checkout, saved addresses, and multiple payment options.`,
+    PAYMENTS AND AUTH: Stripe handles card payments with ZAR as the presentment currency, with webhooks driving order state transitions rather than the browser redirect, so a dropped connection after payment never leaves an order stranded. Google OAuth sits alongside email registration; roughly 60% of customers choose it, which measurably reduced abandonment at the account step.
+
+    SEARCH: Product search targets sub-200ms across 5,000+ SKUs. Rather than reaching for a separate search cluster, the implementation uses a MySQL full-text index over a flattened product document plus a prefix index for autocomplete, with filters applied as indexed integer columns. It is a deliberately boring choice that the client's own team can operate without new infrastructure.
+
+    RESULTS AND OPERATIONS: Performance was a top priority, the platform loads in under 2 seconds on 3G connections. The checkout flow was optimized through A/B testing, reducing cart abandonment by 35% with a streamlined 3-step process including guest checkout, saved addresses, and multiple payment options. The admin panel enables inventory management, order tracking, and sales analytics, and the whole stack runs on a single VPS with automated nightly database backups and queue monitoring.`,
     image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",

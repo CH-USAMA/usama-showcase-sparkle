@@ -11,12 +11,14 @@ const ExperienceStats = lazy(() => import("@/components/ExperienceStats"));
 const Portfolio = lazy(() => import("@/components/Portfolio"));
 const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
 const WhoIWorkWith = lazy(() => import("@/components/WhoIWorkWith"));
+const IndustryProof = lazy(() => import("@/components/IndustryProof"));
 const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
 const Packages = lazy(() => import("@/components/Packages"));
 const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
+const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 
 const Fallback = () => <div className="py-20" />;
 
@@ -76,6 +78,7 @@ const Index = () => {
         <section id="process" className="scroll-mt-24"><ProcessTimeline /></section>
         <section id="experience" className="scroll-mt-24"><ExperienceStats /></section>
         <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
+        <IndustryProof />
         <WhoIWorkWith />
         <FreelancingPlatforms />
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
@@ -84,6 +87,7 @@ const Index = () => {
         <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
         <AIChatbot />
+        <ScrollCTA />
       </Suspense>
     </div>
   );
