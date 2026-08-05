@@ -78,6 +78,7 @@ const Index = () => {
         <section id="process" className="scroll-mt-24"><ProcessTimeline /></section>
         <section id="experience" className="scroll-mt-24"><ExperienceStats /></section>
         <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
+        <IndustryProof />
         <WhoIWorkWith />
         <FreelancingPlatforms />
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
@@ -86,6 +87,7 @@ const Index = () => {
         <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
         <AIChatbot />
+        <ScrollCTA />
       </Suspense>
     </div>
   );
