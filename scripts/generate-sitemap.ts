@@ -1,10 +1,16 @@
 // Runs before `vite dev` and `vite build` via predev/prebuild hooks.
 // Writes public/sitemap.xml with all static routes + dynamic blog/project entries.
 
-import { writeFileSync } from "fs";
+import { writeFileSync, readFileSync } from "fs";
 import { resolve } from "path";
-import { blogsData } from "../src/data/blogs";
 import { projectsData } from "../src/data/projects";
+
+// blogs.ts imports image assets, which Node cannot resolve outside Vite,
+// so slugs and dates are parsed from the source file instead of imported.
+const blogSource = readFileSync(resolve("src/data/blogs.ts"), "utf8");
+const blogsData = Array.from(
+  blogSource.matchAll(/slug:\s*"([^"]+)"[\s\S]*?published_at:\s*"([^"]+)"/g)
+).map((m) => ({ slug: m[1], published_at: m[2] }));
 
 const BASE_URL = "https://dev-usama-portfolio.vercel.app";
 
