@@ -41,14 +41,7 @@ const BlogPost = () => {
           parts.push(
             <div
               key={`text-${lastIndex}`}
-              dangerouslySetInnerHTML={{
-                __html: text
-                  .slice(lastIndex, match.index)
-                  .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                  .replace(/\n/g, '<br>')
-              }}
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(text.slice(lastIndex, match.index)) }}
             />
           );
         }
@@ -68,14 +61,7 @@ const BlogPost = () => {
         parts.push(
           <div
             key={`text-${lastIndex}`}
-            dangerouslySetInnerHTML={{
-              __html: text
-                .slice(lastIndex)
-                .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n/g, '<br>')
-            }}
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(text.slice(lastIndex)) }}
           />
         );
       }
@@ -85,6 +71,7 @@ const BlogPost = () => {
 
     return <div>{processContent(content)}</div>;
   };
+
 
   if (!post) {
     return (
