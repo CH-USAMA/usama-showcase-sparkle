@@ -4,6 +4,7 @@
 import { writeFileSync, readFileSync } from "fs";
 import { resolve } from "path";
 import { projectsData } from "../src/data/projects";
+import { servicesData } from "../src/data/services";
 
 // blogs.ts imports image assets, which Node cannot resolve outside Vite,
 // so slugs and dates are parsed from the source file instead of imported.
@@ -24,9 +25,17 @@ interface SitemapEntry {
 const staticEntries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/book", changefreq: "weekly", priority: "0.9" },
+  { path: "/services", changefreq: "monthly", priority: "0.9" },
   { path: "/projects", changefreq: "weekly", priority: "0.8" },
   { path: "/blog", changefreq: "daily", priority: "0.9" },
 ];
+
+const serviceEntries: SitemapEntry[] = servicesData.map((s) => ({
+  path: `/services/${s.slug}`,
+  changefreq: "monthly",
+  priority: "0.85",
+}));
+
 
 const projectEntries: SitemapEntry[] = Object.keys(projectsData).map((id) => ({
   path: `/project/${id}`,
@@ -42,7 +51,7 @@ const blogEntries: SitemapEntry[] = blogsData.map((post) => ({
   priority: "0.8",
 }));
 
-const entries = [...staticEntries, ...projectEntries, ...blogEntries];
+const entries = [...staticEntries, ...serviceEntries, ...projectEntries, ...blogEntries];
 
 function generate(entries: SitemapEntry[]) {
   const urls = entries.map((e) =>

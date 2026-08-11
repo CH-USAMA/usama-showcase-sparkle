@@ -21,6 +21,10 @@ const Footer = () => {
             <h4 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-2 text-sm font-inter text-muted-foreground">
               <li><a href="/book" className="hover:text-primary transition-colors">Book a Call</a></li>
+              <li><a href="/services/laravel-development" className="hover:text-primary transition-colors">Laravel Development</a></li>
+              <li><a href="/services/voip-asterisk" className="hover:text-primary transition-colors">VoIP &amp; Asterisk</a></li>
+              <li><a href="/services/automation-n8n" className="hover:text-primary transition-colors">Automation Infrastructure</a></li>
+              <li><a href="/services/ai-integration" className="hover:text-primary transition-colors">AI Integration</a></li>
               <li><a href="/projects" className="hover:text-primary transition-colors">Projects</a></li>
               <li><a href="/blog" className="hover:text-primary transition-colors">Blog</a></li>
               <li><a href="/sitemap.xml" className="hover:text-primary transition-colors">Sitemap</a></li>
