@@ -8,6 +8,7 @@ import logoUsama from "@/assets/logo-usama.png";
 const links = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
+  { href: "/services", label: "Services" },
   { href: "#process", label: "Process" },
   { href: "#experience", label: "Experience" },
   { href: "#portfolio", label: "Work" },

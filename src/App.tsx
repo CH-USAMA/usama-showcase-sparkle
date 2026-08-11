@@ -19,6 +19,8 @@ const PostEditor = lazy(() => import("./pages/PostEditor"));
 const GitHubReadme = lazy(() => import("./pages/GitHubReadme"));
 const AdminScraper = lazy(() => import("./pages/AdminScraper"));
 const Book = lazy(() => import("./pages/Book"));
+const Services = lazy(() => import("./pages/Services"));
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,8 @@ const App = () => (
             <Route path="/admin/scraper" element={<AdminScraper />} />
             <Route path="/github/:repoId" element={<GitHubReadme />} />
             <Route path="/book" element={<Book />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

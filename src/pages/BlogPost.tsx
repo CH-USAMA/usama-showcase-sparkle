@@ -13,6 +13,44 @@ import SEOHead from '@/components/SEOHead';
 // Lazy-load the syntax highlighter (~631KB) so it only downloads for posts that actually render code blocks.
 const CodeBlock = lazy(() => import('@/components/CodeBlock'));
 
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
+const inline = (text: string) =>
+  text
+    .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+const renderMarkdown = (text: string) =>
+  text
+    .split('\n')
+    .map((line) => {
+      const h2 = line.match(/^##\s+(.*)$/);
+      if (h2) return `<h2 id="${slugify(h2[1])}">${inline(h2[1])}</h2>`;
+      const h3 = line.match(/^###\s+(.*)$/);
+      if (h3) return `<h3 id="${slugify(h3[1])}">${inline(h3[1])}</h3>`;
+      return `${inline(line)}<br>`;
+    })
+    .join('');
+
+// Table of contents entries from the top-level markdown headings, ignoring fenced code blocks.
+const extractHeadings = (content: string) => {
+  const withoutCode = content.replace(/```[\s\S]*?```/g, '');
+  return Array.from(withoutCode.matchAll(/^##\s+(.*)$/gm)).map((m) => ({
+    id: slugify(m[1]),
+    label: m[1].trim(),
+  }));
+};
+
+const readingTime = (content: string) =>
+  Math.max(1, Math.round(content.trim().split(/\s+/).length / 200));
+
+
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: trendingPosts = [] } = useTrendingBlogs();
@@ -41,14 +79,7 @@ const BlogPost = () => {
           parts.push(
             <div
               key={`text-${lastIndex}`}
-              dangerouslySetInnerHTML={{
-                __html: text
-                  .slice(lastIndex, match.index)
-                  .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                  .replace(/\n/g, '<br>')
-              }}
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(text.slice(lastIndex, match.index)) }}
             />
           );
         }
@@ -68,14 +99,7 @@ const BlogPost = () => {
         parts.push(
           <div
             key={`text-${lastIndex}`}
-            dangerouslySetInnerHTML={{
-              __html: text
-                .slice(lastIndex)
-                .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n/g, '<br>')
-            }}
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(text.slice(lastIndex)) }}
           />
         );
       }
@@ -85,6 +109,7 @@ const BlogPost = () => {
 
     return <div>{processContent(content)}</div>;
   };
+
 
   if (!post) {
     return (
@@ -173,7 +198,7 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="h-4 w-4" />
-                <span>{Math.ceil(post.content.length / 1000)} min read</span>
+                <span>{readingTime(post.content)} min read</span>
               </div>
             </div>
 
@@ -203,7 +228,26 @@ const BlogPost = () => {
               </div>
             )}
 
+            {extractHeadings(post.content).length > 2 && (
+              <nav
+                aria-label="Table of contents"
+                className="mb-12 rounded-2xl border border-border/40 bg-muted/30 p-6"
+              >
+                <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">In this article</h2>
+                <ol className="space-y-2 list-decimal list-inside">
+                  {extractHeadings(post.content).map((h) => (
+                    <li key={h.id}>
+                      <a href={`#${h.id}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {h.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
             <article className="prose prose-lg max-w-none blog-content">
+              <style>{`.blog-content h2, .blog-content h3 { scroll-margin-top: 6rem; }`}</style>
               <style>{`
                 .blog-content .inline-code {
                   background-color: hsl(var(--muted));
