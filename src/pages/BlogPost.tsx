@@ -13,6 +13,44 @@ import SEOHead from '@/components/SEOHead';
 // Lazy-load the syntax highlighter (~631KB) so it only downloads for posts that actually render code blocks.
 const CodeBlock = lazy(() => import('@/components/CodeBlock'));
 
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
+const inline = (text: string) =>
+  text
+    .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+const renderMarkdown = (text: string) =>
+  text
+    .split('\n')
+    .map((line) => {
+      const h2 = line.match(/^##\s+(.*)$/);
+      if (h2) return `<h2 id="${slugify(h2[1])}">${inline(h2[1])}</h2>`;
+      const h3 = line.match(/^###\s+(.*)$/);
+      if (h3) return `<h3 id="${slugify(h3[1])}">${inline(h3[1])}</h3>`;
+      return `${inline(line)}<br>`;
+    })
+    .join('');
+
+// Table of contents entries from the top-level markdown headings, ignoring fenced code blocks.
+const extractHeadings = (content: string) => {
+  const withoutCode = content.replace(/```[\s\S]*?```/g, '');
+  return Array.from(withoutCode.matchAll(/^##\s+(.*)$/gm)).map((m) => ({
+    id: slugify(m[1]),
+    label: m[1].trim(),
+  }));
+};
+
+const readingTime = (content: string) =>
+  Math.max(1, Math.round(content.trim().split(/\s+/).length / 200));
+
+
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: trendingPosts = [] } = useTrendingBlogs();
