@@ -198,7 +198,7 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="h-4 w-4" />
-                <span>{Math.ceil(post.content.length / 1000)} min read</span>
+                <span>{readingTime(post.content)} min read</span>
               </div>
             </div>
 
@@ -228,7 +228,26 @@ const BlogPost = () => {
               </div>
             )}
 
+            {extractHeadings(post.content).length > 2 && (
+              <nav
+                aria-label="Table of contents"
+                className="mb-12 rounded-2xl border border-border/40 bg-muted/30 p-6"
+              >
+                <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">In this article</h2>
+                <ol className="space-y-2 list-decimal list-inside">
+                  {extractHeadings(post.content).map((h) => (
+                    <li key={h.id}>
+                      <a href={`#${h.id}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        {h.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
             <article className="prose prose-lg max-w-none blog-content">
+              <style>{`.blog-content h2, .blog-content h3 { scroll-margin-top: 6rem; }`}</style>
               <style>{`
                 .blog-content .inline-code {
                   background-color: hsl(var(--muted));
