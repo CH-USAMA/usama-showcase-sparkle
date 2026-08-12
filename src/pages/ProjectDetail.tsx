@@ -102,6 +102,9 @@ const ProjectDetail = () => {
                 alt={project.title}
                 className="w-full rounded-2xl shadow-elegant"
                 loading="lazy"
+                decoding="async"
+                width={1200}
+                height={675}
               />
             </div>
           </div>
@@ -165,6 +168,9 @@ const ProjectDetail = () => {
                       alt={`${project.title} screenshot ${index + 1}`}
                       className="w-full rounded-xl hover:shadow-elegant transition-shadow duration-300"
                       loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={450}
                     />
                   ))}
                 </div>
@@ -246,6 +252,10 @@ const ProjectDetail = () => {
                         <img 
                           src={relatedProject.image} 
                           alt={relatedProject.title}
+                          loading="lazy"
+                          decoding="async"
+                          width={64}
+                          height={64}
                           className="w-16 h-16 object-cover rounded-lg"
                         />
                         <div>

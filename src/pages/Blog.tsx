@@ -141,7 +141,7 @@ const Blog = () => {
                 <Card key={post.id} className={`group overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-gradient-to-br from-card/80 to-card backdrop-blur-sm ${index === 0 ? 'md:grid md:grid-cols-5 md:gap-8' : ''}`}>
                   {post.featured_image && (
                     <div className={`overflow-hidden ${index === 0 ? 'md:col-span-2' : ''}`}>
-                      <img src={post.featured_image} alt={post.title} loading="lazy" className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${index === 0 ? 'h-64 md:h-full' : 'h-48'}`} />
+                      <img src={post.featured_image} alt={post.title} loading="lazy" decoding="async" width={800} height={450} className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${index === 0 ? 'h-64 md:h-full' : 'h-48'}`} />
                     </div>
                   )}
                   <div className={`${post.featured_image && index === 0 ? "md:col-span-3" : ""} p-8`}>
