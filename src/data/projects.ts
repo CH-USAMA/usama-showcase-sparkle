@@ -3,13 +3,15 @@ export const projectsData = {
     id: 1,
     title: "AI-Powered Content Pipeline",
     description: "Multi-agent system that autonomously generates, reviews, and publishes content using GPT-4 + LangChain",
-    fullDescription: `This project is a production-grade multi-agent content pipeline that I architected from scratch. It uses a Main Orchestrator Agent that delegates tasks to specialized sub-agents for research, writing, SEO optimization, and quality review.
+    fullDescription: `THE PROBLEM: A SaaS startup's content team was spending over twenty hours a week producing articles, landing pages, and email copy. The process was manual, inconsistent, and could not scale with the product roadmap. Every piece had to pass brand, legal, and SEO checks before publishing, which created a bottleneck that delayed campaigns by days.
 
-    The system leverages LangChain for agent orchestration, GPT-4 for content generation, and n8n for workflow automation. Each piece of content goes through a 4-stage pipeline: Research → Draft → Review → Publish, all autonomously.
+    THE APPROACH: I designed a multi-agent pipeline that decomposes content work into discrete, verifiable stages. A main orchestrator agent receives the brief, then delegates research, drafting, SEO optimization, quality review, and publishing to specialized sub-agents. Each stage is observable, retryable, and logged.
 
-    The RAG component pulls from a curated knowledge base stored in Pinecone, ensuring content is factually grounded and brand-consistent. The review agent uses a custom evaluation rubric to score content quality before publishing.
+    ARCHITECTURE: The orchestration layer is built with LangChain and a stateful graph pattern. The research agent pulls from a curated knowledge base stored in Pinecone, using hybrid vector plus keyword retrieval to ground every article in existing brand material and source documents. The draft agent uses GPT-4 with a structured output schema so headings, meta descriptions, and internal links are generated predictably. A reviewer agent scores each draft against a rubric that covers brand voice, factual accuracy, readability, and SEO criteria. A final publisher stage formats the content and pushes it to the CMS through a typed API.
 
-    This pipeline replaced 20+ hours/week of manual content work for the client, achieving 10x faster content production with measurably higher engagement metrics.`,
+    AUTOMATION AND OBSERVABILITY: n8n handles scheduling, human approval gates, and notifications. Every run is logged with input brief, generated draft, reviewer scores, and final action. Failed or low-scoring drafts are routed to a human editor queue rather than being published silently. Cost is controlled by routing simpler tasks to smaller models and only invoking GPT-4 for the draft generation step.
+
+    RESULTS: The pipeline replaced the bulk of the manual content production workflow, cutting average time-to-publish from several days to under an hour for routine content. Engagement metrics improved because the output was more consistent and better structured. The system has been running in production with high uptime and clear audit history for every published piece.`,
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
