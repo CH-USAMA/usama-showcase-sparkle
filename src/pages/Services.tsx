@@ -14,14 +14,31 @@ const BASE = "https://dev-usama-portfolio.vercel.app";
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Backend engineering services",
-  itemListElement: servicesData.map((s, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: s.name,
-    url: `${BASE}/services/${s.slug}`,
-  })),
+  "@graph": [
+    {
+      "@type": "ItemList",
+      name: "Backend engineering services",
+      itemListElement: servicesData.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: s.name,
+        url: `${BASE}/services/${s.slug}`,
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: servicesData.flatMap((s) =>
+        s.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.a,
+          },
+        }))
+      ),
+    },
+  ],
 };
 
 const Services = () => (

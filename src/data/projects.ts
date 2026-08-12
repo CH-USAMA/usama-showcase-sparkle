@@ -3,13 +3,15 @@ export const projectsData = {
     id: 1,
     title: "AI-Powered Content Pipeline",
     description: "Multi-agent system that autonomously generates, reviews, and publishes content using GPT-4 + LangChain",
-    fullDescription: `This project is a production-grade multi-agent content pipeline that I architected from scratch. It uses a Main Orchestrator Agent that delegates tasks to specialized sub-agents for research, writing, SEO optimization, and quality review.
+    fullDescription: `THE PROBLEM: A SaaS startup's content team was spending over twenty hours a week producing articles, landing pages, and email copy. The process was manual, inconsistent, and could not scale with the product roadmap. Every piece had to pass brand, legal, and SEO checks before publishing, which created a bottleneck that delayed campaigns by days.
 
-    The system leverages LangChain for agent orchestration, GPT-4 for content generation, and n8n for workflow automation. Each piece of content goes through a 4-stage pipeline: Research → Draft → Review → Publish, all autonomously.
+    THE APPROACH: I designed a multi-agent pipeline that decomposes content work into discrete, verifiable stages. A main orchestrator agent receives the brief, then delegates research, drafting, SEO optimization, quality review, and publishing to specialized sub-agents. Each stage is observable, retryable, and logged.
 
-    The RAG component pulls from a curated knowledge base stored in Pinecone, ensuring content is factually grounded and brand-consistent. The review agent uses a custom evaluation rubric to score content quality before publishing.
+    ARCHITECTURE: The orchestration layer is built with LangChain and a stateful graph pattern. The research agent pulls from a curated knowledge base stored in Pinecone, using hybrid vector plus keyword retrieval to ground every article in existing brand material and source documents. The draft agent uses GPT-4 with a structured output schema so headings, meta descriptions, and internal links are generated predictably. A reviewer agent scores each draft against a rubric that covers brand voice, factual accuracy, readability, and SEO criteria. A final publisher stage formats the content and pushes it to the CMS through a typed API.
 
-    This pipeline replaced 20+ hours/week of manual content work for the client, achieving 10x faster content production with measurably higher engagement metrics.`,
+    AUTOMATION AND OBSERVABILITY: n8n handles scheduling, human approval gates, and notifications. Every run is logged with input brief, generated draft, reviewer scores, and final action. Failed or low-scoring drafts are routed to a human editor queue rather than being published silently. Cost is controlled by routing simpler tasks to smaller models and only invoking GPT-4 for the draft generation step.
+
+    RESULTS: The pipeline replaced the bulk of the manual content production workflow, cutting average time-to-publish from several days to under an hour for routine content. Engagement metrics improved because the output was more consistent and better structured. The system has been running in production with high uptime and clear audit history for every published piece.`,
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
@@ -50,13 +52,15 @@ export const projectsData = {
     id: 2,
     title: "Smart Lead Qualification Engine",
     description: "AI-driven lead scoring with n8n automation, reducing qualification time by 85%",
-    fullDescription: `Built an intelligent lead qualification system that combines n8n workflow automation with OpenAI's GPT-4 to score, categorize, and route leads automatically.
+    fullDescription: `THE PROBLEM: A B2B SaaS sales team was spending more than six hours a day manually qualifying inbound leads. Leads arrived from web forms, email, paid campaigns, and partner integrations, but there was no consistent scoring model. High-value leads sat in the same queue as low-fit ones, and response delays caused the company to lose opportunities to faster competitors.
 
-    The system ingests leads from multiple sources (web forms, email, API integrations), enriches them with company data, and uses AI to score each lead on a 1-10 scale based on custom criteria including company size, industry fit, budget signals, and engagement patterns.
+    THE APPROACH: I built an automated lead qualification engine that scores, enriches, categorizes, and routes every lead in real time. The goal was to remove the repetitive triage work while surfacing the right leads to sales within minutes of submission.
 
-    High-scoring leads are automatically routed to sales reps via Slack with AI-generated briefings. Low-scoring leads enter nurture sequences. The entire pipeline runs 24/7 without human intervention.
+    ARCHITECTURE: The system is built around an n8n workflow that receives leads from multiple sources through webhooks and API integrations. Each lead is enriched with company data, then scored by an LLM against an ideal customer profile that includes company size, industry, budget signals, and engagement patterns. The scoring model outputs a numeric score and a short rationale. High-scoring leads are routed to the CRM and to a Slack channel with an AI-generated briefing. Lower-scoring leads enter an automated nurture sequence. The whole pipeline is idempotent, with retries and a dead-letter queue for failures.
 
-    Integration with the client's CRM (HubSpot) ensures seamless data flow, and a real-time dashboard built in React provides visibility into pipeline health and conversion metrics.`,
+    INTEGRATIONS AND OBSERVABILITY: HubSpot receives the scored lead record and a set of custom properties. Sentry and execution logs track errors and scoring anomalies. The workflow exports to version-controlled JSON and is deployed to a self-hosted n8n instance. A React dashboard provides visibility into pipeline health, conversion rates, and score distribution over time.
+
+    RESULTS: The qualification bottleneck disappeared. The sales team now spends its time on leads that have already been scored and briefed, response time dropped to minutes, and the lead-to-close rate improved because the right prospects were reached faster. The system runs continuously without human intervention.`,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
@@ -97,13 +101,15 @@ export const projectsData = {
     id: 3,
     title: "RAG-Powered Legal Assistant",
     description: "Production RAG system with 94% accuracy on legal queries using hybrid search",
-    fullDescription: `Designed and deployed a Retrieval-Augmented Generation system for a legal tech company that needed accurate, reliable answers to complex legal questions.
+    fullDescription: `THE PROBLEM: A legal tech startup needed to answer complex legal questions from a large corpus of case law, contracts, and regulations. Generic LLMs produced confident but incorrect answers, often citing non-existent cases or misinterpreting precedents. The firm could not adopt the tool until the answer quality was reliable and every response was traceable to source documents.
 
-    The system uses a hybrid search approach combining vector similarity (Pinecone) with BM25 keyword matching, achieving 94% accuracy, up from 67% with naive vector-only RAG.
+    THE APPROACH: I built a Retrieval-Augmented Generation system that grounds every answer in retrieved source material. The system uses a hybrid search approach and a validation layer to prevent hallucinations and surface confidence levels to the user.
 
-    Key innovations include semantic chunking that respects document structure, a re-ranking layer using a cross-encoder model, and a validation agent that cross-references generated answers against retrieved context to prevent hallucinations.
+    ARCHITECTURE: Documents are ingested through a semantic chunking pipeline that respects section boundaries, headings, and cross-references. Chunks are stored as dense vectors in Pinecone and also indexed for keyword search. At query time, the system runs both vector and BM25 retrieval, then reranks the combined results with a cross-encoder model. The top-k chunks are passed to a generation model with a strict prompt that requires citations and a confidence statement. A separate validation agent cross-references the generated answer against the retrieved context to flag unsupported claims.
 
-    The frontend is built with React and provides a chat-like interface with source citations, confidence scores, and the ability to drill down into referenced documents.`,
+    FRONTEND AND USER EXPERIENCE: The React interface shows the answer, a confidence score, and clickable citations that open the referenced document at the relevant passage. Users can inspect the source, which builds trust and makes the tool useful for research rather than just quick answers. Search history and feedback are stored to improve the retrieval model over time.
+
+    RESULTS: The system achieved a measured accuracy of 94% on a held-out set of legal questions, up from 67% with a naive vector-only approach. Response times stayed under three seconds for typical queries. The firm deployed the tool to over fifty legal professionals, and source citations became the most-used feature.`,
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
@@ -144,11 +150,15 @@ export const projectsData = {
     id: 4,
     title: "Solutions Zilla Call Portal",
     description: "Enterprise call center management with AI-powered analytics and intelligent routing",
-    fullDescription: `Solutions Zilla Call Portal is a comprehensive web application for BPO and call center operations, enhanced with AI-powered analytics and intelligent call routing.
+    fullDescription: `THE PROBLEM: Solutions Zilla runs a BPO operation with over forty agents handling inbound and outbound calls. Calls were being routed manually, supervisors had no live visibility into agent state, and leads were frequently lost between the dialer and the CRM. The operation needed a single portal that could route calls intelligently, monitor agents in real time, and keep CRM records synchronized.
 
-    The portal features a sophisticated backend built with Laravel, providing secure user management, lead tracking, and detailed analytics. AI integration enables automatic call sentiment analysis, agent performance scoring, and predictive lead routing.
+    THE APPROACH: I built a call center portal that combines an Asterisk-based dialer with a Laravel backend and a React dashboard. The dialer owns the voice layer, the backend owns the business logic, and the dashboard gives supervisors and agents a live view of the floor.
 
-    The dashboard offers real-time insights into call center performance with customizable widgets, exportable reports, and automated alerting. The system handles thousands of leads daily with sub-second query performance.`,
+    ARCHITECTURE: Asterisk handles SIP registration, call bridging, and dialplan execution. The Laravel application connects to Asterisk over the Manager Interface and listens to call events in real time. Agent state, queue depth, and call outcomes are pushed through a Redis-backed WebSocket layer to the React dashboard. Campaign routing rules, lead ordering, and compliance windows live in the Laravel service rather than the dialplan, so they can be tested and versioned. CRM updates are written through queued jobs with retries, ensuring call records and dispositions are never lost because of a temporary API outage.
+
+    INTELLIGENT ROUTING: Calls are routed based on agent availability, skill, language, and recent performance. A dropped call is automatically re-queued or flagged for callback. The system captures call recordings, CDRs, and dispositions, then builds daily and hourly reports for supervisors. A health monitor watches SIP trunk registration, queue length, and agent wrap-up time, alerting the team before a small issue becomes an outage.
+
+    RESULTS: Call routing became faster and more consistent. Supervisors gained real-time visibility that reduced reaction time. Lead loss between the dialer and the CRM dropped to near zero, and the platform handled thousands of daily calls on a single mid-tier server.`,
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",

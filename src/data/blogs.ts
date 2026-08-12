@@ -1,6 +1,8 @@
 import blogLaravelVsNode from "@/assets/blog-laravel-vs-node.jpg";
 import blogAsteriskVsTwilio from "@/assets/blog-asterisk-vs-twilio.jpg";
 import blogN8nVsCustom from "@/assets/blog-n8n-vs-custom.jpg";
+import blogMysqlVsPostgres from "@/assets/blog-mysql-vs-postgres.jpg";
+import blogRedisVsDb from "@/assets/blog-redis-vs-db.jpg";
 
 export interface BlogPost {
   id: string;
@@ -15,6 +17,129 @@ export interface BlogPost {
 }
 
 export const blogsData: BlogPost[] = [
+  {
+    id: "24",
+    title: "Redis vs Database Caching in Laravel: When to Use Each",
+    slug: "redis-vs-database-caching-laravel",
+    excerpt: "A practical guide to choosing between Redis and database query caching in Laravel, covering cache invalidation, cache stamps, TTL strategy, and the exact rules I use on production SaaS backends.",
+    content: `## The short answer
+
+Use **Redis** for high-read, low-write data that can live outside the database: user sessions, API rate-limit counters, real-time leaderboards, and precomputed dashboard tiles. Use **database query caching** only as a short-term safety net for slow, rarely-changing queries that are expensive to recalculate.
+
+Redis is a separate memory store. Database query caching is a bandage. Know which one you are reaching for.
+
+## Side by side
+
+| Dimension | Redis cache | Database query cache |
+|---|---|---|
+| Speed | Sub-millisecond | Milliseconds to tens of milliseconds |
+| Throughput | Very high, limited by network and memory | Bounded by database load |
+| Invalidation | Explicit by key or tag; you control it | Automatic or TTL-based; often opaque |
+| Data types | Strings, hashes, lists, sets, sorted sets | Only query result sets |
+| Best for | Sessions, counters, rankings, temporary locks | Rarely-changing heavy aggregations |
+| Risk | Memory pressure, eviction surprises | Stale data, cache stampede on expiry |
+
+## When Redis is the right choice
+
+- **User sessions and authentication state**: Redis gives shared, fast, TTL-managed session storage across multiple Laravel Octane workers or servers.
+- **Rate limiting and counters**: Increment operations are atomic and fast, which is perfect for API throttling and abuse detection.
+- **Real-time features**: Sorted sets and pub/sub are the backbone of leaderboards, notification counts, and live dashboards.
+- **Job queue storage**: Laravel Horizon runs on Redis and provides the best observability for queue workers.
+
+## When database query caching makes sense
+
+Query caching is useful when a query is slow to run, the underlying data changes infrequently, and the result is acceptable for a few seconds. A typical example is a cached aggregate for a public dashboard that refreshes every minute.
+
+I almost always set a short TTL, 60 seconds or less, and I never rely on database query caching for data that is user-specific or business-critical. The invalidation story is too weak.
+
+## How I avoid cache stampedes
+
+A cache stampede happens when a popular cache key expires and every request tries to rebuild it at once. In Laravel, I use:
+
+- **Randomized TTLs**: Add a small jitter so keys do not all expire simultaneously.
+- **Cache warmers**: Precompute expensive values in scheduled commands before the cache expires.
+- **Locking with Cache::lock**: Let only one process rebuild the value while others serve stale data briefly or wait.
+- **Cache tags**: When available, invalidate related keys in one operation instead of hunting individual keys.
+
+## My production rules
+
+1. Default to no cache. Write the query correctly first.
+2. If the query is still slow, add a short TTL query cache as a buffer.
+3. If the data is accessed frequently or shared across users, move it to Redis with explicit invalidation.
+4. Always log cache hit rates and eviction rates so you know when the cache is helping or hiding a deeper problem.
+
+## What I watch in Laravel Horizon
+
+When Redis is used for queues, I monitor queue length, throughput, failed jobs, and worker memory. A healthy queue drains faster than it fills; a flat or growing queue is a signal that the job design, worker count, or downstream dependency needs attention.
+
+## Final thought
+
+Caching is a powerful tool, but it is also a liability when it becomes an invisible layer of state. The best systems I have built use Redis deliberately, with named keys, documented TTLs, and clear invalidation paths. That is how you keep a fast system from becoming a mysterious one.`,
+    featured_image: blogRedisVsDb,
+    published_at: "2026-01-23",
+    author: "Usama",
+    tags: ["Laravel", "Redis", "Performance", "Backend", "Caching"],
+  },
+  {
+    id: "23",
+    title: "MySQL vs PostgreSQL for Laravel SaaS: Which I Choose and Why",
+    slug: "mysql-vs-postgresql-laravel-saas",
+    excerpt: "A practical comparison of MySQL and PostgreSQL for Laravel SaaS applications, covering JSON handling, scaling patterns, backups, and the decision framework I use on production systems.",
+    content: `## The short answer
+
+For most Laravel SaaS products I build, **MySQL** is the default because it is predictable, well supported by the Laravel ecosystem, and cheaper to run at small scale. I move to **PostgreSQL** when the product needs advanced JSON operations, full-text search, complex analytics, or strict data integrity guarantees.
+
+Both are excellent databases. The wrong choice is usually the one that optimizes for a scenario you have not reached yet.
+
+## Side by side
+
+| Dimension | MySQL 8 | PostgreSQL 16 |
+|---|---|---|
+| Laravel ecosystem | First-class: migrations, Eloquent, Scout, Passport | Excellent support, some packages default to MySQL |
+| Hosting cost | Cheaper on shared and managed VPS platforms | Slightly more expensive on managed providers |
+| JSON columns | Functional JSON functions in MySQL 8 | Richer JSONB indexing and operations |
+| Full-text search | Available, but less flexible | Native full-text and trigram search |
+| Complex queries | Good | Better window functions, CTEs, and analytical queries |
+| Replication | Mature and widely documented | Streaming replication, logical replication very strong |
+| Operational familiarity | Easier to find DBAs and tooling | Slightly steeper on some shared hosts |
+
+## When MySQL is the right choice
+
+- **Standard SaaS CRUD**: user accounts, subscriptions, orders, roles, permissions, and content management.
+- **Teams already comfortable with MySQL**: fewer surprises during incidents and easier hiring.
+- **Cost-sensitive hosting**: many shared and managed Laravel hosts optimize for MySQL.
+- **Simple read replicas**: MySQL replication is mature and easy to set up for read scaling.
+
+## When PostgreSQL is the right choice
+
+- **Heavy JSON or unstructured data**: JSONB indexing and querying is significantly better than MySQL JSON.
+- **Built-in search**: you can avoid a separate search engine for many use cases.
+- **Analytics-heavy features**: window functions, CTEs, and advanced aggregations are cleaner.
+- **Strict integrity requirements**: foreign keys, constraints, and triggers are more robustly enforced.
+
+## How I handle the choice in practice
+
+I start every project with MySQL unless the requirements explicitly call for PostgreSQL features. This keeps the team moving fast and keeps hosting simple. If a feature later demands PostgreSQL, I treat it as a migration milestone rather than a day-one decision.
+
+For large read-heavy workloads, I add read replicas. For heavy search, I integrate Meilisearch or Elasticsearch rather than overloading the primary database. For caching, I use Redis. The database should not be asked to solve every performance problem.
+
+## Backup and disaster recovery
+
+Regardless of the database, I set up:
+
+- **Automated daily backups** with tested restores.
+- **Point-in-time recovery** where the hosting provider supports it.
+- **Separate offsite backup copies** for business-critical data.
+- **Runbook documents** so the team knows exactly how to restore without improvisation.
+
+## Final thought
+
+MySQL versus PostgreSQL is often a debate about future-proofing. My rule is to choose the database that fits the product as it exists today, with a clear migration path if the requirements change. A fast, well-indexed MySQL database will outperform a poorly tuned PostgreSQL database every time. The skill matters more than the brand.`,
+    featured_image: blogMysqlVsPostgres,
+    published_at: "2026-01-22",
+    author: "Usama",
+    tags: ["Laravel", "MySQL", "PostgreSQL", "Database", "SaaS"],
+  },
   {
     id: "20",
     title: "Laravel vs Node.js for Backend Systems: How I Choose in 2026",
