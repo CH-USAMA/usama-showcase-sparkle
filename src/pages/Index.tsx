@@ -80,6 +80,7 @@ const Index = () => {
         <section id="experience" className="scroll-mt-24"><ExperienceStats /></section>
         <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
         <IndustryProof />
+        <Testimonials />
         <WhoIWorkWith />
         <FreelancingPlatforms />
         <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
