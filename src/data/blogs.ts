@@ -1,6 +1,8 @@
 import blogLaravelVsNode from "@/assets/blog-laravel-vs-node.jpg";
 import blogAsteriskVsTwilio from "@/assets/blog-asterisk-vs-twilio.jpg";
 import blogN8nVsCustom from "@/assets/blog-n8n-vs-custom.jpg";
+import blogMysqlVsPostgres from "@/assets/blog-mysql-vs-postgres.jpg";
+import blogRedisVsDb from "@/assets/blog-redis-vs-db.jpg";
 
 export interface BlogPost {
   id: string;
