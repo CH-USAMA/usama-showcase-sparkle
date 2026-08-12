@@ -40,7 +40,7 @@ const LatestBlogs = () => {
               <Card className="overflow-hidden hover:shadow-glow transition-all duration-500 h-full border-border/30 bg-card/60 backdrop-blur-sm rounded-2xl group">
                 {post.featured_image && (
                   <div className="aspect-video overflow-hidden">
-                    <img src={post.featured_image} alt={post.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={post.featured_image} alt={post.title} loading="lazy" decoding="async" width={800} height={450} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 )}
                 <CardHeader className="pb-3">

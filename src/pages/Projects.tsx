@@ -228,6 +228,9 @@ const Projects = () => {
                       alt={`Screenshot of ${project.title}, ${project.category} project built with ${project.technologies.slice(0,3).join(", ")}`}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={450}
                     />
                     {project.featured && (
                       <Badge className="absolute top-4 left-4 bg-accent-gradient border-0">
