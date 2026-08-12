@@ -150,11 +150,15 @@ export const projectsData = {
     id: 4,
     title: "Solutions Zilla Call Portal",
     description: "Enterprise call center management with AI-powered analytics and intelligent routing",
-    fullDescription: `Solutions Zilla Call Portal is a comprehensive web application for BPO and call center operations, enhanced with AI-powered analytics and intelligent call routing.
+    fullDescription: `THE PROBLEM: Solutions Zilla runs a BPO operation with over forty agents handling inbound and outbound calls. Calls were being routed manually, supervisors had no live visibility into agent state, and leads were frequently lost between the dialer and the CRM. The operation needed a single portal that could route calls intelligently, monitor agents in real time, and keep CRM records synchronized.
 
-    The portal features a sophisticated backend built with Laravel, providing secure user management, lead tracking, and detailed analytics. AI integration enables automatic call sentiment analysis, agent performance scoring, and predictive lead routing.
+    THE APPROACH: I built a call center portal that combines an Asterisk-based dialer with a Laravel backend and a React dashboard. The dialer owns the voice layer, the backend owns the business logic, and the dashboard gives supervisors and agents a live view of the floor.
 
-    The dashboard offers real-time insights into call center performance with customizable widgets, exportable reports, and automated alerting. The system handles thousands of leads daily with sub-second query performance.`,
+    ARCHITECTURE: Asterisk handles SIP registration, call bridging, and dialplan execution. The Laravel application connects to Asterisk over the Manager Interface and listens to call events in real time. Agent state, queue depth, and call outcomes are pushed through a Redis-backed WebSocket layer to the React dashboard. Campaign routing rules, lead ordering, and compliance windows live in the Laravel service rather than the dialplan, so they can be tested and versioned. CRM updates are written through queued jobs with retries, ensuring call records and dispositions are never lost because of a temporary API outage.
+
+    INTELLIGENT ROUTING: Calls are routed based on agent availability, skill, language, and recent performance. A dropped call is automatically re-queued or flagged for callback. The system captures call recordings, CDRs, and dispositions, then builds daily and hourly reports for supervisors. A health monitor watches SIP trunk registration, queue length, and agent wrap-up time, alerting the team before a small issue becomes an outage.
+
+    RESULTS: Call routing became faster and more consistent. Supervisors gained real-time visibility that reduced reaction time. Lead loss between the dialer and the CRM dropped to near zero, and the platform handled thousands of daily calls on a single mid-tier server.`,
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
