@@ -52,13 +52,15 @@ export const projectsData = {
     id: 2,
     title: "Smart Lead Qualification Engine",
     description: "AI-driven lead scoring with n8n automation, reducing qualification time by 85%",
-    fullDescription: `Built an intelligent lead qualification system that combines n8n workflow automation with OpenAI's GPT-4 to score, categorize, and route leads automatically.
+    fullDescription: `THE PROBLEM: A B2B SaaS sales team was spending more than six hours a day manually qualifying inbound leads. Leads arrived from web forms, email, paid campaigns, and partner integrations, but there was no consistent scoring model. High-value leads sat in the same queue as low-fit ones, and response delays caused the company to lose opportunities to faster competitors.
 
-    The system ingests leads from multiple sources (web forms, email, API integrations), enriches them with company data, and uses AI to score each lead on a 1-10 scale based on custom criteria including company size, industry fit, budget signals, and engagement patterns.
+    THE APPROACH: I built an automated lead qualification engine that scores, enriches, categorizes, and routes every lead in real time. The goal was to remove the repetitive triage work while surfacing the right leads to sales within minutes of submission.
 
-    High-scoring leads are automatically routed to sales reps via Slack with AI-generated briefings. Low-scoring leads enter nurture sequences. The entire pipeline runs 24/7 without human intervention.
+    ARCHITECTURE: The system is built around an n8n workflow that receives leads from multiple sources through webhooks and API integrations. Each lead is enriched with company data, then scored by an LLM against an ideal customer profile that includes company size, industry, budget signals, and engagement patterns. The scoring model outputs a numeric score and a short rationale. High-scoring leads are routed to the CRM and to a Slack channel with an AI-generated briefing. Lower-scoring leads enter an automated nurture sequence. The whole pipeline is idempotent, with retries and a dead-letter queue for failures.
 
-    Integration with the client's CRM (HubSpot) ensures seamless data flow, and a real-time dashboard built in React provides visibility into pipeline health and conversion metrics.`,
+    INTEGRATIONS AND OBSERVABILITY: HubSpot receives the scored lead record and a set of custom properties. Sentry and execution logs track errors and scoring anomalies. The workflow exports to version-controlled JSON and is deployed to a self-hosted n8n instance. A React dashboard provides visibility into pipeline health, conversion rates, and score distribution over time.
+
+    RESULTS: The qualification bottleneck disappeared. The sales team now spends its time on leads that have already been scored and briefed, response time dropped to minutes, and the lead-to-close rate improved because the right prospects were reached faster. The system runs continuously without human intervention.`,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
