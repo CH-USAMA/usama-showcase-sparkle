@@ -19,6 +19,7 @@ const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
 
 const Fallback = () => <div className="py-20" />;
 
