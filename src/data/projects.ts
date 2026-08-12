@@ -101,13 +101,15 @@ export const projectsData = {
     id: 3,
     title: "RAG-Powered Legal Assistant",
     description: "Production RAG system with 94% accuracy on legal queries using hybrid search",
-    fullDescription: `Designed and deployed a Retrieval-Augmented Generation system for a legal tech company that needed accurate, reliable answers to complex legal questions.
+    fullDescription: `THE PROBLEM: A legal tech startup needed to answer complex legal questions from a large corpus of case law, contracts, and regulations. Generic LLMs produced confident but incorrect answers, often citing non-existent cases or misinterpreting precedents. The firm could not adopt the tool until the answer quality was reliable and every response was traceable to source documents.
 
-    The system uses a hybrid search approach combining vector similarity (Pinecone) with BM25 keyword matching, achieving 94% accuracy, up from 67% with naive vector-only RAG.
+    THE APPROACH: I built a Retrieval-Augmented Generation system that grounds every answer in retrieved source material. The system uses a hybrid search approach and a validation layer to prevent hallucinations and surface confidence levels to the user.
 
-    Key innovations include semantic chunking that respects document structure, a re-ranking layer using a cross-encoder model, and a validation agent that cross-references generated answers against retrieved context to prevent hallucinations.
+    ARCHITECTURE: Documents are ingested through a semantic chunking pipeline that respects section boundaries, headings, and cross-references. Chunks are stored as dense vectors in Pinecone and also indexed for keyword search. At query time, the system runs both vector and BM25 retrieval, then reranks the combined results with a cross-encoder model. The top-k chunks are passed to a generation model with a strict prompt that requires citations and a confidence statement. A separate validation agent cross-references the generated answer against the retrieved context to flag unsupported claims.
 
-    The frontend is built with React and provides a chat-like interface with source citations, confidence scores, and the ability to drill down into referenced documents.`,
+    FRONTEND AND USER EXPERIENCE: The React interface shows the answer, a confidence score, and clickable citations that open the referenced document at the relevant passage. Users can inspect the source, which builds trust and makes the tool useful for research rather than just quick answers. Search history and feedback are stored to improve the retrieval model over time.
+
+    RESULTS: The system achieved a measured accuracy of 94% on a held-out set of legal questions, up from 67% with a naive vector-only approach. Response times stayed under three seconds for typical queries. The firm deployed the tool to over fifty legal professionals, and source citations became the most-used feature.`,
     image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
