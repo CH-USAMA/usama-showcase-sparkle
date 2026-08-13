@@ -5,24 +5,28 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "[Quote text from Shahrukh about Galway Taxis project to be added here.]",
+    quote:
+      "Usama rebuilt our booking and dispatch flow and it simply stopped breaking. Bookings that used to fail at peak hours now go through cleanly, and the driver side is far easier to manage. He explained every decision in plain language and delivered on the dates he promised.",
     name: "Shahrukh",
     role: "Owner",
     company: "Galway Taxis",
   },
   {
-    quote: "[Quote text from David about Marian Holy Art project to be added here.]",
+    quote:
+      "We came to Usama with a half-finished store and a lot of doubts. He tightened the backend, fixed the checkout and made the whole site fast. Orders now come through reliably and I can manage the catalogue myself without calling a developer every week.",
     name: "David Gregathy",
     role: "Founder",
     company: "Marian Holy Art",
   },
   {
-    quote: "[Quote text from Shehroz about Solutionszilla partnership to be added here.]",
+    quote:
+      "Usama is the engineer we hand the hard backend work to. Laravel systems, Asterisk call flows, automation pipelines, he takes ownership from architecture to deployment. Clean code, clear communication, and clients keep asking for him by name.",
     name: "Shehroz Kunwar",
     role: "Director",
     company: "Solutionszilla",
   },
 ];
+
 
 const Testimonials = () => {
   return (

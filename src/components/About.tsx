@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Workflow, Server, Building2, Bot, PhoneCall, Plug, Radio, Sparkles, ShieldCheck, Download } from "lucide-react";
 import cvAsset from "@/assets/usama-cv.pdf.asset.json";
+import { trackEvent } from "@/lib/analytics";
 
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -171,7 +172,7 @@ const About = () => {
               <p className="text-muted-foreground font-inter text-sm">
                 Prefer the full background in one page?
               </p>
-              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf">
+              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf" onClick={() => trackEvent("cv_download", { location: "about" })}>
                 <Button variant="outline" className="gap-2 rounded-xl">
                   <Download className="w-4 h-4" />
                   Download CV (PDF)

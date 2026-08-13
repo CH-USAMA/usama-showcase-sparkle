@@ -9,6 +9,8 @@ type Msg = { role: "user" | "assistant"; content: string };
 type Lead = { name: string; email: string; phone: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+import { trackEvent } from "@/lib/analytics";
+
 const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
 const LEAD_KEY = "usama_chat_lead_v1";
 
@@ -114,6 +116,8 @@ const AIChatbot = () => {
     setLeadError("");
     const newLead: Lead = { name, email, phone };
     setLead(newLead);
+    trackEvent("chatbot_lead_submit", { has_email: Boolean(email), has_phone: Boolean(phone) });
+
     try { localStorage.setItem(LEAD_KEY, JSON.stringify(newLead)); } catch {}
 
     // Notify Usama immediately about the new lead
@@ -226,7 +230,7 @@ const AIChatbot = () => {
             className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
           >
             <Button
-              onClick={() => setIsOpen(true)}
+              onClick={() => { setIsOpen(true); trackEvent("chatbot_open"); }}
               className="w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-glow hover:shadow-cool hover:scale-110 transition-all duration-300 relative"
               aria-label="Open chat"
             >
@@ -418,6 +422,7 @@ const AIChatbot = () => {
                   >
                     <a
                       href="https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20book%20a%2015-min%20intro%20call"
+                      onClick={() => trackEvent("whatsapp_click", { location: "chatbot" })}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 w-full text-xs font-medium px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"

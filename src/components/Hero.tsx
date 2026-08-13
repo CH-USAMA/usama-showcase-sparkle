@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import profileImage from "@/assets/usama-profile.jpg";
 import profileImageWebp from "@/assets/usama-profile.webp";
 import cvAsset from "@/assets/usama-cv.pdf.asset.json";
+import { trackEvent } from "@/lib/analytics";
 
 import { lazy, Suspense } from "react";
 
@@ -76,7 +77,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-wrap gap-3 justify-center lg:justify-start"
             >
-              <a href="/book">
+              <a href="/book" onClick={() => trackEvent("book_call_click", { location: "hero" })}>
                 <Button size="lg" variant="hero" className="gap-2 shadow-glow rounded-xl px-8">
                   Book a Consultation
                 </Button>
@@ -86,7 +87,7 @@ const Hero = () => {
                   View Projects
                 </Button>
               </a>
-              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf">
+              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf" onClick={() => trackEvent("cv_download", { location: "hero" })}>
                 <Button size="lg" variant="ghost" className="gap-2 rounded-xl">
                   <Download className="w-4 h-4" />
                   Download CV

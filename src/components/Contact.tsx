@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ShieldCheck, Star, CalendarCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
+import { trackEvent } from "@/lib/analytics";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
@@ -104,7 +105,7 @@ const Contact = () => {
 
           <AnimatedSection direction="right" delay={0.2}>
             <Card className="p-8 bg-card-gradient border-border/30 shadow-glow rounded-2xl">
-              <form action="https://formspree.io/f/mkgzjlde" method="POST" className="space-y-6">
+              <form action="https://formspree.io/f/mkgzjlde" method="POST" className="space-y-6" onSubmit={() => trackEvent("contact_form_submit")}>
                 <p className="text-muted-foreground text-center text-sm mb-6 font-inter">
                   Share your project details, and I'll get back to you with the best solution.
                 </p>
