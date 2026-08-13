@@ -116,6 +116,8 @@ const AIChatbot = () => {
     setLeadError("");
     const newLead: Lead = { name, email, phone };
     setLead(newLead);
+    trackEvent("chatbot_lead_submit", { has_email: Boolean(email), has_phone: Boolean(phone) });
+
     try { localStorage.setItem(LEAD_KEY, JSON.stringify(newLead)); } catch {}
 
     // Notify Usama immediately about the new lead
