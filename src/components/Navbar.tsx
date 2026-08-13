@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import logoUsama from "@/assets/logo-usama.png";
+import logoUsama from "@/assets/logo-usama.webp";
 
 
 const links = [

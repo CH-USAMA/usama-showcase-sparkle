@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Card } from "@/components/ui/card";
-import iconSaas from "@/assets/industry-saas.png";
-import iconVoip from "@/assets/industry-voip.png";
-import iconEcommerce from "@/assets/industry-ecommerce.png";
-import iconAutomation from "@/assets/industry-automation.png";
+import iconSaas from "@/assets/industry-saas.webp";
+import iconVoip from "@/assets/industry-voip.webp";
+import iconEcommerce from "@/assets/industry-ecommerce.webp";
+import iconAutomation from "@/assets/industry-automation.webp";
 
 const industries = [
   {
