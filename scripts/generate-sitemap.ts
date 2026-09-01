@@ -28,6 +28,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/services", changefreq: "monthly", priority: "0.9" },
   { path: "/projects", changefreq: "weekly", priority: "0.8" },
   { path: "/blog", changefreq: "daily", priority: "0.9" },
+  { path: "/laravel-scaling-checklist", changefreq: "monthly", priority: "0.8" },
 ];
 
 const serviceEntries: SitemapEntry[] = servicesData.map((s) => ({

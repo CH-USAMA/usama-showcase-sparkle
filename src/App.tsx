@@ -21,6 +21,7 @@ const AdminScraper = lazy(() => import("./pages/AdminScraper"));
 const Book = lazy(() => import("./pages/Book"));
 const Services = lazy(() => import("./pages/Services"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+const Checklist = lazy(() => import("./pages/Checklist"));
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/book" element={<Book />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/laravel-scaling-checklist" element={<Checklist />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

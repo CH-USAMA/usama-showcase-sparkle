@@ -112,7 +112,15 @@ const Blog = () => {
                 <Button type="submit" className="rounded-xl">Subscribe</Button>
               </form>
             </div>
+            <p className="text-sm text-muted-foreground mt-4">
+              Prefer something actionable right now?{" "}
+              <Link to="/laravel-scaling-checklist" className="text-primary underline underline-offset-4">
+                Read the free Laravel Scaling Checklist
+              </Link>
+              .
+            </p>
           </div>
+
 
           <div className="max-w-lg mx-auto mb-16">
             <div className="relative group">
