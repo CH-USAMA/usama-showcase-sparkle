@@ -11,14 +11,14 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-4 gap-10 items-start text-center md:text-left">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-inter font-bold mb-2 text-foreground tracking-tight">Usama Munawar</h3>
+            <h2 className="text-2xl font-inter font-bold mb-2 text-foreground tracking-tight">Usama Munawar</h2>
             <p className="text-muted-foreground font-inter text-sm max-w-md">
               Backend Systems Engineer & Laravel Automation Specialist. Building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations for production teams.
             </p>
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Quick Links</h4>
+            <h3 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Quick Links</h3>
             <ul className="space-y-2 text-sm font-inter text-muted-foreground">
               <li><a href="/book" className="hover:text-primary transition-colors">Book a Call</a></li>
               <li><a href="/services/laravel-development" className="hover:text-primary transition-colors">Laravel Development</a></li>
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Connect</h4>
+            <h3 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Connect</h3>
             <div className="flex justify-center md:justify-start gap-2">
               {[
                 { href: "https://github.com/CH-USAMA", icon: Github, label: "GitHub" },
