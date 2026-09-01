@@ -59,7 +59,7 @@ const Services = () => (
               What I do
             </span>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-inter font-bold text-foreground tracking-tight leading-tight">
-              Backend engineering services
+              Senior Laravel Development & Backend Engineering Services
             </h1>
             <p className="mt-6 text-lg text-muted-foreground font-inter leading-relaxed">
               Four areas, one engineer. Each engagement ships with tests, deployment, and documentation so your team owns
