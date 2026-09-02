@@ -26,6 +26,7 @@ const Portfolio = () => {
   const projects = [
     {
       title: "Solutions Zilla Call Portal",
+      image: imgCallPortal,
       description: "Asterisk-powered call center platform with intelligent dispatch, live agent monitoring, and CRM-integrated workflows.",
       problem: "Manual call routing across 40+ agents caused dropped leads and inconsistent SLAs.",
       solution: "Built a Laravel + Asterisk dispatch engine with real-time queues, AGI scripting, and CRM webhooks.",
@@ -38,6 +39,7 @@ const Portfolio = () => {
     },
     {
       title: "iSmart Clinic, Healthcare SaaS",
+      image: imgClinic,
       description: "Multi-tenant healthcare platform with automated patient engagement, billing, and audit trails.",
       problem: "Clinics were losing patients to no-shows and manual billing reconciliation errors.",
       solution: "Designed a multi-tenant Laravel backend with WhatsApp automation, role-based access, and event-sourced audit logs.",
@@ -50,6 +52,7 @@ const Portfolio = () => {
     },
     {
       title: "Smart Lead Qualification Engine",
+      image: imgLeadEngine,
       description: "Automation infrastructure that scores, routes, and enriches inbound leads end-to-end.",
       problem: "SaaS sales team spent 6+ hours/day manually qualifying low-fit leads.",
       solution: "n8n orchestration + LLM scoring + CRM sync, with retries, dead-letter queues, and observability baked in.",
@@ -62,6 +65,7 @@ const Portfolio = () => {
     },
     {
       title: "RAG-Powered Legal Assistant",
+      image: imgRag,
       description: "Production RAG system with hybrid search and validation agents for legal Q&A.",
       problem: "Generic LLM answers hallucinated case law, blocking adoption inside the firm.",
       solution: "Built hybrid (vector + BM25) retrieval, citation-grounded answers, and an evaluation harness.",
@@ -74,6 +78,7 @@ const Portfolio = () => {
     },
     {
       title: "Focus Interiors, Commerce Platform",
+      image: imgInteriors,
       description: "Headless commerce with AI recommendations, automated SEO, and intelligent search.",
       problem: "Low conversion rates and poor product discoverability on a luxury catalog.",
       solution: "Migrated to a headless stack with AI-driven search, automated metadata, and Core Web Vitals tuning.",
@@ -86,6 +91,7 @@ const Portfolio = () => {
     },
     {
       title: "AI Content Operations Pipeline",
+      image: imgContentOps,
       description: "Multi-agent system that drafts, reviews, and publishes SEO content autonomously.",
       problem: "Editorial team couldn't scale output without sacrificing quality or brand voice.",
       solution: "Built a LangChain-based agent graph with reviewer agents, brand-voice evals, and CMS publishing hooks.",
@@ -101,6 +107,7 @@ const Portfolio = () => {
   const moreProjects = [
     {
       title: "MOE Limo, Omnichannel Operations Platform",
+      image: imgLimo,
       description: "Premium ticket management and dispatch platform for the modern limousine and transport industry.",
       technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
       liveUrl: "https://moelimo.solutionszilla.com/login",
@@ -111,6 +118,7 @@ const Portfolio = () => {
     },
     {
       title: "Jabulani Quarries, Corporate Site",
+      image: imgQuarry,
       description: "Corporate portfolio site for a South African quarry and crushing operation, fast, responsive, and SEO-ready.",
       technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
       liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
@@ -121,6 +129,7 @@ const Portfolio = () => {
     },
     {
       title: "Five Stars Galway, Smart Booking",
+      image: imgTaxi,
       description: "Taxi booking platform with intelligent route optimization, Google Maps integration, and automated dispatch.",
       technologies: ["WordPress", "Google Maps API", "Booking System", "SEO"],
       liveUrl: "https://www.fivestarsgalwaytaxis.ie",
@@ -130,6 +139,7 @@ const Portfolio = () => {
     },
     {
       title: "Jabulani Hardware Store",
+      image: imgHardware,
       description: "Complete South African hardware e-commerce platform with Stripe payments, Google login, fast product search, and optimized checkout flow.",
       technologies: ["E-Commerce", "Stripe", "Google Auth", "Fast Search"],
       liveUrl: "https://store.jabulanigroupofcompanies.co.za",
@@ -139,6 +149,7 @@ const Portfolio = () => {
     },
     {
       title: "Solutions Zilla Software",
+      image: imgSoftwareHouse,
       description: "Professional software house website showcasing development services, team expertise, and client portfolio with modern UI/UX.",
       technologies: ["Web Development", "UI/UX", "SEO", "Branding"],
       liveUrl: "https://software.solutionszilla.com",
@@ -217,16 +228,17 @@ const Portfolio = () => {
                 <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
                   <Card className="group overflow-hidden hover:shadow-elegant transition-all duration-500 cursor-pointer h-full border-border/30 bg-card/60 backdrop-blur-sm rounded-2xl">
                     <div className="relative overflow-hidden">
-                      {/* CSS gradient placeholder instead of stock photos */}
-                      <div className={`w-full h-44 sm:h-48 lg:h-52 bg-gradient-to-br ${projectGradients[index % projectGradients.length]} flex items-center justify-center relative`}>
-                        <div className="absolute inset-0 opacity-30" style={{
-                          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-                          backgroundSize: '24px 24px'
-                        }} />
-                        <div className="relative text-center">
-                          <div className="text-3xl sm:text-4xl font-display font-bold text-foreground/80 mb-2">{getInitials(project.title)}</div>
-                          <div className="text-xs font-inter text-muted-foreground uppercase tracking-widest">{project.badge}</div>
-                        </div>
+                      <div className="w-full h-44 sm:h-48 lg:h-52 relative bg-muted/20 overflow-hidden">
+                        <img
+                          src={(project as any).image}
+                          alt={`${project.title} interface preview`}
+                          loading="lazy"
+                          decoding="async"
+                          width={1024}
+                          height={576}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent" />
                       </div>
                       <div className="absolute top-3 left-3 flex gap-2">
                         <span className="bg-card/90 backdrop-blur-md text-primary text-xs font-inter font-semibold px-3 py-1.5 rounded-lg border border-border/30">
