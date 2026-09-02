@@ -165,9 +165,8 @@ const Portfolio = () => {
     ? projects
     : allProjects.filter(p => p.category === activeFilter);
 
-  const getInitials = (title: string) => {
-    return title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
-  };
+
+
 
   return (
     <section id="portfolio" className="py-24 bg-muted/10 relative overflow-hidden">
