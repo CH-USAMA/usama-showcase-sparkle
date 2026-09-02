@@ -122,9 +122,9 @@ const Navbar = () => {
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color,border-color,backdrop-filter] duration-large ease-out-expo ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color,border-color] duration-large ease-out-expo ${
           scrolled
-            ? "border-b border-hairline/[0.08] bg-background/80 py-2.5 backdrop-blur-xl"
+            ? "border-b border-hairline/[0.08] bg-background/80 py-2.5 backdrop-blur-md"
             : "border-b border-transparent py-4 lg:py-6"
         }`}
       >
@@ -222,7 +222,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={transition.standard}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl xl:hidden"
+            className="fixed inset-0 z-40 bg-background/95 xl:hidden"
           >
             <div className="container mx-auto flex h-full flex-col pb-10 pt-24">
               <ul className="flex-1 overflow-y-auto">
