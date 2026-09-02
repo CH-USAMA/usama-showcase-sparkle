@@ -1,65 +1,116 @@
-import { Github, Linkedin, Mail, Twitter, Rss, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Github, Linkedin, Mail, Rss, Twitter } from "lucide-react";
+import { OWNER, SOCIALS } from "@/data/site";
 
-const Footer = () => {
-  return (
-    <footer className="relative bg-card border-t border-border/30 py-16">
-      {/* Top glow line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px glow-line" />
+const SITEMAP = [
+  { label: "Work", to: "/projects" },
+  { label: "Services", to: "/services" },
+  { label: "Blog", to: "/blog" },
+  { label: "Book a call", to: "/book" },
+  { label: "Laravel scaling checklist", to: "/laravel-scaling-checklist" },
+];
 
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid md:grid-cols-4 gap-10 items-start text-center md:text-left">
-          <div className="md:col-span-2">
-            <h2 className="text-2xl font-inter font-bold mb-2 text-foreground tracking-tight">Usama Munawar</h2>
-            <p className="text-muted-foreground font-inter text-sm max-w-md">
-              Backend Systems Engineer & Laravel Automation Specialist. Building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations for production teams.
-            </p>
+const SERVICES = [
+  { label: "Laravel development", to: "/services/laravel-development" },
+  { label: "VoIP & Asterisk", to: "/services/voip-asterisk" },
+  { label: "Automation infrastructure", to: "/services/automation-n8n" },
+  { label: "AI integration", to: "/services/ai-integration" },
+];
+
+const SOCIAL_LINKS = [
+  { href: SOCIALS.github, icon: Github, label: "GitHub" },
+  { href: SOCIALS.linkedin, icon: Linkedin, label: "LinkedIn" },
+  { href: SOCIALS.x, icon: Twitter, label: "X" },
+  { href: `mailto:${OWNER.email}`, icon: Mail, label: "Email" },
+];
+
+const Footer = () => (
+  <footer className="relative border-t border-hairline/[0.08] bg-surface-1/30">
+    <div className="container mx-auto py-14 lg:py-16">
+      <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <div className="font-inter text-lg font-medium tracking-tight text-foreground">
+            {OWNER.name}
           </div>
-
-          <div className="space-y-3">
-            <h3 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Quick Links</h3>
-            <ul className="space-y-2 text-sm font-inter text-muted-foreground">
-              <li><a href="/book" className="hover:text-primary transition-colors">Book a Call</a></li>
-              <li><a href="/services/laravel-development" className="hover:text-primary transition-colors">Laravel Development</a></li>
-              <li><a href="/services/voip-asterisk" className="hover:text-primary transition-colors">VoIP &amp; Asterisk</a></li>
-              <li><a href="/services/automation-n8n" className="hover:text-primary transition-colors">Automation Infrastructure</a></li>
-              <li><a href="/services/ai-integration" className="hover:text-primary transition-colors">AI Integration</a></li>
-              <li><a href="/projects" className="hover:text-primary transition-colors">Projects</a></li>
-              <li><a href="/blog" className="hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="/sitemap.xml" className="hover:text-primary transition-colors">Sitemap</a></li>
-              <li><a href="/rss.xml" className="hover:text-primary transition-colors inline-flex items-center gap-1.5"><Rss className="w-3 h-3" /> RSS</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-sm font-inter font-semibold text-foreground uppercase tracking-wider">Connect</h3>
-            <div className="flex justify-center md:justify-start gap-2">
-              {[
-                { href: "https://github.com/CH-USAMA", icon: Github, label: "GitHub" },
-                { href: "https://www.linkedin.com/in/usama-works/", icon: Linkedin, label: "LinkedIn" },
-                { href: "https://x.com/usloopsama", icon: Twitter, label: "X" },
-                { href: "mailto:devusamaworks@gmail.com", icon: Mail, label: "Email" },
-              ].map((s, i) => (
-                <motion.div key={i} whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.9 }}>
-                  <Button size="icon" variant="outline" className="rounded-full border-border/40 text-foreground hover:text-primary hover:border-primary/50 transition-colors" asChild>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
-                      <s.icon className="w-5 h-5" />
-                    </a>
-                  </Button>
-                </motion.div>
-              ))}
-            </div>
+          <p className="mt-3 max-w-sm font-inter text-[13.5px] leading-relaxed text-muted-foreground">
+            Backend systems engineer. Laravel, automation infrastructure,
+            VoIP platforms, and AI integrations — built to run in production.
+          </p>
+          <div className="mt-6 flex items-center gap-2">
+            {SOCIAL_LINKS.map((s) => {
+              const Icon = s.icon;
+              const external = s.href.startsWith("http");
+              return (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-hairline/[0.1] text-muted-foreground transition-colors duration-standard hover:border-primary/40 hover:text-primary"
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </a>
+              );
+            })}
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-xs font-inter">© 2026 Usama Munawar. All rights reserved.</p>
-          <p className="text-muted-foreground text-xs font-inter">Built with Laravel, React & attention to detail.</p>
+        <nav className="lg:col-span-3" aria-label="Site">
+          <h2 className="mono-tiny text-subtle">Site</h2>
+          <ul className="mt-5 space-y-2.5">
+            {SITEMAP.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className="inline-flex min-h-[24px] items-center font-inter text-[13.5px] text-muted-foreground transition-colors duration-standard hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav className="lg:col-span-4" aria-label="Services">
+          <h2 className="mono-tiny text-subtle">Services</h2>
+          <ul className="mt-5 space-y-2.5">
+            {SERVICES.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className="inline-flex min-h-[24px] items-center font-inter text-[13.5px] text-muted-foreground transition-colors duration-standard hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <div className="mt-12 flex flex-col-reverse items-start justify-between gap-4 border-t border-hairline/[0.07] pt-6 sm:flex-row sm:items-center">
+        <p className="mono-tiny text-subtle">
+          © {new Date().getFullYear()} {OWNER.name} · {OWNER.location}
+        </p>
+        <div className="flex items-center gap-5">
+          <a
+            href="/rss.xml"
+            className="mono-tiny inline-flex min-h-[24px] items-center gap-1.5 text-subtle transition-colors duration-standard hover:text-muted-foreground"
+          >
+            <Rss className="h-3 w-3" aria-hidden="true" />
+            RSS
+          </a>
+          <a
+            href="/sitemap.xml"
+            className="mono-tiny inline-flex min-h-[24px] items-center text-subtle transition-colors duration-standard hover:text-muted-foreground"
+          >
+            Sitemap
+          </a>
         </div>
       </div>
-    </footer>
-  );
-};
+    </div>
+  </footer>
+);
 
 export default Footer;

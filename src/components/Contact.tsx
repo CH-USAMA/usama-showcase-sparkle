@@ -1,185 +1,349 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ShieldCheck, Star, CalendarCheck, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
+import type { FormEvent } from "react";
+import { Check, Loader2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import SectionHeader from "@/components/system/SectionHeader";
+import Reveal from "@/components/system/Reveal";
+import CTA from "@/components/system/CTA";
+import Telemetry from "@/components/system/Telemetry";
 import { trackEvent } from "@/lib/analytics";
-import AnimatedSection from "@/components/AnimatedSection";
+import { FORMSPREE_URL, OWNER, WHATSAPP_URL } from "@/data/site";
 
 const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
 
+const PROJECT_TYPES = [
+  "Laravel / backend system",
+  "SaaS platform or API",
+  "Automation infrastructure",
+  "VoIP / call centre",
+  "AI or RAG integration",
+  "Rescue an existing codebase",
+  "Something else",
+];
+
+const BUDGETS = [
+  "Under $2,000",
+  "$2,000 – $5,000",
+  "$5,000 – $15,000",
+  "$15,000+",
+  "Retainer / ongoing",
+  "Not sure yet",
+];
+
+const CHANNELS = [
+  { icon: Mail, label: "Email", value: OWNER.email, href: `mailto:${OWNER.email}` },
+  { icon: Phone, label: "WhatsApp", value: OWNER.phone, href: WHATSAPP_URL },
+  { icon: MapPin, label: "Based in", value: OWNER.location },
+];
+
+const field =
+  "w-full rounded-lg border border-hairline/[0.1] bg-surface-1/70 px-3.5 py-3 font-inter text-[14px] " +
+  "text-foreground placeholder:text-subtle transition-colors duration-standard " +
+  "hover:border-hairline/[0.18] focus:border-primary/60 focus:outline-none focus:ring-1 focus:ring-primary/40";
+
+type Status = "idle" | "sending" | "sent" | "error";
+
+/**
+ * CONTACT.
+ *
+ * Submits over fetch rather than a native form POST. The old form navigated the
+ * visitor to Formspree's own confirmation page — losing the session, the design,
+ * and any analytics event that fired into an unloading document.
+ */
 const Contact = () => {
-  const whatsappUrl = "https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20discuss%20a%20project";
+  const [status, setStatus] = useState<Status>("idle");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot: a real person never fills a field they cannot see.
+    if (data.get("_gotcha")) return;
+
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      setStatus("sent");
+      trackEvent("contact_form_submit", {
+        project_type: String(data.get("project_type") ?? ""),
+      });
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
-    <section id="contact" className="py-24 bg-background relative">
-      <div className="container mx-auto px-4 sm:px-6">
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-primary/40" />
-              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Book a Consultation</span>
-              <div className="h-px w-12 bg-primary/40" />
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">Let's build something solid</h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
-              Share your architecture, automation, or VoIP challenge, I'll reply within 24 hours with an honest assessment.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
-                <Clock className="w-3.5 h-3.5 text-primary" /> Usually replies within 4 hours
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
-                <Star className="w-3.5 h-3.5 text-primary" /> Upwork Top Rated · 4.9★ (120+)
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-inter text-foreground">
-                <ShieldCheck className="w-3.5 h-3.5 text-primary" /> NDA-friendly · Free 30-min scoping call
-              </span>
-            </div>
-          </div>
-        </AnimatedSection>
+    <section id="contact" className="relative scroll-mt-24 py-24 lg:py-32">
+      <div className="container mx-auto">
+        <SectionHeader
+          index="10"
+          eyebrow="Contact"
+          title="Tell me what's breaking."
+          lead="Share the architecture, automation, or VoIP problem you're facing. You'll get an honest assessment back — including if the answer is that you don't need me."
+        />
 
-        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          <div className="space-y-10">
-            <AnimatedSection direction="left">
-              <h3 className="text-2xl font-inter font-semibold mb-6 text-foreground">Talk to a Senior Engineer</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed font-inter">
-                Whether you're scoping a new SaaS, scaling a Laravel monolith, designing a call-center stack, or wiring AI into existing workflows, let's get on a call and map the right next step.
-              </p>
-            </AnimatedSection>
+        <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-16">
+          {/* ---- channels + availability ---- */}
+          <div className="lg:col-span-5">
+            <Reveal variant="fade">
+              <Telemetry
+                columns={2}
+                items={[
+                  { label: "Availability", value: "Taking new work", status: "on" },
+                  { label: "Response time", value: "Within 4 hours" },
+                  { label: "Working hours", value: "09:00–19:00 PKT" },
+                  { label: "Timezone", value: "UTC+5" },
+                ]}
+              />
+            </Reveal>
 
-            <div className="space-y-5">
-              {[
-                { icon: Mail, title: "Email", value: "devusamaworks@gmail.com", href: "mailto:devusamaworks@gmail.com" },
-                { icon: Phone, title: "Phone / WhatsApp", value: "+92 303 8004684", href: whatsappUrl },
-                { icon: MapPin, title: "Location", value: "Lahore, Pakistan", href: undefined },
-              ].map((item, i) => (
-                <AnimatedSection key={i} delay={i * 0.1} direction="left">
-                  <motion.div whileHover={{ x: 8 }} className="flex items-center gap-4 group">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/10 group-hover:bg-primary/15 transition-colors">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-inter font-semibold text-foreground text-sm">{item.title}</h4>
-                      {item.href ? (
-                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground font-inter hover:text-primary transition-colors">
-                          {item.value}
+            <Reveal variant="fade" index={1}>
+              <ul className="mt-8 space-y-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06]">
+                {CHANNELS.map((c) => {
+                  const Icon = c.icon;
+                  const inner = (
+                    <>
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-hairline/[0.09] bg-surface-2/60">
+                        <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="mono-tiny block text-subtle">{c.label}</span>
+                        <span className="mt-1.5 block truncate font-inter text-[13.5px] text-foreground">
+                          {c.value}
+                        </span>
+                      </span>
+                    </>
+                  );
+                  return (
+                    <li key={c.label} className="bg-surface-1/80">
+                      {c.href ? (
+                        <a
+                          href={c.href}
+                          target={c.href.startsWith("http") ? "_blank" : undefined}
+                          rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="flex items-center gap-3.5 px-4 py-3.5 transition-colors duration-standard hover:bg-surface-2/70"
+                        >
+                          {inner}
                         </a>
                       ) : (
-                        <p className="text-muted-foreground font-inter">{item.value}</p>
+                        <div className="flex items-center gap-3.5 px-4 py-3.5">{inner}</div>
                       )}
-                    </div>
-                  </motion.div>
-                </AnimatedSection>
-              ))}
-            </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Reveal>
 
-            {/* WhatsApp CTA */}
-            <AnimatedSection delay={0.3}>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="gap-2 rounded-xl border-primary/30 hover:bg-primary/10 hover:border-primary/50">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  Chat on WhatsApp
-                </Button>
-              </a>
-            </AnimatedSection>
-
-            <div className="grid grid-cols-2 gap-6 pt-4">
-              {[
-                { num: "180+", label: "Projects Completed" },
-                { num: "5+", label: "Years Experience" },
-              ].map((s, i) => (
-                <AnimatedSection key={i} delay={0.2 + i * 0.1}>
-                  <motion.div whileHover={{ scale: 1.05, y: -4 }}>
-                    <Card className="p-6 text-center hover:shadow-cool transition-all duration-300 rounded-2xl border-border/30 bg-card/60">
-                      <div className="text-3xl font-inter font-bold text-gradient mb-2">{s.num}</div>
-                      <div className="text-muted-foreground font-inter text-sm">{s.label}</div>
-                    </Card>
-                  </motion.div>
-                </AnimatedSection>
-              ))}
-            </div>
+            <Reveal variant="fade" index={2}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <CTA to="/book" tone="ghost" size="sm" arrow>
+                  Pick a time instead
+                </CTA>
+                <CTA href={WHATSAPP_URL} tone="quiet" size="sm">
+                  <span className="inline-flex items-center gap-2">
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                    Chat on WhatsApp
+                  </span>
+                </CTA>
+              </div>
+            </Reveal>
           </div>
 
-          <AnimatedSection direction="right" delay={0.2}>
-            <Card className="p-8 bg-card-gradient border-border/30 shadow-glow rounded-2xl">
-              <form action="https://formspree.io/f/mkgzjlde" method="POST" className="space-y-6" onSubmit={() => trackEvent("contact_form_submit")}>
-                <p className="text-muted-foreground text-center text-sm mb-6 font-inter">
-                  Share your project details, and I'll get back to you with the best solution.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-inter font-medium text-foreground mb-2">Your Name</label>
-                    <Input name="name" placeholder="John Doe" required className="rounded-xl" />
+          {/* ---- form ---- */}
+          <div className="lg:col-span-7">
+            <Reveal variant="fade">
+              <div className="panel rounded-xl p-6 lg:p-8">
+                {status === "sent" ? (
+                  <div className="flex min-h-[22rem] flex-col items-start justify-center" role="status">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
+                      <Check className="h-5 w-5 text-primary" aria-hidden="true" />
+                    </span>
+                    <h3 className="type-h3 mt-6 text-foreground">Message received.</h3>
+                    <p className="type-body mt-4 max-w-md text-muted-foreground">
+                      I read every one personally and reply within about four hours during
+                      working hours. If it's urgent, WhatsApp is faster.
+                    </p>
+                    <div className="mt-7 flex flex-wrap gap-3">
+                      <CTA to="/book" tone="ghost" size="sm" arrow>
+                        Book a call now
+                      </CTA>
+                      <button
+                        type="button"
+                        onClick={() => setStatus("idle")}
+                        className="px-1 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+                      >
+                        Send another
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-inter font-medium text-foreground mb-2">Company / Brand</label>
-                    <Input name="company" placeholder="TechStart Inc." className="rounded-xl" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-inter font-medium text-foreground mb-2">Email</label>
-                  <Input type="email" name="email" placeholder="you@example.com" required className="rounded-xl" />
-                </div>
-                <div>
-                  <label className="block text-sm font-inter font-medium text-foreground mb-2">Project Type</label>
-                  <select name="project_type" className="w-full p-3 rounded-xl bg-background border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-primary font-inter">
-                    <option>Website Development</option>
-                    <option>Web Application</option>
-                    <option>AI Integration</option>
-                    <option>Automation (n8n / Zapier)</option>
-                    <option>System Upgrade / Maintenance</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-inter font-medium text-foreground mb-2">Project Details</label>
-                  <Textarea name="message" placeholder="Tell me about your project, timeline, and budget..." rows={5} required className="rounded-xl" />
-                </div>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button type="submit" size="lg" variant="hero" className="w-full shadow-glow rounded-xl">
-                    <Send className="w-4 h-4 mr-2" />Hire Me Now
-                  </Button>
-                </motion.div>
-              </form>
-            </Card>
-          </AnimatedSection>
+                ) : (
+                  <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
+                    {/* honeypot */}
+                    <input
+                      type="text"
+                      name="_gotcha"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="absolute h-0 w-0 overflow-hidden opacity-0"
+                    />
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="c-name" className="mono-tiny block text-subtle">
+                          Name <span className="text-primary">*</span>
+                        </label>
+                        <input
+                          id="c-name"
+                          name="name"
+                          required
+                          autoComplete="name"
+                          placeholder="Jane Cooper"
+                          className={`${field} mt-2.5`}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="c-company" className="mono-tiny block text-subtle">
+                          Company
+                        </label>
+                        <input
+                          id="c-company"
+                          name="company"
+                          autoComplete="organization"
+                          placeholder="Acme Inc."
+                          className={`${field} mt-2.5`}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="c-email" className="mono-tiny block text-subtle">
+                        Email <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        id="c-email"
+                        name="email"
+                        type="email"
+                        required
+                        autoComplete="email"
+                        placeholder="you@company.com"
+                        className={`${field} mt-2.5`}
+                      />
+                    </div>
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="c-type" className="mono-tiny block text-subtle">
+                          Project type
+                        </label>
+                        <select id="c-type" name="project_type" className={`${field} mt-2.5`} defaultValue={PROJECT_TYPES[0]}>
+                          {PROJECT_TYPES.map((t) => (
+                            <option key={t} value={t} className="bg-surface-2">
+                              {t}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="c-budget" className="mono-tiny block text-subtle">
+                          Budget range
+                        </label>
+                        <select id="c-budget" name="budget" className={`${field} mt-2.5`} defaultValue={BUDGETS[5]}>
+                          {BUDGETS.map((b) => (
+                            <option key={b} value={b} className="bg-surface-2">
+                              {b}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="c-message" className="mono-tiny block text-subtle">
+                        What are you building? <span className="text-primary">*</span>
+                      </label>
+                      <textarea
+                        id="c-message"
+                        name="message"
+                        required
+                        rows={5}
+                        placeholder="The system, what's going wrong, and roughly when you need it working."
+                        className={`${field} mt-2.5 resize-y`}
+                      />
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-4 pt-1">
+                      <button
+                        type="submit"
+                        disabled={status === "sending"}
+                        className="group inline-flex h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-7 font-inter text-[15px] font-semibold text-primary-foreground shadow-[0_8px_28px_-12px_hsl(var(--primary)/0.6)] transition-colors duration-standard hover:bg-primary-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
+                      >
+                        {status === "sending" ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                            Sending
+                          </>
+                        ) : (
+                          <>
+                            Send project brief
+                            <span aria-hidden="true" className="transition-transform duration-standard group-hover:translate-x-1">
+                              →
+                            </span>
+                          </>
+                        )}
+                      </button>
+
+                      <p className="mono-tiny text-subtle">Reply within 4 hours</p>
+                    </div>
+
+                    <p aria-live="polite" className="min-h-[1.25rem]">
+                      {status === "error" && (
+                        <span className="font-inter text-[13px] text-destructive">
+                          That didn't send. Email{" "}
+                          <a className="underline" href={`mailto:${OWNER.email}`}>
+                            {OWNER.email}
+                          </a>{" "}
+                          directly and it'll reach me.
+                        </span>
+                      )}
+                    </p>
+                  </form>
+                )}
+              </div>
+            </Reveal>
+          </div>
         </div>
 
-        {/* Calendly booking widget */}
-        <AnimatedSection delay={0.3}>
-          <div className="max-w-4xl mx-auto mt-20">
-            <Card className="relative overflow-hidden rounded-3xl border-primary/20 bg-card-gradient p-6 sm:p-10">
-              <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
-              <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
-
-              <div className="relative text-center mb-8">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <CalendarCheck className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-inter font-semibold uppercase tracking-[0.25em] text-primary">Prefer to book directly?</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-inter font-bold text-foreground mb-3 tracking-tight">
-                  Pick a time for your free 30-min call
+        {/* ---- booking ---- */}
+        <Reveal variant="fade">
+          <div className="mt-20 border-t border-hairline/[0.08] pt-14">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <span className="mono-label text-primary">Or book directly</span>
+                <h3 className="type-h3 mt-4 max-w-lg text-foreground">
+                  Pick a slot for a free 30-minute architecture call.
                 </h3>
-                <p className="text-muted-foreground font-inter leading-relaxed max-w-2xl mx-auto">
-                  Skip the email thread. Choose a slot below and we'll walk through your backend, automation, or VoIP challenge together.
-                </p>
               </div>
+              <CTA to="/book" tone="ghost" size="sm" arrow>
+                Open full booking page
+              </CTA>
+            </div>
 
-              <Suspense fallback={<div className="min-h-[700px] bg-card/30 rounded-2xl animate-pulse" />}>
-                <CalendlyEmbed height={720} />
+            <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">
+              <Suspense
+                fallback={<div className="h-[640px] w-full animate-pulse bg-surface-1/50" />}
+              >
+                <CalendlyEmbed height={680} />
               </Suspense>
-
-              <div className="relative mt-8 text-center">
-                <a href="/book" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-inter font-medium transition-colors">
-                  Open booking page in full view <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </Card>
+            </div>
           </div>
-        </AnimatedSection>
+        </Reveal>
       </div>
     </section>
   );

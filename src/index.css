@@ -2,170 +2,454 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Elevated design system — dark editorial with electric cyan */
+/* ============================================================================
+   DESIGN SYSTEM — "Command Center"
+   Dark-first engineering aesthetic. Precision over decoration.
+
+   Palette rules:
+   - One accent (electric cyan). It signals interactivity and system state.
+     It is never used as decoration for its own sake.
+   - Depth comes from layered surfaces + hairlines, not from glow.
+   - Glow is a highlight, not a texture. Reserve it for focus and hover.
+   ========================================================================= */
 
 @layer base {
   :root {
-    --background: 220 20% 4%;
-    --foreground: 210 20% 94%;
+    /* ---- Ground ---- */
+    --background: 220 30% 3.5%;
+    --foreground: 210 22% 93%;
 
-    --card: 220 18% 8%;
-    --card-foreground: 210 20% 94%;
+    /* Layered surfaces — each step is a deliberate elevation */
+    --surface-1: 220 26% 5.5%;
+    --surface-2: 220 22% 8%;
+    --surface-3: 220 20% 11%;
 
-    --popover: 220 18% 8%;
-    --popover-foreground: 210 20% 94%;
+    --card: 220 26% 5.5%;
+    --card-foreground: 210 22% 93%;
+    --popover: 220 24% 6.5%;
+    --popover-foreground: 210 22% 93%;
 
-    /* Electric cyan accent */
-    --primary: 175 95% 45%;
-    --primary-foreground: 220 20% 4%;
-    --primary-glow: 175 100% 55%;
+    /* ---- Accent: electric cyan ---- */
+    --primary: 176 92% 47%;
+    --primary-foreground: 220 30% 4%;
+    --primary-glow: 176 100% 60%;
+    --accent-2: 194 96% 56%;
 
-    --secondary: 220 15% 13%;
-    --secondary-foreground: 210 20% 94%;
+    --secondary: 220 20% 11%;
+    --secondary-foreground: 210 22% 93%;
 
-    --muted: 220 12% 14%;
-    --muted-foreground: 215 12% 55%;
+    --muted: 220 18% 12%;
+    --muted-foreground: 214 12% 58%;
+    --subtle-foreground: 214 12% 50%;  /* 4.8:1 on the page ground — AA for the small mono labels */
 
-    --accent: 175 95% 45%;
-    --accent-foreground: 220 20% 4%;
+    --accent: 176 92% 47%;
+    --accent-foreground: 220 30% 4%;
 
     --destructive: 0 72% 51%;
-    --destructive-foreground: 210 20% 94%;
+    --destructive-foreground: 210 22% 93%;
 
-    --border: 220 12% 16%;
-    --input: 220 15% 13%;
-    --ring: 175 95% 45%;
+    /* ---- Lines ---- */
+    --border: 220 16% 14%;
+    --hairline: 214 20% 100%;   /* used with alpha for 1px rules */
+    --input: 220 20% 10%;
+    --ring: 176 92% 47%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
-    /* Premium gradients */
-    --hero-gradient: linear-gradient(160deg, hsl(220 20% 3%), hsl(220 25% 7%), hsl(175 60% 10% / 0.4));
-    --dark-section: 220 20% 4%;
-    --card-gradient: linear-gradient(145deg, hsl(220 18% 9%), hsl(220 15% 13%));
-    --accent-gradient: linear-gradient(135deg, hsl(175 95% 45%), hsl(190 100% 50%));
-    --cool-gradient: linear-gradient(135deg, hsl(220 20% 5% / 0.9), hsl(175 60% 20% / 0.15));
-    --text-gradient: linear-gradient(135deg, hsl(175 95% 50%), hsl(190 100% 60%), hsl(160 90% 50%));
-    
-    /* Grain overlay */
-    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    /* ---- Motion system ----
+       Every duration in the app resolves to one of these. */
+    --dur-micro: 180ms;
+    --dur-standard: 380ms;
+    --dur-large: 720ms;
+    --dur-scroll: 1100ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 
-    /* Smooth animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    /* Premium shadows */
-    --shadow-glow: 0 10px 50px -12px hsl(175 95% 45% / 0.35);
-    --shadow-elegant: 0 25px 50px -12px hsl(220 20% 0% / 0.5), 0 12px 24px -8px hsl(220 20% 0% / 0.3);
-    --shadow-cool: 0 8px 40px -8px hsl(175 95% 45% / 0.2);
+    /* ---- Gradients (restrained) ---- */
+    --hero-gradient: radial-gradient(
+        120% 80% at 50% -10%,
+        hsl(176 60% 12% / 0.5) 0%,
+        transparent 60%
+      ),
+      linear-gradient(180deg, hsl(220 30% 4%) 0%, hsl(220 30% 3.5%) 100%);
+    --card-gradient: linear-gradient(160deg, hsl(220 24% 7%), hsl(220 22% 5%));
+    --accent-gradient: linear-gradient(120deg, hsl(176 92% 50%), hsl(194 96% 58%));
+    --text-gradient: linear-gradient(110deg, hsl(176 95% 58%), hsl(194 96% 66%));
+    --cool-gradient: linear-gradient(135deg, hsl(220 26% 6% / 0.92), hsl(176 50% 16% / 0.14));
+    --dark-section: 220 30% 3.5%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* ---- Shadows ---- */
+    --shadow-glow: 0 0 0 1px hsl(176 92% 47% / 0.16), 0 12px 48px -18px hsl(176 92% 47% / 0.4);
+    --shadow-elegant: 0 24px 60px -24px hsl(220 40% 0% / 0.75);
+    --shadow-cool: 0 8px 32px -12px hsl(176 92% 47% / 0.18);
+
+    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+
+    --sidebar-background: 220 26% 5.5%;
+    --sidebar-foreground: 210 22% 93%;
+    --sidebar-primary: 176 92% 47%;
+    --sidebar-primary-foreground: 220 30% 4%;
+    --sidebar-accent: 220 20% 11%;
+    --sidebar-accent-foreground: 210 22% 93%;
+    --sidebar-border: 220 16% 14%;
+    --sidebar-ring: 176 92% 47%;
   }
 
+  /* Dark is the canonical theme. `.dark` intentionally mirrors :root so the
+     design is deterministic regardless of how ThemeProvider resolves. */
   .dark {
-    --background: 222 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 217 32.6% 17.5%;
-    --card-foreground: 210 40% 98%;
-    --popover: 217 32.6% 17.5%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 188 100% 45%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 32.6% 17.5%;
-    --input: 217 32.6% 17.5%;
-    --ring: 199 89% 48%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    color-scheme: dark;
+  }
+
+  /* A real light palette, used only where the theme toggle is exposed
+     (blog reading views). Not a second design — a legible inversion. */
+  .light {
+    color-scheme: light;
+    --background: 210 30% 98%;
+    --foreground: 220 30% 8%;
+    --surface-1: 0 0% 100%;
+    --surface-2: 210 25% 96%;
+    --surface-3: 210 20% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 8%;
+    --primary: 183 90% 30%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 183 90% 40%;
+    --accent-2: 199 90% 40%;
+    --secondary: 210 25% 94%;
+    --secondary-foreground: 220 30% 8%;
+    --muted: 210 25% 94%;
+    --muted-foreground: 215 16% 40%;
+    --subtle-foreground: 215 14% 52%;
+    --accent: 183 90% 30%;
+    --accent-foreground: 0 0% 100%;
+    --border: 214 20% 86%;
+    --hairline: 220 40% 10%;
+    --input: 210 25% 94%;
+    --ring: 183 90% 30%;
+    --hero-gradient: linear-gradient(180deg, hsl(210 30% 99%), hsl(210 30% 96%));
+    --card-gradient: linear-gradient(160deg, hsl(0 0% 100%), hsl(210 25% 97%));
+    --text-gradient: linear-gradient(110deg, hsl(183 90% 28%), hsl(199 90% 36%));
+    --shadow-glow: 0 0 0 1px hsl(183 90% 30% / 0.16), 0 12px 40px -18px hsl(183 90% 30% / 0.3);
+    --shadow-elegant: 0 24px 60px -28px hsl(220 40% 20% / 0.2);
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    min-width: 0; /* flex/grid children must be allowed to shrink — kills overflow */
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-inter antialiased;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-inter font-semibold tracking-tight text-foreground;
+    @apply font-inter font-semibold text-foreground;
     font-feature-settings: "ss01", "ss02", "cv11", "liga";
-    letter-spacing: -0.015em;
+    text-wrap: balance;
   }
-  h1 { letter-spacing: -0.025em; }
-  h2 { letter-spacing: -0.02em; }
-  p { line-height: 1.7; }
-  
-  code, pre {
-    @apply font-mono;
+  h1 { letter-spacing: -0.035em; }
+  h2 { letter-spacing: -0.028em; }
+  h3 { letter-spacing: -0.02em; }
+  p  { line-height: 1.7; text-wrap: pretty; }
+
+  code, pre { @apply font-mono; }
+
+  /* Focus: visible, consistent, never removed. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.28);
+    color: hsl(var(--foreground));
+  }
+
+  /* Custom cursor is active: hide the native one only on fine pointers,
+     and only when the enhancement has actually mounted. */
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
   }
 }
 
-/* Text gradient utility */
-.text-gradient {
-  background: var(--text-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ============================================================================
+   TYPE SCALE — fluid, editorial
+   ========================================================================= */
+@layer components {
+  /* Sized for the hero's left column, not for full-bleed. A display size that
+     overflows its container is not dramatic, it is broken. */
+  .type-display {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.038em;
+    font-weight: 600;
+  }
+  /* Full-bleed display, for headlines that own the whole measure. */
+  .type-display-wide {
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.042em;
+    font-weight: 600;
+  }
+  .type-h2 {
+    font-size: clamp(1.875rem, 4vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    font-weight: 600;
+  }
+  .type-h3 {
+    font-size: clamp(1.375rem, 2.4vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    font-weight: 600;
+  }
+  .type-lead {
+    font-size: clamp(1rem, 1.25vw, 1.1875rem);
+    line-height: 1.65;
+  }
+  .type-body {
+    font-size: clamp(0.9375rem, 1vw, 1.0625rem);
+    line-height: 1.7;
+  }
+
+  /* The recurring engineering label. Mono, tracked out, small. */
+  .mono-label {
+    @apply font-mono uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    line-height: 1;
+  }
+  .mono-tiny {
+    @apply font-mono uppercase;
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    line-height: 1;
+  }
 }
 
-/* Grain texture overlay */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--noise-url);
-  background-repeat: repeat;
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 1;
+/* ============================================================================
+   SURFACE + LINE UTILITIES
+   ========================================================================= */
+@layer utilities {
+  .text-gradient {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* 1px rules that read as engineering drawing lines */
+  .hairline { border-color: hsl(var(--hairline) / 0.08); }
+  .hairline-strong { border-color: hsl(var(--hairline) / 0.14); }
+
+  .rule-x {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--hairline) / 0.14), transparent);
+  }
+  .rule-y {
+    width: 1px;
+    background: linear-gradient(180deg, transparent, hsl(var(--hairline) / 0.12), transparent);
+  }
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+  }
+
+  /* Blueprint grid field. Used sparingly, always behind content. */
+  .grid-field {
+    background-image:
+      linear-gradient(hsl(var(--hairline) / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--hairline) / 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+  .grid-field-fine {
+    background-image:
+      linear-gradient(hsl(var(--hairline) / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--hairline) / 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  /* Fades a decorative layer out toward the edges so it never looks tiled */
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 30%, transparent 78%);
+    mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 30%, transparent 78%);
+  }
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  }
+
+  .surface-1 { background-color: hsl(var(--surface-1)); }
+  .surface-2 { background-color: hsl(var(--surface-2)); }
+  .surface-3 { background-color: hsl(var(--surface-3)); }
+
+  /* Panel: the workhorse container. Hairline + subtle inner light. */
+  .panel {
+    background: linear-gradient(160deg, hsl(var(--surface-1)), hsl(var(--background)));
+    border: 1px solid hsl(var(--hairline) / 0.08);
+    box-shadow: inset 0 1px 0 0 hsl(var(--hairline) / 0.05);
+  }
+  .panel-hover {
+    transition: border-color var(--dur-standard) var(--ease-out),
+                background-color var(--dur-standard) var(--ease-out),
+                transform var(--dur-standard) var(--ease-out);
+  }
+  .panel-hover:hover {
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--noise-url);
+    background-repeat: repeat;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hover-underline { position: relative; }
+  .hover-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: hsl(var(--primary));
+    transition: width var(--dur-standard) var(--ease-out);
+  }
+  .hover-underline:hover::after { width: 100%; }
+
+  /* Horizontal scroll containers must never push the page wide */
+  .scroll-x {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
-/* Glow line */
-.glow-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, hsl(175 95% 45% / 0.6), transparent);
+/* ============================================================================
+   ENTRANCE — CSS-driven, so above-the-fold content never depends on JS.
+
+   A JS entrance animation that starts at opacity:0 leaves the hero blank if the
+   animation loop is throttled (background tab, restored session, paused rAF).
+   These run on the compositor and the browser owns their completion.
+   ========================================================================= */
+@layer utilities {
+  @keyframes enter-up {
+    from { opacity: 0; transform: translate3d(0, 12px, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes enter-soft {
+    from { opacity: 0; transform: scale(0.985); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* `both` holds the start state through the delay and the end state after.
+     If animations never run at all, the element keeps its natural opacity: 1. */
+  .enter {
+    animation: enter-up var(--dur-large) var(--ease-entrance) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+  .enter-soft {
+    animation: enter-soft var(--dur-scroll) var(--ease-entrance) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
 }
 
-/* Animated underline */
-.hover-underline {
-  position: relative;
+/* ============================================================================
+   SIGNATURE MOTION — data moving through a system.
+   Kept in CSS so it runs off the main thread where possible.
+   ========================================================================= */
+@layer utilities {
+  @keyframes dash-flow {
+    to { stroke-dashoffset: -1000; }
+  }
+  @keyframes pulse-node {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.12); }
+  }
+  @keyframes sweep-y {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translateY(400%); opacity: 0; }
+  }
+  @keyframes blink-status {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.28; }
+  }
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes node-charge {
+    0%, 100% { opacity: 0; }
+    9%, 24%  { opacity: 1; }
+  }
+  @keyframes trace-y {
+    0%        { transform: scaleY(0); opacity: 0; }
+    10%       { opacity: 1; }
+    45%, 100% { transform: scaleY(1); opacity: 0; }
+  }
+  @keyframes trace-x {
+    0%        { transform: scaleX(0); opacity: 0; }
+    10%       { opacity: 1; }
+    45%, 100% { transform: scaleX(1); opacity: 0; }
+  }
+  /* Connector trace: fills downward when stacked, rightward when in a row. */
+  .trace { transform-origin: top; animation-name: trace-y; }
+  @media (min-width: 1024px) {
+    .trace-row { transform-origin: left; animation-name: trace-x; }
+  }
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .anim-dash-flow { animation: dash-flow 14s linear infinite; }
+  .anim-status    { animation: blink-status 2.6s var(--ease-in-out) infinite; }
+  .anim-marquee   { animation: marquee-x 42s linear infinite; }
 }
-.hover-underline::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent-gradient);
-  transition: width 0.3s ease;
-}
-.hover-underline:hover::after {
-  width: 100%;
+
+/* ============================================================================
+   REDUCED MOTION — hard stop. Everything still reads correctly.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .anim-marquee { animation: none !important; }
+
+  /* Inline styles from JS animation libraries win over the rules above, so
+     revealed content is pinned visible explicitly. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

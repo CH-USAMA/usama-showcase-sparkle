@@ -229,30 +229,23 @@ const AIChatbot = () => {
             exit={{ scale: 0, rotate: 180 }}
             className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
           >
-            <Button
+            {/* Launcher styled to the site's system: hairline pill, mono label,
+                status dot. The previous 64px solid disc plus a permanent speech
+                bubble covered hero content on small screens. */}
+            <button
+              type="button"
               onClick={() => { setIsOpen(true); trackEvent("chatbot_open"); }}
-              className="w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-glow hover:shadow-cool hover:scale-110 transition-all duration-300 relative"
-              aria-label="Open chat"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-hairline/[0.14] bg-surface-1/90 py-2.5 pl-3 pr-4 shadow-elegant backdrop-blur-xl transition-colors duration-standard hover:border-primary/45"
+              aria-label="Open the AI assistant"
             >
-              <Bot className="w-7 h-7" />
-              <motion.div
-                className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-background"
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              />
-            </Button>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1 }}
-              className="absolute bottom-20 right-0 bg-card border border-border rounded-xl p-3 shadow-elegant whitespace-nowrap"
-            >
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <Sparkles className="w-4 h-4 text-primary" />
-                Ask my AI anything!
-              </div>
-              <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-card border-r border-b border-border rotate-45" />
-            </motion.div>
+              <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-primary/12">
+                <Bot className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full border border-background bg-primary anim-status" />
+              </span>
+              <span className="mono-tiny text-muted-foreground transition-colors duration-standard group-hover:text-foreground">
+                Ask my AI
+              </span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

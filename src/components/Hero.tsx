@@ -1,227 +1,158 @@
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Github, Linkedin, Mail, Download } from "lucide-react";
-import { motion } from "framer-motion";
-import profileImage from "@/assets/usama-profile.jpg";
-import profileImageWebp from "@/assets/usama-profile.webp";
-import cvAsset from "@/assets/usama-cv.pdf.asset.json";
-import { trackEvent } from "@/lib/analytics";
-
 import { lazy, Suspense } from "react";
+import { Download } from "lucide-react";
+import CTA from "@/components/system/CTA";
+import Telemetry from "@/components/system/Telemetry";
+import { useSpotlight } from "@/hooks/usePointerField";
+import { trackEvent } from "@/lib/analytics";
+import { CV_URL, CV_FILENAME } from "@/data/site";
 
-const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
+const SystemGraph = lazy(() => import("@/components/system/SystemGraph"));
 
+const READOUTS = [
+  { label: "Status", value: "Available for work", status: "on" as const },
+  { label: "Core stack", value: "Laravel · PHP 8" },
+  { label: "Response", value: "Within 4 hours" },
+  { label: "Based in", value: "Lahore · UTC+5" },
+];
+
+/** Stagger helper — reads as a delay token rather than a magic number inline. */
+const delay = (ms: number) => ({ "--enter-delay": `${ms}ms` }) as React.CSSProperties;
+
+/**
+ * Hero.
+ *
+ * Two deliberate decisions here:
+ *
+ * 1. The h1 is painted at full opacity on the first frame — no entrance fade.
+ *    An opacity-0 element is not counted for LCP, so animating the headline in
+ *    would mean hand-delaying the site's own largest paint.
+ *
+ * 2. Everything else enters via CSS animation rather than JS. Above-the-fold
+ *    content that starts invisible and waits for a JS animation loop is blank
+ *    if that loop is throttled — a background tab, a restored session. CSS
+ *    entrance is compositor-driven and the browser guarantees its end state.
+ */
 const Hero = () => {
+  const spotlight = useSpotlight<HTMLElement>();
+
   return (
-    <section className="min-h-screen bg-hero-gradient relative overflow-hidden grain">
-      <Suspense fallback={null}>
-        <ParticleBackground />
-      </Suspense>
+    <section
+      ref={spotlight}
+      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-hero-gradient pb-20 pt-28 lg:pb-24 lg:pt-28"
+    >
+      {/* blueprint field, faded toward the edges so it never reads as tiling */}
+      <div className="grid-field mask-radial pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
-      {/* Decorative grid lines */}
-      <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-        backgroundSize: '80px 80px'
-      }} />
+      {/* cursor spotlight — writes CSS vars only, no React re-render */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-0 [@media(pointer:fine)]:opacity-100"
+        style={{
+          background:
+            "radial-gradient(420px circle at var(--mx, 72%) var(--my, 28%), hsl(var(--primary) / 0.07), transparent 70%)",
+        }}
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[80vh]">
-          {/* Left Content */}
-          <div className="text-center lg:text-left space-y-7 order-1">
-            <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex items-center gap-3 justify-center lg:justify-start"
-              >
-                <div className="inline-flex items-center gap-2.5 py-1.5 px-3 rounded-full border border-border/40 bg-background/40 backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  <span className="text-[11px] font-inter font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                    Backend Engineer · Laravel · Automation · VoIP · AI
+      <div className="container relative mx-auto">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.06fr_0.94fr] lg:gap-8 xl:gap-14">
+          {/* ---------------- left: the argument ---------------- */}
+          <div className="max-w-[36rem]">
+            <div className="enter flex flex-wrap items-center gap-x-3 gap-y-2" style={delay(40)}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-hairline/[0.1] bg-surface-1/70 px-3 py-1.5 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary anim-status" aria-hidden="true" />
+                <span className="mono-tiny text-muted-foreground">
+                  <span className="sm:hidden">Backend · AI · Automation</span>
+                  <span className="hidden sm:inline">
+                    Backend systems · AI · Automation · VoIP
                   </span>
-                </div>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display font-normal leading-[1.02] tracking-[-0.02em] text-foreground"
-              >
-                <span className="block text-4xl sm:text-5xl lg:text-6xl">
-                  Production-grade
                 </span>
-                <span className="block text-4xl sm:text-5xl lg:text-6xl italic text-gradient">
-                  backend, engineered.
-                </span>
-                <span className="block mt-3 text-base sm:text-lg lg:text-xl font-inter font-normal text-muted-foreground tracking-normal max-w-xl">
-                  Scalable Laravel systems, automation infrastructure & real-time communication platforms.
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-                className="text-sm sm:text-base text-muted-foreground/90 max-w-xl leading-relaxed font-inter"
-              >
-                I'm <span className="text-foreground font-medium">Usama Munawar</span>, a Backend Systems Engineer helping
-                SaaS founders, startups, and operations-heavy teams ship high-availability Laravel applications, robust APIs,
-                VoIP/Asterisk platforms, and AI-powered automation that drives measurable operational efficiency.
-              </motion.p>
+              </span>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="flex flex-wrap gap-3 justify-center lg:justify-start"
-            >
-              <a href="/book" onClick={() => trackEvent("book_call_click", { location: "hero" })}>
-                <Button size="lg" variant="hero" className="gap-2 shadow-glow rounded-xl px-8">
-                  Book a Consultation
-                </Button>
-              </a>
-              <a href="#portfolio">
-                <Button size="lg" variant="outline-white" className="gap-2 rounded-xl">
-                  View Projects
-                </Button>
-              </a>
-              <a href={cvAsset.url} target="_blank" rel="noopener noreferrer" download="Usama-Munawar-CV.pdf" onClick={() => trackEvent("cv_download", { location: "hero" })}>
-                <Button size="lg" variant="ghost" className="gap-2 rounded-xl">
-                  <Download className="w-4 h-4" />
-                  Download CV
-                </Button>
-              </a>
-            </motion.div>
+            {/* LCP element: painted immediately, never faded in */}
+            <h1 className="type-display mt-7 text-foreground">
+              Production-grade
+              <br />
+              backend,{" "}
+              <span className="relative whitespace-nowrap">
+                <span className="font-display italic text-gradient">engineered.</span>
+                <span
+                  aria-hidden="true"
+                  className="absolute -bottom-0.5 left-0 h-px w-full bg-gradient-to-r from-primary/50 via-primary/15 to-transparent"
+                />
+              </span>
+            </h1>
 
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-              className="flex gap-3 justify-center lg:justify-start"
+            <p
+              className="enter type-lead mt-7 max-w-xl text-muted-foreground"
+              style={delay(140)}
             >
-              {[
-                { href: "https://github.com/CH-USAMA", icon: Github, label: "GitHub" },
-                { href: "https://www.linkedin.com/in/usama-works/", icon: Linkedin, label: "LinkedIn" },
-                { href: "mailto:devusamaworks@gmail.com?subject=Project%20Inquiry", icon: Mail, label: "Email" },
-              ].map((s, i) => (
-                <motion.a
-                  key={i}
-                  href={s.href}
-                  target={s.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  whileHover={{ scale: 1.15, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="group flex items-center gap-2 px-3 py-2 rounded-full border border-border/40 bg-background/40 backdrop-blur-sm hover:border-primary/50 hover:bg-primary/10 transition-colors"
-                >
-                  <s.icon className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-inter text-muted-foreground group-hover:text-foreground transition-colors hidden sm:inline">{s.label}</span>
-                </motion.a>
-              ))}
-            </motion.div>
+              I architect and ship scalable Laravel systems, automation infrastructure,
+              real-time platforms, and AI-powered backends for teams that need software
+              to work in production.
+            </p>
+
+            <div
+              className="enter mt-9 flex flex-wrap items-center gap-3"
+              style={delay(220)}
+            >
+              <CTA
+                to="/book"
+                size="lg"
+                arrow
+                onClick={() => trackEvent("book_call_click", { location: "hero" })}
+              >
+                Book an Architecture Call
+              </CTA>
+              <CTA to="/projects" tone="ghost" size="lg">
+                View Selected Work
+              </CTA>
+              <a
+                href={CV_URL}
+                download={CV_FILENAME}
+                onClick={() => trackEvent("cv_download", { location: "hero" })}
+                className="group inline-flex items-center gap-2 px-1 py-2 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+              >
+                <Download
+                  className="h-4 w-4 transition-transform duration-standard group-hover:translate-y-0.5"
+                  aria-hidden="true"
+                />
+                <span className="hover-underline">CV</span>
+              </a>
+            </div>
+
+            <div className="enter mt-10 max-w-lg" style={delay(320)}>
+              <Telemetry items={READOUTS} columns={2} />
+            </div>
           </div>
 
-          {/* Right - Profile */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, rotate: 3 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.5, type: "spring", damping: 20 }}
-            className="flex justify-center lg:justify-end order-2"
+          {/* ---------------- right: the system ---------------- */}
+          <div
+            className="enter-soft relative mx-auto w-full max-w-[26rem] lg:max-w-none"
+            style={delay(160)}
           >
-            <div className="relative">
-              {/* Glowing ring behind image */}
-              <div className="absolute inset-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-[26rem] lg:h-[26rem] rounded-full bg-accent-gradient opacity-20 blur-3xl animate-pulse" />
-
-              <div className="relative w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-elegant ring-2 ring-primary/20 ring-offset-4 ring-offset-background">
-                <picture>
-                  <source srcSet={profileImageWebp} type="image/webp" />
-                  <img
-                    src={profileImage}
-                    alt="Usama Munawar - Laravel & AI Engineer"
-                    className="w-full h-full object-cover object-top scale-125"
-                    loading="eager"
-                    decoding="async"
-                    width="384"
-                    height="384"
-                  />
-                </picture>
-                {/* Dark vignette overlay */}
-                <div className="absolute inset-0 rounded-full" style={{
-                  background: 'radial-gradient(circle at 50% 30%, transparent 35%, hsl(var(--background) / 0.6) 70%, hsl(var(--background)) 100%)'
-                }} />
-              </div>
-
-              {/* Floating stats - desktop only */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.4, type: "spring" }}
-                className="hidden sm:block absolute -top-3 -right-3 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
-              >
-                <div className="text-center">
-                  <div className="text-2xl font-display font-extrabold text-gradient">5+</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-widest">Years</div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.6, type: "spring" }}
-                className="hidden sm:block absolute -bottom-2 -left-4 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border/50"
-              >
-                <div className="text-center">
-                  <div className="text-2xl font-display font-extrabold text-gradient">180+</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-widest">Projects</div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.8, type: "spring" }}
-                className="hidden sm:block absolute top-1/2 -right-6 bg-card/95 backdrop-blur-md rounded-2xl p-3 shadow-elegant border border-border/50"
-              >
-                <div className="text-center">
-                  <div className="text-lg font-display font-extrabold text-gradient">$145K+</div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-widest">Earned</div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+            <Suspense fallback={<div className="aspect-square w-full" aria-hidden="true" />}>
+              <SystemGraph />
+            </Suspense>
+          </div>
         </div>
+      </div>
 
-        {/* Mobile stat strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="sm:hidden mt-10 grid grid-cols-3 gap-3 max-w-sm mx-auto"
-        >
-          {[
-            { value: "5+", label: "Years" },
-            { value: "180+", label: "Projects" },
-            { value: "$145K+", label: "Earned" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center p-3 rounded-2xl bg-card/60 backdrop-blur-sm border border-border/30">
-              <div className="text-lg font-display font-extrabold text-gradient">{stat.value}</div>
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-muted-foreground uppercase tracking-[0.3em]">Scroll</span>
-          <ArrowDown className="w-4 h-4 text-primary" />
-        </motion.div>
+      {/* scroll cue */}
+      <div
+        className="enter pointer-events-none absolute inset-x-0 bottom-6 hidden justify-center lg:flex"
+        style={delay(900)}
+        aria-hidden="true"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="mono-tiny text-subtle">Scroll</span>
+          <span className="block h-10 w-px overflow-hidden bg-hairline/[0.12]">
+            <span
+              className="block h-4 w-px bg-primary/80"
+              style={{ animation: "sweep-y 2.6s cubic-bezier(0.65,0,0.35,1) infinite" }}
+            />
+          </span>
+        </div>
       </div>
     </section>
   );

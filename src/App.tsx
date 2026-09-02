@@ -2,11 +2,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import Analytics from "./components/Analytics";
+import Cursor from "@/components/system/Cursor";
+
+const CommandMenu = lazy(() => import("@/components/CommandMenu"));
 
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
@@ -32,6 +35,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         <Analytics />
+        <Cursor />
+        <Suspense fallback={null}>
+          <CommandMenu />
+        </Suspense>
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
           <Routes>
             <Route path="/" element={<Index />} />

@@ -1,0 +1,66 @@
+/**
+ * Single source of truth for site-wide constants.
+ *
+ * The canonical origin used to be hardcoded in ~8 files, which made moving to a
+ * custom domain a find-and-replace exercise. Import from here instead.
+ */
+
+export const SITE_URL = "https://dev-usama-portfolio.vercel.app";
+
+export const OWNER = {
+  name: "Usama Munawar",
+  role: "Backend Systems Engineer",
+  email: "devusamaworks@gmail.com",
+  phone: "+92 303 8004684",
+  phoneE164: "+92-303-8004684",
+  location: "Lahore, Pakistan",
+} as const;
+
+export const WHATSAPP_URL =
+  "https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20discuss%20a%20project";
+
+export const CALENDLY_URL = "https://calendly.com/usamaresume30/30min";
+
+/** Served from /public — a real file, not a build-time asset reference. */
+export const CV_URL = "/usama-munawar-cv.pdf";
+export const CV_FILENAME = "Usama-Munawar-CV.pdf";
+
+export const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
+
+export const SOCIALS = {
+  github: "https://github.com/CH-USAMA",
+  linkedin: "https://www.linkedin.com/in/usama-works/",
+  upwork: "https://www.upwork.com/freelancers/~01007bf0a0286da654",
+  fiverr: "https://www.fiverr.com/ch_usama_",
+  x: "https://x.com/usloopsama",
+} as const;
+
+/**
+ * Headline numbers. These are the figures already published across the site and
+ * on the linked platform profiles — nothing here is estimated or invented.
+ */
+export const METRICS = [
+  { value: "180+", label: "Projects shipped", note: "Upwork · Fiverr · direct" },
+  { value: "95+", label: "Clients served", note: "Across 4 sectors" },
+  { value: "5+", label: "Years senior backend", note: "Production systems" },
+  { value: "$145K+", label: "Delivered on platform", note: "Lifetime earnings" },
+] as const;
+
+export const PLATFORM_PROOF = [
+  {
+    name: "Upwork",
+    status: "Top Rated Plus",
+    rating: "5.0",
+    reviews: "47 reviews",
+    earned: "$50,000+",
+    url: SOCIALS.upwork,
+  },
+  {
+    name: "Fiverr",
+    status: "Level 2 Seller",
+    rating: "4.9",
+    reviews: "89 reviews",
+    earned: "$30,000+",
+    url: SOCIALS.fiverr,
+  },
+] as const;

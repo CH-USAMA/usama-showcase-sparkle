@@ -1,95 +1,150 @@
-import { lazy, Suspense } from "react";
-import Hero from "@/components/Hero";
-import Motto from "@/components/Motto";
+import { lazy, Suspense, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ProofStrip from "@/components/ProofStrip";
 import SEOHead from "@/components/SEOHead";
+import { SITE_URL } from "@/data/site";
 
-const About = lazy(() => import("@/components/About"));
-const Skills = lazy(() => import("@/components/Skills"));
-const ProcessTimeline = lazy(() => import("@/components/ProcessTimeline"));
-const ExperienceStats = lazy(() => import("@/components/ExperienceStats"));
-const Portfolio = lazy(() => import("@/components/Portfolio"));
-const FreelancingPlatforms = lazy(() => import("@/components/FreelancingPlatforms"));
-const WhoIWorkWith = lazy(() => import("@/components/WhoIWorkWith"));
-const IndustryProof = lazy(() => import("@/components/IndustryProof"));
-const LatestBlogs = lazy(() => import("@/components/LatestBlogs"));
-const Packages = lazy(() => import("@/components/Packages"));
-const SEOFaq = lazy(() => import("@/components/SEOFaq"));
+/* Everything below the fold is split out — the hero and proof band are the
+   only things needed for first paint. */
+const ServiceExplorer = lazy(() => import("@/components/ServiceExplorer"));
+const CaseStudies = lazy(() => import("@/components/CaseStudies"));
+const Philosophy = lazy(() => import("@/components/Philosophy"));
+const TechMatrix = lazy(() => import("@/components/TechMatrix"));
+const ProcessPipeline = lazy(() => import("@/components/ProcessPipeline"));
+const TrackRecord = lazy(() => import("@/components/TrackRecord"));
+const Audience = lazy(() => import("@/components/Audience"));
+const Engagements = lazy(() => import("@/components/Engagements"));
+const Insights = lazy(() => import("@/components/Insights"));
+const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
+const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
-const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
-const Testimonials = lazy(() => import("@/components/Testimonials"));
 
-const Fallback = () => <div className="py-20" />;
+const Fallback = () => <div className="py-24" aria-hidden="true" />;
 
 const homeJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://dev-usama-portfolio.vercel.app/#webpage",
-      "url": "https://dev-usama-portfolio.vercel.app/",
-      "name": "Backend Systems Engineer | Laravel, Automation, VoIP & AI, Usama Munawar",
-      "description": "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
-      "inLanguage": "en",
-      "primaryImageOfPage": "https://dev-usama-portfolio.vercel.app/og-image.png"
+      "@id": `${SITE_URL}/#webpage`,
+      url: `${SITE_URL}/`,
+      name: "Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar",
+      description:
+        "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
+      inLanguage: "en",
+      primaryImageOfPage: `${SITE_URL}/og-image.png`,
     },
     {
       "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dev-usama-portfolio.vercel.app/" },
-        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://dev-usama-portfolio.vercel.app/projects" },
-        { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://dev-usama-portfolio.vercel.app/blog" }
-      ]
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
+        { "@type": "ListItem", position: 3, name: "Blog", item: `${SITE_URL}/blog` },
+      ],
     },
     {
       "@type": "Service",
-      "serviceType": "Backend Engineering & Laravel Development",
-      "provider": { "@type": "Person", "name": "Usama Munawar", "url": "https://dev-usama-portfolio.vercel.app" },
-      "areaServed": "Worldwide",
-      "hasOfferCatalog": {
+      serviceType: "Backend Engineering & Laravel Development",
+      provider: { "@type": "Person", name: "Usama Munawar", url: SITE_URL },
+      areaServed: "Worldwide",
+      hasOfferCatalog: {
         "@type": "OfferCatalog",
-        "name": "Engagement Packages",
-        "itemListElement": [
-          { "@type": "Offer", "name": "Sprint", "description": "Focused 1–2 week Laravel feature build, API hardening, or automation setup.", "price": "1500", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "Build", "description": "3–6 week full Laravel SaaS or backend platform with CI/CD and handover.", "price": "4500", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "Scale", "description": "Senior engineer on monthly retainer for ongoing architecture and delivery.", "price": "3500", "priceCurrency": "USD" }
-        ]
-      }
-    }
-  ]
+        name: "Engagement Packages",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            name: "Sprint",
+            description:
+              "Focused 1–2 week Laravel feature build, API hardening, or automation setup.",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: "1500",
+              priceCurrency: "USD",
+            },
+          },
+          {
+            "@type": "Offer",
+            name: "Build",
+            description:
+              "3–6 week full Laravel SaaS or backend platform with CI/CD and handover.",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: "4500",
+              priceCurrency: "USD",
+            },
+          },
+          {
+            "@type": "Offer",
+            name: "Scale",
+            description:
+              "Senior engineer on monthly retainer for ongoing architecture and delivery.",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: "3500",
+              priceCurrency: "USD",
+            },
+          },
+        ],
+      },
+    },
+  ],
 };
 
 const Index = () => {
+  const { hash } = useLocation();
+
+  /* React Router does not restore hash targets on navigation, so a link like
+     /#work arriving from another route would otherwise land at the top. */
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.slice(1);
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    // sections are lazy — give the chunk a frame to mount before measuring
+    const t = window.setTimeout(scroll, 120);
+    return () => window.clearTimeout(t);
+  }, [hash]);
+
   return (
-    <div id="top" className="min-h-screen">
+    <div id="top">
       <SEOHead
-        canonical="https://dev-usama-portfolio.vercel.app/"
+        canonical={`${SITE_URL}/`}
         title="Usama Munawar — Laravel, VoIP & AI Backend Engineer"
         description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. 180+ projects, $145K+ delivered."
         jsonLd={homeJsonLd}
       />
+
       <Navbar />
-      <Hero />
-      <Motto />
+
+      <main id="main">
+        <Hero />
+        <ProofStrip />
+
+        <Suspense fallback={<Fallback />}>
+          <ServiceExplorer />
+          <CaseStudies />
+          <Philosophy />
+          <TechMatrix />
+          <ProcessPipeline />
+          <TrackRecord />
+          <Audience />
+          <Engagements />
+          <Insights />
+          <SEOFaq />
+          <FinalCTA />
+          <Contact />
+        </Suspense>
+      </main>
+
       <Suspense fallback={<Fallback />}>
-        <section id="about" className="scroll-mt-24"><About /></section>
-        <section id="skills" className="scroll-mt-24"><Skills /></section>
-        <section id="process" className="scroll-mt-24"><ProcessTimeline /></section>
-        <section id="experience" className="scroll-mt-24"><ExperienceStats /></section>
-        <section id="portfolio" className="scroll-mt-24"><Portfolio /></section>
-        <IndustryProof />
-        <Testimonials />
-        <WhoIWorkWith />
-        <FreelancingPlatforms />
-        <section id="blog" className="scroll-mt-24"><LatestBlogs /></section>
-        <Packages />
-        <SEOFaq />
-        <section id="contact" className="scroll-mt-24"><Contact /></section>
         <Footer />
         <AIChatbot />
-        <ScrollCTA />
       </Suspense>
     </div>
   );
