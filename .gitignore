@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local AI-tool state (not part of the project)
+.refact/
+.claude/
+
+# Env files. NOTE: .env itself is still tracked — see docs/audit-2026-09.md #15.
+# Untracking it requires the VITE_SUPABASE_* vars to exist in Vercel first,
+# or AIChatbot.tsx's CHAT_URL resolves to "undefined/functions/v1/chat".
+.env*
+!.env.example
