@@ -9,8 +9,8 @@ import {
 
 const faqs = [
   {
-    q: "Can I hire you as a senior Laravel, PHP & MySQL developer?",
-    a: "Yes. I'm a top-rated Laravel, PHP, and MySQL developer with 5+ years of production experience and 180+ projects delivered. I build custom web applications, REST APIs, SaaS platforms, e-commerce backends, and CRM systems. I'm available on Upwork, Fiverr, or for direct hire.",
+    q: "Can you own a Laravel backend end to end?",
+    a: "Yes. I take Laravel systems from architecture through to production: domain modelling, API design, queue and event flow, database schema and indexing, deployment, and the monitoring that tells you when something is wrong. Engagements start with an architecture call to establish the constraints before any code is written.",
   },
   {
     q: "Which AI and automation stacks do you specialize in?",
@@ -29,8 +29,8 @@ const faqs = [
     a: "Every engagement starts with a free 30-minute discovery call to understand your goals and constraints. I then deliver a clear technical proposal with stack, architecture, milestones, timeline, and a fixed quote before any code is written.",
   },
   {
-    q: "What's your tech stack for full-stack development?",
-    a: "My primary stack includes Laravel with MySQL/PostgreSQL for backends, React/Next.js with TypeScript for frontends, and Supabase/AWS for cloud infrastructure. I use n8n for automation, LangChain for AI orchestration, and Docker for containerized deployments.",
+    q: "How do you decide between Laravel, Node.js and Python on a system?",
+    a: "By the shape of the problem, not by preference. Laravel and PHP carry the application core — domain logic, APIs, queues, billing — with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the work that is AI or data: RAG pipelines, agents, processing. Asterisk and SIP handle telephony, and Docker and CI/CD ship all of it.",
   },
 ];
 

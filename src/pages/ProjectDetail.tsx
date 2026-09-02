@@ -14,6 +14,11 @@ const ProjectDetail = () => {
   const projectId = parseInt(id || "1");
   const project = projectsData[projectId as keyof typeof projectsData];
 
+  // projects.ts uses "#" as a placeholder for links that do not exist yet.
+  const isReal = (url?: string) => Boolean(url) && url !== "#";
+  const hasLive = isReal(project?.liveUrl);
+  const hasCode = isReal(project?.githubUrl);
+
   if (!project) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -80,20 +85,31 @@ const ProjectDetail = () => {
                 </p>
               </div>
 
-              <div className="flex gap-4">
-                <Button size="lg" variant="outline-white" asChild>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Live Demo
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline-white" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="w-4 h-4 mr-2" />
-                    View Code
-                  </a>
-                </Button>
-              </div>
+              {/* Only render a link that actually goes somewhere. Every project
+                  in projects.ts carries githubUrl: "#", and three carry
+                  liveUrl: "#", so these buttons used to promise a demo and a
+                  repository and deliver a page jump. A dead button on a case
+                  study costs more trust than a missing one. */}
+              {(hasLive || hasCode) && (
+                <div className="flex gap-4">
+                  {hasLive && (
+                    <Button size="lg" variant="outline-white" asChild>
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live Demo
+                      </a>
+                    </Button>
+                  )}
+                  {hasCode && (
+                    <Button size="lg" variant="outline-white" asChild>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        View Code
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="relative">

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -416,16 +417,18 @@ const AIChatbot = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="px-3 pt-2 pb-1 border-t border-border/60 bg-gradient-to-r from-primary/5 to-accent/5"
                   >
-                    <a
-                      href="https://wa.me/923038004684?text=Hi%20Usama%2C%20I%27d%20like%20to%20book%20a%2015-min%20intro%20call"
-                      onClick={() => trackEvent("whatsapp_click", { location: "chatbot" })}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    {/* Same offer as every other CTA on the site. This used to
+                        send the highest-intent visitor on the page to WhatsApp
+                        for a "15-min intro call" — a different call, on a
+                        different channel, measured as a different event. */}
+                    <Link
+                      to="/book"
+                      onClick={() => trackEvent("book_call_click", { source: "chatbot" })}
                       className="flex items-center justify-center gap-2 w-full text-xs font-medium px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
-                      Book a free 15-min intro call →
-                    </a>
+                      Book an Architecture Call →
+                    </Link>
                   </motion.div>
                 )}
 

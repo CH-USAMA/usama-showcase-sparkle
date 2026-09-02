@@ -36,14 +36,19 @@ export const SOCIALS = {
 } as const;
 
 /**
- * Headline numbers. These are the figures already published across the site and
- * on the linked platform profiles — nothing here is estimated or invented.
+ * Headline numbers. Every one is published on a linked platform profile below —
+ * nothing here is estimated or invented.
+ *
+ * "$145K+ / Lifetime earnings" used to sit here and was removed on two grounds.
+ * It did not reconcile with the figures this same file publishes (PLATFORM_PROOF
+ * totals $80,000+), and lifetime marketplace earnings is a freelancer metric: it
+ * answers "how much has he billed on a platform", not "can he architect my
+ * system". The platform links below remain the evidence for what is left.
  */
 export const METRICS = [
   { value: "180+", label: "Projects shipped", note: "Upwork · Fiverr · direct" },
   { value: "95+", label: "Clients served", note: "Across 4 sectors" },
   { value: "5+", label: "Years senior backend", note: "Production systems" },
-  { value: "$145K+", label: "Delivered on platform", note: "Lifetime earnings" },
 ] as const;
 
 export const PLATFORM_PROOF = [

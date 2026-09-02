@@ -103,7 +103,7 @@ const Philosophy = () => {
               <span className="h-px w-6 bg-hairline/[0.18]" aria-hidden="true" />
               <span className="font-inter text-[13px] text-muted-foreground">
                 Backend Systems Engineer, Lahore — 5+ years shipping production systems
-                for startups and SaaS teams across Upwork, Toptal, and Fiverr.
+                for startups and SaaS teams, with verified profiles on Upwork and Fiverr.
               </span>
             </figcaption>
           </figure>

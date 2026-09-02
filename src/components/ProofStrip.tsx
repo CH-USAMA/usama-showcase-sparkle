@@ -23,7 +23,7 @@ const ProofStrip = () => {
           initial="hidden"
           whileInView="show"
           viewport={VIEWPORT}
-          className="grid grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-2 lg:grid-cols-3"
         >
           {METRICS.map((m, i) => (
             <motion.div
@@ -44,7 +44,11 @@ const ProofStrip = () => {
                 <CountUp value={m.value} />
               </dd>
               <dt className="mono-tiny mt-3.5 text-muted-foreground">{m.label}</dt>
-              <p className="mt-2 font-inter text-[11px] leading-none text-subtle opacity-0 transition-opacity duration-standard group-hover:opacity-100 lg:mt-2.5">
+              {/* Always visible. This line is the qualifier that makes the figure
+                  above checkable ("Upwork · Fiverr · direct"), and it was
+                  hover-only — so the number shipped without its own context to
+                  every reader who never moused over it, and to every phone. */}
+              <p className="mt-2 font-inter text-[11px] leading-none text-subtle lg:mt-2.5">
                 {m.note}
               </p>
             </motion.div>

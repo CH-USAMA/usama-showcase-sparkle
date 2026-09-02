@@ -37,7 +37,6 @@ export const servicesData: Service[] = [
     outcomes: [
       { value: "180+", label: "Projects shipped" },
       { value: "5+ yrs", label: "Laravel in production" },
-      { value: "$145K+", label: "Delivered on platforms" },
     ],
     stack: ["Laravel", "PHP 8.3", "MySQL", "PostgreSQL", "Redis", "Horizon", "Livewire", "Filament", "Pest / PHPUnit"],
     sections: [
