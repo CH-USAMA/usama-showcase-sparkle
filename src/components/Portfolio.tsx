@@ -5,17 +5,20 @@ import { ExternalLink, Github, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
+import imgCallPortal from "@/assets/project-callportal.webp";
+import imgClinic from "@/assets/project-clinic.webp";
+import imgLeadEngine from "@/assets/project-leadengine.webp";
+import imgRag from "@/assets/project-rag.webp";
+import imgInteriors from "@/assets/project-interiors.webp";
+import imgContentOps from "@/assets/project-contentops.webp";
+import imgLimo from "@/assets/project-limo.webp";
+import imgQuarry from "@/assets/project-quarry.webp";
+import imgTaxi from "@/assets/project-taxi.webp";
+import imgHardware from "@/assets/project-hardware.webp";
+import imgSoftwareHouse from "@/assets/project-softwarehouse.webp";
 
 const categories = ["All", "AI Projects", "Laravel Projects", "Automation", "E-Commerce"];
 
-const projectGradients = [
-  "from-blue-500/20 to-cyan-500/10",
-  "from-emerald-500/20 to-teal-500/10",
-  "from-violet-500/20 to-purple-500/10",
-  "from-amber-500/20 to-orange-500/10",
-  "from-rose-500/20 to-pink-500/10",
-  "from-indigo-500/20 to-blue-500/10",
-];
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("All");
