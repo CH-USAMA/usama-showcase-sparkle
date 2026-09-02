@@ -196,7 +196,7 @@ const Navbar = () => {
               onClick={() => trackEvent("book_call_click", { location: "navbar" })}
             >
               <span className="hidden lg:inline">Book an Architecture Call</span>
-              <span className="lg:hidden">Book a call</span>
+              <span className="lg:hidden">Architecture Call</span>
             </CTA>
 
             <button

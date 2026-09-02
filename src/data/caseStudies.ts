@@ -14,8 +14,12 @@ export interface CaseStudy {
       carries in the stack matrix and the service list. */
   hue: string;
   title: string;
-  /** Headline outcome. Every one of these is a figure already published on the site. */
-  metric: { value: string; label: string };
+  /**
+   * Headline outcome, quoted verbatim from this project's canonical entry in
+   * projects.ts. Optional on purpose: a dossier with no verifiable figure runs
+   * without one rather than borrowing a number from a different claim.
+   */
+  metric?: { value: string; label: string };
   image: string;
   client?: string;
   year?: string;
@@ -33,8 +37,25 @@ export interface CaseStudy {
 
 /**
  * Six systems, restructured from the existing portfolio entries into
- * problem → architecture → result. Copy, metrics, clients and links are carried
- * over from what the site already published; nothing here is new or estimated.
+ * problem → architecture → result.
+ *
+ * Every `metric` below is quoted verbatim from the same project's `results`
+ * array in projects.ts. Three were corrected after an audit found they were not:
+ *
+ * - Call Portal read "70% / Faster call routing". No 70% figure exists anywhere
+ *   in the repository, and projects.ts records no routing measurement. Replaced
+ *   with "30% improvement in lead conversion", which is canonical for project 4
+ *   and answers the dropped-leads problem this dossier actually describes.
+ * - iSmart Clinic read "40% / More patient retention". iSmart has no entry in
+ *   projects.ts at all, so there was no source to check it against and no
+ *   substitute to fall back on. The metric is removed; the architecture carries
+ *   the dossier.
+ * - Focus Interiors read "35% / Conversion lift". The number is right but the
+ *   claim was not: projects.ts records "35% increase in client inquiries".
+ *   Inquiries are not conversions, so the label now matches the source.
+ *
+ * The other three were verified and left alone: 94% accuracy is corroborated in
+ * projects.ts and in blogs.ts, 85% and 10x match their canonical wording.
  */
 export const caseStudies: CaseStudy[] = [
   {
@@ -43,7 +64,7 @@ export const caseStudies: CaseStudy[] = [
     category: "VoIP infrastructure",
     hue: "var(--hue-realtime)",
     title: "Solutions Zilla Call Portal",
-    metric: { value: "70%", label: "Faster call routing" },
+    metric: { value: "30%", label: "Improvement in lead conversion" },
     image: imgCallPortal,
     client: "Solutions Zilla",
     year: "2025",
@@ -72,7 +93,6 @@ export const caseStudies: CaseStudy[] = [
     category: "Healthcare SaaS",
     hue: "var(--hue-backend)",
     title: "iSmart Clinic",
-    metric: { value: "40%", label: "More patient retention" },
     image: imgClinic,
     role: "Multi-tenant architecture · Automation",
     problem:
@@ -179,7 +199,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Commerce",
     hue: "var(--hue-interface)",
     title: "Focus Interiors",
-    metric: { value: "35%", label: "Conversion lift" },
+    metric: { value: "35%", label: "Increase in client inquiries" },
     image: imgInteriors,
     client: "Focus Interiors",
     year: "2024",

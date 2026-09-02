@@ -1,9 +1,7 @@
-import { MessageCircle } from "lucide-react";
 import CTA from "@/components/system/CTA";
 import Reveal from "@/components/system/Reveal";
 import { useSpotlight } from "@/hooks/usePointerField";
 import { trackEvent } from "@/lib/analytics";
-import { WHATSAPP_URL } from "@/data/site";
 
 /**
  * FINAL CTA.
@@ -54,6 +52,10 @@ const FinalCTA = () => {
                 or money.
               </p>
 
+              {/* One action. WhatsApp used to sit here at equal weight, which
+                  made the closing argument offer two things at once; it is now
+                  a supporting channel in the Contact section below rather than
+                  a rival close. */}
               <div className="mt-10 flex flex-wrap items-center gap-3">
                 <CTA
                   to="/book"
@@ -62,18 +64,6 @@ const FinalCTA = () => {
                   onClick={() => trackEvent("book_call_click", { location: "final_cta" })}
                 >
                   Book an Architecture Call
-                </CTA>
-                <CTA
-                  href={WHATSAPP_URL}
-                  tone="ghost"
-                  size="lg"
-                  arrow
-                  onClick={() => trackEvent("whatsapp_click", { location: "final_cta" })}
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                    WhatsApp
-                  </span>
                 </CTA>
               </div>
 

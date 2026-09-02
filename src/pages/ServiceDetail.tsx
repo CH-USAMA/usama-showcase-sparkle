@@ -88,7 +88,7 @@ const ServiceDetail = () => {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/book">
                   <Button variant="hero" className="rounded-full px-6 gap-2">
-                    <CalendarCheck className="w-4 h-4" /> Book a free consultation
+                    <CalendarCheck className="w-4 h-4" /> Book an Architecture Call
                   </Button>
                 </Link>
                 <Link to="/projects">
@@ -170,7 +170,7 @@ const ServiceDetail = () => {
                 </p>
                 <Link to="/book" className="block mt-5">
                   <Button variant="hero" className="w-full rounded-xl">
-                    Book a consultation
+                    Book an Architecture Call
                   </Button>
                 </Link>
               </Card>

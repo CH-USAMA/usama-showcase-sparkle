@@ -6,7 +6,7 @@ const SITEMAP = [
   { label: "Work", to: "/projects" },
   { label: "Services", to: "/services" },
   { label: "Blog", to: "/blog" },
-  { label: "Book a call", to: "/book" },
+  { label: "Architecture call", to: "/book" },
   { label: "Laravel scaling checklist", to: "/laravel-scaling-checklist" },
 ];
 

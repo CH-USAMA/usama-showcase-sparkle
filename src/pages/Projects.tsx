@@ -1,346 +1,247 @@
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { ExternalLink, Github, Search, Filter, Home } from "lucide-react";
+import type { CSSProperties } from "react";
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import HireMe from "@/components/HireMe";
+import { ArrowUpRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
+import Reveal from "@/components/system/Reveal";
+import CTA from "@/components/system/CTA";
+import { caseStudies } from "@/data/caseStudies";
+import { projectsData } from "@/data/projects";
+import { SITE_URL } from "@/data/site";
+import { trackEvent } from "@/lib/analytics";
 
-const Projects = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+const Footer = lazy(() => import("@/components/Footer"));
 
-  const projects = [
-    {
-      id: 1,
-      title: "Focus Interiors",
-      description: "Luxury Interior Design Studio website with premium aesthetics, fast-loading pages, and SEO optimization to attract elite clientele",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Elementor", "Custom CSS", "SEO"],
-      category: "Interior Design",
-      liveUrl: "https://focusinteriors.com.pk",
-      githubUrl: "#",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Five Stars Galway Taxis",
-      description: "Responsive taxi booking website enabling online booking, fare inquiries, and contactless service requests with local SEO optimization",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Elementor", "Booking Plugin", "Google Maps"],
-      category: "Transportation",
-      liveUrl: "https://www.fivestarsgalwaytaxis.ie",
-      githubUrl: "#",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Solutions Zilla Call Portal",
-      description: "Functional web portal for managing call center leads, client interactions, and service details with CRM-like workflows",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      technologies: ["Laravel", "Bootstrap", "MySQL"],
-      category: "BPO Services",
-      liveUrl: "https://call.solutionszilla.com",
-      githubUrl: "#",
-      featured: false
-    },
-    {
-      id: 4,
-      title: "MOE Limo, Operations Platform",
-      description: "Premium omnichannel operations and ticket management platform built for the modern limousine and transport industry, with dispatch, scheduling, and real-time agent workflows",
-      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
-      technologies: ["Laravel", "Livewire", "MySQL", "Tailwind", "Real-Time"],
-      category: "BPO Services",
-      liveUrl: "https://moelimo.solutionszilla.com/login",
-      githubUrl: "https://github.com/CH-USAMA/Moe-Projects-MVP-1",
-      featured: true
-    },
-    {
-      id: 5,
-      title: "Marian Holy Art",
-      description: "Custom e-commerce platform for religious art and sculptures with clean design, product filtering, and secure checkout",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
-      technologies: ["WooCommerce", "WordPress", "Payment Gateway"],
-      category: "E-commerce",
-      liveUrl: "https://marianholyart.com",
-      githubUrl: "#",
-      featured: true
-    },
-    {
-      id: 6,
-      title: "VoxBucket",
-      description: "Digital marketing agency portfolio website highlighting services, case studies, and lead generation with sleek UI/UX design",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Elementor", "SEO"],
-      category: "Marketing",
-      liveUrl: "https://voxbucket.com",
-      githubUrl: "#",
-      featured: false
-    },
-    {
-      id: 7,
-      title: "Solutions Zilla Digital",
-      description: "Corporate website showcasing digital outsourcing services including software development, IT support, and call center operations",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
-      technologies: ["WordPress", "Elementor", "Custom CSS"],
-      category: "IT Services",
-      liveUrl: "https://digital.solutionszilla.com",
-      githubUrl: "#",
-      featured: false
-    },
-    {
-      id: 8,
-      title: "iSmart Clinic, Healthcare SaaS",
-      description: "Enterprise-grade multi-tenant healthcare platform featuring AI-powered patient engagement, automated WhatsApp appointment booking & reminders, real-time billing, and comprehensive audit trails, built to scale modern clinics",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
-      technologies: ["Next.js", "AI Agents", "WhatsApp API", "Multi-Tenant", "Supabase"],
-      category: "Healthcare",
-      liveUrl: "https://solutionzilla.ismart.link",
-      githubUrl: "#",
-      featured: true
-    },
-    {
-      id: 9,
-      title: "Jabulani Hardware Store",
-      description: "Full-featured South African hardware e-commerce platform with Stripe payment integration, Google login authentication, lightning-fast product search, and a streamlined checkout experience",
-      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&h=400&fit=crop",
-      technologies: ["E-Commerce", "Stripe", "Google Auth", "Fast Search", "Responsive"],
-      category: "E-commerce",
-      liveUrl: "https://store.jabulanigroupofcompanies.co.za",
-      githubUrl: "#",
-      featured: true
-    },
-    {
-      id: 10,
-      title: "Solutions Zilla Software",
-      description: "Professional software house website showcasing custom software development services, team expertise, technology stack, and client success stories with modern design",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop",
-      technologies: ["Web Development", "UI/UX Design", "SEO", "Branding"],
-      category: "IT Services",
-      liveUrl: "https://software.solutionszilla.com",
-      githubUrl: "#",
-      featured: false
-    },
-    {
-      id: 11,
-      title: "Jabulani Quarries, Corporate Site",
-      description: "Corporate portfolio site for a South African quarry and crushing operation, featuring fast-loading pages, responsive design, and SEO-ready architecture",
-      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&h=400&fit=crop",
-      technologies: ["HTML5", "TailwindCSS", "JavaScript", "SEO"],
-      category: "IT Services",
-      liveUrl: "https://jabulaniquarriestsolo.co.za/index.html",
-      githubUrl: "https://github.com/CH-USAMA/JabuliQuarry_Portfolio",
-      featured: true
-    }
-  ];
+/* ---------------------------------------------------------------------------
+   /projects — the case-study index.
 
-  const categories = ["All", "Healthcare", "Interior Design", "Transportation", "BPO Services", "E-commerce", "Marketing", "IT Services"];
+   This page used to carry its own hard-coded project array with Unsplash stock
+   photography and its own id sequence, which did not match projects.ts. Cards
+   linked to /project/{id} using the local ids, so eight of them opened a
+   different project's detail page. Both problems disappear by reading the same
+   two canonical sources the rest of the site reads.
 
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === "All" || project.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+   Weight follows evidence: the six systems with a written architecture get the
+   full treatment, and everything else is a compact archive row. Metrics render
+   only where caseStudies.ts carries a verified one — the clinic dossier has no
+   defensible figure and shows none here either.
+--------------------------------------------------------------------------- */
 
-  return (
-    <>
+/** Detail pages already owned by a case study — not repeated in the archive. */
+const COVERED = new Set(
+  caseStudies
+    .map((c) => c.detailPath?.replace("/project/", ""))
+    .filter(Boolean)
+    .map(Number)
+);
+
+const archive = Object.values(projectsData).filter((p) => !COVERED.has(p.id));
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${SITE_URL}/projects#webpage`,
+  url: `${SITE_URL}/projects`,
+  name: "Selected systems — Usama Munawar",
+  description:
+    "Case studies of production backend systems: VoIP infrastructure, multi-tenant SaaS, RAG retrieval, automation pipelines and commerce platforms.",
+  inLanguage: "en",
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: caseStudies.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.title,
+      ...(c.detailPath ? { url: `${SITE_URL}${c.detailPath}` } : {}),
+    })),
+  },
+};
+
+const Projects = () => (
+  <div className="min-h-screen bg-background">
     <SEOHead
-      title="Projects, Laravel, AI & Full Stack Portfolio | Usama Munawar"
-      description="Browse 180+ projects by Usama Munawar including Laravel web apps, AI-powered solutions, e-commerce platforms, and automation systems."
-      canonical="https://dev-usama-portfolio.vercel.app/projects"
+      title="Selected Systems — Backend Case Studies | Usama Munawar"
+      description="Production systems with the architecture written down: Asterisk call routing, multi-tenant healthcare SaaS, RAG retrieval, lead automation and headless commerce."
+      canonical={`${SITE_URL}/projects`}
+      jsonLd={jsonLd}
     />
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="bg-hero-gradient py-20">
-        <div className="container mx-auto px-6">
-          <div className="flex justify-between items-start mb-6">
-            <Link to="/">
-              <Button variant="outline-white" className="gap-2">
-                <Home className="w-4 h-4" />
-                Home
-              </Button>
-            </Link>
-          </div>
-          <div className="text-center space-y-6">
-            <h1 className="text-5xl lg:text-6xl font-bold text-foreground">
-              Portfolio of Scalable Backend & Automation Systems
-            </h1>
-            <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
-              Explore my portfolio of web applications, mobile apps, and digital solutions
-            </p>
-          </div>
-        </div>
-      </section>
+    <Navbar />
 
-      {/* Filters */}
-      <section className="py-12 border-b border-border">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                aria-label="Search projects"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+    <main
+      id="main"
+      className="wash pb-24 pt-32 lg:pt-40"
+      style={{
+        "--hue": "var(--hue-ai)",
+        "--hue-2": "var(--hue-automation)",
+        "--wash-x": "78%",
+        "--wash-y": "0%",
+      } as CSSProperties}
+    >
+      <div className="container mx-auto">
+        {/* ---- header ---- */}
+        <Reveal>
+          <span className="mono-label text-hue">Selected systems</span>
+          <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
+            The systems, and the decisions behind them.
+          </h1>
+          <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
+            Six with the architecture written down, and the rest of the archive below.
+            Where a figure appears it comes from the project record — where none does,
+            there was nothing defensible to quote.
+          </p>
+        </Reveal>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category)}
-                  className="transition-all duration-300"
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
-          </div>
+        {/* ---- case studies ---- */}
+        <ul className="mt-16 border-t border-hairline/[0.08] lg:mt-20">
+          {caseStudies.map((c, i) => (
+            <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
+              <article
+                className="border-b border-hairline/[0.08] py-12 lg:py-16"
+                style={{ "--hue": c.hue } as CSSProperties}
+              >
+                <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+                  {/* identity */}
+                  <div className="lg:col-span-5">
+                    <div className="flex items-center gap-3">
+                      <span className="mono-tiny tabular-nums text-hue">{c.n}</span>
+                      <span className="h-px w-6 bg-hue opacity-50" aria-hidden="true" />
+                      <span className="mono-tiny text-muted-foreground">{c.category}</span>
+                    </div>
 
-          <div className="mt-4 text-sm text-muted-foreground">
-            Showing {filteredProjects.length} of {projects.length} projects
-          </div>
-        </div>
-      </section>
+                    <h2 className="type-h3 mt-5 text-foreground">{c.title}</h2>
 
-      {/* Projects Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="sr-only">Featured Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <Link key={project.id} to={`/project/${project.id}`}>
-                <Card className="group overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 bg-card-gradient border-border/50 cursor-pointer">
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={`Screenshot of ${project.title}, ${project.category} project built with ${project.technologies.slice(0,3).join(", ")}`}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      decoding="async"
-                      width={800}
-                      height={450}
-                    />
-                    {project.featured && (
-                      <Badge className="absolute top-4 left-4 bg-accent-gradient border-0">
-                        Featured
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="absolute bottom-4 left-4 right-4 flex gap-2">
-                        {project.liveUrl && project.liveUrl !== "#" && (
-                          <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        )}
-                        {project.githubUrl && project.githubUrl !== "#" && (
-                          <Button size="sm" variant="outline-white" className="flex-1" asChild>
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                              <Github className="w-4 h-4 mr-2" />
-                              Code
-                            </a>
-                          </Button>
-                        )}
+                    {c.metric && (
+                      <div className="mt-6 flex items-baseline gap-4 border-l-2 border-hue pl-5">
+                        <span className="font-inter text-[2rem] font-semibold leading-none tracking-tight text-hue sm:text-[2.5rem]">
+                          {c.metric.value}
+                        </span>
+                        <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
+                          {c.metric.label}
+                        </span>
                       </div>
+                    )}
+
+                    <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+                      {c.detailPath && (
+                        <CTA to={c.detailPath} tone="ghost" size="sm" arrow>
+                          Read the case study
+                        </CTA>
+                      )}
+                      {c.liveUrl && (
+                        <a
+                          href={c.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+                        >
+                          <span className="hover-underline">Visit live system</span>
+                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </a>
+                      )}
                     </div>
                   </div>
-                  
-                  <div className="p-6 space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <Badge variant="secondary" className="text-xs">
-                        {project.category}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <Badge 
-                          key={techIndex}
-                          variant="tech"
-                          className="text-xs bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {tech}
-                        </Badge>
+
+                  {/* the problem and the shape of the answer */}
+                  <div className="lg:col-span-7">
+                    <dl className="space-y-6">
+                      <div>
+                        <dt className="mono-tiny text-subtle">The problem</dt>
+                        <dd className="type-body mt-2.5 max-w-2xl text-muted-foreground">
+                          {c.problem}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="mono-tiny text-subtle">The result</dt>
+                        <dd className="type-body mt-2.5 max-w-2xl text-muted-foreground">
+                          {c.result}
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline/[0.08] pt-5">
+                      {c.stack.map((t) => (
+                        <span key={t} className="mono-tiny text-subtle">
+                          {t}
+                        </span>
                       ))}
                     </div>
-
-                    <Button variant="ghost" className="w-full mt-4 group-hover:bg-primary/10">
-                      View Details →
-                    </Button>
                   </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </ul>
 
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-16">
-              <div className="max-w-md mx-auto space-y-4">
-                <Filter className="w-16 h-16 text-muted-foreground mx-auto" />
-                <h3 className="text-xl font-semibold text-foreground">No projects found</h3>
-                <p className="text-muted-foreground">
-                  Try adjusting your search terms or category filter
-                </p>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedCategory("All");
-                  }}
-                >
-                  Clear Filters
-                </Button>
+        {/* ---- archive ---- */}
+        {archive.length > 0 && (
+          <div className="mt-20 lg:mt-24">
+            <Reveal>
+              <div className="flex items-center gap-3">
+                <span className="mono-tiny text-hue tabular-nums">07</span>
+                <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
+                <span className="mono-label text-hue">Archive</span>
               </div>
-            </div>
-          )}
-        </div>
-      </section>
+              <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
+                Shipped, without a written case study.
+              </h2>
+            </Reveal>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-card-gradient border-t border-border">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <h2 className="text-3xl font-bold text-foreground">
-              Ready to Start Your Project?
+            <ul className="mt-9 border-t border-hairline/[0.08]">
+              {archive.map((p, i) => (
+                <Reveal as="li" key={p.id} index={Math.min(i + 1, 4)}>
+                  <Link
+                    to={`/project/${p.id}`}
+                    className="group flex flex-col gap-3 border-b border-hairline/[0.08] py-6 transition-colors duration-standard hover:bg-surface-1/50 sm:flex-row sm:items-baseline sm:gap-8"
+                  >
+                    <span className="mono-tiny w-28 shrink-0 text-subtle">{p.category}</span>
+                    <span className="flex-1">
+                      <span className="font-inter text-[15px] font-medium text-foreground">
+                        {p.title}
+                      </span>
+                      <span className="type-body mt-1.5 block max-w-2xl text-muted-foreground">
+                        {p.description}
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      className="hidden h-4 w-4 shrink-0 text-subtle transition-colors duration-standard group-hover:text-hue sm:block"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* ---- close: one action ---- */}
+        <Reveal>
+          <div className="mt-20 border-t border-hairline/[0.08] pt-14 lg:mt-24">
+            <h2 className="type-h3 max-w-xl text-foreground">
+              Recognise your system in one of these?
             </h2>
-            <p className="text-muted-foreground text-lg">
-              Let's discuss how we can bring your ideas to life with cutting-edge technology and innovative solutions.
+            <p className="type-lead mt-5 max-w-xl text-muted-foreground">
+              Bring the problem to a call and we will work out which layer it lives in.
             </p>
-            <div className="flex gap-4 justify-center">
-              <Link to="/">
-                <Button variant="outline" size="lg">
-                  Back to Home
-                </Button>
-              </Link>
-              <HireMe />
+            <div className="mt-9">
+              <CTA
+                to="/book"
+                size="lg"
+                arrow
+                onClick={() => trackEvent("book_call_click", { location: "projects" })}
+              >
+                Book an Architecture Call
+              </CTA>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
-    </>
-  );
-};
+        </Reveal>
+      </div>
+    </main>
+
+    <Suspense fallback={<div className="py-20" />}>
+      <Footer />
+    </Suspense>
+  </div>
+);
 
 export default Projects;

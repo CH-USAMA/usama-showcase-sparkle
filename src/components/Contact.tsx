@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import type { FormEvent } from "react";
-import { Check, Loader2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Check, Loader2, Mail, MapPin, Phone } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
@@ -140,19 +140,10 @@ const Contact = () => {
               </ul>
             </Reveal>
 
-            <Reveal variant="fade" index={2}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <CTA to="/book" tone="ghost" size="sm" arrow>
-                  Pick a time instead
-                </CTA>
-                <CTA href={WHATSAPP_URL} tone="quiet" size="sm">
-                  <span className="inline-flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                    Chat on WhatsApp
-                  </span>
-                </CTA>
-              </div>
-            </Reveal>
+            {/* No CTA pair here. FinalCTA makes the argument immediately
+                above, the scheduler is embedded below, and WhatsApp is already
+                one row up in the contact list — three ways to say the same
+                thing inside one section is what diluted the primary action. */}
           </div>
 
           {/* ---- form ---- */}
@@ -171,7 +162,7 @@ const Contact = () => {
                     </p>
                     <div className="mt-7 flex flex-wrap gap-3">
                       <CTA to="/book" tone="ghost" size="sm" arrow>
-                        Book a call now
+                        Book an Architecture Call
                       </CTA>
                       <button
                         type="button"
@@ -330,9 +321,6 @@ const Contact = () => {
                   Pick a slot for a free 30-minute architecture call.
                 </h3>
               </div>
-              <CTA to="/book" tone="ghost" size="sm" arrow>
-                Open full booking page
-              </CTA>
             </div>
 
             <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">

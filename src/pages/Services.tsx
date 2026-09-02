@@ -1,28 +1,70 @@
-import { Link } from "react-router-dom";
+import type { CSSProperties } from "react";
 import { lazy, Suspense } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
-import AnimatedSection from "@/components/AnimatedSection";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Reveal from "@/components/system/Reveal";
+import CTA from "@/components/system/CTA";
+import { CAPABILITIES, RUNTIME_LABEL } from "@/data/capabilities";
 import { servicesData } from "@/data/services";
-import { ArrowRight, CalendarCheck } from "lucide-react";
+import { SITE_URL } from "@/data/site";
+import { trackEvent } from "@/lib/analytics";
 
 const Footer = lazy(() => import("@/components/Footer"));
 
-const BASE = "https://dev-usama-portfolio.vercel.app";
+/* ---------------------------------------------------------------------------
+   /services — a capability page, not a wall of service cards.
+
+   Same system as the landing page: left-aligned indexed headers, hairline
+   rules, mono labels, domain hues, Reveal entrances. No new motion, no new
+   effects, no shadcn Card.
+
+   The page opens by naming which runtime owns which layer, because that is the
+   distinction the whole site is arguing and a grid of equal-weight cards
+   actively destroys it. Capability copy is imported from the same source the
+   landing page reads, so the two can no longer drift.
+--------------------------------------------------------------------------- */
+
+/** Laravel first and largest — the ordering is the argument. */
+const RUNTIMES = [
+  {
+    id: "laravel",
+    name: "Laravel · PHP",
+    role: "The application core",
+    body: "Domain logic, APIs, queues, billing, permissions, audit trails. The part of the system that holds the business rules and has to be right. This is the specialisation everything else is arranged around.",
+    hue: "var(--hue-backend)",
+    primary: true,
+  },
+  {
+    id: "node",
+    name: "Node.js · TypeScript",
+    role: "The event-driven edge",
+    body: "WebSockets, socket services, presence and live state, and the integrations that have to stay connected. Used where the work is events rather than requests.",
+    hue: "var(--hue-realtime)",
+    primary: false,
+  },
+  {
+    id: "python",
+    name: "Python",
+    role: "AI and data",
+    body: "RAG pipelines, retrieval and reranking, agents, evaluation harnesses, and data processing. Used where the problem is intelligence rather than transactions.",
+    hue: "var(--hue-ai)",
+    primary: false,
+  },
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "ItemList",
-      name: "Backend engineering services",
+      name: "Backend engineering capabilities",
       itemListElement: servicesData.map((s, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: s.name,
-        url: `${BASE}/services/${s.slug}`,
+        url: `${SITE_URL}/services/${s.slug}`,
       })),
     },
     {
@@ -31,10 +73,7 @@ const jsonLd = {
         s.faqs.map((f) => ({
           "@type": "Question",
           name: f.q,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: f.a,
-          },
+          acceptedAnswer: { "@type": "Answer", text: f.a },
         }))
       ),
     },
@@ -44,67 +83,148 @@ const jsonLd = {
 const Services = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Backend Engineering Services — Laravel, VoIP, Automation & AI"
-      description="Specialist backend services: Laravel SaaS development, Asterisk VoIP platforms, n8n automation infrastructure, and production AI integrations."
-      canonical={`${BASE}/services`}
+      title="Backend Engineering Capabilities — Laravel, Node.js, Python, VoIP"
+      description="Laravel and PHP for the application core, Node.js for real-time and event-driven services, Python for AI and data, Asterisk for telephony. One engineer across the stack."
+      canonical={`${SITE_URL}/services`}
       jsonLd={jsonLd}
     />
     <Navbar />
 
-    <main className="pt-28 pb-16">
-      <div className="container mx-auto px-4 sm:px-6">
-        <AnimatedSection>
-          <div className="max-w-3xl">
-            <span className="text-primary text-xs sm:text-sm font-inter font-medium uppercase tracking-[0.25em]">
-              What I do
-            </span>
-            <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-inter font-bold text-foreground tracking-tight leading-tight">
-              Senior Laravel Development & Backend Engineering Services
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground font-inter leading-relaxed">
-              Four areas, one engineer. Each engagement ships with tests, deployment, and documentation so your team owns
-              the system afterwards.
-            </p>
-          </div>
-        </AnimatedSection>
+    <main
+      id="main"
+      className="wash pb-24 pt-32 lg:pt-40"
+      style={{
+        "--hue": "var(--hue-backend)",
+        "--hue-2": "var(--hue-ai)",
+        "--wash-x": "20%",
+        "--wash-y": "0%",
+      } as CSSProperties}
+    >
+      <div className="container mx-auto">
+        {/* ---- header ---- */}
+        <Reveal>
+          <span className="mono-label text-hue">Capabilities</span>
+          <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
+            One engineer, and the right runtime for each layer.
+          </h1>
+          <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
+            I am not a generalist who lists languages. Each of these owns a specific part
+            of a production system, and the reason for using it is the shape of the
+            problem — not preference.
+          </p>
+        </Reveal>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-5 max-w-5xl">
-          {servicesData.map((s, i) => (
-            <AnimatedSection key={s.slug} delay={i * 0.06}>
-              <Card className="h-full p-7 rounded-2xl border-border/30 bg-card/50 backdrop-blur-sm hover:shadow-glow transition-all duration-500 flex flex-col">
-                <span className="text-primary text-[0.7rem] font-inter font-medium uppercase tracking-[0.2em]">
-                  {s.eyebrow}
-                </span>
-                <h2 className="mt-3 text-xl sm:text-2xl font-inter font-semibold text-foreground tracking-tight">
-                  {s.name}
-                </h2>
-                <p className="mt-3 text-sm text-muted-foreground font-inter leading-relaxed flex-1">{s.intro}</p>
-                <Link
-                  to={`/services/${s.slug}`}
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-inter font-medium text-primary hover:gap-3 transition-all"
+        {/* ---- the three runtimes: the distinction the site is arguing ---- */}
+        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] lg:mt-16 lg:grid-cols-3">
+          {RUNTIMES.map((r, i) => (
+            <Reveal key={r.id} index={Math.min(i + 1, 4)}>
+              <div
+                className="h-full bg-surface-1 px-6 py-7"
+                style={{ "--hue": r.hue } as CSSProperties}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-hue" aria-hidden="true" />
+                  <span className="mono-tiny text-hue">{r.role}</span>
+                </div>
+                {/* Laravel is set larger on purpose: it is the specialisation,
+                    and three identically-sized cards would say otherwise. */}
+                <h2
+                  className={`mt-4 font-inter font-semibold tracking-tight text-foreground ${
+                    r.primary ? "text-[1.5rem] sm:text-[1.75rem]" : "text-[1.25rem]"
+                  }`}
                 >
-                  Explore {s.name} <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Card>
-            </AnimatedSection>
+                  {r.name}
+                </h2>
+                <p className="type-body mt-3.5 text-muted-foreground">{r.body}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
 
-        <AnimatedSection delay={0.2}>
-          <div className="mt-14 max-w-5xl rounded-2xl border border-primary/20 bg-card/50 p-8 text-center">
-            <h2 className="text-xl sm:text-2xl font-inter font-semibold text-foreground">
-              Not sure which one you need?
+        {/* ---- capabilities ---- */}
+        <div className="mt-20 lg:mt-28">
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <span className="mono-tiny text-hue tabular-nums">01</span>
+              <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
+              <span className="mono-label text-hue">What I take on</span>
+            </div>
+            <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
+              Seven domains, each with the stack that runs it.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground font-inter">
-              Describe the problem on a free 30-minute call and I will tell you the shortest path to a fix.
+          </Reveal>
+
+          <ul className="mt-10 border-t border-hairline/[0.08]">
+            {CAPABILITIES.map((c, i) => (
+              <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
+                <div
+                  className="group border-b border-hairline/[0.08] py-8"
+                  style={{ "--hue": c.hue } as CSSProperties}
+                >
+                  <div className="grid gap-5 lg:grid-cols-12 lg:gap-10">
+                    <div className="lg:col-span-4">
+                      <div className="flex items-baseline gap-3">
+                        <span className="mono-tiny tabular-nums text-hue">{c.n}</span>
+                        <h3 className="font-inter text-[17px] font-medium tracking-tight text-foreground">
+                          {c.title}
+                        </h3>
+                      </div>
+                      <p className="mono-tiny mt-2.5 pl-9 text-subtle">
+                        {RUNTIME_LABEL[c.runtime]}
+                      </p>
+                    </div>
+
+                    <div className="lg:col-span-8">
+                      <p className="type-body max-w-2xl text-muted-foreground">{c.summary}</p>
+
+                      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                        {c.stack.map((t) => (
+                          <span key={t} className="mono-tiny text-subtle">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Only the four domains with a real page link out. */}
+                      {c.href && (
+                        <Link
+                          to={c.href}
+                          className="mt-6 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-hue"
+                        >
+                          <span className="hover-underline">Read the detail</span>
+                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+
+        {/* ---- close: one action ---- */}
+        <Reveal>
+          <div className="mt-20 border-t border-hairline/[0.08] pt-14 lg:mt-24">
+            <h2 className="type-h3 max-w-xl text-foreground">
+              Not sure which of these your problem is?
+            </h2>
+            <p className="type-lead mt-5 max-w-xl text-muted-foreground">
+              That is a normal reason to book. Describe the symptom and I will tell you
+              which layer it lives in.
             </p>
-            <Link to="/book" className="inline-block mt-6">
-              <Button variant="hero" className="rounded-full px-6 gap-2">
-                <CalendarCheck className="w-4 h-4" /> Book a consultation
-              </Button>
-            </Link>
+            <div className="mt-9">
+              <CTA
+                to="/book"
+                size="lg"
+                arrow
+                onClick={() => trackEvent("book_call_click", { location: "services" })}
+              >
+                Book an Architecture Call
+              </CTA>
+            </div>
           </div>
-        </AnimatedSection>
+        </Reveal>
       </div>
     </main>
 

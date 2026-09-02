@@ -53,17 +53,20 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
             <h3 className="type-h2 mt-5 text-foreground">{study.title}</h3>
           </Reveal>
 
-          {/* headline outcome */}
-          <Reveal index={2}>
-            <div className="mt-7 flex items-baseline gap-4 border-l-2 border-hue pl-5">
-              <span className="font-inter text-[2.75rem] font-semibold leading-none tracking-tight text-hue sm:text-[3.5rem]">
-                {study.metric.value}
-              </span>
-              <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
-                {study.metric.label}
-              </span>
-            </div>
-          </Reveal>
+          {/* Headline outcome, where a verified one exists. A dossier without
+              one drops the block entirely rather than showing a placeholder. */}
+          {study.metric && (
+            <Reveal index={2}>
+              <div className="mt-7 flex items-baseline gap-4 border-l-2 border-hue pl-5">
+                <span className="font-inter text-[2.75rem] font-semibold leading-none tracking-tight text-hue sm:text-[3.5rem]">
+                  {study.metric.value}
+                </span>
+                <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
+                  {study.metric.label}
+                </span>
+              </div>
+            </Reveal>
+          )}
 
           <Reveal index={3}>
             <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3">

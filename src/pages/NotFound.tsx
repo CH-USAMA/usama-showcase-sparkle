@@ -21,7 +21,7 @@ const NotFound = () => {
     { to: "/", icon: Home, title: "Home", desc: "Backend engineering services and case studies." },
     { to: "/projects", icon: FolderKanban, title: "Projects", desc: "Laravel, VoIP, and AI systems shipped to production." },
     { to: "/blog", icon: Newspaper, title: "Blog", desc: "Deep dives on Laravel, automation, and AI engineering." },
-    { to: "/book", icon: CalendarCheck, title: "Book a call", desc: "Free 30-minute roadmap consultation." },
+    { to: "/book", icon: CalendarCheck, title: "Architecture call", desc: "Free 30 minutes on your architecture." },
   ];
 
   return (

@@ -4,8 +4,9 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award, Home } from "lucide-react";
 import { projectsData } from "@/data/projects";
-import HireMe from "@/components/HireMe";
 import SEOHead from "@/components/SEOHead";
+import CTA from "@/components/system/CTA";
+import { trackEvent } from "@/lib/analytics";
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -292,28 +293,31 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-card-gradient border-t border-border">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <h2 className="text-3xl font-bold text-foreground">
-              Interested in Similar Work?
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Let's discuss how I can help bring your project ideas to life with the same level of quality and attention to detail.
+      {/* Close. This used to read "Interested in Similar Work? … bring your
+          project ideas to life" over three equal buttons and a "Hire Me" dialog
+          that POSTed straight to Formspree and navigated the reader off-site —
+          generic voice, no hierarchy, and a fourth competing conversion path at
+          the end of a case study. One action now, matching every other page. */}
+      <section className="border-t border-hairline/[0.08] py-20 lg:py-24">
+        <div className="container mx-auto">
+          <div className="max-w-xl">
+            <h2 className="type-h3 text-foreground">Building something like this?</h2>
+            <p className="type-lead mt-5 text-muted-foreground">
+              Bring the architecture problem to a call and we will work out the shortest
+              path to a fix.
             </p>
-            <div className="flex gap-4 justify-center">
-              <Link to="/projects">
-                <Button variant="outline" size="lg">
-                  View All Projects
-                </Button>
-              </Link>
-              <Link to="/">
-                <Button variant="outline" size="lg">
-                  Back to Home
-                </Button>
-              </Link>
-              <HireMe />
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <CTA
+                to="/book"
+                size="lg"
+                arrow
+                onClick={() => trackEvent("book_call_click", { location: "project_detail" })}
+              >
+                Book an Architecture Call
+              </CTA>
+              <CTA to="/projects" tone="ghost" size="lg" arrow>
+                Explore Case Studies
+              </CTA>
             </div>
           </div>
         </div>
