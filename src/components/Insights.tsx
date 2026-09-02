@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
@@ -39,7 +40,16 @@ const Insights = () => {
   const list = rest.slice(0, 5);
 
   return (
-    <section id="blog" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section
+      id="blog"
+      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-ai)",
+        "--hue-2": "var(--hue-realtime)",
+        "--wash-x": "78%",
+        "--wash-y": "8%",
+      } as CSSProperties}
+    >
       <div className="container mx-auto">
         <SectionHeader
           index="09"

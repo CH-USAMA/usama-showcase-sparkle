@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Check } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
@@ -67,7 +68,16 @@ const TIERS = [
  * "most popular" badge — this isn't a checkout.
  */
 const Engagements = () => (
-  <section id="pricing" className="relative scroll-mt-24 py-24 lg:py-32">
+  <section
+    id="pricing"
+    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    style={{
+      "--hue": "var(--hue-backend)",
+      "--hue-2": "var(--hue-cloud)",
+      "--wash-x": "26%",
+      "--wash-y": "10%",
+    } as CSSProperties}
+  >
     <div className="container mx-auto">
       <SectionHeader
         index="08"

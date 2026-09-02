@@ -15,6 +15,10 @@ interface SectionHeaderProps {
  * One header treatment for the whole page. Left-aligned by default: centred
  * headings read as marketing, left-aligned read as documentation, and this
  * site is arguing that its author is an engineer.
+ *
+ * The eyebrow row reads `--hue` from the section around it, so each section's
+ * index, rule and label arrive in that section's domain colour. The heading
+ * itself stays foreground white — colour is for the labels, not the argument.
  */
 const SectionHeader = ({
   index,
@@ -30,10 +34,10 @@ const SectionHeader = ({
       <Reveal>
         <div className={`flex items-center gap-3 ${centered ? "justify-center" : ""}`}>
           {index && (
-            <span className="mono-tiny text-primary/70 tabular-nums">{index}</span>
+            <span className="mono-tiny text-hue tabular-nums">{index}</span>
           )}
-          <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
-          <span className="mono-label text-primary">{eyebrow}</span>
+          <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
+          <span className="mono-label text-hue">{eyebrow}</span>
         </div>
       </Reveal>
 

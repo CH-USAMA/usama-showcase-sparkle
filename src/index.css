@@ -35,6 +35,20 @@
     --primary-glow: 176 100% 60%;
     --accent-2: 194 96% 56%;
 
+    /* ---- Categorical hue family ----
+       The accent cyan plus five siblings, every one contrast-checked against
+       the page ground; the weakest (indigo) is 5.30:1, so all six are AA for
+       small text. Colour here is information, not decoration: a hue names a
+       domain and stays attached to it across the stack matrix, the services
+       and the case studies. --primary stays the one signal that means "you
+       can act on this", which is why it is never reassigned below. */
+    --hue-backend: 176 92% 47%;   /* 12.72:1 */
+    --hue-realtime: 198 94% 55%;  /*  8.80:1 */
+    --hue-ai: 250 90% 70%;        /*  5.30:1 */
+    --hue-automation: 285 80% 68%;/*  6.70:1 */
+    --hue-cloud: 40 95% 58%;      /* 11.23:1 */
+    --hue-interface: 340 85% 68%; /*  6.90:1 */
+
     --secondary: 220 20% 11%;
     --secondary-foreground: 210 22% 93%;
 
@@ -119,6 +133,14 @@
     --primary-foreground: 0 0% 100%;
     --primary-glow: 183 90% 40%;
     --accent-2: 199 90% 40%;
+
+    /* Same family, re-darkened for the light reading views. */
+    --hue-backend: 183 90% 30%;
+    --hue-realtime: 199 90% 36%;
+    --hue-ai: 250 68% 52%;
+    --hue-automation: 285 58% 48%;
+    --hue-cloud: 32 88% 38%;
+    --hue-interface: 340 68% 46%;
     --secondary: 210 25% 94%;
     --secondary-foreground: 220 30% 8%;
     --muted: 210 25% 94%;
@@ -453,3 +475,44 @@
     transform: none !important;
   }
 }
+
+/* ============================================================================
+   HUE LAYER
+
+   Components set `--hue` (and optionally `--hue-2`) on a container; everything
+   below reads it. One set of utilities instead of six colour variants each,
+   and a bare utility with no `--hue` set falls back to the accent, so nothing
+   can land off-system.
+   ========================================================================= */
+@layer utilities {
+  /* Ambient wash: two soft radials of the local hue painted between a
+     section's background and its content, so the ground stops reading as flat
+     black. Capped at 8% alpha — this is depth, not colour-blocking. */
+  .wash {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .wash::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        58% 44% at var(--wash-x, 50%) var(--wash-y, 0%),
+        hsl(var(--hue, var(--primary)) / 0.08),
+        transparent 72%
+      ),
+      radial-gradient(
+        44% 40% at var(--wash-x2, 88%) var(--wash-y2, 100%),
+        hsl(var(--hue-2, var(--hue, var(--primary))) / 0.05),
+        transparent 70%
+      );
+  }
+
+  .text-hue { color: hsl(var(--hue, var(--primary))); }
+  .bg-hue { background-color: hsl(var(--hue, var(--primary))); }
+  .bg-hue-soft { background-color: hsl(var(--hue, var(--primary)) / 0.10); }
+  .border-hue { border-color: hsl(var(--hue, var(--primary)) / 0.42); }}

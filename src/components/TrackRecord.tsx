@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
@@ -52,7 +53,16 @@ const CREDENTIALS = [
 ];
 
 const TrackRecord = () => (
-  <section id="experience" className="relative scroll-mt-24 py-24 lg:py-32">
+  <section
+    id="experience"
+    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    style={{
+      "--hue": "var(--hue-cloud)",
+      "--hue-2": "var(--hue-interface)",
+      "--wash-x": "20%",
+      "--wash-y": "8%",
+    } as CSSProperties}
+  >
     <div className="container mx-auto">
       <SectionHeader
         index="06"

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/system/Reveal";
 import { transition } from "@/lib/motion";
@@ -12,12 +13,16 @@ interface Tech {
 interface Group {
   id: string;
   label: string;
+  /** Domain hue from the family in index.css. Colour identifies the domain,
+      so the same hue follows these tools into the services and case studies. */
+  hue: string;
   items: Tech[];
 }
 
 const GROUPS: Group[] = [
   {
     id: "backend",
+    hue: "var(--hue-backend)",
     label: "Backend",
     items: [
       { name: "Laravel", uses: ["Multi-tenant SaaS", "Queue architecture", "Domain actions"] },
@@ -30,6 +35,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "ai",
+    hue: "var(--hue-ai)",
     label: "AI & agents",
     items: [
       { name: "RAG", uses: ["Hybrid retrieval", "Semantic chunking", "Citation grounding"] },
@@ -42,6 +48,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "automation",
+    hue: "var(--hue-automation)",
     label: "Automation",
     items: [
       { name: "n8n", uses: ["Lead pipelines", "Approval gates", "Self-hosted workflows"] },
@@ -52,6 +59,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "realtime",
+    hue: "var(--hue-realtime)",
     label: "Real-time & VoIP",
     items: [
       { name: "Asterisk", uses: ["Dialplan", "AGI scripting", "Predictive dialer"] },
@@ -63,6 +71,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "cloud",
+    hue: "var(--hue-cloud)",
     label: "Cloud & DevOps",
     items: [
       { name: "AWS", uses: ["Load balancing", "S3 · SES", "Deployment"] },
@@ -74,6 +83,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "frontend",
+    hue: "var(--hue-interface)",
     label: "Interface",
     items: [
       { name: "React", uses: ["Dashboards", "Case-study tooling"] },
@@ -97,12 +107,15 @@ const TechMatrix = () => {
   const activeGroup = GROUPS.find((g) => g.id === group) ?? GROUPS[0];
 
   return (
-    <section className="relative border-t border-hairline/[0.08] py-20 lg:py-24">
+    <section
+      className="wash relative border-t border-hairline/[0.08] py-20 lg:py-24"
+      style={{ "--hue": activeGroup.hue } as CSSProperties}
+    >
       <div className="container mx-auto">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <span className="mono-label text-primary">Stack</span>
+              <span className="mono-label text-hue">Stack</span>
               <h2 className="type-h3 mt-4 max-w-lg text-foreground">
                 The tools, and where they actually sit.
               </h2>
@@ -125,12 +138,18 @@ const TechMatrix = () => {
                       setGroup(g.id);
                       setTech(null);
                     }}
-                    className={`shrink-0 rounded-full border px-3.5 py-2 font-inter text-[13px] transition-colors duration-standard ${
+                    style={{ "--hue": g.hue } as CSSProperties}
+                    className={`flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 font-inter text-[13px] transition-colors duration-standard ${
                       on
-                        ? "border-primary/50 bg-primary/10 text-foreground"
+                        ? "border-hue bg-hue-soft text-foreground"
                         : "border-hairline/[0.09] text-muted-foreground hover:border-hairline/[0.18] hover:text-foreground"
                     }`}
                   >
+                    <span
+                      aria-hidden="true"
+                      className="h-1.5 w-1.5 rounded-full bg-hue transition-opacity duration-standard"
+                      style={{ opacity: on ? 1 : 0.5 }}
+                    />
                     {g.label}
                   </button>
                 );
@@ -161,14 +180,14 @@ const TechMatrix = () => {
                         onFocus={() => setTech(t)}
                         onClick={() => setTech(on ? null : t)}
                         className={`flex h-full w-full flex-col items-start gap-1.5 px-4 py-4 text-left transition-colors duration-standard ${
-                          on ? "bg-primary/[0.09]" : "bg-surface-1 hover:bg-surface-2"
+                          on ? "bg-hue-soft" : "bg-surface-1 hover:bg-surface-2"
                         }`}
                       >
                         <span className="flex items-center gap-2">
                           <span
                             aria-hidden="true"
                             className={`h-1 w-1 rounded-full transition-colors duration-standard ${
-                              on ? "bg-primary" : "bg-subtle"
+                              on ? "bg-hue" : "bg-subtle"
                             }`}
                           />
                           <span className="font-inter text-[13.5px] font-medium tracking-tight text-foreground">
@@ -198,7 +217,7 @@ const TechMatrix = () => {
                     exit={{ opacity: 0, y: -6 }}
                     transition={transition.standard}
                   >
-                    <h3 className="font-mono text-sm uppercase tracking-[0.16em] text-primary">
+                    <h3 className="font-mono text-sm uppercase tracking-[0.16em] text-hue">
                       {tech.name}
                     </h3>
                     <ul className="mt-5 space-y-3">
@@ -209,7 +228,7 @@ const TechMatrix = () => {
                         >
                           <span
                             aria-hidden="true"
-                            className="mt-[7px] h-px w-3 shrink-0 bg-primary/60"
+                            className="mt-[7px] h-px w-3 shrink-0 bg-hue opacity-70"
                           />
                           {u}
                         </li>

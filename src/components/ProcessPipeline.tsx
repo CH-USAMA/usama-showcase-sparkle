@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -74,7 +75,16 @@ const ProcessPipeline = () => {
   const progress = useSpring(raw, { stiffness: 90, damping: 24, mass: 0.4 });
 
   return (
-    <section id="process" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section
+      id="process"
+      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-realtime)",
+        "--hue-2": "var(--hue-backend)",
+        "--wash-x": "82%",
+        "--wash-y": "10%",
+      } as CSSProperties}
+    >
       <div className="container mx-auto">
         <SectionHeader
           index="05"

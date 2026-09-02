@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -19,7 +20,7 @@ const Corners = () => (
       <span
         key={pos}
         aria-hidden="true"
-        className={`pointer-events-none absolute h-3 w-3 border-primary/40 ${pos}`}
+        className={`pointer-events-none absolute h-3 w-3 border-hue ${pos}`}
       />
     ))}
   </>
@@ -33,14 +34,17 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
   ].filter(Boolean) as { k: string; v: string }[];
 
   return (
-    <article className="relative border-t border-hairline/[0.08] py-16 lg:py-24">
+    <article
+      className="relative border-t border-hairline/[0.08] py-16 lg:py-24"
+      style={{ "--hue": study.hue } as CSSProperties}
+    >
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
         {/* ---- identity column ---- */}
         <div className={`lg:col-span-5 ${flipped ? "lg:order-2" : ""}`}>
           <Reveal>
             <div className="flex items-center gap-3">
-              <span className="mono-tiny tabular-nums text-primary/80">{study.n}</span>
-              <span className="h-px w-6 bg-primary/40" aria-hidden="true" />
+              <span className="mono-tiny tabular-nums text-hue">{study.n}</span>
+              <span className="h-px w-6 bg-hue opacity-50" aria-hidden="true" />
               <span className="mono-tiny text-muted-foreground">{study.category}</span>
             </div>
           </Reveal>
@@ -51,8 +55,8 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
 
           {/* headline outcome */}
           <Reveal index={2}>
-            <div className="mt-7 flex items-baseline gap-4 border-l-2 border-primary/60 pl-5">
-              <span className="font-inter text-[2.75rem] font-semibold leading-none tracking-tight text-primary sm:text-[3.5rem]">
+            <div className="mt-7 flex items-baseline gap-4 border-l-2 border-hue pl-5">
+              <span className="font-inter text-[2.75rem] font-semibold leading-none tracking-tight text-hue sm:text-[3.5rem]">
                 {study.metric.value}
               </span>
               <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
@@ -168,7 +172,16 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
  * what you decided.
  */
 const CaseStudies = () => (
-  <section id="work" className="relative scroll-mt-24 py-24 lg:py-32">
+  <section
+    id="work"
+    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    style={{
+      "--hue": "var(--hue-ai)",
+      "--hue-2": "var(--hue-automation)",
+      "--wash-x": "76%",
+      "--wash-y": "4%",
+    } as CSSProperties}
+  >
     {/* faint field so the section reads as a distinct plane */}
     <div
       className="grid-field-fine mask-fade-b pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 opacity-60"

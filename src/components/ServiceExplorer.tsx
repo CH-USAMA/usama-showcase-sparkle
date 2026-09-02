@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -14,6 +15,9 @@ interface Capability {
   title: string;
   summary: string;
   stack: string[];
+  /** Domain hue — the same one this domain carries in the stack matrix and
+      the case studies, so a reader can follow a colour across the page. */
+  hue: string;
   flow: FlowStage[];
   /** Only set where a dedicated service page actually exists. */
   href?: string;
@@ -27,6 +31,7 @@ interface Capability {
 const CAPABILITIES: Capability[] = [
   {
     id: "laravel",
+    hue: "var(--hue-backend)",
     n: "01",
     title: "Laravel & Backend Systems",
     summary:
@@ -43,6 +48,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "saas",
+    hue: "var(--hue-backend)",
     n: "02",
     title: "SaaS & API Engineering",
     summary:
@@ -58,6 +64,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "ai",
+    hue: "var(--hue-ai)",
     n: "03",
     title: "AI & Agent Integration",
     summary:
@@ -74,6 +81,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "automation",
+    hue: "var(--hue-automation)",
     n: "04",
     title: "Automation Infrastructure",
     summary:
@@ -90,6 +98,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "voip",
+    hue: "var(--hue-realtime)",
     n: "05",
     title: "VoIP & Asterisk",
     summary:
@@ -106,6 +115,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "realtime",
+    hue: "var(--hue-realtime)",
     n: "06",
     title: "Real-Time Systems",
     summary:
@@ -121,6 +131,7 @@ const CAPABILITIES: Capability[] = [
   },
   {
     id: "cloud",
+    hue: "var(--hue-cloud)",
     n: "07",
     title: "Cloud & DevOps",
     summary:
@@ -156,7 +167,16 @@ const ServiceExplorer = () => {
   );
 
   return (
-    <section id="services" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section
+      id="services"
+      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-backend)",
+        "--hue-2": "var(--hue-realtime)",
+        "--wash-x": "18%",
+        "--wash-y": "6%",
+      } as CSSProperties}
+    >
       <div className="container mx-auto">
         <SectionHeader
           index="02"
@@ -178,11 +198,13 @@ const ServiceExplorer = () => {
                 key={c.id}
                 className="group relative border-b border-hairline/[0.08]"
                 onMouseEnter={() => hover(c.id)}
+                /* each row overrides the section hue with its own domain's */
+                style={{ "--hue": c.hue } as CSSProperties}
               >
                 {/* accent rail on the active row */}
                 <span
                   aria-hidden="true"
-                  className={`absolute left-0 top-0 h-full w-px bg-primary transition-opacity duration-standard ${
+                  className={`absolute left-0 top-0 h-full w-px bg-hue transition-opacity duration-standard ${
                     isOpen ? "opacity-70" : "opacity-0"
                   }`}
                 />
@@ -198,7 +220,7 @@ const ServiceExplorer = () => {
                   >
                     <span
                       className={`mono-tiny shrink-0 tabular-nums transition-colors duration-standard ${
-                        isOpen ? "text-primary" : "text-subtle"
+                        isOpen ? "text-hue" : "text-subtle"
                       }`}
                     >
                       {c.n}
@@ -213,7 +235,7 @@ const ServiceExplorer = () => {
                     <span
                       aria-hidden="true"
                       className={`mt-1 hidden shrink-0 font-mono text-xs text-subtle transition-transform duration-standard sm:block ${
-                        isOpen ? "rotate-45 text-primary" : ""
+                        isOpen ? "rotate-45 text-hue" : ""
                       }`}
                     >
                       ＋
@@ -249,7 +271,7 @@ const ServiceExplorer = () => {
                           {c.href && (
                             <Link
                               to={c.href}
-                              className="group/link mt-6 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-primary"
+                              className="group/link mt-6 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-hue"
                             >
                               <span className="hover-underline">Service detail</span>
                               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-standard group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />

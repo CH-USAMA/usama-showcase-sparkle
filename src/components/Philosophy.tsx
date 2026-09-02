@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -63,7 +64,16 @@ const Philosophy = () => {
   const current = PRINCIPLES[active];
 
   return (
-    <section id="about" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section
+      id="about"
+      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-automation)",
+        "--hue-2": "var(--hue-interface)",
+        "--wash-x": "24%",
+        "--wash-y": "12%",
+      } as CSSProperties}
+    >
       <div className="container mx-auto">
         <SectionHeader
           index="04"

@@ -10,6 +10,9 @@ export interface CaseStudy {
   id: string;
   n: string;
   category: string;
+  /** Domain hue from the family in index.css — the same hue this domain
+      carries in the stack matrix and the service list. */
+  hue: string;
   title: string;
   /** Headline outcome. Every one of these is a figure already published on the site. */
   metric: { value: string; label: string };
@@ -38,6 +41,7 @@ export const caseStudies: CaseStudy[] = [
     id: "call-portal",
     n: "01",
     category: "VoIP infrastructure",
+    hue: "var(--hue-realtime)",
     title: "Solutions Zilla Call Portal",
     metric: { value: "70%", label: "Faster call routing" },
     image: imgCallPortal,
@@ -66,6 +70,7 @@ export const caseStudies: CaseStudy[] = [
     id: "clinic",
     n: "02",
     category: "Healthcare SaaS",
+    hue: "var(--hue-backend)",
     title: "iSmart Clinic",
     metric: { value: "40%", label: "More patient retention" },
     image: imgClinic,
@@ -90,6 +95,7 @@ export const caseStudies: CaseStudy[] = [
     id: "rag-legal",
     n: "03",
     category: "AI retrieval",
+    hue: "var(--hue-ai)",
     title: "RAG-Powered Legal Assistant",
     metric: { value: "94%", label: "Query accuracy" },
     image: imgRag,
@@ -116,6 +122,7 @@ export const caseStudies: CaseStudy[] = [
     id: "lead-engine",
     n: "04",
     category: "Automation infrastructure",
+    hue: "var(--hue-automation)",
     title: "Smart Lead Qualification Engine",
     metric: { value: "85%", label: "Less qualification time" },
     image: imgLeadEngine,
@@ -142,6 +149,7 @@ export const caseStudies: CaseStudy[] = [
     id: "contentops",
     n: "05",
     category: "AI agents",
+    hue: "var(--hue-ai)",
     title: "AI Content Operations Pipeline",
     metric: { value: "10x", label: "Content throughput" },
     image: imgContentOps,
@@ -169,6 +177,7 @@ export const caseStudies: CaseStudy[] = [
     id: "interiors",
     n: "06",
     category: "Commerce",
+    hue: "var(--hue-interface)",
     title: "Focus Interiors",
     metric: { value: "35%", label: "Conversion lift" },
     image: imgInteriors,

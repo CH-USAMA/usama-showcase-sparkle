@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
@@ -71,7 +72,16 @@ const TESTIMONIALS = [
  * Each panel leads with the question the reader is already asking themselves.
  */
 const Audience = () => (
-  <section id="clients" className="relative scroll-mt-24 py-24 lg:py-32">
+  <section
+    id="clients"
+    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    style={{
+      "--hue": "var(--hue-interface)",
+      "--hue-2": "var(--hue-ai)",
+      "--wash-x": "80%",
+      "--wash-y": "6%",
+    } as CSSProperties}
+  >
     <div className="container mx-auto">
       <SectionHeader
         index="07"
