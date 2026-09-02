@@ -291,11 +291,11 @@ const BlogPost = () => {
                 Free 30-minute call. Bring your Laravel scaling, automation, VoIP, or AI integration challenge and leave with a clear next step.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <a href="/book">
+                <Link to="/book">
                   <Button size="lg" variant="hero" className="rounded-xl px-8 shadow-glow">
                     Book a free call
                   </Button>
-                </a>
+                </Link>
                 <a href="https://wa.me/923038004684?text=Hi%20Usama%2C%20I%20read%20your%20article%20and%20have%20a%20question" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="rounded-xl">
                     Ask on WhatsApp

@@ -6,8 +6,57 @@
     <atom:link href="https://dev-usama-portfolio.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on Laravel, VoIP/Asterisk, n8n automation, AI agents, and production engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 09:00:00 GMT</lastBuildDate>
 
+    <item>
+      <title>Laravel vs Node.js for Backend Systems: How I Choose in 2026</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/laravel-vs-nodejs-backend-systems</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/laravel-vs-nodejs-backend-systems</guid>
+      <pubDate>Tue, 28 Jul 2026 09:00:00 GMT</pubDate>
+      <description>A practical, production-tested comparison of Laravel and Node.js across queues, real-time, team velocity, hosting cost, and long-term maintenance, with the decision rules I actually use on client projects.</description>
+    </item>
+    <item>
+      <title>Asterisk vs Twilio: Real Cost Breakdown for Call Center Backends</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/asterisk-vs-twilio-cost-breakdown</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/asterisk-vs-twilio-cost-breakdown</guid>
+      <pubDate>Tue, 21 Jul 2026 09:00:00 GMT</pubDate>
+      <description>Self-hosted Asterisk/FreePBX versus Twilio for outbound and inbound call operations: per-minute economics, engineering cost, break-even volume, and when each option is the responsible choice.</description>
+    </item>
+    <item>
+      <title>n8n vs Custom Code: Where Automation Platforms Stop Paying Off</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/n8n-vs-custom-code-automation</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/n8n-vs-custom-code-automation</guid>
+      <pubDate>Tue, 14 Jul 2026 09:00:00 GMT</pubDate>
+      <description>When a visual automation platform like n8n is the correct engineering decision, when it becomes technical debt, and the migration path from workflow to service without a rewrite.</description>
+    </item>
+    <item>
+      <title>Laravel vs Django for SaaS: Choosing the Right Backend in 2026</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/laravel-vs-django-for-saas</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/laravel-vs-django-for-saas</guid>
+      <pubDate>Tue, 10 Feb 2026 00:00:00 GMT</pubDate>
+      <description>A practical comparison of Laravel and Django for building multi-tenant SaaS products, covering ecosystem, billing, background jobs, hiring, and long-term maintenance cost.</description>
+    </item>
+    <item>
+      <title>n8n vs Make.com for Enterprise Automation: A Field Comparison</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/n8n-vs-make-enterprise-automation</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/n8n-vs-make-enterprise-automation</guid>
+      <pubDate>Wed, 04 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Self hosted n8n or managed Make.com? A practical comparison for teams running business critical automation, covering cost at scale, data residency, error handling, and when to write custom code instead.</description>
+    </item>
+    <item>
+      <title>Redis vs Database Caching in Laravel: When to Use Each</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/redis-vs-database-caching-laravel</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/redis-vs-database-caching-laravel</guid>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 GMT</pubDate>
+      <description>A practical guide to choosing between Redis and database query caching in Laravel, covering cache invalidation, cache stamps, TTL strategy, and the exact rules I use on production SaaS backends.</description>
+    </item>
+    <item>
+      <title>MySQL vs PostgreSQL for Laravel SaaS: Which I Choose and Why</title>
+      <link>https://dev-usama-portfolio.vercel.app/blog/mysql-vs-postgresql-laravel-saas</link>
+      <guid isPermaLink="true">https://dev-usama-portfolio.vercel.app/blog/mysql-vs-postgresql-laravel-saas</guid>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 GMT</pubDate>
+      <description>A practical comparison of MySQL and PostgreSQL for Laravel SaaS applications, covering JSON handling, scaling patterns, backups, and the decision framework I use on production systems.</description>
+    </item>
     <item>
       <title>Stripe + Laravel: Building Subscription Billing That Does Not Break</title>
       <link>https://dev-usama-portfolio.vercel.app/blog/stripe-laravel-subscription-billing</link>

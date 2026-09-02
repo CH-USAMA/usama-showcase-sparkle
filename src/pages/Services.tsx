@@ -98,11 +98,11 @@ const Services = () => (
             <p className="mt-3 text-sm sm:text-base text-muted-foreground font-inter">
               Describe the problem on a free 30-minute call and I will tell you the shortest path to a fix.
             </p>
-            <a href="/book" className="inline-block mt-6">
+            <Link to="/book" className="inline-block mt-6">
               <Button variant="hero" className="rounded-full px-6 gap-2">
                 <CalendarCheck className="w-4 h-4" /> Book a consultation
               </Button>
-            </a>
+            </Link>
           </div>
         </AnimatedSection>
       </div>

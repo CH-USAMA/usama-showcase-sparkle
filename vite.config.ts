@@ -20,12 +20,15 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
+        // Only group things the entry actually needs. Naming a manual chunk
+        // for a purely dynamic import (react-syntax-highlighter) promoted it
+        // into the entry's modulepreload set, so every page eagerly fetched
+        // ~227 kB gzipped of highlighter it never rendered. Leave it out and
+        // Rollup keeps it a real lazy chunk, loaded only by CodeBlock.
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           motion: ['framer-motion'],
-          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', '@radix-ui/react-tooltip'],
           query: ['@tanstack/react-query'],
-          syntax: ['react-syntax-highlighter'],
         },
       },
     },

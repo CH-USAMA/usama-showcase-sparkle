@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Card, CardContent } from "@/components/ui/card";
@@ -186,12 +187,12 @@ const Checklist = () => {
                   leave with the shortest path to a fix.
                 </p>
                 <Button asChild size="lg" className="rounded-xl px-8">
-                  <a
-                    href="/book"
+                  <Link
+                    to="/book"
                     onClick={() => trackEvent("book_call_click", { source: "checklist" })}
                   >
                     Book a free review
-                  </a>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

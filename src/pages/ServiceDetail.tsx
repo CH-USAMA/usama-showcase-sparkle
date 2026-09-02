@@ -86,11 +86,11 @@ const ServiceDetail = () => {
               <p className="mt-6 text-lg text-muted-foreground font-inter leading-relaxed">{service.intro}</p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <a href="/book">
+                <Link to="/book">
                   <Button variant="hero" className="rounded-full px-6 gap-2">
                     <CalendarCheck className="w-4 h-4" /> Book a free consultation
                   </Button>
-                </a>
+                </Link>
                 <Link to="/projects">
                   <Button variant="outline" className="rounded-full px-6">
                     See related work
@@ -168,11 +168,11 @@ const ServiceDetail = () => {
                   Bring the problem to a free 30-minute call and leave with a clear technical next step, whether or not
                   we work together.
                 </p>
-                <a href="/book" className="block mt-5">
+                <Link to="/book" className="block mt-5">
                   <Button variant="hero" className="w-full rounded-xl">
                     Book a consultation
                   </Button>
-                </a>
+                </Link>
               </Card>
 
               <Card className="p-6 rounded-2xl border-border/30 bg-card/40">
