@@ -29,7 +29,7 @@ const Telemetry = ({ items, className = "", columns = 2 }: TelemetryProps) => {
       className={`grid grid-cols-2 ${cols} gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] ${className}`}
     >
       {items.map((item) => (
-        <div key={item.label} className="bg-surface-1/80 px-4 py-3.5 backdrop-blur-sm">
+        <div key={item.label} className="bg-surface-1/80 px-4 py-3.5">
           <dt className="mono-tiny text-subtle">{item.label}</dt>
           <dd className="mt-2 flex items-center gap-2">
             {item.status && (

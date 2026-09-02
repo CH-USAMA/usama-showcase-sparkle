@@ -45,7 +45,7 @@ const tones: Record<Tone, string> = {
     "bg-primary text-primary-foreground font-semibold hover:bg-primary-glow " +
     "shadow-[0_8px_28px_-12px_hsl(var(--primary)/0.6)] hover:shadow-[0_12px_36px_-12px_hsl(var(--primary)/0.75)]",
   ghost:
-    "text-foreground border border-hairline/[0.14] bg-surface-1/60 backdrop-blur-sm " +
+    "text-foreground border border-hairline/[0.14] bg-surface-1/60 " +
     "hover:border-primary/40 hover:bg-surface-2/70",
   quiet:
     "text-muted-foreground hover:text-foreground",

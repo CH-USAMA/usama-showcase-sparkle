@@ -54,7 +54,7 @@ const Hero = () => {
       />
 
       <div className="container relative mx-auto">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.06fr_0.94fr] lg:gap-8 xl:gap-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.04fr] lg:gap-8 xl:gap-14">
           {/* ---------------- left: the argument ---------------- */}
           <div className="max-w-[36rem]">
             <div className="enter flex flex-wrap items-center gap-x-3 gap-y-2" style={delay(40)}>
@@ -128,7 +128,7 @@ const Hero = () => {
 
           {/* ---------------- right: the system ---------------- */}
           <div
-            className="enter-soft relative mx-auto w-full max-w-[26rem] lg:max-w-none"
+            className="enter-soft relative mx-auto w-full max-w-[30rem] lg:max-w-none"
             style={delay(160)}
           >
             <Suspense fallback={<div className="aspect-square w-full" aria-hidden="true" />}>

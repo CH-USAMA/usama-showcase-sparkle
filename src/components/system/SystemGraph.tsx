@@ -1,7 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
-import { Braces, Brain, Container, Database, PhoneCall, Radio, Server, Workflow } from "lucide-react";
+import {
+  Braces,
+  Brain,
+  Code2,
+  Container,
+  Database,
+  Hexagon,
+  PhoneCall,
+  Radio,
+  Server,
+  Workflow,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { usePointerField, usePrefersReducedMotion } from "@/hooks/usePointerField";
+import { usePointerVars, usePrefersReducedMotion } from "@/hooks/usePointerField";
 import profileWebp from "@/assets/usama-profile.webp";
 import profileJpg from "@/assets/usama-profile.jpg";
 
@@ -14,6 +25,11 @@ import profileJpg from "@/assets/usama-profile.jpg";
 
    Two compositions, not one scaled: `wide` is a two-sided bus for landscape,
    `compact` is a single descending trunk for portrait.
+
+   Parallax is driven by CSS custom properties written straight to the DOM
+   (see usePointerVars), never React state. Re-rendering this tree — ten nodes
+   of six SVG elements each — on every pointermove was the single largest
+   frame cost on the page.
 --------------------------------------------------------------------------- */
 
 interface NodeDef {
@@ -23,12 +39,15 @@ interface NodeDef {
   icon: LucideIcon;
 }
 
+/** First five render down the left bus, last five down the right. */
 const NODES: NodeDef[] = [
   { id: "laravel", label: "Laravel", meta: "App layer", icon: Server },
+  { id: "node", label: "Node.js", meta: "Sockets · tooling", icon: Hexagon },
   { id: "redis", label: "Redis", meta: "Queues · cache", icon: Database },
   { id: "api", label: "APIs", meta: "REST · GraphQL", icon: Braces },
   { id: "docker", label: "Docker", meta: "Deploy", icon: Container },
   { id: "ai", label: "AI", meta: "RAG · agents", icon: Brain },
+  { id: "python", label: "Python", meta: "ML · scripting", icon: Code2 },
   { id: "automation", label: "Automation", meta: "n8n · MCP", icon: Workflow },
   { id: "asterisk", label: "Asterisk", meta: "SIP · IVR", icon: PhoneCall },
   { id: "realtime", label: "Real-time", meta: "WebSockets", icon: Radio },
@@ -55,6 +74,7 @@ type Layout = "wide" | "compact";
 interface Geometry {
   vb: { w: number; h: number };
   photo: { cx: number; cy: number; r: number };
+  type: { label: number; meta: number; dotX: number; textX: number };
   nodes: {
     def: NodeDef;
     /** anchor point on the node where the wire attaches */
@@ -71,15 +91,21 @@ interface Geometry {
 }
 
 function buildWide(): Geometry {
-  const W = 620, H = 540;
-  const cx = 310, cy = 270, pr = 84;
-  const boxW = 118, boxH = 46;
-  const leftTrunk = 176, rightTrunk = 444;
-  const rows = [64, 152, 388, 476];
+  // Nearly square (720/680) rather than the old 620/540. At a fixed column
+  // width a squarer box is a taller box, which is most of what "bigger" means
+  // here — and five rows a side need the height.
+  const W = 720, H = 680;
+  const cx = W / 2, cy = H / 2, pr = 122;
+  const boxW = 146, boxH = 54;
+  const pad = 20;
+  const leftTrunk = 196, rightTrunk = W - leftTrunk;
+  // Symmetric about cy, so the composition reads centred at rest. The middle
+  // row sits exactly on cy and runs straight in — elbow() handles that case.
+  const rows = [76, 190, cy, 490, 604];
 
-  const left = NODES.slice(0, 4).map((def, i) => {
+  const left = NODES.slice(0, 5).map((def, i) => {
     const y = rows[i];
-    const x = 30;
+    const x = pad;
     const ax = x + boxW;
     return {
       def, x, y: y - boxH / 2, w: boxW, h: boxH, ax, ay: y, side: "left" as const,
@@ -87,27 +113,34 @@ function buildWide(): Geometry {
     };
   });
 
-  const right = NODES.slice(4).map((def, i) => {
+  const right = NODES.slice(5).map((def, i) => {
     const y = rows[i];
-    const x = W - 30 - boxW;
-    const ax = x;
+    const x = W - pad - boxW;
     return {
-      def, x, y: y - boxH / 2, w: boxW, h: boxH, ax, ay: y, side: "right" as const,
-      path: elbow(ax, y, rightTrunk, cy, cx + pr + 14),
+      def, x, y: y - boxH / 2, w: boxW, h: boxH, ax: x, ay: y, side: "right" as const,
+      path: elbow(x, y, rightTrunk, cy, cx + pr + 14),
     };
   });
 
-  return { vb: { w: W, h: H }, photo: { cx, cy, r: pr }, nodes: [...left, ...right] };
+  return {
+    vb: { w: W, h: H },
+    photo: { cx, cy, r: pr },
+    type: { label: 15, meta: 10, dotX: 18, textX: 32 },
+    nodes: [...left, ...right],
+  };
 }
 
 function buildCompact(): Geometry {
   const W = 380, H = 560;
-  const cx = 190, cy = 96, pr = 62;
+  const cx = W / 2, cy = 96, pr = 62;
   const boxW = 116, boxH = 40;
-  const trunk = 190;
+  const trunk = cx;
   // Photo at the top, a single trunk descending, nodes branching alternately.
+  // Six of the ten — a phone does not need the whole bus to make the point.
   const rows = [216, 274, 332, 390, 448, 506];
-  const picked = [NODES[0], NODES[4], NODES[1], NODES[5], NODES[6], NODES[7]];
+  const picked = ["laravel", "ai", "node", "python", "asterisk", "realtime"].map(
+    (id) => NODES.find((n) => n.id === id)!
+  );
 
   const nodes = picked.map((def, i) => {
     const side = i % 2 === 0 ? ("left" as const) : ("right" as const);
@@ -119,14 +152,35 @@ function buildCompact(): Geometry {
     return { def, x, y: y - boxH / 2, w: boxW, h: boxH, ax, ay: y, side, path };
   });
 
-  return { vb: { w: W, h: H }, photo: { cx, cy, r: pr }, nodes };
+  return {
+    vb: { w: W, h: H },
+    photo: { cx, cy, r: pr },
+    type: { label: 12.5, meta: 8.5, dotX: 15, textX: 26 },
+    nodes,
+  };
 }
+
+/**
+ * Parallax transform for a layer, in viewBox units per unit of pointer offset.
+ * `--px` / `--py` are unitless -1..1 and default to 0, so this is also the
+ * correct resting transform when the pointer field is disabled.
+ */
+const drift = (d: number) =>
+  `translate3d(calc(var(--px, 0) * ${d}px), calc(var(--py, 0) * ${(d * 0.7).toFixed(2)}px), 0)`;
+
+// Nodes and photo share a depth. Giving the photo less drift than the node
+// cluster (it used to be 3 against 11) made the portrait read as off-centre
+// whenever the pointer sat to one side — the thing it must never do, since it
+// is the anchor the whole diagram points at.
+const DEPTH_LAYER = 8;
+const DEPTH_WIRES = 4;
+const DEPTH_RING = 6;
 
 const SystemGraph = () => {
   const [layout, setLayout] = useState<Layout>("wide");
   const [hovered, setHovered] = useState<string | null>(null);
   const reduced = usePrefersReducedMotion();
-  const { ref, offset, enabled } = usePointerField<HTMLDivElement>();
+  const ref = usePointerVars<HTMLDivElement>();
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -137,24 +191,15 @@ const SystemGraph = () => {
   }, []);
 
   const geo = useMemo(() => (layout === "wide" ? buildWide() : buildCompact()), [layout]);
-  const { vb, photo, nodes } = geo;
-
-  // Parallax depths: wires drift least, nodes more, photo least of all so it
-  // stays the anchor the eye returns to.
-  const drift = (d: number) =>
-    enabled ? { transform: `translate3d(${offset.x * d}px, ${offset.y * d * 0.7}px, 0)` } : undefined;
-
-  // The photo is centred with a -50%/-50% translate, so its parallax has to be
-  // composed into the same transform — an inline `transform` would otherwise
-  // replace the centring and knock the portrait half its own width off-centre.
-  const photoTransform = `translate(-50%, -50%) translate3d(${
-    enabled ? offset.x * 3 : 0
-  }px, ${enabled ? offset.y * 2.1 : 0}px, 0)`;
+  const { vb, photo, nodes, type } = geo;
 
   const photoPct = {
     left: `${(photo.cx / vb.w) * 100}%`,
     top: `${(photo.cy / vb.h) * 100}%`,
     width: `${((photo.r * 2) / vb.w) * 100}%`,
+    // -50%/-50% centres the box on (cx, cy); the parallax has to compose into
+    // the same transform or it would replace the centring entirely.
+    transform: `translate(-50%, -50%) ${drift(DEPTH_LAYER)}`,
   };
 
   return (
@@ -163,7 +208,7 @@ const SystemGraph = () => {
       className="relative w-full select-none"
       style={{ aspectRatio: `${vb.w} / ${vb.h}` }}
       role="img"
-      aria-label="System diagram: Laravel, Redis, APIs, Docker, AI, automation, Asterisk and real-time services routed into a central node representing Usama Munawar."
+      aria-label="System diagram: Laravel, Node.js, Redis, APIs, Docker, AI, Python, automation, Asterisk and real-time services routed into a central node representing Usama Munawar."
     >
       <svg
         viewBox={`0 0 ${vb.w} ${vb.h}`}
@@ -181,16 +226,13 @@ const SystemGraph = () => {
             <stop offset="60%" stopColor="hsl(var(--primary))" stopOpacity="0.10" />
             <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
           </radialGradient>
-          <filter id="sg-soft" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="7" />
-          </filter>
         </defs>
 
         {/* core halo */}
-        <circle cx={photo.cx} cy={photo.cy} r={photo.r * 2.3} fill="url(#sg-core)" />
+        <circle cx={photo.cx} cy={photo.cy} r={photo.r * 2.1} fill="url(#sg-core)" />
 
         {/* ---- wires ---- */}
-        <g style={drift(6)}>
+        <g style={{ transform: drift(DEPTH_WIRES) }}>
           {nodes.map((n, i) => {
             const on = hovered === n.def.id;
             return (
@@ -214,7 +256,7 @@ const SystemGraph = () => {
                     strokeDasharray="3 300"
                     className="anim-dash-flow"
                     style={{
-                      animationDelay: `${i * 1.65}s`,
+                      animationDelay: `${i * 1.3}s`,
                       animationDuration: on ? "5s" : "14s",
                       opacity: on ? 0.95 : 0.55,
                     }}
@@ -235,11 +277,11 @@ const SystemGraph = () => {
         </g>
 
         {/* ---- instrument ring around the core ---- */}
-        <g style={drift(3)}>
+        <g style={{ transform: drift(DEPTH_RING) }}>
           <circle
             cx={photo.cx}
             cy={photo.cy}
-            r={photo.r + 16}
+            r={photo.r + 18}
             fill="none"
             stroke="hsl(var(--hairline))"
             strokeOpacity={0.14}
@@ -248,7 +290,7 @@ const SystemGraph = () => {
           <circle
             cx={photo.cx}
             cy={photo.cy}
-            r={photo.r + 28}
+            r={photo.r + 32}
             fill="none"
             stroke="hsl(var(--primary))"
             strokeOpacity={0.28}
@@ -266,8 +308,8 @@ const SystemGraph = () => {
           {/* quadrant ticks — instrument, not decoration */}
           {[0, 90, 180, 270].map((deg) => {
             const rad = (deg * Math.PI) / 180;
-            const r1 = photo.r + 20;
-            const r2 = photo.r + 26;
+            const r1 = photo.r + 23;
+            const r2 = photo.r + 29;
             return (
               <line
                 key={deg}
@@ -284,7 +326,7 @@ const SystemGraph = () => {
         </g>
 
         {/* ---- nodes ---- */}
-        <g style={drift(11)}>
+        <g style={{ transform: drift(DEPTH_LAYER) }}>
           {nodes.map((n) => {
             const on = hovered === n.def.id;
             return (
@@ -300,7 +342,7 @@ const SystemGraph = () => {
                   y={n.y}
                   width={n.w}
                   height={n.h}
-                  rx={8}
+                  rx={9}
                   fill="hsl(var(--surface-1))"
                   stroke={on ? "hsl(var(--primary))" : "hsl(var(--hairline))"}
                   strokeOpacity={on ? 0.7 : 0.13}
@@ -313,36 +355,36 @@ const SystemGraph = () => {
                     y={n.y}
                     width={n.w}
                     height={n.h}
-                    rx={8}
+                    rx={9}
                     fill="hsl(var(--primary))"
                     opacity={0.07}
                   />
                 )}
                 <circle
-                  cx={n.x + 15}
+                  cx={n.x + type.dotX}
                   cy={n.y + n.h / 2}
-                  r={2.4}
+                  r={2.6}
                   fill="hsl(var(--primary))"
                   opacity={on ? 1 : 0.55}
                   className="transition-opacity duration-standard"
                 />
                 <text
-                  x={n.x + 26}
-                  y={n.y + (n.h / 2) - 3}
+                  x={n.x + type.textX}
+                  y={n.y + n.h / 2 - 4}
                   fill="hsl(var(--foreground))"
                   className="font-inter"
-                  fontSize={12.5}
+                  fontSize={type.label}
                   fontWeight={550}
                   dominantBaseline="middle"
                 >
                   {n.def.label}
                 </text>
                 <text
-                  x={n.x + 26}
-                  y={n.y + (n.h / 2) + 12}
+                  x={n.x + type.textX}
+                  y={n.y + n.h / 2 + 13}
                   fill="hsl(var(--muted-foreground))"
                   className="font-mono"
-                  fontSize={8.5}
+                  fontSize={type.meta}
                   letterSpacing="0.06em"
                   dominantBaseline="middle"
                 >
@@ -355,7 +397,7 @@ const SystemGraph = () => {
       </svg>
 
       {/* ---- the person at the centre of the system ---- */}
-      <div className="absolute" style={{ ...photoPct, transform: photoTransform }}>
+      <div className="absolute" style={photoPct}>
         <div className="relative aspect-square w-full">
           <div
             className="absolute -inset-3 rounded-full opacity-70 blur-2xl"

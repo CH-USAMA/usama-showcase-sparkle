@@ -1,67 +1,64 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Tracks the pointer relative to an element and exposes it as normalised
- * (-1..1) offsets, rAF-throttled so we never touch layout on every mousemove.
+ * Writes the pointer position over an element as normalised (-1..1) `--px` /
+ * `--py` custom properties, rAF-throttled.
  *
- * Returns nulls (and never attaches a listener) on coarse pointers or when the
- * user prefers reduced motion — the caller renders the static composition.
+ * Deliberately holds no React state. The previous version returned the offset
+ * from useState, so every frame of pointer movement re-rendered the whole
+ * consuming tree; for the system diagram that meant ten nodes of six SVG
+ * elements each, sixty times a second. Layers now read the same values
+ * straight from CSS, and React does not run at all while the pointer moves.
+ *
+ * Attaches nothing on coarse pointers or under prefers-reduced-motion, where
+ * the properties stay unset and `var(--px, 0)` resolves to the static resting
+ * composition.
  */
-export function usePointerField<T extends HTMLElement>() {
+export function usePointerVars<T extends HTMLElement>() {
   const ref = useRef<T | null>(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [active, setActive] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(fine && !still);
-  }, []);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !enabled) return;
+    if (!el) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
-    let pending: { x: number; y: number } | null = null;
+    let next = { x: 0, y: 0 };
 
     const flush = () => {
       frame = 0;
-      if (pending) setOffset(pending);
+      el.style.setProperty("--px", next.x.toFixed(3));
+      el.style.setProperty("--py", next.y.toFixed(3));
     };
 
     const onMove = (e: PointerEvent) => {
-      // getBoundingClientRect in the event is fine: it is read-only and the
-      // write is deferred to the rAF callback, so no read/write thrash.
+      // Read-only in the handler; the write is deferred to rAF, so there is no
+      // read/write layout thrash.
       const r = el.getBoundingClientRect();
       if (!r.width || !r.height) return;
-      pending = {
+      next = {
         x: ((e.clientX - r.left) / r.width) * 2 - 1,
         y: ((e.clientY - r.top) / r.height) * 2 - 1,
       };
       if (!frame) frame = requestAnimationFrame(flush);
     };
 
-    const onEnter = () => setActive(true);
     const onLeave = () => {
-      setActive(false);
-      pending = { x: 0, y: 0 };
+      next = { x: 0, y: 0 };
       if (!frame) frame = requestAnimationFrame(flush);
     };
 
     el.addEventListener("pointermove", onMove, { passive: true });
-    el.addEventListener("pointerenter", onEnter, { passive: true });
     el.addEventListener("pointerleave", onLeave, { passive: true });
     return () => {
       el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerenter", onEnter);
       el.removeEventListener("pointerleave", onLeave);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [enabled]);
+  }, []);
 
-  return { ref, offset, active, enabled };
+  return ref;
 }
 
 /** True when the visitor has asked for less motion. Re-evaluates on change. */
