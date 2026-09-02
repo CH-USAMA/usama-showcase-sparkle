@@ -224,9 +224,12 @@ const AIChatbot = () => {
       <AnimatePresence>
         {!isOpen && (
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
+            /* A spin-in suited the old circular button; on a pill it just reads
+               as a glitch. Rise and settle instead. */
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
             className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
           >
             {/* Launcher styled to the site's system: hairline pill, mono label,
