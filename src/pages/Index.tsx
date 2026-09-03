@@ -122,7 +122,7 @@ const Index = () => {
       <SEOHead
         canonical={`${SITE_URL}/`}
         title="Usama Munawar | Laravel, VoIP & AI Backend Engineer"
-        description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. 180+ projects shipped over 5+ years in production."
+        description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. Five years of production systems, with the architecture written down."
         jsonLd={homeJsonLd}
       />
 

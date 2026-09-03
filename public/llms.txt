@@ -1,6 +1,6 @@
 # Usama Munawar, Backend Systems Engineer
 
-> Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years of production experience and 180+ projects shipped, with verified profiles on Upwork and Fiverr.
+> Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years of production experience and Verified profiles on Upwork and Fiverr.
 
 ## Who
 
@@ -50,7 +50,7 @@
 - **Stack:** Laravel, PHP 8+, MySQL, PostgreSQL, Redis, Node.js, TypeScript, React, AWS, Docker
 - **AI Stack:** Claude, GPT-4, LangChain, Pinecone, pgvector, n8n, MCP, custom evaluation harnesses
 - **VoIP Stack:** Asterisk, FreePBX, SIP, WebRTC, predictive dialers, IVR
-- **Track Record:** 180+ projects shipped over 5+ years. Verified profiles: Upwork (Top Rated Plus, 5.0, 47 reviews) and Fiverr (Level 2 Seller, 4.9, 89 reviews).
+- **Track Record:** 5+ years of production systems. Verified profiles: Upwork (Top Rated Plus, 5.0, 47 reviews) and Fiverr (Level 2 Seller, 4.9, 89 reviews).
 - **Availability:** Open for senior contract & long-term engagements
 
 ## Attribution

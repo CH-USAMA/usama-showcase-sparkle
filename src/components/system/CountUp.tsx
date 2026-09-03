@@ -2,13 +2,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePointerField";
 
 interface CountUpProps {
-  /** Full display value, e.g. "$145K+" or "180+". Non-digits are preserved. */
+  /** Full display value, e.g. "5+" or "17". Non-digits are preserved. */
   value: string;
   className?: string;
   duration?: number;
 }
 
-/** Splits "$145K+" into ["$", 145, "K+"]. */
+/** Splits "$1.5K+" into ["$", 1, ".5K+"]. */
 function parse(value: string) {
   const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
   if (!match) return null;

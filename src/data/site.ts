@@ -1,3 +1,5 @@
+import { projectsData } from "@/data/projects";
+import { projectsData } from "@/data/projects";
 /**
  * Single source of truth for site-wide constants.
  *
@@ -51,7 +53,19 @@ export const SOCIALS = {
  * system". The platform links below remain the evidence for what is left.
  */
 export const METRICS = [
-  { value: "180+", label: "Projects shipped", note: "Upwork · Fiverr · direct" },
+  {
+    /**
+     * Derived from projects.ts rather than typed in. This tile used to read
+     * "180+ projects shipped", which nothing in the repository or on the
+     * linked profiles substantiated: Upwork and Fiverr together publish 136
+     * reviews, reviews are not projects, and there was no source for the
+     * remainder. A number a reader can verify by counting the index is worth
+     * more than a larger one they cannot.
+     */
+    value: `${Object.keys(projectsData).length}`,
+    label: "Systems documented",
+    note: "Case studies and archive",
+  },
   { value: "5+", label: "Years senior backend", note: "Production systems" },
 ] as const;
 
