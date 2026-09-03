@@ -203,7 +203,14 @@ const AIChatbot = () => {
       role: "user",
       content: `[Visitor info. Name: ${lead.name}${lead.email ? `, Email: ${lead.email}` : ""}${lead.phone ? `, Phone: ${lead.phone}` : ""}]\n\n${userMsg.content}`,
     };
-    const apiMessages = [...newMessages.slice(1, -1), contextMsg];
+    /* The edge function caps a request at 20 turns and 12k characters. The
+       whole transcript used to be resent every turn, so a long conversation
+       would eventually be rejected outright; keep the most recent turns and
+       drop the older ones instead. slice(1) skips the local greeting, which
+       the model never needs to see. */
+    const MAX_TURNS = 18;
+    const history = newMessages.slice(1, -1).slice(-MAX_TURNS);
+    const apiMessages = [...history, contextMsg];
 
     await streamChat({
       messages: apiMessages,

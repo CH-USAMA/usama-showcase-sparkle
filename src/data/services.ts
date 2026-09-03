@@ -18,6 +18,8 @@ export interface Service {
   metaDescription: string;
   intro: string;
   outcomes: { value: string; label: string }[];
+  /** Domain hue from the family in index.css. */
+  hue: string;
   stack: string[];
   sections: ServiceSection[];
   faqs: ServiceFaq[];
@@ -26,6 +28,7 @@ export interface Service {
 export const servicesData: Service[] = [
   {
     slug: "laravel-development",
+    hue: "var(--hue-backend)",
     name: "Laravel Development",
     eyebrow: "Laravel & PHP",
     title: "Laravel Development for Production SaaS Backends",
@@ -35,8 +38,9 @@ export const servicesData: Service[] = [
     intro:
       "I build and rescue Laravel applications that carry real traffic, real money, and real teams. Multi-tenant SaaS, billing, RBAC, queue-heavy pipelines, and APIs that other companies depend on.",
     outcomes: [
-      { value: "180+", label: "Projects shipped" },
-      { value: "5+ yrs", label: "Laravel in production" },
+      { value: "Typed", label: "Action classes and tests" },
+      { value: "Queued", label: "Idempotent write paths" },
+      { value: "Indexed", label: "Slow-query pass" },
     ],
     stack: ["Laravel", "PHP 8.3", "MySQL", "PostgreSQL", "Redis", "Horizon", "Livewire", "Filament", "Pest / PHPUnit"],
     sections: [
@@ -80,6 +84,7 @@ export const servicesData: Service[] = [
   },
   {
     slug: "voip-asterisk",
+    hue: "var(--hue-realtime)",
     name: "VoIP & Asterisk",
     eyebrow: "Real-time communication",
     title: "VoIP, Asterisk & Call Platform Engineering",
@@ -135,6 +140,7 @@ export const servicesData: Service[] = [
   },
   {
     slug: "automation-n8n",
+    hue: "var(--hue-automation)",
     name: "Automation Infrastructure",
     eyebrow: "Workflow automation",
     title: "n8n Automation & Back-Office Infrastructure",
@@ -190,6 +196,7 @@ export const servicesData: Service[] = [
   },
   {
     slug: "ai-integration",
+    hue: "var(--hue-ai)",
     name: "AI Integration",
     eyebrow: "AI & LLM systems",
     title: "AI & LLM Integration for Real Products",

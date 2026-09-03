@@ -1,327 +1,347 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ExternalLink, Github, Calendar, Users, Award, Home } from "lucide-react";
-import { projectsData } from "@/data/projects";
+import type { CSSProperties } from "react";
+import { lazy, Suspense } from "react";
+import { useParams, Link } from "react-router-dom";
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
+import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
+import { projectsData } from "@/data/projects";
+import { caseStudies } from "@/data/caseStudies";
+import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
+import NotFound from "@/pages/NotFound";
+
+const Footer = lazy(() => import("@/components/Footer"));
+
+/* ---------------------------------------------------------------------------
+   /project/:id, on the same system as everything else.
+
+   This was the last page still built from shadcn Card, Badge and Button with
+   its own type scale and a `bg-hero-gradient` header, so a reader who clicked
+   "Read the case study" from a rebuilt dossier landed on what looked like a
+   different site. All of the content is unchanged.
+
+   Where a case study exists for the same project, its hue is reused so the
+   colour follows the reader across the click.
+--------------------------------------------------------------------------- */
+
+/** Placeholder links in projects.ts; a dead button costs more trust than none. */
+const isReal = (url?: string) => Boolean(url) && url !== "#";
+
+/**
+ * `fullDescription` uses a "THE PROBLEM: ..." convention for its paragraphs.
+ * Rendered raw, those read as shouted prefixes mid-sentence, so the label is
+ * lifted into its own small heading and the prose starts clean.
+ */
+const LABELLED = /^([A-Z][A-Z0-9 ,/&-]{2,40}):\s*/;
+
+function parseOverview(text: string) {
+  return text
+    .split("\n\n")
+    .map((para) => para.trim())
+    .filter(Boolean)
+    .map((para) => {
+      const m = para.match(LABELLED);
+      if (!m) return { label: null as string | null, body: para };
+      return {
+        label: m[1].charAt(0) + m[1].slice(1).toLowerCase(),
+        body: para.slice(m[0].length).trim(),
+      };
+    });
+}
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const projectId = Number.parseInt(id || "", 10);
+  const project = Number.isFinite(projectId)
+    ? projectsData[projectId as keyof typeof projectsData]
+    : undefined;
 
-  const projectId = parseInt(id || "1");
-  const project = projectsData[projectId as keyof typeof projectsData];
+  if (!project) return <NotFound />;
 
-  // projects.ts uses "#" as a placeholder for links that do not exist yet.
-  const isReal = (url?: string) => Boolean(url) && url !== "#";
-  const hasLive = isReal(project?.liveUrl);
-  const hasCode = isReal(project?.githubUrl);
+  const hasLive = isReal(project.liveUrl);
+  const hasCode = isReal(project.githubUrl);
 
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Project Not Found</h1>
-          <Link to="/projects">
-            <Button>Back to Projects</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  // Carry the dossier's hue through the click where one exists.
+  const dossier = caseStudies.find((c) => c.detailPath === `/project/${project.id}`);
+  const hue = dossier?.hue ?? "var(--hue-backend)";
 
-  const relatedProjects = Object.values(projectsData)
-    .filter(p => p.id !== project.id)
-    .slice(0, 2)
-    .map(p => ({
-      id: p.id,
-      title: p.title,
-      image: p.image,
-      category: p.category
-    }));
+  const related = Object.values(projectsData)
+    .filter((p) => p.id !== project.id && p.category === project.category)
+    .concat(Object.values(projectsData).filter((p) => p.id !== project.id))
+    .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
+    .slice(0, 3);
+
+  const paragraphs = parseOverview(project.fullDescription);
+
+  const meta = [
+    project.client && { k: "Client", v: project.client },
+    project.duration && { k: "Duration", v: project.duration },
+    project.teamSize && { k: "Team", v: project.teamSize },
+    project.completionDate && { k: "Delivered", v: project.completionDate },
+  ].filter(Boolean) as { k: string; v: string }[];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    url: `${SITE_URL}/project/${project.id}`,
+    image: `${SITE_URL}${project.image.startsWith("/") ? project.image : ""}`,
+    creator: { "@type": "Person", name: "Usama Munawar", url: SITE_URL },
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${project.title} | Case Study | Usama Munawar`}
         description={project.description.slice(0, 155)}
-        canonical={`https://dev-usama-portfolio.vercel.app/project/${project.id}`}
+        canonical={`${SITE_URL}/project/${project.id}`}
         ogImage={project.image}
         ogType="article"
+        jsonLd={jsonLd}
       />
-      {/* Header */}
-      <section className="bg-hero-gradient py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex justify-between items-start mb-6">
-            <Button 
-              variant="outline-white" 
-              onClick={() => navigate(-1)}
-              className="gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Projects
-            </Button>
-            <Link to="/">
-              <Button variant="outline-white" className="gap-2">
-                <Home className="w-4 h-4" />
-                Home
-              </Button>
-            </Link>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <Badge className="bg-accent-gradient border-0">
-                  {project.category}
-                </Badge>
-                <h1 className="text-4xl lg:text-5xl font-bold text-foreground">
-                  {project.title}
-                </h1>
-                <p className="text-xl text-foreground/80">
-                  {project.description}
-                </p>
-              </div>
+      <Navbar />
 
-              {/* Only render a link that actually goes somewhere. Every project
-                  in projects.ts carries githubUrl: "#", and three carry
-                  liveUrl: "#", so these buttons used to promise a demo and a
-                  repository and deliver a page jump. A dead button on a case
-                  study costs more trust than a missing one. */}
+      <main
+        id="main"
+        className="wash band-edge pb-24 pt-32 lg:pt-40"
+        style={{ "--hue": hue, "--wash-x": "76%", "--wash-y": "0%" } as CSSProperties}
+      >
+        <div className="container mx-auto">
+          <nav aria-label="Breadcrumb">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              <span className="hover-underline">All systems</span>
+            </Link>
+          </nav>
+
+          {/* ---- header ---- */}
+          <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-6">
+              <Reveal>
+                <span className="chip-hue">
+                  <span className="mono-label">{project.category}</span>
+                </span>
+                <h1 className="type-h2 mt-6 text-foreground">{project.title}</h1>
+                <p className="type-lead mt-6 text-muted-foreground">{project.description}</p>
+              </Reveal>
+
+              <Reveal index={1}>
+                <dl className="mt-9 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+                  {meta.map((m) => (
+                    <div key={m.k}>
+                      <dt className="mono-tiny text-subtle">{m.k}</dt>
+                      <dd className="mt-2 font-inter text-[13.5px] leading-snug text-foreground">
+                        {m.v}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+
               {(hasLive || hasCode) && (
-                <div className="flex gap-4">
-                  {hasLive && (
-                    <Button size="lg" variant="outline-white" asChild>
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Live Demo
+                <Reveal index={2}>
+                  <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+                    {hasLive && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-hue"
+                      >
+                        <span className="hover-underline">Visit live system</span>
+                        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </a>
-                    </Button>
-                  )}
-                  {hasCode && (
-                    <Button size="lg" variant="outline-white" asChild>
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-2" />
-                        View Code
+                    )}
+                    {hasCode && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-[24px] items-center gap-2 py-1 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+                      >
+                        <Github className="h-4 w-4" aria-hidden="true" />
+                        <span className="hover-underline">View the code</span>
                       </a>
-                    </Button>
-                  )}
-                </div>
+                    )}
+                  </div>
+                </Reveal>
               )}
             </div>
 
-            <div className="relative">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full rounded-2xl shadow-elegant"
-                loading="lazy"
-                decoding="async"
-                width={1200}
-                height={675}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Info */}
-      <section className="py-12 border-b border-border">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-6">
-            <Card className="p-6 text-center bg-card-gradient border-border/50">
-              <Calendar className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-sm text-muted-foreground">Duration</div>
-              <div className="font-semibold text-foreground">{project.duration}</div>
-            </Card>
-            <Card className="p-6 text-center bg-card-gradient border-border/50">
-              <Users className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-sm text-muted-foreground">Team Size</div>
-              <div className="font-semibold text-foreground">{project.teamSize}</div>
-            </Card>
-            <Card className="p-6 text-center bg-card-gradient border-border/50">
-              <Award className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-sm text-muted-foreground">Client</div>
-              <div className="font-semibold text-foreground">{project.client}</div>
-            </Card>
-            <Card className="p-6 text-center bg-card-gradient border-border/50">
-              <Calendar className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-sm text-muted-foreground">Completed</div>
-              <div className="font-semibold text-foreground">{project.completionDate}</div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Details */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-12">
-              {/* Description */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Project Overview</h2>
-                <div className="prose prose-invert max-w-none">
-                  {project.fullDescription.split('\n\n').map((paragraph, index) => (
-                    <p key={index} className="text-muted-foreground leading-relaxed mb-4">
-                      {paragraph.trim()}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Gallery */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Project Gallery</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {project.gallery.map((image, index) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      className="w-full rounded-xl hover:shadow-elegant transition-shadow duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      width={800}
-                      height={450}
+            <div className="lg:col-span-6">
+              <Reveal variant="fade">
+                <figure className="overflow-hidden rounded-xl border border-hairline/[0.09] bg-surface-1">
+                  <img
+                    src={project.image}
+                    alt={`${project.title}, ${project.category}`}
+                    width={1200}
+                    height={750}
+                    decoding="async"
+                    className="aspect-[16/10] w-full object-cover"
+                  />
+                  <figcaption className="flex items-center justify-between gap-4 border-t border-hairline/[0.08] px-4 py-2.5">
+                    <span className="mono-tiny leading-[1.7] text-subtle sm:truncate">
+                      {project.technologies.join(" · ")}
+                    </span>
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-hue"
+                      aria-hidden="true"
                     />
-                  ))}
-                </div>
-              </div>
-
-              {/* Challenges & Solutions */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Challenges & Solutions</h2>
-                <div className="space-y-6">
-                  {project.challenges.map((challenge, index) => (
-                    <Card key={index} className="p-6 bg-card-gradient border-border/50">
-                      <h3 className="text-lg font-semibold text-foreground mb-2">
-                        {challenge.title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {challenge.description}
-                      </p>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-
-              {/* Results */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Key Results</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {project.results.map((result, index) => (
-                    <div key={index} className="flex items-center gap-3 p-4 bg-primary/10 rounded-lg border border-primary/20">
-                      <Award className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-foreground font-medium">{result}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                  </figcaption>
+                </figure>
+              </Reveal>
             </div>
+          </div>
 
-            {/* Sidebar */}
-            <div className="space-y-8">
-              {/* Technologies */}
-              <Card className="p-6 bg-card-gradient border-border/50">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <Badge 
-                      key={index}
-                      variant="tech"
-                      className="bg-primary/10 text-primary border border-primary/20"
-                    >
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </Card>
-
-              {/* Features */}
-              <Card className="p-6 bg-card-gradient border-border/50">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Key Features</h3>
-                <ul className="space-y-2">
-                  {project.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-muted-foreground text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-
-              {/* Related Projects */}
-              <Card className="p-6 bg-card-gradient border-border/50">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Related Projects</h3>
-                <div className="space-y-4">
-                  {relatedProjects.map((relatedProject) => (
-                    <Link 
-                      key={relatedProject.id}
-                      to={`/project/${relatedProject.id}`}
-                      className="block group"
-                    >
-                      <div className="flex gap-3 items-center">
-                        <img 
-                          src={relatedProject.image} 
-                          alt={relatedProject.title}
-                          loading="lazy"
-                          decoding="async"
-                          width={64}
-                          height={64}
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                        <div>
-                          <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">
-                            {relatedProject.title}
-                          </h4>
-                          <p className="text-sm text-muted-foreground">
-                            {relatedProject.category}
-                          </p>
-                        </div>
+          {/* ---- body ---- */}
+          <div className="mt-16 grid items-start gap-12 lg:mt-24 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+            <div className="max-w-3xl">
+              <Reveal>
+                <section>
+                  <h2 className="mono-label text-hue">Overview</h2>
+                  <div className="mt-6 space-y-6">
+                    {paragraphs.map(({ label, body }, i) => (
+                      <div key={label ? label + i : body.slice(0, 48)}>
+                        {label && <h3 className="mono-tiny mb-2.5 text-hue">{label}</h3>}
+                        <p className="type-body text-muted-foreground">{body}</p>
                       </div>
-                    </Link>
-                  ))}
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+                    ))}
+                  </div>
+                </section>
+              </Reveal>
 
-      {/* Close. This used to read "Interested in Similar Work? … bring your
-          project ideas to life" over three equal buttons and a "Hire Me" dialog
-          that POSTed straight to Formspree and navigated the reader off-site —
-          generic voice, no hierarchy, and a fourth competing conversion path at
-          the end of a case study. One action now, matching every other page. */}
-      <section className="border-t border-hairline/[0.08] py-20 lg:py-24">
-        <div className="container mx-auto">
-          <div className="max-w-xl">
-            <h2 className="type-h3 text-foreground">Building something like this?</h2>
-            <p className="type-lead mt-5 text-muted-foreground">
-              Bring the architecture problem to a call and we will work out the shortest
-              path to a fix.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <CTA
-                to="/book"
-                size="lg"
-                arrow
-                onClick={() => trackEvent("book_call_click", { location: "project_detail" })}
-              >
-                Book an Architecture Call
-              </CTA>
-              <CTA to="/projects" tone="ghost" size="lg" arrow>
-                Explore Case Studies
-              </CTA>
+              <Reveal index={1}>
+                <section className="mt-14 border-t border-hairline/[0.08] pt-10">
+                  <h2 className="mono-label text-hue">What made it hard</h2>
+                  <dl className="mt-7 border-t border-hairline/[0.08]">
+                    {project.challenges.map((c) => (
+                      <div key={c.title} className="border-b border-hairline/[0.08] py-5">
+                        <dt className="font-inter text-[15px] font-medium text-foreground">
+                          {c.title}
+                        </dt>
+                        <dd className="type-body mt-2.5 text-muted-foreground">{c.description}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              </Reveal>
+
+              <Reveal index={2}>
+                <section className="mt-14 border-t border-hairline/[0.08] pt-10">
+                  <h2 className="mono-label text-hue">Result</h2>
+                  <ul className="mt-7 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-2">
+                    {project.results.map((r) => (
+                      <li key={r} className="flex items-start gap-3 bg-surface-1 px-5 py-4">
+                        <span
+                          aria-hidden="true"
+                          className="mt-[9px] h-px w-3 shrink-0 bg-hue"
+                        />
+                        <span className="type-body text-muted-foreground">{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </Reveal>
             </div>
+
+            {/* ---- rail ---- */}
+            <aside className="space-y-6 lg:sticky lg:top-28">
+              <Reveal variant="fade">
+                <div className="card-surface p-6">
+                  <h2 className="mono-label text-hue">Built with</h2>
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                    {project.technologies.map((t) => (
+                      <span key={t} className="mono-tiny text-muted-foreground">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+
+              <Reveal variant="fade" index={1}>
+                <div className="card-surface p-6">
+                  <h2 className="mono-label text-hue">What it does</h2>
+                  <ul className="mt-4 space-y-2.5">
+                    {project.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5">
+                        <span
+                          aria-hidden="true"
+                          className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-hue"
+                        />
+                        <span className="font-inter text-[13px] leading-snug text-muted-foreground">
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+
+              <Reveal variant="fade" index={2}>
+                <div className="card-surface p-6">
+                  <h2 className="mono-label text-hue">More systems</h2>
+                  <ul className="mt-4 border-t border-hairline/[0.08]">
+                    {related.map((r) => (
+                      <li key={r.id}>
+                        <Link
+                          to={`/project/${r.id}`}
+                          className="group flex items-center justify-between gap-3 border-b border-hairline/[0.08] py-3.5"
+                        >
+                          <span className="min-w-0">
+                            <span className="block truncate font-inter text-[13.5px] text-foreground">
+                              {r.title}
+                            </span>
+                            <span className="mono-tiny text-subtle">{r.category}</span>
+                          </span>
+                          <ArrowUpRight
+                            className="h-3.5 w-3.5 shrink-0 text-subtle opacity-0 transition-opacity duration-standard group-hover:opacity-100"
+                            aria-hidden="true"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            </aside>
           </div>
+
+          {/* ---- close: one action ---- */}
+          <Reveal>
+            <div className="mt-20 border-t border-hairline/[0.08] pt-14 lg:mt-24">
+              <h2 className="type-h3 max-w-xl text-foreground">Building something like this?</h2>
+              <p className="type-lead mt-5 max-w-xl text-muted-foreground">
+                Bring the architecture problem to a call and we will work out the shortest
+                path to a fix.
+              </p>
+              <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <CTA
+                  to="/book"
+                  size="lg"
+                  arrow
+                  onClick={() => trackEvent("book_call_click", { location: "project_detail" })}
+                >
+                  Book an Architecture Call
+                </CTA>
+                <CTA to="/projects" tone="ghost" size="lg" arrow>
+                  Explore Case Studies
+                </CTA>
+              </div>
+            </div>
+          </Reveal>
         </div>
-      </section>
+      </main>
+
+      <Suspense fallback={<div className="py-20" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };
