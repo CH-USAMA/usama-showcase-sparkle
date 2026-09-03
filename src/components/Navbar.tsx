@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import type { CSSProperties } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import CTA from "@/components/system/CTA";
 import ThemeSwitch from "@/components/system/ThemeSwitch";
-import { transition } from "@/lib/motion";
 import { trackEvent } from "@/lib/analytics";
 import logoUsama from "@/assets/logo-usama.webp";
 
@@ -37,6 +36,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const listRef = useRef<HTMLUListElement>(null);
+  const [underline, setUnderline] = useState({ left: 0, width: 0 });
   const location = useLocation();
   const navigate = useNavigate();
   const onHome = location.pathname === "/";
@@ -111,6 +112,50 @@ const Navbar = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Position the underline over the active item. Reads layout only when the
+  // active section or the viewport changes, never per frame.
+  useEffect(() => {
+    const place = () => {
+      const list = listRef.current;
+      if (!list) return;
+      const item = active
+        ? list.querySelector<HTMLElement>(`[data-nav="${active}"]`)
+        : null;
+      if (!item) {
+        setUnderline((u) => (u.width ? { ...u, width: 0 } : u));
+        return;
+      }
+      const l = list.getBoundingClientRect();
+      const r = item.getBoundingClientRect();
+      // A zero width means layout has not settled yet (the row is display:none
+      // below lg, and web fonts change the measurement when they land). Leave
+      // the previous value rather than collapsing the rule to nothing.
+      if (r.width === 0) return;
+      setUnderline({ left: r.left - l.left + 12, width: r.width - 24 });
+    };
+
+    // rAF so the first measurement happens after layout, not during commit.
+    const raf = requestAnimationFrame(place);
+    window.addEventListener("resize", place);
+
+    // Re-measure when the row itself changes size: font swap, breakpoint
+    // change, or the row appearing at lg.
+    const list = listRef.current;
+    const ro = list ? new ResizeObserver(place) : null;
+    if (list && ro) ro.observe(list);
+
+    // Web fonts change label widths after first paint.
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(place).catch(() => {});
+    }
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", place);
+      ro?.disconnect();
+    };
+  }, [active]);
+
   const goTo = useCallback(
     (hash: string) => {
       setOpen(false);
@@ -165,7 +210,20 @@ const Navbar = () => {
           </Link>
 
           {/* desktop links */}
-          <ul className="hidden items-center lg:flex">
+          {/* One underline for the whole row, positioned over the active item
+              and transitioned in CSS. This was a framer-motion layoutId, which
+              meant the whole library sat on the critical path for a 1px rule.
+              Same slide, measured from the item's own box. */}
+          <ul ref={listRef} className="relative hidden items-center lg:flex">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-0 h-px bg-primary transition-[left,width,opacity] duration-standard ease-out-expo"
+              style={{
+                left: underline.left,
+                width: underline.width,
+                opacity: underline.width ? 1 : 0,
+              }}
+            />
             {LINKS.map((l) => {
               const on = active === l.id;
               const cls = `relative inline-flex min-h-[24px] items-center px-3 py-2 font-inter text-[13.5px] transition-colors duration-standard ${
@@ -174,7 +232,7 @@ const Navbar = () => {
               if (l.to) {
                 return (
                   <li key={l.id}>
-                    <Link to={l.to} className={cls}>
+                    <Link to={l.to} data-nav={l.id} className={cls}>
                       {l.label}
                     </Link>
                   </li>
@@ -184,6 +242,7 @@ const Navbar = () => {
                 <li key={l.id}>
                   <a
                     href={l.hash}
+                    data-nav={l.id}
                     onClick={(e) => {
                       e.preventDefault();
                       goTo(l.hash!);
@@ -191,13 +250,6 @@ const Navbar = () => {
                     className={cls}
                   >
                     {l.label}
-                    {on && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-x-3 -bottom-0.5 h-px bg-primary"
-                        transition={{ type: "spring", stiffness: 400, damping: 34 }}
-                      />
-                    )}
                   </a>
                 </li>
               );
@@ -212,7 +264,7 @@ const Navbar = () => {
                 window.dispatchEvent(new CustomEvent("open-command-menu"))
               }
               className="hidden items-center gap-2 rounded-full border border-hairline/[0.1] px-3 py-1.5 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
-              aria-label="Open command menu"
+              aria-label="Open command menu (⌘K)"
             >
               <span>⌘K</span>
             </button>
@@ -244,25 +296,25 @@ const Navbar = () => {
       </header>
 
       {/* ---- mobile sheet ---- */}
-      <AnimatePresence>
+      {/* Kept mounted and toggled with opacity so it can fade out as well as
+          in without AnimatePresence. `hidden` is driven by the same state, so
+          it is removed from the accessibility tree when closed. */}
+      <div
+        id="mobile-nav"
+        aria-hidden={!open}
+        className={`fixed inset-0 z-40 bg-background/95 transition-opacity duration-standard ease-out-expo lg:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
         {open && (
-          <motion.div
-            id="mobile-nav"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={transition.standard}
-            className="fixed inset-0 z-40 bg-background/95 lg:hidden"
-          >
+          <div>
             <div className="container mx-auto flex h-full flex-col pb-10 pt-24">
               <ul className="flex-1 overflow-y-auto">
                 {LINKS.map((l, i) => (
-                  <motion.li
+                  <li
                     key={l.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ ...transition.standard, delay: 0.03 + i * 0.035 }}
-                    className="border-b border-hairline/[0.07]"
+                    className="enter border-b border-hairline/[0.07]"
+                    style={{ "--enter-delay": `${30 + i * 35}ms` } as CSSProperties}
                   >
                     {l.to ? (
                       <Link
@@ -294,7 +346,7 @@ const Navbar = () => {
                         </span>
                       </a>
                     )}
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
 
@@ -307,9 +359,9 @@ const Navbar = () => {
                 </CTA>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </>
   );
 };

@@ -27,8 +27,15 @@ export default defineConfig(({ mode }) => ({
         // Rollup keeps it a real lazy chunk, loaded only by CodeBlock.
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          motion: ['framer-motion'],
           query: ['@tanstack/react-query'],
+          // framer-motion is deliberately NOT named here. Naming a manual
+          // chunk for a library that is only reached through dynamic imports
+          // promotes it into the entry's modulepreload set, which is exactly
+          // what happened to react-syntax-highlighter before it. Once Navbar,
+          // ProofStrip and Reveal stopped importing it, every remaining
+          // consumer was a lazy section, but the manual chunk kept 135 kB on
+          // the critical path of a page that never used it. Left unnamed,
+          // Rollup keeps it inside the lazy chunks that actually need it.
         },
       },
     },

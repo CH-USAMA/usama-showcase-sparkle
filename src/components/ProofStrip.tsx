@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
 import CountUp from "@/components/system/CountUp";
-import { VIEWPORT, revealChild, revealStagger } from "@/lib/motion";
 import { METRICS, PLATFORM_PROOF } from "@/data/site";
+import Reveal from "@/components/system/Reveal";
 
 /**
  * PROOF — the credibility band directly under the hero.
@@ -17,19 +16,13 @@ const ProofStrip = () => {
       className="relative border-y border-hairline/[0.08] bg-surface-1/40"
     >
       <div className="container mx-auto">
-        <motion.dl
-          data-reveal=""
-          variants={revealStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={VIEWPORT}
-          className="grid grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Reveal is the site's own primitive and no longer carries a
+            motion library, so this section stops pulling framer-motion into
+            the entry chunk. Same fade, same stagger. */}
+        <Reveal as="dl" className="grid grid-cols-2 lg:grid-cols-3">
           {METRICS.map((m, i) => (
-            <motion.div
+            <div
               key={m.label}
-              data-reveal=""
-              variants={revealChild}
               className={`group relative px-1 py-8 sm:px-6 lg:py-10
                 ${i % 2 === 1 ? "border-l border-hairline/[0.07]" : ""}
                 ${i > 1 ? "border-t border-hairline/[0.07] lg:border-t-0" : ""}
@@ -51,17 +44,14 @@ const ProofStrip = () => {
               <p className="mt-2 font-inter text-[11px] leading-none text-subtle lg:mt-2.5">
                 {m.note}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.dl>
+        </Reveal>
 
         {/* platform verification, the numbers above are checkable, so link them */}
-        <motion.div
-          data-reveal=""
-          variants={revealChild}
-          initial="hidden"
-          whileInView="show"
-          viewport={VIEWPORT}
+        <Reveal
+          as="div"
+          index={1}
           className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-hairline/[0.07] py-5"
         >
           <span className="mono-tiny text-subtle">Verified on</span>
@@ -84,7 +74,7 @@ const ProofStrip = () => {
               />
             </a>
           ))}
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

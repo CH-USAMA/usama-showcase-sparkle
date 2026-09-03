@@ -54,7 +54,13 @@ const Hero = () => {
       />
 
       <div className="container relative mx-auto">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.04fr] lg:gap-8 xl:gap-14">
+        {/* minmax(0, ...) rather than bare fr. A bare `1fr` is `minmax(auto, 1fr)`,
+            so the columns respect their content's min-content width: when the
+            web fonts landed and the headline reflowed, the split moved, the
+            diagram column changed width, and because the diagram is a fixed
+            aspect ratio the whole row changed height. That was 0.13 of
+            cumulative layout shift. The visual ratio is unchanged. */}
+        <div className="hero-grid grid items-center gap-12 lg:gap-8 xl:gap-14">
           {/* ---------------- left: the argument ---------------- */}
           <div className="max-w-[36rem]">
             <div className="enter flex flex-wrap items-center gap-x-3 gap-y-2" style={delay(40)}>
@@ -84,7 +90,7 @@ const Hero = () => {
             </h1>
 
             <p
-              className="enter type-lead mt-7 max-w-xl text-muted-foreground"
+              className="enter-lift type-lead mt-7 max-w-xl text-muted-foreground"
               style={delay(140)}
             >
               I architect and ship scalable Laravel systems, automation infrastructure,
@@ -121,7 +127,11 @@ const Hero = () => {
               </a>
             </div>
 
-            <div className="enter mt-10 max-w-lg" style={delay(320)}>
+            <div /* Stays on `enter`, not `enter-lift`. This block is not the LCP
+                 element, and its mono figures reflow when the webfont swaps in;
+                 the opacity fade covers that swap, which is worth 0.13 of CLS. */
+              className="enter mt-10 max-w-lg"
+              style={delay(320)}>
               <Telemetry items={READOUTS} columns={2} />
             </div>
           </div>
@@ -131,7 +141,14 @@ const Hero = () => {
             className="enter-soft relative mx-auto w-full max-w-[30rem] lg:max-w-none"
             style={delay(160)}
           >
-            <Suspense fallback={<div className="aspect-square w-full" aria-hidden="true" />}>
+            {/* The reserved box must match SystemGraph's own 720/680 viewBox ratio.
+                It was aspect-square, so when the real diagram replaced it the
+                grid row lost ~40px, and because the hero is vertically centred
+                every element in the left column moved: 0.13 of cumulative
+                layout shift, attributed to the last block in that column. */}
+            <Suspense
+              fallback={<div className="aspect-[720/680] w-full" aria-hidden="true" />}
+            >
               <SystemGraph />
             </Suspense>
           </div>

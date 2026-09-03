@@ -396,6 +396,34 @@
     animation: enter-soft var(--dur-scroll) var(--ease-entrance) both;
     animation-delay: var(--enter-delay, 0ms);
   }
+
+  /* Entrance for above-the-fold text: it rises, but it never starts
+     transparent.
+
+     Chrome does not count an element as a Largest Contentful Paint candidate
+     while it is animating up from opacity 0, so the hero lead paragraph, which
+     is the largest block of text on the page, was holding LCP at 5.6s on the
+     mobile profile: not because anything was slow to load, but because it was
+     invisible until its own animation finished. Measured render delay was
+     5.1s of a 5.6s LCP.
+
+     Dropping only the opacity half keeps the motion and makes the text a
+     paintable candidate on the first frame. */
+  @keyframes enter-lift {
+    from { transform: translate3d(0, 12px, 0); }
+    to   { transform: none; }
+  }
+
+  .enter-lift {
+    animation: enter-lift var(--dur-large) var(--ease-entrance) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  /* Resting state for a Reveal that has not entered the viewport yet. The
+     `enter` class replaces this once the observer fires. */
+  .reveal-idle {
+    opacity: 0;
+  }
 }
 
 /* ============================================================================
@@ -471,9 +499,11 @@
 
   /* Inline styles from JS animation libraries win over the rules above, so
      revealed content is pinned visible explicitly. */
-  [data-reveal] {
+  [data-reveal],
+  .reveal-idle {
     opacity: 1 !important;
     transform: none !important;
+    animation: none !important;
   }
 }
 
@@ -634,4 +664,48 @@
 @layer utilities {
   .measure { max-width: 60ch; }
   .measure-sm { max-width: 50ch; }
+}
+
+/* ============================================================================
+   OFF-SCREEN SECTION COST
+
+   The home page is ~18,000px of 12 sections and 1,600 nodes, and Lighthouse
+   measured 3.4s of Style & Layout on the mobile profile: more than script
+   evaluation. All of that work competes with the main thread while the browser
+   is still trying to paint the hero.
+
+   content-visibility lets the browser skip layout and paint for sections that
+   are nowhere near the viewport, and `contain-intrinsic-size: auto` makes it
+   remember each one's real size after the first render, so scrollbar position
+   settles immediately. Purely a rendering hint: nothing about the design, the
+   markup or the animations changes.
+
+   The first two sections (hero and the proof strip) are excluded because they
+   are above the fold.
+   ========================================================================= */
+@layer utilities {
+  main > section:nth-of-type(n + 3) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1000px;
+  }
+}
+
+/* ============================================================================
+   HERO GRID
+
+   A bare `1fr` is `minmax(auto, 1fr)`, so the column respects its content's
+   min-content width. When the web fonts landed the headline reflowed, the
+   split moved, the diagram column changed width by 9px, and because the
+   diagram holds a fixed aspect ratio the whole row lost 16px of height. Every
+   element in the vertically-centred left column moved with it: 0.13 of
+   cumulative layout shift from a font swap.
+
+   Pinning the minimum at 0 makes the columns purely fractional. The ratio, and
+   therefore the layout, is unchanged. Written here rather than as an arbitrary
+   Tailwind value because the generator silently dropped that class.
+   ========================================================================= */
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+  }
 }

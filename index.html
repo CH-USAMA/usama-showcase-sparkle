@@ -8,10 +8,43 @@
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="google-site-verification" content="Scy-TdWa9dxXXjUAgqLTna7DViH9djM3xsjKHpuiMoo" />
 
-    <!-- Google tag (gtag.js) — GA4 Property 1 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JEYSR3YVV"></script>
-    <!-- Google tag (gtag.js) — GA4 Property 2 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZHRMH3HLK"></script>
+    <!-- Google tag (gtag.js)
+
+         Two things changed here, both measured against the mobile profile.
+
+         There used to be two loader tags, one per property. gtag.js serves any
+         number of properties from a single load; the second request fetched
+         roughly 120 kB of identical script for nothing, and both properties
+         are already configured by the gtag('config', ...) calls below.
+
+         The remaining loader is injected after `load` instead of being an
+         async tag in the head. Lighthouse attributed ~259 kB of unused
+         JavaScript and a large share of a 3.2 s total blocking time to gtag
+         parsing and executing while the browser was still trying to paint the
+         hero. dataLayer is created synchronously below, so every gtag() call
+         made before the script arrives is queued and replayed on load: no
+         events are lost, they are only sent slightly later. -->
+    <script>
+      window.__loadGA = function () {
+        if (window.__gaLoaded) return;
+        window.__gaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-6JEYSR3YVV';
+        document.head.appendChild(s);
+      };
+      if (document.readyState === 'complete') {
+        setTimeout(window.__loadGA, 0);
+      } else {
+        window.addEventListener('load', function () {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(window.__loadGA, { timeout: 3000 });
+          } else {
+            setTimeout(window.__loadGA, 1200);
+          }
+        });
+      }
+    </script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -41,10 +74,6 @@
     
     <!-- Preconnect & font loading optimized -->
     <!-- DNS prefetch for external domains -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
