@@ -105,7 +105,7 @@ export const CAPABILITIES: Capability[] = [
     n: "04",
     title: "Automation Infrastructure",
     summary:
-      "n8n workflows, MCP agents, and orchestration that replace manual back-office work — built with retries, dead-letter queues, and observability rather than a happy path.",
+      "n8n workflows, MCP agents, and orchestration that replace manual back-office work, built with retries, dead-letter queues, and observability rather than a happy path.",
     stack: ["n8n", "MCP", "Webhooks", "Cron", "ETL", "Sentry"],
     flow: [
       { label: "Trigger", note: "Webhook · cron" },
@@ -141,7 +141,7 @@ export const CAPABILITIES: Capability[] = [
     n: "06",
     title: "Real-Time Systems",
     summary:
-      "Presence, live dashboards, and chat infrastructure on Laravel Reverb, Pusher, or Socket.IO — with reconnection, backpressure, and per-channel authorisation handled.",
+      "Presence, live dashboards, and chat infrastructure on Laravel Reverb, Pusher, or Socket.IO, with reconnection, backpressure, and per-channel authorisation handled.",
     stack: ["WebSockets", "Reverb", "Pusher", "Socket.IO", "Presence"],
     flow: [
       { label: "Event", note: "Domain change" },

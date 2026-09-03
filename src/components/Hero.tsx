@@ -43,7 +43,7 @@ const Hero = () => {
       {/* blueprint field, faded toward the edges so it never reads as tiling */}
       <div className="grid-field mask-radial pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
-      {/* cursor spotlight — writes CSS vars only, no React re-render */}
+      {/* cursor spotlight, writes CSS vars only, no React re-render */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 opacity-0 [@media(pointer:fine)]:opacity-100"

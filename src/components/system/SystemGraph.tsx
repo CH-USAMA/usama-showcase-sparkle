@@ -13,8 +13,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { usePointerVars, usePrefersReducedMotion } from "@/hooks/usePointerField";
-import profileWebp from "@/assets/usama-profile.webp";
-import profileJpg from "@/assets/usama-profile.jpg";
+import SystemCore from "@/components/system/SystemCore";
 
 /* ---------------------------------------------------------------------------
    A system diagram, not an orbit.
@@ -208,7 +207,7 @@ const SystemGraph = () => {
       className="relative w-full select-none"
       style={{ aspectRatio: `${vb.w} / ${vb.h}` }}
       role="img"
-      aria-label="System diagram: Laravel, Node.js, Redis, APIs, Docker, AI, Python, automation, Asterisk and real-time services routed into a central node representing Usama Munawar."
+      aria-label="System diagram: Laravel, Node.js, Redis, APIs, Docker, AI, Python, automation, Asterisk and real-time services routed into a central node routed into a central node that shows the request lifecycle."
     >
       <svg
         viewBox={`0 0 ${vb.w} ${vb.h}`}
@@ -245,7 +244,7 @@ const SystemGraph = () => {
                   className="transition-opacity duration-standard"
                   opacity={hovered && !on ? 0.28 : 1}
                 />
-                {/* travelling signal — a short dash sliding along the wire */}
+                {/* travelling signal: a short dash sliding along the wire */}
                 {!reduced && (
                   <path
                     d={n.path}
@@ -305,7 +304,7 @@ const SystemGraph = () => {
                   }
             }
           />
-          {/* quadrant ticks — instrument, not decoration */}
+          {/* quadrant ticks: instrument, not decoration */}
           {[0, 90, 180, 270].map((deg) => {
             const rad = (deg * Math.PI) / 180;
             const r1 = photo.r + 23;
@@ -396,32 +395,15 @@ const SystemGraph = () => {
         </g>
       </svg>
 
-      {/* ---- the person at the centre of the system ---- */}
+      {/* ---- the core at the centre of the system ---- */}
       <div className="absolute" style={photoPct}>
         <div className="relative aspect-square w-full">
           <div
-            className="absolute -inset-3 rounded-full opacity-70 blur-2xl"
-            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.22), transparent 70%)" }}
+            className="absolute -inset-4 rounded-full opacity-70 blur-2xl"
+            style={{ background: "radial-gradient(circle, hsl(var(--hue, var(--primary))/0.18), transparent 70%)" }}
             aria-hidden="true"
           />
-          <picture>
-            <source srcSet={profileWebp} type="image/webp" />
-            <img
-              src={profileJpg}
-              alt="Usama Munawar, Backend Systems Engineer"
-              width={340}
-              height={340}
-              decoding="async"
-              /* React 18 only forwards the lowercase attribute name */
-              {...{ fetchpriority: "high" }}
-              className="relative h-full w-full rounded-full object-cover ring-1 ring-hairline/[0.16]"
-            />
-          </picture>
-          <span
-            className="pointer-events-none absolute inset-0 rounded-full"
-            style={{ boxShadow: "inset 0 0 40px hsl(var(--background) / 0.55)" }}
-            aria-hidden="true"
-          />
+          <SystemCore />
         </div>
       </div>
     </div>

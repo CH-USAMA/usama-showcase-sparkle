@@ -40,7 +40,7 @@ const Blog = () => {
   return (
     <>
     <SEOHead
-      title="Blog — Laravel, AI Engineering & Automation | Usama Munawar"
+      title="Blog | Laravel, AI Engineering & Automation | Usama Munawar"
       description="Articles on Laravel, PHP, backend architecture, AI engineering, n8n automation, VoIP/Asterisk, and modern web development."
       canonical="https://dev-usama-portfolio.vercel.app/blog"
       ogType="website"
@@ -74,7 +74,7 @@ const Blog = () => {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
-              The Engineering Log — Backend & Architecture Insights
+              The Engineering Log: Backend & Architecture Insights
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8 leading-relaxed">
@@ -163,10 +163,10 @@ const Blog = () => {
                           <User className="h-4 w-4" />
                           <span>{post.author}</span>
                         </div>
-                        {(post as any).is_auto && <Badge variant="outline" className="text-xs">Trending</Badge>}
+                        {post.is_auto && <Badge variant="outline" className="text-xs">Trending</Badge>}
                       </div>
                       <CardTitle className={`${index === 0 ? 'text-3xl md:text-4xl' : 'text-2xl'} mb-4 leading-tight`}>
-                        <Link to={(post as any).source_url || `/blog/${post.slug}`} target={(post as any).source_url ? "_blank" : undefined} className="group-hover:text-primary transition-colors duration-300">
+                        <Link to={post.source_url || `/blog/${post.slug}`} target={post.source_url ? "_blank" : undefined} className="group-hover:text-primary transition-colors duration-300">
                           {post.title}
                         </Link>
                       </CardTitle>
@@ -176,7 +176,7 @@ const Blog = () => {
                     </CardHeader>
                     <CardContent className="p-0">
                       <Button asChild variant="ghost" className="p-0 h-auto text-primary font-medium hover:text-primary/80">
-                        <Link to={(post as any).source_url || `/blog/${post.slug}`} target={(post as any).source_url ? "_blank" : undefined}>
+                        <Link to={post.source_url || `/blog/${post.slug}`} target={post.source_url ? "_blank" : undefined}>
                           Read Article →
                         </Link>
                       </Button>

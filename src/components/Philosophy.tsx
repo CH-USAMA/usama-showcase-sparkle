@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react";
+import profileWebp from "@/assets/usama-profile.webp";
+import profileJpg from "@/assets/usama-profile.jpg";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -17,7 +19,7 @@ const PRINCIPLES = [
     n: "02",
     name: "Scalability",
     line: "Measure before you rewrite.",
-    body: "Most applications that feel slow are three indexes and two queued jobs away from being fast. I profile, read the slow query log, and fix in order of cost — rewriting is the last resort, not the first instinct.",
+    body: "Most applications that feel slow are three indexes and two queued jobs away from being fast. I profile, read the slow query log, and fix in order of cost, rewriting is the last resort, not the first instinct.",
   },
   {
     n: "03",
@@ -93,16 +95,32 @@ const Philosophy = () => {
           <figure className="mt-14 border-y border-hairline/[0.08] py-10 lg:mt-16 lg:py-12">
             <blockquote>
               <p className="font-display text-2xl italic leading-[1.3] text-foreground sm:text-3xl lg:text-[2.25rem]">
-                “Don't just build software —{" "}
+                “Don't just build software.{" "}
                 <span className="text-gradient not-italic">digitize, automate, and scale</span>{" "}
                 your entire business.”
               </p>
             </blockquote>
-            <figcaption className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+            {/* The portrait moved here from the hero core, which now runs the
+                request-lifecycle diagram. A face still belongs on the page:
+                this is where the reader is being told how the person thinks,
+                so it is the one place it does real work. */}
+            <figcaption className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+              <picture>
+                <source srcSet={profileWebp} type="image/webp" />
+                <img
+                  src={profileJpg}
+                  alt="Usama Munawar, Backend Systems Engineer"
+                  width={44}
+                  height={44}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-11 w-11 rounded-full object-cover ring-1 ring-hairline/[0.16]"
+                />
+              </picture>
               <span className="mono-tiny text-subtle">Usama Munawar</span>
               <span className="h-px w-6 bg-hairline/[0.18]" aria-hidden="true" />
               <span className="font-inter text-[13px] text-muted-foreground">
-                Backend Systems Engineer, Lahore — 5+ years shipping production systems
+                Backend Systems Engineer in Lahore. 5+ years shipping production systems
                 for startups and SaaS teams, with verified profiles on Upwork and Fiverr.
               </span>
             </figcaption>

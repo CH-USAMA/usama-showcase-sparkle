@@ -83,7 +83,7 @@ const jsonLd = {
 const Services = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Backend Engineering Capabilities — Laravel, Node.js, Python, VoIP"
+      title="Backend Engineering Capabilities | Laravel, Node.js, Python, VoIP"
       description="Laravel and PHP for the application core, Node.js for real-time and event-driven services, Python for AI and data, Asterisk for telephony. One engineer across the stack."
       canonical={`${SITE_URL}/services`}
       jsonLd={jsonLd}
@@ -110,7 +110,7 @@ const Services = () => (
           <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
             I am not a generalist who lists languages. Each of these owns a specific part
             of a production system, and the reason for using it is the shape of the
-            problem — not preference.
+            problem, not preference.
           </p>
         </Reveal>
 

@@ -43,9 +43,10 @@ const AdminScraper = () => {
       setRepos(data.repos);
       setScrapedAt(data.scraped_at);
       toast({ title: '✅ Scrape complete', description: `Fetched ${data.repos.length} repos with READMEs` });
-    } catch (e: any) {
-      setError(e.message);
-      toast({ title: 'Scrape failed', description: e.message, variant: 'destructive' });
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      setError(message);
+      toast({ title: 'Scrape failed', description: message, variant: 'destructive' });
     } finally {
       setLoading(false);
     }
@@ -100,7 +101,7 @@ export const trendingRepos: TrendingRepo[] = ${JSON.stringify(reposWithoutReadme
   const downloadZip = async () => {
     // Create a simple script that writes all files
     const script = `#!/bin/bash
-# Auto-generated scraper output — run from project root
+# Auto-generated scraper output, run from project root
 # Generated: ${scrapedAt}
 
 mkdir -p src/data/github-trending/readmes

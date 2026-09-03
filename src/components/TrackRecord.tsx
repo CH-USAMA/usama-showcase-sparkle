@@ -21,30 +21,30 @@ const LOG = [
     year: "2025",
     focus: "VoIP · automation · retrieval",
     entries: [
-      "Solutions Zilla Call Portal — Asterisk dispatch for a 40+ agent floor",
-      "RAG-powered legal assistant — hybrid retrieval with citation validation",
-      "Smart lead qualification engine — n8n orchestration with scoring and DLQ",
-      "AI content operations pipeline — LangChain agent graph with approval gates",
-      "Jabulani hardware store — Stripe checkout and catalogue search",
+      "Solutions Zilla Call Portal: Asterisk dispatch for a 40+ agent floor",
+      "RAG-powered legal assistant: hybrid retrieval with citation validation",
+      "Smart lead qualification engine: n8n orchestration with scoring and DLQ",
+      "AI content operations pipeline: LangChain agent graph with approval gates",
+      "Jabulani hardware store: Stripe checkout and catalogue search",
     ],
   },
   {
     year: "2024",
     focus: "Commerce · booking platforms",
     entries: [
-      "Focus Interiors — headless commerce migration with AI-assisted search",
-      "Five Stars Galway — booking and dispatch with route optimisation",
+      "Focus Interiors: headless commerce migration with AI-assisted search",
+      "Five Stars Galway: booking and dispatch with route optimisation",
     ],
   },
   {
     year: "2023",
     focus: "Foundations",
-    entries: ["Solutions Zilla Digital — service platform and lead infrastructure"],
+    entries: ["Solutions Zilla Digital: service platform and lead infrastructure"],
   },
 ];
 
 const CREDENTIALS = [
-  "Top Rated Plus on Upwork — top 3% of freelancers",
+  "Top Rated Plus on Upwork, top 3% of freelancers",
   "Level 2 Seller on Fiverr with 89+ reviews",
   "Enterprise SaaS products serving 10K+ users",
   "Production Asterisk deployments for 40+ agent call centres",

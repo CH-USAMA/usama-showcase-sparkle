@@ -46,7 +46,7 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${project.title} — Case Study | Usama Munawar`}
+        title={`${project.title} | Case Study | Usama Munawar`}
         description={project.description.slice(0, 155)}
         canonical={`https://dev-usama-portfolio.vercel.app/project/${project.id}`}
         ogImage={project.image}

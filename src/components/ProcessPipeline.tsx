@@ -11,7 +11,7 @@ const STAGES = [
     name: "Discovery",
     when: "Day 1",
     what: "A 30-minute call on goals, constraints, and what is already breaking.",
-    deliver: "An honest read on whether this is worth building — including when it isn't.",
+    deliver: "An honest read on whether this is worth building, including when it isn't.",
     decide: "Scope boundaries. What is in v1 and what is deliberately deferred.",
   },
   {
@@ -52,7 +52,7 @@ const STAGES = [
     when: "Post-launch",
     what: "Structured logs, error tracking, health checks, and runbooks written while it's calm.",
     deliver: "Dashboards you can read, and an optional retainer for what comes next.",
-    decide: "What to alert on — and, more importantly, what not to.",
+    decide: "What to alert on, and more importantly what not to.",
   },
 ];
 
@@ -94,7 +94,7 @@ const ProcessPipeline = () => {
         />
 
         <div ref={ref} className="relative mt-14 lg:mt-20">
-          {/* rail — vertical on mobile, horizontal on desktop */}
+          {/* rail, vertical on mobile, horizontal on desktop */}
           <div
             aria-hidden="true"
             className="absolute left-[15px] top-0 h-full w-px bg-hairline/[0.09] lg:left-0 lg:top-[15px] lg:h-px lg:w-full"

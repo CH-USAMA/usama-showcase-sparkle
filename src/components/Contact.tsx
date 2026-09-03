@@ -85,7 +85,7 @@ const Contact = () => {
           index="10"
           eyebrow="Contact"
           title="Tell me what's breaking."
-          lead="Share the architecture, automation, or VoIP problem you're facing. You'll get an honest assessment back — including if the answer is that you don't need me."
+          lead="Share the architecture, automation, or VoIP problem you're facing. You'll get an honest assessment back, including if the answer is that you do not need me."
         />
 
         <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-16">

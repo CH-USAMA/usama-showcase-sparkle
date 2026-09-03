@@ -29,7 +29,7 @@ export const servicesData: Service[] = [
     name: "Laravel Development",
     eyebrow: "Laravel & PHP",
     title: "Laravel Development for Production SaaS Backends",
-    metaTitle: "Laravel Development Services — Senior Laravel Engineer | Usama Munawar",
+    metaTitle: "Laravel Development Services | Senior Laravel Engineer | Usama Munawar",
     metaDescription:
       "Senior Laravel development for multi-tenant SaaS, APIs, queues, and billing. Production-grade PHP and MySQL architecture with tests, CI/CD, and handover.",
     intro:
@@ -83,7 +83,7 @@ export const servicesData: Service[] = [
     name: "VoIP & Asterisk",
     eyebrow: "Real-time communication",
     title: "VoIP, Asterisk & Call Platform Engineering",
-    metaTitle: "Asterisk & VoIP Development — Call Center Platform Engineer | Usama Munawar",
+    metaTitle: "Asterisk & VoIP Development | Call Center Platform Engineer | Usama Munawar",
     metaDescription:
       "Asterisk and FreePBX call platforms: predictive dialers, IVR trees, SIP trunk failover, call recording, and CRM integration built on Laravel backends.",
     intro:
@@ -138,7 +138,7 @@ export const servicesData: Service[] = [
     name: "Automation Infrastructure",
     eyebrow: "Workflow automation",
     title: "n8n Automation & Back-Office Infrastructure",
-    metaTitle: "n8n Automation Services — Workflow & Back-Office Automation | Usama Munawar",
+    metaTitle: "n8n Automation Services | Workflow & Back-Office Automation | Usama Munawar",
     metaDescription:
       "n8n workflow automation and custom pipelines that replace manual back-office work. Reliable integrations, retries, monitoring, and Laravel-backed business logic.",
     intro:
@@ -193,7 +193,7 @@ export const servicesData: Service[] = [
     name: "AI Integration",
     eyebrow: "AI & LLM systems",
     title: "AI & LLM Integration for Real Products",
-    metaTitle: "AI Integration Services — LLM, RAG & Agent Systems | Usama Munawar",
+    metaTitle: "AI Integration Services | LLM, RAG & Agent Systems | Usama Munawar",
     metaDescription:
       "Practical AI integration: RAG over your own data, LLM-backed support and agent workflows, streaming APIs, cost control, and evaluation, wired into Laravel backends.",
     intro:

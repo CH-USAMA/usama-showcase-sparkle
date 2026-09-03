@@ -15,15 +15,35 @@ function getCached(): BlogPost[] | null {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const cached: CachedData = JSON.parse(raw);
-    if (Date.now() - cached.timestamp < CACHE_TTL) return cached.posts;
-  } catch {}
+    if (Date.now() - cached.timestamp < CACHE_TTL) return normalise(cached.posts);
+  } catch {
+    /* Corrupt or unreadable cache: fall through and refetch. */
+  }
   return null;
+}
+
+/**
+ * Remote content is normalised before it renders. The site's own copy carries
+ * no em dashes, and text arriving from the edge function (or from a cache
+ * written before the function was redeployed) must not reintroduce them.
+ */
+function normalise(posts: BlogPost[]): BlogPost[] {
+  const fix = (v: string) =>
+    v.replace(/\s—\s/g, ", ").replace(/—/g, ", ");
+  return posts.map((p) => ({
+    ...p,
+    title: typeof p.title === "string" ? fix(p.title) : p.title,
+    excerpt: typeof p.excerpt === "string" ? fix(p.excerpt) : p.excerpt,
+    content: typeof p.content === "string" ? fix(p.content) : p.content,
+  }));
 }
 
 function setCache(posts: BlogPost[]) {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, timestamp: Date.now() }));
-  } catch {}
+  } catch {
+    /* Caching is an optimisation; failing to write it must not break the page. */
+  }
 }
 
 export const useTrendingBlogs = () => {
@@ -36,7 +56,7 @@ export const useTrendingBlogs = () => {
       try {
         const { data, error } = await supabase.functions.invoke("fetch-blogs");
         if (error || !data?.success) return cached || [];
-        const posts = data.posts as BlogPost[];
+        const posts = normalise(data.posts as BlogPost[]);
         setCache(posts);
         return posts;
       } catch {

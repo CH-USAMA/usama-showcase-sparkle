@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
 
   try {
     const seen = new Set<string>();
-    const allRepos: any[] = [];
+    const allRepos: Record<string, unknown>[] = [];
 
     for (const [category, topics] of Object.entries(TOPICS)) {
       for (const topic of topics) {

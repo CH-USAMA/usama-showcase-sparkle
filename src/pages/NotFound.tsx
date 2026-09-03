@@ -27,7 +27,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Page Not Found (404) — Usama Munawar"
+        title="Page Not Found (404) | Usama Munawar"
         description="The page you were looking for doesn't exist. Explore projects, articles, or book a free backend engineering consultation."
         canonical="https://dev-usama-portfolio.vercel.app/404"
         noindex

@@ -428,4 +428,179 @@ export const projectsData = {
       "2.5% visitor-to-lead conversion rate"
     ]
   }
+  ,
+  10: {
+    id: 10,
+    title: "Jabulani Tech Solutions, Agency Platform",
+    description: "Hand-built agency site with four case studies, a PHP contact pipeline, and local SEO for the Eastern Cape market",
+    fullDescription: `Jabulani Tech Solutions is the IT and web-development arm of the Jabulani Group of Companies in the Eastern Cape, South Africa. The site presents their services, showcases four live systems built for the wider group, and collects qualified enquiries.
+
+    THE CONSTRAINT: The host is Hostinger shared hosting, Apache with PHP and no Node runtime. That ruled out any build step, so the whole site is hand-written HTML, CSS and vanilla JavaScript with a single PHP script behind the contact form. Every file can be edited and uploaded directly; nothing is compiled.
+
+    ARCHITECTURE: Five static pages, one per case study plus the home page, sharing two stylesheets and one JavaScript file. Theme state is written to localStorage and read by an inline script in the document head before first paint, so a returning visitor never sees a flash of the wrong theme. The contact form posts to form.php, which sends over authenticated SMTP with credentials kept in a gitignored secrets file and a committed example template alongside it.
+
+    DELIVERY: Apache configuration handles the HTTPS redirect, cache headers and security headers. The site ships robots.txt, a sitemap, Open Graph and Twitter cards, canonical URLs, and geographic meta for Eastern Cape local search. A custom 404 page redirects home rather than dead-ending.
+
+    WHY IT IS HERE: It is the counter-example to the rest of this portfolio. Given a host with no build tooling, the right answer was not a framework, and shipping plain HTML that a non-developer can maintain was the engineering decision.`,
+    image: "/projects/jabulani-agency.jpg",
+    gallery: ["/projects/jabulani-agency.jpg"],
+    technologies: ["HTML5", "CSS3", "Vanilla JS", "PHP", "SMTP", "Apache", "SEO"],
+    category: "IT Services",
+    client: "Jabulani Group of Companies (South Africa)",
+    duration: "3 weeks",
+    teamSize: "Solo developer",
+    completionDate: "June 2026",
+    liveUrl: "https://agency.jabulanigroupofcompanies.co.za",
+    githubUrl: "#",
+    features: [
+      "Four case-study pages",
+      "PHP SMTP contact pipeline",
+      "Light and dark theme with no flash of wrong theme",
+      "Local SEO for the Eastern Cape",
+      "Security and cache headers via Apache",
+      "Custom 404 with redirect",
+      "Sitemap and robots directives",
+      "Zero build step, zero dependencies"
+    ],
+    challenges: [
+      { title: "No build tooling", description: "Shared hosting with Apache and PHP only, so no bundler, no framework and no npm install in the deployment path" },
+      { title: "Theme without flicker", description: "Applying a stored theme before first paint using an inline head script rather than waiting for JavaScript to load" },
+      { title: "Credential handling", description: "Keeping SMTP credentials out of version control while leaving the repository reproducible for the next maintainer" }
+    ],
+    results: [
+      "Live and serving the agency enquiries",
+      "Editable by a non-developer, no compile step",
+      "Four case studies published"
+    ]
+  },
+  11: {
+    id: 11,
+    title: "Jabulani Point of Sale",
+    description: "Custom retail POS and stock manager running live transactions, with role-based access and exportable reporting",
+    fullDescription: `A bespoke point-of-sale and inventory system built for the Jabulani Group retail operations in the Eastern Cape, live under the name Jabulani Stock Manager.
+
+    THE PROBLEM: The group needed to manage inventory, record sales and see staff activity across retail operations. Off-the-shelf POS products were priced for larger operators, carried features the team would never use, or assumed a market that did not match South African retail. Manual processes were producing stock discrepancies, slow checkouts and no visibility into which products actually moved.
+
+    WHAT WAS BUILT: A checkout interface designed around how the counter staff actually work, with barcode scanning, receipt printing and multiple payment types. Behind it sits real-time stock tracking with low-stock alerts, supplier records and purchase orders. A reporting layer breaks sales down by day, week and month across product, category and staff member, and exports to CSV for accounting and tax.
+
+    ACCESS AND SAFETY: Cashiers, managers and administrators each authenticate into a role that exposes only what that role needs. Every transaction writes an audit record. The system runs on a secured host with SSL and daily backups.
+
+    STATUS: In production, processing real transactions.`,
+    image: "/projects/jabulani-pos.jpg",
+    gallery: ["/projects/jabulani-pos.jpg"],
+    technologies: ["POS", "Inventory", "RBAC", "Reporting", "CSV Export", "Audit Logs", "SSL"],
+    category: "Enterprise",
+    client: "Jabulani Group of Companies (South Africa)",
+    duration: "2 months",
+    teamSize: "Solo developer",
+    completionDate: "2026",
+    liveUrl: "https://pos.jabulanigroupofcompanies.co.za",
+    githubUrl: "#",
+    features: [
+      "Barcode checkout with receipt printing",
+      "Multiple payment types",
+      "Real-time stock with low-stock alerts",
+      "Supplier records and purchase orders",
+      "Sales dashboard by product, category and staff",
+      "Role-based access for cashiers, managers and admins",
+      "CSV export for accounting and tax",
+      "Per-transaction audit logs and daily backups"
+    ],
+    challenges: [
+      { title: "Fit over features", description: "Designing around the counter workflow the staff already had, rather than importing an off-the-shelf product assumptions" },
+      { title: "Stock accuracy", description: "Keeping recorded stock and physical stock in agreement across concurrent sales and incoming purchase orders" },
+      { title: "Role isolation", description: "Ensuring a cashier login cannot reach reporting, pricing or supplier data" }
+    ],
+    results: [
+      "Running real transactions in production",
+      "Stock visible in real time rather than reconciled by hand",
+      "Reports exportable for accounting and tax"
+    ]
+  },
+  12: {
+    id: 12,
+    title: "Jabulani Crush and Quarry",
+    description: "SEO-first website for an open-cast mining operation that previously had no online presence at all",
+    fullDescription: `Jabulani Crush and Quarry is an open-cast mining operation in Tsolo, Eastern Cape, supplying aggregate to construction companies across the province.
+
+    THE PROBLEM: The business had operated for years on word-of-mouth referrals with no digital footprint whatsoever. Contractors searching for aggregate suppliers in the Eastern Cape could not find them, so every enquiry depended on somebody already knowing the name.
+
+    THE APPROACH: A fully custom build with no template. Pages were structured around location-based search terms for quarry and aggregate queries in the region, with semantic HTML and schema markup throughout, and a filterable gallery of fleet, operations and completed work, because contractors buy on evidence of capability.
+
+    DESIGN: A dark interface with red accents, chosen to match the industrial character of the business and to distinguish it from the stock-photo template sites its competitors run.
+
+    PERFORMANCE: Compressed assets, lazy-loaded imagery and clean markup, because the audience is often browsing on mobile data from a site rather than an office.`,
+    image: "/projects/jabulani-quarry.jpg",
+    gallery: ["/projects/jabulani-quarry.jpg"],
+    technologies: ["HTML5", "CSS3", "Vanilla JS", "Schema Markup", "Local SEO", "Responsive"],
+    category: "Mining",
+    client: "Jabulani Group of Companies (South Africa)",
+    duration: "3 weeks",
+    teamSize: "Solo developer",
+    completionDate: "2026",
+    liveUrl: "https://jabulaniquarriestsolo.co.za",
+    githubUrl: "#",
+    features: [
+      "Location-targeted SEO structure",
+      "Schema markup and semantic HTML",
+      "Filterable operations gallery",
+      "Dark industrial interface",
+      "Quote and contact touchpoints",
+      "Lazy-loaded, compressed imagery",
+      "Mobile-first responsive layout",
+      "Google Business Profile integration"
+    ],
+    challenges: [
+      { title: "Starting from zero", description: "No existing site, no brand assets online and no search presence to build on" },
+      { title: "Ranking locally", description: "Competing for Eastern Cape quarry and aggregate search terms against established directory listings" },
+      { title: "Mobile data budgets", description: "Delivering a photo-led site that still loads quickly for contractors on site connections" }
+    ],
+    results: [
+      "Discoverable in search for the first time",
+      "Fully custom design, no templates",
+      "Operations gallery live for contractor evaluation"
+    ]
+  },
+  13: {
+    id: 13,
+    title: "Jabulani Group Corporate Site",
+    description: "Corporate hub presenting a multi-industry group and routing visitors to each division own site",
+    fullDescription: `The Jabulani Group operates across mining, technology, retail and building materials. This is the corporate site that presents the group as one organisation and directs visitors to each division.
+
+    THE PROBLEM: The group online presence was fragmented across separate sites with no centre. Nothing communicated the scale of the organisation, and a visitor arriving at one division had no way to understand the rest.
+
+    THE APPROACH: A corporate hub that leads with the group story and then presents each division as its own card, carrying a distinct colour identity, a short description and a link through to that division dedicated site. The result is one ecosystem with several destinations, navigable in both directions.
+
+    DESIGN: Deliberately understated. The audience is B2B partners and investors, so the design conveys authority by getting out of the way and letting the businesses speak.
+
+    ENGINEERING: Lightweight HTML, CSS and JavaScript with no framework and no unnecessary dependencies, which keeps it fast everywhere and cheap to host alongside the other group properties.`,
+    image: "/projects/jabulani-group.jpg",
+    gallery: ["/projects/jabulani-group.jpg"],
+    technologies: ["HTML5", "CSS3", "Vanilla JS", "SEO", "Responsive"],
+    category: "IT Services",
+    client: "Jabulani Group of Companies (South Africa)",
+    duration: "2 weeks",
+    teamSize: "Solo developer",
+    completionDate: "2026",
+    liveUrl: "https://jabulanigroupofcompanies.co.za",
+    githubUrl: "#",
+    features: [
+      "Multi-division architecture with per-division identity",
+      "Inter-site navigation across the group ecosystem",
+      "Understated corporate design for B2B and investor audiences",
+      "Brand-focused SEO",
+      "Fully responsive layout",
+      "No framework, no build dependencies"
+    ],
+    challenges: [
+      { title: "One story, many businesses", description: "Presenting divisions in unrelated sectors as a coherent group without flattening what makes each distinct" },
+      { title: "Fragmented estate", description: "Connecting separately hosted division sites into a navigable ecosystem" },
+      { title: "Authority without noise", description: "Conveying scale to B2B and investor audiences through restraint rather than decoration" }
+    ],
+    results: [
+      "Three or more divisions presented in one place",
+      "Group and division sites cross-linked",
+      "Single corporate identity online"
+    ]
+  }
 };

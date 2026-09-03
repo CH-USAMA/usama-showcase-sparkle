@@ -467,6 +467,7 @@
     scroll-behavior: auto !important;
   }
   .anim-marquee { animation: none !important; }
+  .anim-core-step, .anim-core-pulse { animation: none !important; }
 
   /* Inline styles from JS animation libraries win over the rules above, so
      revealed content is pinned visible explicitly. */
@@ -516,3 +517,38 @@
   .bg-hue { background-color: hsl(var(--hue, var(--primary))); }
   .bg-hue-soft { background-color: hsl(var(--hue, var(--primary)) / 0.10); }
   .border-hue { border-color: hsl(var(--hue, var(--primary)) / 0.42); }}
+
+/* ============================================================================
+   SYSTEM CORE
+
+   Keyframes for the request-lifecycle core in the hero diagram. Each stage
+   owns 1/6 of the cycle: it fades up, holds, then fades out as the next one
+   takes over. Staggered animation-delay does the sequencing, so the component
+   holds no state and never re-renders.
+   ========================================================================= */
+@keyframes core-step {
+  0%      { opacity: 0; }
+  3%      { opacity: 1; }
+  14%     { opacity: 1; }
+  18%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+@keyframes core-pulse {
+  0%   { r: 56; opacity: 0.45; }
+  100% { r: 88; opacity: 0; }
+}
+
+@layer utilities {
+  .anim-core-step {
+    animation-name: core-step;
+    animation-timing-function: var(--ease-in-out);
+    animation-iteration-count: infinite;
+  }
+
+  .anim-core-pulse {
+    animation-name: core-pulse;
+    animation-timing-function: var(--ease-out);
+    animation-iteration-count: infinite;
+  }
+}

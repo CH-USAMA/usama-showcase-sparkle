@@ -47,8 +47,16 @@ async function scrapeContent(url: string): Promise<string> {
   }
 }
 
+interface RSSItem {
+  title: string;
+  link: string;
+  pubDate: string;
+  description: string;
+  category: string;
+}
+
 function parseRSSItems(xml: string, category: string) {
-  const items: any[] = [];
+  const items: RSSItem[] = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
   let match;
   while ((match = itemRegex.exec(xml)) !== null) {
@@ -68,7 +76,7 @@ function parseRSSItems(xml: string, category: string) {
         id: `auto-${slug}`,
         title: cleanTitle,
         slug,
-        excerpt: cleanExcerpt || `Explore the latest insights on ${cleanTitle.split(' ').slice(0, 5).join(' ')} — covering trends, practical applications, and what it means for developers and businesses.`,
+        excerpt: cleanExcerpt || `Explore the latest insights on ${cleanTitle.split(' ').slice(0, 5).join(' ')}, covering trends, practical applications, and what it means for developers and businesses.`,
         rawDescription: description,
         featured_image: images[imageIndex],
         published_at: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
@@ -88,7 +96,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const allItems: any[] = [];
+    const allItems: RSSItem[] = [];
 
     for (const feed of RSS_FEEDS) {
       try {
@@ -115,7 +123,7 @@ Deno.serve(async (req) => {
         if (post.source_url) {
           const scraped = await scrapeContent(post.source_url);
           post.content = scraped
-            ? `${scraped}\n\n---\n\n**Source:** [${post.title}](${post.source_url}) — *Curated by Usama Munawar*`
+            ? `${scraped}\n\n---\n\n**Source:** [${post.title}](${post.source_url}), *Curated by Usama Munawar*`
             : `${post.rawDescription}\n\nRead the full article: [${post.title}](${post.source_url})\n\n---\n*Curated by Usama Munawar*`;
         }
         delete post.rawDescription;

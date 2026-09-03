@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import CTA from "@/components/system/CTA";
+import ThemeSwitch from "@/components/system/ThemeSwitch";
 import { transition } from "@/lib/motion";
 import { trackEvent } from "@/lib/analytics";
 import logoUsama from "@/assets/logo-usama.webp";
@@ -131,7 +132,7 @@ const Navbar = () => {
         <nav className="container mx-auto flex items-center justify-between gap-6" aria-label="Primary">
           <Link
             to="/"
-            aria-label="Usama Munawar — home"
+            aria-label="Usama Munawar, home page"
             className="flex shrink-0 items-center gap-2.5"
           >
             <img
@@ -176,7 +177,7 @@ const Navbar = () => {
           </ul>
 
           <div className="flex items-center gap-2">
-            {/* command-menu affordance — the shortcut exists, so advertise it */}
+            {/* command-menu affordance, the shortcut exists, so advertise it */}
             <button
               type="button"
               onClick={() =>
@@ -187,6 +188,8 @@ const Navbar = () => {
             >
               <span>⌘K</span>
             </button>
+
+            <ThemeSwitch />
 
             <CTA
               to="/book"

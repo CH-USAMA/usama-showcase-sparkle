@@ -177,7 +177,7 @@ export const caseStudies: CaseStudy[] = [
     year: "2025",
     role: "Agent orchestration · Observability",
     problem:
-      "A content team spent 20+ hours a week on articles and landing copy that still had to clear brand, legal, and SEO review — a bottleneck that delayed campaigns by days.",
+      "A content team spent 20+ hours a week on articles and landing copy that still had to clear brand, legal, and SEO review, a bottleneck that delayed campaigns by days.",
     approach:
       "A LangChain agent graph splits the work into verifiable stages: research grounded in a Pinecone knowledge base, drafting against a structured output schema, then a reviewer agent scoring brand voice, accuracy, and SEO. n8n owns scheduling and human approval gates; low-scoring drafts route to an editor instead of publishing.",
     result:
@@ -205,7 +205,7 @@ export const caseStudies: CaseStudy[] = [
     year: "2024",
     role: "Headless architecture · Performance",
     problem:
-      "A luxury catalogue with poor product discoverability and low conversion — high-intent visitors could not find the piece they came for.",
+      "A luxury catalogue with poor product discoverability and low conversion. High-intent visitors could not find the piece they came for.",
     approach:
       "Migration to a headless stack with AI-assisted search and recommendations, automated metadata generation for the catalogue, and a Core Web Vitals pass on image delivery and rendering.",
     result:

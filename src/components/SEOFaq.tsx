@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "How do you decide between Laravel, Node.js and Python on a system?",
-    a: "By the shape of the problem, not by preference. Laravel and PHP carry the application core — domain logic, APIs, queues, billing — with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the work that is AI or data: RAG pipelines, agents, processing. Asterisk and SIP handle telephony, and Docker and CI/CD ship all of it.",
+    a: "By the shape of the problem, not by preference. Laravel and PHP carry the application core: domain logic, APIs, queues and billing, with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the work that is AI or data: RAG pipelines, agents, processing. Asterisk and SIP handle telephony, and Docker and CI/CD ship all of it.",
   },
 ];
 

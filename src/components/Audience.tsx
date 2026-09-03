@@ -9,7 +9,7 @@ const AUDIENCES = [
     who: "Startup founders",
     ask: "Will this architecture survive our first real traffic?",
     problem:
-      "You need an MVP built correctly the first time — not something that has to be rebuilt in twelve months once it starts working.",
+      "You need an MVP built correctly the first time, not something that has to be rebuilt in twelve months once it starts working.",
     solve:
       "Architecture that fits the stage you're actually at, with the expensive decisions made deliberately and the rest deferred on purpose.",
   },
@@ -20,7 +20,7 @@ const AUDIENCES = [
     problem:
       "A multi-tenant Laravel product that's growing faster than its foundations. The team is firefighting queues, billing edge cases, and API contracts instead of shipping.",
     solve:
-      "Hardened APIs, queue architecture that survives retries, and a slow-query pass — so feature work stops competing with maintenance.",
+      "Hardened APIs, queue architecture that survives retries, and a slow-query pass, so that feature work stops competing with maintenance.",
   },
   {
     n: "03",
@@ -29,7 +29,7 @@ const AUDIENCES = [
     problem:
       "Spreadsheets, manual handoffs, and back-office work that quietly consumes hours and corrupts data quality as you grow.",
     solve:
-      "Automation infrastructure that runs unattended — with retries, dead-letter queues, and observability, not a fragile happy path.",
+      "Automation infrastructure that runs unattended, with retries, dead-letter queues, and observability, not a fragile happy path.",
   },
   {
     n: "04",

@@ -62,7 +62,9 @@ async function streamChat({
           const parsed = JSON.parse(json);
           const content = parsed.choices?.[0]?.delta?.content;
           if (content) onDelta(content);
-        } catch {}
+        } catch {
+          /* A partial SSE frame is normal mid-stream: skip it and wait for the rest. */
+        }
       }
     }
     onDone();
@@ -119,7 +121,11 @@ const AIChatbot = () => {
     setLead(newLead);
     trackEvent("chatbot_lead_submit", { has_email: Boolean(email), has_phone: Boolean(phone) });
 
-    try { localStorage.setItem(LEAD_KEY, JSON.stringify(newLead)); } catch {}
+    try {
+      localStorage.setItem(LEAD_KEY, JSON.stringify(newLead));
+    } catch {
+      /* Private mode or a full quota: the lead is still sent, only the local copy is lost. */
+    }
 
     // Notify Usama immediately about the new lead
     try {
@@ -195,7 +201,7 @@ const AIChatbot = () => {
 
     const contextMsg: Msg = {
       role: "user",
-      content: `[Visitor info — Name: ${lead.name}${lead.email ? `, Email: ${lead.email}` : ""}${lead.phone ? `, Phone: ${lead.phone}` : ""}]\n\n${userMsg.content}`,
+      content: `[Visitor info. Name: ${lead.name}${lead.email ? `, Email: ${lead.email}` : ""}${lead.phone ? `, Phone: ${lead.phone}` : ""}]\n\n${userMsg.content}`,
     };
     const apiMessages = [...newMessages.slice(1, -1), contextMsg];
 

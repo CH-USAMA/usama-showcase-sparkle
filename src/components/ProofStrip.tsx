@@ -55,7 +55,7 @@ const ProofStrip = () => {
           ))}
         </motion.dl>
 
-        {/* platform verification — the numbers above are checkable, so link them */}
+        {/* platform verification, the numbers above are checkable, so link them */}
         <motion.div
           data-reveal=""
           variants={revealChild}

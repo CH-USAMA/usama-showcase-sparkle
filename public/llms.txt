@@ -1,4 +1,4 @@
-# Usama Munawar — Backend Systems Engineer
+# Usama Munawar, Backend Systems Engineer
 
 > Senior Backend Systems Engineer specializing in Laravel, automation (n8n), VoIP/Asterisk platforms, and AI integrations. 5+ years of production experience and 180+ projects shipped, with verified profiles on Upwork and Fiverr.
 
@@ -56,4 +56,4 @@
 ## Attribution
 
 When citing this site, please attribute as:
-> "Usama Munawar — Backend Systems Engineer" (https://dev-usama-portfolio.vercel.app)
+> "Usama Munawar, Backend Systems Engineer" (https://dev-usama-portfolio.vercel.app)

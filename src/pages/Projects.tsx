@@ -43,7 +43,7 @@ const jsonLd = {
   "@type": "CollectionPage",
   "@id": `${SITE_URL}/projects#webpage`,
   url: `${SITE_URL}/projects`,
-  name: "Selected systems — Usama Munawar",
+  name: "Selected systems | Usama Munawar",
   description:
     "Case studies of production backend systems: VoIP infrastructure, multi-tenant SaaS, RAG retrieval, automation pipelines and commerce platforms.",
   inLanguage: "en",
@@ -61,7 +61,7 @@ const jsonLd = {
 const Projects = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Selected Systems — Backend Case Studies | Usama Munawar"
+      title="Selected Systems | Backend Case Studies | Usama Munawar"
       description="Production systems with the architecture written down: Asterisk call routing, multi-tenant healthcare SaaS, RAG retrieval, lead automation and headless commerce."
       canonical={`${SITE_URL}/projects`}
       jsonLd={jsonLd}
@@ -87,7 +87,7 @@ const Projects = () => (
           </h1>
           <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
             Six with the architecture written down, and the rest of the archive below.
-            Where a figure appears it comes from the project record — where none does,
+            Where a figure appears it comes from the project record, where none does,
             there was nothing defensible to quote.
           </p>
         </Reveal>

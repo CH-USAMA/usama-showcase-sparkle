@@ -111,7 +111,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
                 <Corners />
                 <img
                   src={study.image}
-                  alt={`${study.title} — ${study.category}`}
+                  alt={`${study.title}, ${study.category}`}
                   width={1200}
                   height={750}
                   loading="lazy"

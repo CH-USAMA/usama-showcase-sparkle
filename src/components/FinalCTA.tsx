@@ -68,7 +68,7 @@ const FinalCTA = () => {
               </div>
 
               <p className="mono-tiny mt-8 text-subtle">
-                Free · 30 minutes · No pitch — you leave with a next step either way
+                Free · 30 minutes · No pitch. You leave with a next step either way
               </p>
             </div>
           </div>

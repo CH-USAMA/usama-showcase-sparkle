@@ -87,7 +87,7 @@ const Checklist = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Laravel Scaling Checklist — 26 Production Checks"
+        title="Laravel Scaling Checklist | 26 Production Checks"
         description="A free 26-point checklist for scaling Laravel apps in production: indexing, Redis caching, queues, API resilience, observability, backups and zero-downtime deploys."
         canonical={`${BASE_URL}/laravel-scaling-checklist`}
         ogType="article"

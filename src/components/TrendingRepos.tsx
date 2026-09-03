@@ -82,7 +82,9 @@ const TrendingRepos = () => {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                    {repo.description}
+                    {/* Third-party text: normalise dashes so remote content
+                        cannot reintroduce a punctuation mark the site does not use. */}
+                    {repo.description?.replace(/\s—\s/g, ", ").replace(/—/g, ", ")}
                   </p>
                   <div className="flex flex-wrap gap-1 mb-4">
                     <Badge variant="tech" className="text-xs">{repo.category}</Badge>

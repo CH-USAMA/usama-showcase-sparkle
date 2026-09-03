@@ -16,6 +16,13 @@ export interface BlogPost {
   published_at: string;
   author: string;
   tags: string[];
+  /**
+   * Set only on posts merged in from the trending feed, never on the written
+   * articles. They were previously reached through `(post as any)`, which is
+   * what the no-explicit-any errors in Blog.tsx and BlogPost.tsx were.
+   */
+  is_auto?: boolean;
+  source_url?: string;
 }
 
 export const blogsData: BlogPost[] = [

@@ -33,7 +33,7 @@ const AGENDA = [
   {
     n: "01",
     title: "The constraint",
-    body: "What is actually breaking, slowing down, or costing money. Not the feature list — the bottleneck underneath it.",
+    body: "What is actually breaking, slowing down, or costing money. Not the feature list. The bottleneck underneath it.",
   },
   {
     n: "02",
@@ -56,7 +56,7 @@ const AFTER = [
 const faqs = [
   {
     q: "What does an engagement cost?",
-    a: "Sprint work starts from $1,500 for a scoped one-to-two week piece. Build engagements start from $4,500, and ongoing retainers from $3,500 a month. Exact scope and price are quoted after this call, once the problem is clear — the call itself is free.",
+    a: "Sprint work starts from $1,500 for a scoped one-to-two week piece. Build engagements start from $4,500, and ongoing retainers from $3,500 a month. Exact scope and price are quoted after this call, once the problem is clear. The call itself is free.",
   },
   {
     q: "Is the call really free, and is it a sales call?",
@@ -64,7 +64,7 @@ const faqs = [
   },
   {
     q: "How do you decide between Laravel, Node.js and Python on a system?",
-    a: "By the shape of the problem. Laravel and PHP carry the application core — domain logic, APIs, queues, billing — with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the AI and data work: RAG pipelines, agents, processing. Asterisk and SIP handle telephony.",
+    a: "By the shape of the problem. Laravel and PHP carry the application core: domain logic, APIs, queues and billing, with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the AI and data work: RAG pipelines, agents, processing. Asterisk and SIP handle telephony.",
   },
   {
     q: "Do you sign NDAs?",
@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     q: "What if I don't know what the problem is yet?",
-    a: "That is a normal reason to book. Describing the symptom — slow requests, failing jobs, a release that keeps breaking, a manual process nobody wants to own — is enough to start narrowing it down on the call.",
+    a: "That is a normal reason to book. Describing the symptom is enough to start narrowing it down on the call: slow requests, failing jobs, a release that keeps breaking, or a manual process nobody wants to own.",
   },
 ];
 
@@ -81,7 +81,7 @@ const bookJsonLd = {
   "@type": "WebPage",
   "@id": `${SITE_URL}/book#webpage`,
   url: `${SITE_URL}/book`,
-  name: "Book an Architecture Call — Usama Munawar",
+  name: "Book an Architecture Call | Usama Munawar",
   description:
     "Book a free 30-minute architecture call with Usama Munawar, a backend systems engineer working in Laravel, Node.js, Python, VoIP and automation.",
   inLanguage: "en",
@@ -114,7 +114,7 @@ const Book = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Book an Architecture Call — Usama Munawar"
+        title="Book an Architecture Call | Usama Munawar"
         description="A free 30-minute architecture call. Bring a Laravel scaling, automation, VoIP or AI integration problem and leave with an opinionated next step."
         canonical={`${SITE_URL}/book`}
         jsonLd={[bookJsonLd, faqJsonLd]}
@@ -141,7 +141,7 @@ const Book = () => {
               Bring the problem. Leave with the next step.
             </h1>
             <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
-              Thirty minutes on your architecture — what is breaking, what it will cost to
+              Thirty minutes on your architecture. What is breaking, what it will cost to
               fix, and whether it is worth fixing yet. No pitch, and no obligation to
               hire me at the end of it.
             </p>

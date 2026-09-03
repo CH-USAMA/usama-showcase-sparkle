@@ -32,7 +32,7 @@ const homeJsonLd = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/#webpage`,
       url: `${SITE_URL}/`,
-      name: "Backend Systems Engineer | Laravel, Automation, VoIP & AI — Usama Munawar",
+      name: "Backend Systems Engineer | Laravel, Automation, VoIP & AI | Usama Munawar",
       description:
         "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
       inLanguage: "en",
@@ -115,7 +115,7 @@ const Index = () => {
     <div id="top">
       <SEOHead
         canonical={`${SITE_URL}/`}
-        title="Usama Munawar — Laravel, VoIP & AI Backend Engineer"
+        title="Usama Munawar | Laravel, VoIP & AI Backend Engineer"
         description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. 180+ projects shipped over 5+ years in production."
         jsonLd={homeJsonLd}
       />
