@@ -22,6 +22,18 @@ const ALLOWED_ORIGINS = new Set([
   "http://127.0.0.1:8080",
 ]);
 
+// Lovable preview / editor hosts (per-project subdomains) are also allowed so
+// the chatbot works while the site is being built and reviewed.
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/i,
+  /^https:\/\/[a-z0-9-]+\.lovable\.app$/i,
+];
+
+function originAllowed(origin: string | null): boolean {
+  if (!origin) return false;
+  return ALLOWED_ORIGINS.has(origin) || ALLOWED_ORIGIN_PATTERNS.some((re) => re.test(origin));
+}
+
 /** Reflect the caller's origin only when it is one we published to. */
 function corsFor(origin: string | null) {
   const headers: Record<string, string> = {
@@ -29,7 +41,7 @@ function corsFor(origin: string | null) {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     Vary: "Origin",
   };
-  if (origin && ALLOWED_ORIGINS.has(origin)) headers["Access-Control-Allow-Origin"] = origin;
+  if (originAllowed(origin)) headers["Access-Control-Allow-Origin"] = origin!;
   return headers;
 }
 
