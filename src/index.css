@@ -618,3 +618,20 @@
     color: hsl(var(--hue, var(--primary)));
   }
 }
+
+/* ============================================================================
+   MEASURE
+
+   Long-form text was constrained with max-w-2xl and max-w-3xl, which are fixed
+   rem widths and therefore a different number of characters at every font
+   size. Measured at 1440px, body copy was running to 90 characters a line on
+   the home page and past 100 on /book, where comfortable reading tops out
+   around 75.
+
+   `ch` is relative to the element's own font size, so a measure set in ch
+   holds its character count as the type scale changes.
+   ========================================================================= */
+@layer utilities {
+  .measure { max-width: 60ch; }
+  .measure-sm { max-width: 50ch; }
+}

@@ -85,7 +85,7 @@ const Projects = () => (
           <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
             The systems, and the decisions behind them.
           </h1>
-          <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
+          <p className="type-lead measure mt-7 text-muted-foreground">
             Six with the architecture written down, and the rest of the archive below.
             Where a figure appears it comes from the project record, where none does,
             there was nothing defensible to quote.
@@ -147,13 +147,13 @@ const Projects = () => (
                     <dl className="space-y-6">
                       <div>
                         <dt className="mono-tiny text-subtle">The problem</dt>
-                        <dd className="type-body mt-2.5 max-w-2xl text-muted-foreground">
+                        <dd className="type-body measure mt-2.5 text-muted-foreground">
                           {c.problem}
                         </dd>
                       </div>
                       <div>
                         <dt className="mono-tiny text-subtle">The result</dt>
-                        <dd className="type-body mt-2.5 max-w-2xl text-muted-foreground">
+                        <dd className="type-body measure mt-2.5 text-muted-foreground">
                           {c.result}
                         </dd>
                       </div>

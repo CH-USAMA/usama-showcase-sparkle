@@ -158,7 +158,7 @@ const Book = () => {
             <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
               Bring the problem. Leave with the next step.
             </h1>
-            <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
+            <p className="type-lead measure mt-7 text-muted-foreground">
               Thirty minutes on your architecture. What is breaking, what it will cost to
               fix, and whether it is worth fixing yet. No pitch, and no obligation to
               hire me at the end of it.
@@ -204,7 +204,7 @@ const Book = () => {
               </ul>
 
               <Reveal>
-                <p className="mono-tiny mt-7 leading-[1.7] text-subtle">
+                <p className="mono-tiny measure-sm mt-7 leading-[1.7] text-subtle">
                   If your problem is not on this list, it is still worth asking.
                   The worst outcome is a short answer pointing you somewhere better.
                 </p>
@@ -223,7 +223,7 @@ const Book = () => {
                           {s.title}
                         </h3>
                       </div>
-                      <p className="type-body mt-2.5 pl-9 text-muted-foreground">{s.body}</p>
+                      <p className="type-body measure mt-2.5 pl-9 text-muted-foreground">{s.body}</p>
                     </div>
                   </Reveal>
                 ))}
@@ -284,7 +284,7 @@ const Book = () => {
                         +
                       </span>
                     </summary>
-                    <p className="type-body max-w-3xl pb-6 text-muted-foreground">{f.a}</p>
+                    <p className="type-body measure pb-6 text-muted-foreground">{f.a}</p>
                   </details>
                 </Reveal>
               ))}

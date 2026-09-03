@@ -209,7 +209,7 @@ const ProjectDetail = () => {
                     {paragraphs.map(({ label, body }, i) => (
                       <div key={label ? label + i : body.slice(0, 48)}>
                         {label && <h3 className="mono-tiny mb-2.5 text-hue">{label}</h3>}
-                        <p className="type-body text-muted-foreground">{body}</p>
+                        <p className="type-body measure text-muted-foreground">{body}</p>
                       </div>
                     ))}
                   </div>
@@ -225,7 +225,7 @@ const ProjectDetail = () => {
                         <dt className="font-inter text-[15px] font-medium text-foreground">
                           {c.title}
                         </dt>
-                        <dd className="type-body mt-2.5 text-muted-foreground">{c.description}</dd>
+                        <dd className="type-body measure mt-2.5 text-muted-foreground">{c.description}</dd>
                       </div>
                     ))}
                   </dl>

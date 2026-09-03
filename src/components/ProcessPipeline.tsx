@@ -87,7 +87,7 @@ const ProcessPipeline = () => {
     >
       <div className="container mx-auto">
         <SectionHeader
-          index="05"
+          index="06"
           eyebrow="Process"
           title="A predictable path from problem to production."
           lead="Six stages, each with a stated deliverable. No scope creep, no surprise invoices, and no phase where you have to ask what's happening."

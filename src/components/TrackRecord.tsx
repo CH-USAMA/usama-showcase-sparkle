@@ -63,7 +63,7 @@ const TrackRecord = () => (
   >
     <div className="container mx-auto">
       <SectionHeader
-        index="06"
+        index="01"
         eyebrow="Track record"
         title="Five years, logged."
         lead="Grouped by year, from the delivery dates on the work itself."

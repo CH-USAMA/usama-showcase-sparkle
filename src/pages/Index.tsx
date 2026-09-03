@@ -132,13 +132,17 @@ const Index = () => {
         <Hero />
         <ProofStrip />
 
+        {/* Proof reads as one block: the instrument strip, then the log of what
+            produced those numbers. TrackRecord used to sit after Process, so a
+            reader met the record of the work only after the pitch. */}
+
         <Suspense fallback={<Fallback />}>
+          <TrackRecord />
           <ServiceExplorer />
           <CaseStudies />
           <Philosophy />
           <TechMatrix />
           <ProcessPipeline />
-          <TrackRecord />
           <Audience />
           <Engagements />
           <FinalCTA />

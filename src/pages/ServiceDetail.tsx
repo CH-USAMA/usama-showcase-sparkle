@@ -150,7 +150,7 @@ const ServiceDetail = () => {
                 <Reveal key={s.heading} index={Math.min(i + 1, 4)}>
                   <section className="border-t border-hairline/[0.08] py-10 first:border-t-0 first:pt-0">
                     <h2 className="type-h3 text-foreground">{s.heading}</h2>
-                    <p className="type-body mt-4 text-muted-foreground">{s.body}</p>
+                    <p className="type-body measure mt-4 text-muted-foreground">{s.body}</p>
                     {s.bullets && (
                       <ul className="mt-6 space-y-3">
                         {s.bullets.map((b) => (
@@ -175,7 +175,7 @@ const ServiceDetail = () => {
                     {service.faqs.map((f) => (
                       <div key={f.q} className="border-b border-hairline/[0.08] py-5">
                         <dt className="font-inter text-[15px] font-medium text-foreground">{f.q}</dt>
-                        <dd className="type-body mt-2.5 text-muted-foreground">{f.a}</dd>
+                        <dd className="type-body measure mt-2.5 text-muted-foreground">{f.a}</dd>
                       </div>
                     ))}
                   </dl>

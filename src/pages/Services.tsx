@@ -108,7 +108,7 @@ const Services = () => (
           <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
             One engineer, and the right runtime for each layer.
           </h1>
-          <p className="type-lead mt-7 max-w-2xl text-muted-foreground">
+          <p className="type-lead measure mt-7 text-muted-foreground">
             I am not a generalist who lists languages. Each of these owns a specific part
             of a production system, and the reason for using it is the shape of the
             problem, not preference.
@@ -176,7 +176,7 @@ const Services = () => (
                     </div>
 
                     <div className="lg:col-span-8">
-                      <p className="type-body max-w-2xl text-muted-foreground">{c.summary}</p>
+                      <p className="type-body measure text-muted-foreground">{c.summary}</p>
 
                       <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
                         {c.stack.map((t) => (
@@ -221,7 +221,7 @@ const Services = () => (
             <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
               Four situations that account for most of the work.
             </h2>
-            <p className="type-lead mt-5 max-w-2xl text-muted-foreground">
+            <p className="type-lead measure mt-5 text-muted-foreground">
               If one of these is uncomfortably familiar, that is the conversation
               worth having.
             </p>

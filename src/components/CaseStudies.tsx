@@ -132,7 +132,10 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
         <div className={`lg:col-span-7 ${flipped ? "lg:order-1" : ""}`}>
           <Reveal variant="fade">
             <figure className="relative">
-              <div className="relative overflow-hidden rounded-lg border border-hairline/[0.09] bg-surface-1">
+              <div
+                className="relative overflow-hidden rounded-lg border border-hairline/[0.09] bg-surface-1"
+                data-cursor={study.detailPath ? "view" : undefined}
+              >
                 <Corners />
                 <img
                   src={study.image}
@@ -171,7 +174,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
         <Reveal>
           <div className="grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
             <h4 className="mono-tiny text-hue lg:col-span-3">The problem</h4>
-            <p className="type-body max-w-2xl text-muted-foreground lg:col-span-9">
+            <p className="type-body measure text-muted-foreground lg:col-span-9">
               {study.problem}
             </p>
           </div>
@@ -181,7 +184,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
           <div className="mt-8 grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
             <h4 className="mono-tiny text-hue lg:col-span-3">The engineering</h4>
             <div className="lg:col-span-9">
-              <p className="type-body max-w-2xl text-muted-foreground">{study.approach}</p>
+              <p className="type-body measure text-muted-foreground">{study.approach}</p>
               <ArchitectureFlow
                 stages={study.flow}
                 caption="Request path"
@@ -195,7 +198,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
         <Reveal index={2}>
           <div className="mt-8 grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
             <h4 className="mono-tiny text-hue lg:col-span-3">The result</h4>
-            <p className="type-body max-w-2xl text-muted-foreground lg:col-span-9">
+            <p className="type-body measure text-muted-foreground lg:col-span-9">
               {study.result}
             </p>
           </div>

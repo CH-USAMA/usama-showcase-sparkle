@@ -8,16 +8,29 @@ import { transition } from "@/lib/motion";
 import { trackEvent } from "@/lib/analytics";
 import logoUsama from "@/assets/logo-usama.webp";
 
-/** `hash` entries scroll within the home page; `to` entries are routes. */
-const LINKS = [
+/**
+ * Five items, in the order the page argues.
+ *
+ * Experience, Pricing and Contact came off: all three are passed on the way
+ * down the page, and eight items made the bar compete with the one action it
+ * exists to carry. Insights is a route rather than an anchor, because the blog
+ * teaser no longer sits on the home page.
+ *
+ * `hash` entries scroll within the home page; `to` entries are routes.
+ */
+interface NavLink {
+  id: string;
+  label: string;
+  hash?: string;
+  to?: string;
+}
+
+const LINKS: NavLink[] = [
   { id: "about", label: "About", hash: "#about" },
-  { id: "services", label: "Services", hash: "#services" },
   { id: "work", label: "Work", hash: "#work" },
+  { id: "services", label: "Services", hash: "#services" },
   { id: "process", label: "Process", hash: "#process" },
-  { id: "experience", label: "Experience", hash: "#experience" },
-  { id: "blog", label: "Blog", hash: "#blog" },
-  { id: "pricing", label: "Pricing", hash: "#pricing" },
-  { id: "contact", label: "Contact", hash: "#contact" },
+  { id: "blog", label: "Insights", to: "/blog" },
 ];
 
 const Navbar = () => {
@@ -52,7 +65,9 @@ const Navbar = () => {
       setActive("");
       return;
     }
-    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(
+    const sections = LINKS.filter((l) => l.hash)
+      .map((l) => document.getElementById(l.id))
+      .filter(
       Boolean
     ) as HTMLElement[];
     if (!sections.length) return;
@@ -150,20 +165,30 @@ const Navbar = () => {
           </Link>
 
           {/* desktop links */}
-          <ul className="hidden items-center xl:flex">
+          <ul className="hidden items-center lg:flex">
             {LINKS.map((l) => {
               const on = active === l.id;
+              const cls = `relative inline-flex min-h-[24px] items-center px-3 py-2 font-inter text-[13.5px] transition-colors duration-standard ${
+                on ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              }`;
+              if (l.to) {
+                return (
+                  <li key={l.id}>
+                    <Link to={l.to} className={cls}>
+                      {l.label}
+                    </Link>
+                  </li>
+                );
+              }
               return (
                 <li key={l.id}>
                   <a
                     href={l.hash}
                     onClick={(e) => {
                       e.preventDefault();
-                      goTo(l.hash);
+                      goTo(l.hash!);
                     }}
-                    className={`relative inline-flex min-h-[24px] items-center px-3 py-2 font-inter text-[13.5px] transition-colors duration-standard ${
-                      on ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                    }`}
+                    className={cls}
                   >
                     {l.label}
                     {on && (
@@ -201,8 +226,7 @@ const Navbar = () => {
               className="hidden sm:inline-flex"
               onClick={() => trackEvent("book_call_click", { location: "navbar" })}
             >
-              <span className="hidden lg:inline">Book an Architecture Call</span>
-              <span className="lg:hidden">Architecture Call</span>
+              Architecture Call
             </CTA>
 
             <button
@@ -211,7 +235,7 @@ const Navbar = () => {
               aria-expanded={open}
               aria-controls="mobile-nav"
               onClick={() => setOpen((v) => !v)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline/[0.1] text-foreground transition-colors duration-standard hover:border-hairline/[0.2] xl:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline/[0.1] text-foreground transition-colors duration-standard hover:border-hairline/[0.2] lg:hidden"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -228,7 +252,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={transition.standard}
-            className="fixed inset-0 z-40 bg-background/95 xl:hidden"
+            className="fixed inset-0 z-40 bg-background/95 lg:hidden"
           >
             <div className="container mx-auto flex h-full flex-col pb-10 pt-24">
               <ul className="flex-1 overflow-y-auto">
@@ -240,21 +264,36 @@ const Navbar = () => {
                     transition={{ ...transition.standard, delay: 0.03 + i * 0.035 }}
                     className="border-b border-hairline/[0.07]"
                   >
-                    <a
-                      href={l.hash}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        goTo(l.hash);
-                      }}
-                      className="flex items-baseline gap-4 py-4"
-                    >
-                      <span className="mono-tiny tabular-nums text-subtle">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="font-inter text-xl tracking-tight text-foreground">
-                        {l.label}
-                      </span>
-                    </a>
+                    {l.to ? (
+                      <Link
+                        to={l.to}
+                        onClick={() => setOpen(false)}
+                        className="flex items-baseline gap-4 py-4"
+                      >
+                        <span className="mono-tiny tabular-nums text-subtle">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="font-inter text-xl tracking-tight text-foreground">
+                          {l.label}
+                        </span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={l.hash}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          goTo(l.hash!);
+                        }}
+                        className="flex items-baseline gap-4 py-4"
+                      >
+                        <span className="mono-tiny tabular-nums text-subtle">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="font-inter text-xl tracking-tight text-foreground">
+                          {l.label}
+                        </span>
+                      </a>
+                    )}
                   </motion.li>
                 ))}
               </ul>

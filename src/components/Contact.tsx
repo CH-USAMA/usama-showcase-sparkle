@@ -92,7 +92,7 @@ const Contact = () => {
     >
       <div className="container mx-auto">
         <SectionHeader
-          index="10"
+          index="09"
           eyebrow="Contact"
           title="Tell me what's breaking."
           lead="Share the architecture, automation, or VoIP problem you're facing. You'll get an honest assessment back, including if the answer is that you do not need me."

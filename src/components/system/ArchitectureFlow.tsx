@@ -19,10 +19,15 @@ interface ArchitectureFlowProps {
 /**
  * The recurring architecture diagram.
  *
- * A charge sweeps through the stages in sequence, so the diagram reads as a
- * request travelling through a system rather than as a static list of boxes.
- * The sweep only runs while the diagram is on screen — an always-on animation
- * in a long page is just battery drain — and never runs under reduced motion.
+ * The stages assemble in order the first time the diagram is seen, connectors
+ * drawing behind them, so the system reads as being built rather than as
+ * already existing. After that a charge sweeps through in sequence, so it
+ * reads as a request travelling through a system rather than a list of boxes.
+ *
+ * Both are opacity and transform only, so neither costs layout. The sweep runs
+ * only while the diagram is on screen, since an always-on animation in a long
+ * page is battery drain, and under reduced motion the finished diagram is
+ * shown immediately with nothing moving at all.
  */
 const ArchitectureFlow = ({
   stages,
@@ -32,13 +37,27 @@ const ArchitectureFlow = ({
 }: ArchitectureFlowProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
+  /**
+   * Set once, the first time the diagram is seen, and never unset. The stages
+   * assemble in order on that first pass so the system reads as being built
+   * rather than as already existing; scrolling back up does not replay it,
+   * because a diagram that rebuilds every time you pass it is a distraction.
+   */
+  const [built, setBuilt] = useState(false);
   const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || reduced) return;
+    if (!el || reduced) {
+      // Reduced motion gets the finished diagram immediately.
+      if (reduced) setBuilt(true);
+      return;
+    }
     const io = new IntersectionObserver(
-      ([entry]) => setLive(entry.isIntersecting),
+      ([entry]) => {
+        setLive(entry.isIntersecting);
+        if (entry.isIntersecting) setBuilt(true);
+      },
       { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
     );
     io.observe(el);
@@ -70,8 +89,19 @@ const ArchitectureFlow = ({
               key={`${stage.label}-${i}`}
               className={`flex flex-col ${row ? "lg:flex-1 lg:flex-row lg:items-center" : ""}`}
             >
-              <div className="relative w-full overflow-hidden rounded-md border border-hairline/[0.09] bg-surface-1/70 px-3 py-2.5">
-                {live && (
+              <div
+                className="relative w-full overflow-hidden rounded-md border border-hairline/[0.09] bg-surface-1/70 px-3 py-2.5"
+                style={
+                  reduced
+                    ? undefined
+                    : {
+                        opacity: built ? 1 : 0,
+                        transform: built ? "none" : "translateY(6px)",
+                        transition: `opacity 420ms var(--ease-out) ${i * 90}ms, transform 420ms var(--ease-out) ${i * 90}ms`,
+                      }
+                }
+              >
+                {live && built && (
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 rounded-md opacity-0"
@@ -102,8 +132,20 @@ const ArchitectureFlow = ({
                   className={`relative mx-auto my-1.5 h-5 w-px shrink-0 bg-hairline/[0.11] ${
                     row ? "lg:mx-2.5 lg:my-0 lg:h-px lg:w-5" : ""
                   }`}
+                  style={
+                    reduced
+                      ? undefined
+                      : {
+                          // Scales along its own axis, so the line draws from
+                          // the stage it leaves rather than fading in whole.
+                          transformOrigin: row ? "left center" : "top center",
+                          transform: built ? "none" : row ? "scaleX(0)" : "scaleY(0)",
+                          opacity: built ? 1 : 0,
+                          transition: `transform 320ms var(--ease-out) ${i * 90 + 180}ms, opacity 200ms linear ${i * 90 + 180}ms`,
+                        }
+                  }
                 >
-                  {live && (
+                  {live && built && (
                     <span
                       className={`absolute inset-0 bg-primary/70 trace ${row ? "trace-row" : ""}`}
                       style={{

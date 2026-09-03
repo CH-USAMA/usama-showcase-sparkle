@@ -42,20 +42,36 @@ interface NodeDef {
    * site is arguing against.
    */
   weight?: "primary";
+  /**
+   * Which runtime owns this node. Hovering any node lifts its whole layer and
+   * quiets the rest, so the diagram answers "what does Laravel actually carry"
+   * by showing it rather than by adding another paragraph.
+   */
+  layer: Layer;
 }
+
+/** The three runtimes the site argues, plus the delivery layer under them. */
+type Layer = "core" | "realtime" | "ai" | "platform";
+
+const LAYER_LABEL: Record<Layer, string> = {
+  core: "Core backend",
+  realtime: "Real-time · events",
+  ai: "AI · RAG · agents",
+  platform: "Delivery",
+};
 
 /** First five render down the left bus, last five down the right. */
 const NODES: NodeDef[] = [
-  { id: "laravel", label: "Laravel", meta: "Core backend", icon: Server, weight: "primary" },
-  { id: "node", label: "Node.js", meta: "Real-time · events", icon: Hexagon },
-  { id: "redis", label: "Redis", meta: "Queues · cache", icon: Database },
-  { id: "api", label: "APIs", meta: "REST · GraphQL", icon: Braces },
-  { id: "docker", label: "Docker", meta: "Deploy", icon: Container },
-  { id: "ai", label: "LLMs", meta: "Retrieval · tools", icon: Brain },
-  { id: "python", label: "Python", meta: "AI · RAG · agents", icon: Code2 },
-  { id: "automation", label: "Automation", meta: "n8n · MCP", icon: Workflow },
-  { id: "asterisk", label: "Asterisk", meta: "SIP · IVR", icon: PhoneCall },
-  { id: "realtime", label: "Real-time", meta: "WebSockets", icon: Radio },
+  { id: "laravel", label: "Laravel", meta: "Core backend", icon: Server, weight: "primary" , layer: "core" },
+  { id: "node", label: "Node.js", meta: "Real-time · events", icon: Hexagon , layer: "realtime" },
+  { id: "redis", label: "Redis", meta: "Queues · cache", icon: Database , layer: "core" },
+  { id: "api", label: "APIs", meta: "REST · GraphQL", icon: Braces , layer: "core" },
+  { id: "docker", label: "Docker", meta: "Deploy", icon: Container , layer: "platform" },
+  { id: "ai", label: "LLMs", meta: "Retrieval · tools", icon: Brain , layer: "ai" },
+  { id: "python", label: "Python", meta: "AI · RAG · agents", icon: Code2 , layer: "ai" },
+  { id: "automation", label: "Automation", meta: "n8n · MCP", icon: Workflow , layer: "platform" },
+  { id: "asterisk", label: "Asterisk", meta: "SIP · IVR", icon: PhoneCall , layer: "realtime" },
+  { id: "realtime", label: "Real-time", meta: "WebSockets", icon: Radio , layer: "realtime" },
 ];
 
 /** Orthogonal path with rounded corners: horizontal → trunk → horizontal. */
@@ -184,6 +200,12 @@ const DEPTH_RING = 6;
 const SystemGraph = () => {
   const [layout, setLayout] = useState<Layout>("wide");
   const [hovered, setHovered] = useState<string | null>(null);
+
+  // The hovered node's layer. Used to lift siblings rather than only the node
+  // under the pointer, which is what turns ten boxes into three runtimes.
+  const activeLayer = hovered
+    ? NODES.find((n) => n.id === hovered)?.layer ?? null
+    : null;
   const reduced = usePrefersReducedMotion();
   const ref = usePointerVars<HTMLDivElement>();
 
@@ -248,7 +270,9 @@ const SystemGraph = () => {
                   stroke="url(#sg-wire)"
                   strokeWidth={1}
                   className="transition-opacity duration-standard"
-                  opacity={hovered && !on ? 0.28 : 1}
+                  opacity={
+                    !activeLayer ? 1 : n.def.layer === activeLayer ? 1 : 0.18
+                  }
                 />
                 {/* travelling signal: a short dash sliding along the wire */}
                 {!reduced && (
@@ -337,13 +361,14 @@ const SystemGraph = () => {
             // The specialisation is drawn heavier at rest: a brighter hairline,
             // a filled dot and a heavier label. Everything else stays quiet.
             const lead = n.def.weight === "primary";
+            const inLayer = !activeLayer || n.def.layer === activeLayer;
             return (
               <g
                 key={n.def.id}
                 onMouseEnter={() => setHovered(n.def.id)}
                 onMouseLeave={() => setHovered(null)}
-                className="cursor-default"
-                style={{ pointerEvents: "auto" }}
+                className="cursor-default transition-opacity duration-standard"
+                style={{ pointerEvents: "auto", opacity: inLayer ? 1 : 0.3 }}
               >
                 <rect
                   x={n.x}
@@ -353,7 +378,7 @@ const SystemGraph = () => {
                   rx={9}
                   fill="hsl(var(--surface-1))"
                   stroke={on ? "hsl(var(--primary))" : "hsl(var(--hairline))"}
-                  strokeOpacity={on ? 0.7 : lead ? 0.34 : 0.13}
+                  strokeOpacity={on ? 0.7 : inLayer && activeLayer ? 0.5 : lead ? 0.34 : 0.13}
                   strokeWidth={1}
                   className="transition-all duration-standard"
                 />
@@ -403,6 +428,18 @@ const SystemGraph = () => {
           })}
         </g>
       </svg>
+
+      {/* Names the layer being inspected. One line, only while hovering, so
+          the interaction says what it is doing instead of relying on colour. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center transition-opacity duration-standard"
+        style={{ opacity: activeLayer ? 1 : 0 }}
+      >
+        <span className="mono-tiny rounded-full border border-hairline/[0.1] bg-surface-1/80 px-3 py-1.5 text-muted-foreground">
+          {activeLayer ? LAYER_LABEL[activeLayer] : ""}
+        </span>
+      </div>
 
       {/* ---- the core at the centre of the system ---- */}
       <div className="absolute" style={photoPct}>
