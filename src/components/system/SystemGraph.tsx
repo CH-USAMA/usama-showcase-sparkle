@@ -36,17 +36,23 @@ interface NodeDef {
   label: string;
   meta: string;
   icon: LucideIcon;
+  /**
+   * Laravel is the specialisation, not one of ten peers. Ten identically
+   * weighted boxes said "knows ten things", which is the reading the whole
+   * site is arguing against.
+   */
+  weight?: "primary";
 }
 
 /** First five render down the left bus, last five down the right. */
 const NODES: NodeDef[] = [
-  { id: "laravel", label: "Laravel", meta: "App layer", icon: Server },
-  { id: "node", label: "Node.js", meta: "Sockets · tooling", icon: Hexagon },
+  { id: "laravel", label: "Laravel", meta: "Core backend", icon: Server, weight: "primary" },
+  { id: "node", label: "Node.js", meta: "Real-time · events", icon: Hexagon },
   { id: "redis", label: "Redis", meta: "Queues · cache", icon: Database },
   { id: "api", label: "APIs", meta: "REST · GraphQL", icon: Braces },
   { id: "docker", label: "Docker", meta: "Deploy", icon: Container },
-  { id: "ai", label: "AI", meta: "RAG · agents", icon: Brain },
-  { id: "python", label: "Python", meta: "ML · scripting", icon: Code2 },
+  { id: "ai", label: "LLMs", meta: "Retrieval · tools", icon: Brain },
+  { id: "python", label: "Python", meta: "AI · RAG · agents", icon: Code2 },
   { id: "automation", label: "Automation", meta: "n8n · MCP", icon: Workflow },
   { id: "asterisk", label: "Asterisk", meta: "SIP · IVR", icon: PhoneCall },
   { id: "realtime", label: "Real-time", meta: "WebSockets", icon: Radio },
@@ -328,6 +334,9 @@ const SystemGraph = () => {
         <g style={{ transform: drift(DEPTH_LAYER) }}>
           {nodes.map((n) => {
             const on = hovered === n.def.id;
+            // The specialisation is drawn heavier at rest: a brighter hairline,
+            // a filled dot and a heavier label. Everything else stays quiet.
+            const lead = n.def.weight === "primary";
             return (
               <g
                 key={n.def.id}
@@ -344,7 +353,7 @@ const SystemGraph = () => {
                   rx={9}
                   fill="hsl(var(--surface-1))"
                   stroke={on ? "hsl(var(--primary))" : "hsl(var(--hairline))"}
-                  strokeOpacity={on ? 0.7 : 0.13}
+                  strokeOpacity={on ? 0.7 : lead ? 0.34 : 0.13}
                   strokeWidth={1}
                   className="transition-all duration-standard"
                 />
@@ -362,9 +371,9 @@ const SystemGraph = () => {
                 <circle
                   cx={n.x + type.dotX}
                   cy={n.y + n.h / 2}
-                  r={2.6}
+                  r={lead ? 3.2 : 2.6}
                   fill="hsl(var(--primary))"
-                  opacity={on ? 1 : 0.55}
+                  opacity={on || lead ? 1 : 0.55}
                   className="transition-opacity duration-standard"
                 />
                 <text
@@ -373,7 +382,7 @@ const SystemGraph = () => {
                   fill="hsl(var(--foreground))"
                   className="font-inter"
                   fontSize={type.label}
-                  fontWeight={550}
+                  fontWeight={lead ? 680 : 550}
                   dominantBaseline="middle"
                 >
                   {n.def.label}

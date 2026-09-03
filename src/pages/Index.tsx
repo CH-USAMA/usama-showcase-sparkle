@@ -6,8 +6,16 @@ import ProofStrip from "@/components/ProofStrip";
 import SEOHead from "@/components/SEOHead";
 import { SITE_URL } from "@/data/site";
 
-/* Everything below the fold is split out — the hero and proof band are the
-   only things needed for first paint. */
+/* Everything below the fold is split out: the hero and proof band are the only
+   things needed for first paint.
+ *
+ * Two sections were removed from this page rather than rewritten. The blog
+ * teaser duplicated the nav and footer links to /blog on a page that was
+ * already long, and the FAQ block emitted a second FAQPage schema on a URL
+ * whose index.html already carries one, while repeating answers that now live
+ * on /book and on each service page. Both routes are still reachable and still
+ * in the sitemap; they no longer sit between a reader and the call to action.
+ */
 const ServiceExplorer = lazy(() => import("@/components/ServiceExplorer"));
 const CaseStudies = lazy(() => import("@/components/CaseStudies"));
 const Philosophy = lazy(() => import("@/components/Philosophy"));
@@ -16,11 +24,9 @@ const ProcessPipeline = lazy(() => import("@/components/ProcessPipeline"));
 const TrackRecord = lazy(() => import("@/components/TrackRecord"));
 const Audience = lazy(() => import("@/components/Audience"));
 const Engagements = lazy(() => import("@/components/Engagements"));
-const Insights = lazy(() => import("@/components/Insights"));
 const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const Contact = lazy(() => import("@/components/Contact"));
 const Footer = lazy(() => import("@/components/Footer"));
-const SEOFaq = lazy(() => import("@/components/SEOFaq"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
 
 const Fallback = () => <div className="py-24" aria-hidden="true" />;
@@ -135,8 +141,6 @@ const Index = () => {
           <TrackRecord />
           <Audience />
           <Engagements />
-          <Insights />
-          <SEOFaq />
           <FinalCTA />
           <Contact />
         </Suspense>

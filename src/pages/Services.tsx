@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
 import { CAPABILITIES, RUNTIME_LABEL } from "@/data/capabilities";
+import { AUDIENCES } from "@/data/audiences";
 import { servicesData } from "@/data/services";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -201,6 +202,62 @@ const Services = () => (
               </Reveal>
             ))}
           </ul>
+        </div>
+
+        {/* ---- who these are for ----
+
+            Moved here from the home page. The question "is this you?" is the
+            same question this page exists to answer, and on the home page it
+            sat between the process section and pricing as a long read that
+            /book already summarises. */}
+        <div className="mt-20 lg:mt-28">
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <span className="chip-hue">
+                <span className="mono-tiny tabular-nums opacity-70">02</span>
+                <span className="mono-label">Who these are for</span>
+              </span>
+            </div>
+            <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
+              Four situations that account for most of the work.
+            </h2>
+            <p className="type-lead mt-5 max-w-2xl text-muted-foreground">
+              If one of these is uncomfortably familiar, that is the conversation
+              worth having.
+            </p>
+          </Reveal>
+
+          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-hairline/[0.08] bg-hairline/[0.06] lg:grid-cols-2">
+            {AUDIENCES.map((a, i) => (
+              <Reveal key={a.n} index={Math.min(i + 1, 4)} variant="fade">
+                <div className="h-full bg-surface-1 p-7 lg:p-9">
+                  <div className="flex items-center gap-3">
+                    <span className="mono-tiny tabular-nums text-hue">{a.n}</span>
+                    <span className="mono-tiny text-subtle">{a.who}</span>
+                  </div>
+
+                  <p className="mt-5 font-display text-2xl italic leading-[1.25] text-foreground lg:text-[1.65rem]">
+                    “{a.ask}”
+                  </p>
+
+                  <dl className="mt-7 space-y-5 border-t border-hairline/[0.07] pt-6">
+                    <div>
+                      <dt className="mono-tiny text-subtle">The problem</dt>
+                      <dd className="mt-2 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
+                        {a.problem}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="mono-tiny text-hue">What I do about it</dt>
+                      <dd className="mt-2 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
+                        {a.solve}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         {/* ---- close: one action ---- */}

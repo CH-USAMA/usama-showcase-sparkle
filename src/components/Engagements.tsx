@@ -143,22 +143,31 @@ const Engagements = () => (
                 ))}
               </ul>
 
-              <div className="mt-8">
-                <CTA
-                  to="/book"
-                  tone={t.emphasis ? "primary" : "ghost"}
-                  size="md"
-                  arrow
-                  className="w-full"
-                  onClick={() => trackEvent("engagement_click", { tier: t.id })}
-                >
-                  Book an Architecture Call
-                </CTA>
-              </div>
+
             </div>
           </Reveal>
         ))}
       </div>
+
+      {/* One action for all three tiers. Each card used to carry its own
+          "Book an Architecture Call", so the section presented the primary
+          action three times in a row, which reads as a pricing template
+          rather than as an engagement model. */}
+      <Reveal>
+        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-hairline/[0.08] pt-10">
+          <CTA
+            to="/book"
+            size="lg"
+            arrow
+            onClick={() => trackEvent("book_call_click", { location: "engagements" })}
+          >
+            Book an Architecture Call
+          </CTA>
+          <p className="mono-tiny text-subtle">
+            Scope and price are agreed after the call, not before it
+          </p>
+        </div>
+      </Reveal>
 
       <Reveal>
         <p className="mono-tiny mt-7 text-subtle">

@@ -19,78 +19,77 @@ interface Group {
   items: Tech[];
 }
 
+/**
+ * Five groups, ordered as layers of one system rather than as six unrelated
+ * skill buckets. The previous set opened with "Backend" and filed Node.js
+ * inside it, then closed with an "Interface" group of React and Tailwind,
+ * which read as a full-stack CV. Node.js and TypeScript now own the real-time
+ * layer they actually serve, and the front-end tools sit there too because
+ * that is what they are: the delivery surface of those services.
+ *
+ * Every entry says what it is used for. Nothing here is a proficiency score.
+ */
 const GROUPS: Group[] = [
   {
     id: "backend",
     hue: "var(--hue-backend)",
-    label: "Backend",
+    label: "Backend systems",
     items: [
       { name: "Laravel", uses: ["Multi-tenant SaaS", "Queue architecture", "Domain actions"] },
       { name: "PHP 8.3", uses: ["Typed services", "Enums · readonly", "Pest / PHPUnit"] },
+      { name: "APIs", uses: ["Versioned REST", "GraphQL", "Third-party contracts"] },
       { name: "MySQL", uses: ["Index tuning", "Slow query analysis", "Schema design"] },
       { name: "PostgreSQL", uses: ["pgvector search", "JSONB payloads", "Row-level rules"] },
       { name: "Redis", uses: ["Queues", "Caching", "Real-time state", "Rate limiting"] },
-      { name: "Node.js", uses: ["Socket services", "Edge functions", "Tooling"] },
-    ],
-  },
-  {
-    id: "ai",
-    hue: "var(--hue-ai)",
-    label: "AI & agents",
-    items: [
-      { name: "RAG", uses: ["Hybrid retrieval", "Semantic chunking", "Citation grounding"] },
-      { name: "LangChain", uses: ["Agent graphs", "Tool calling", "Reviewer chains"] },
-      { name: "Claude / GPT-4", uses: ["Structured output", "Scoring rubrics", "Drafting"] },
-      { name: "Pinecone", uses: ["Vector index", "Hybrid search", "Knowledge bases"] },
-      { name: "pgvector", uses: ["In-database vectors", "Cheaper retrieval"] },
-      { name: "MCP", uses: ["Agent tooling", "Workflow bridges"] },
-    ],
-  },
-  {
-    id: "automation",
-    hue: "var(--hue-automation)",
-    label: "Automation",
-    items: [
-      { name: "n8n", uses: ["Lead pipelines", "Approval gates", "Self-hosted workflows"] },
-      { name: "Webhooks", uses: ["Multi-source ingest", "CRM sync", "Idempotent handlers"] },
-      { name: "Cron / queues", uses: ["Scheduled jobs", "Batching", "Retry policy"] },
-      { name: "ETL", uses: ["Data normalisation", "Enrichment", "Dead-letter queues"] },
     ],
   },
   {
     id: "realtime",
     hue: "var(--hue-realtime)",
-    label: "Real-time & VoIP",
+    label: "Real-time & services",
+    items: [
+      { name: "Node.js", uses: ["Socket services", "Event-driven work", "Integrations"] },
+      { name: "TypeScript", uses: ["Typed API clients", "Shared contracts"] },
+      { name: "WebSockets", uses: ["Live dashboards", "Agent state", "Chat"] },
+      { name: "Laravel Reverb", uses: ["Broadcasting", "Presence channels"] },
+      { name: "Next.js", uses: ["Service front ends", "SEO surfaces"] },
+    ],
+  },
+  {
+    id: "ai",
+    hue: "var(--hue-ai)",
+    label: "AI & intelligence",
+    items: [
+      { name: "Python", uses: ["Retrieval pipelines", "Data processing", "Evaluation"] },
+      { name: "RAG", uses: ["Hybrid retrieval", "Semantic chunking", "Citation grounding"] },
+      { name: "LangChain", uses: ["Agent graphs", "Tool calling", "Reviewer chains"] },
+      { name: "Claude / GPT-4", uses: ["Structured output", "Scoring rubrics", "Drafting"] },
+      { name: "pgvector", uses: ["In-database vectors", "Cheaper retrieval"] },
+      { name: "MCP", uses: ["Agent tooling", "Workflow bridges"] },
+    ],
+  },
+  {
+    id: "comms",
+    hue: "var(--hue-interface)",
+    label: "Communication",
     items: [
       { name: "Asterisk", uses: ["Dialplan", "AGI scripting", "Predictive dialer"] },
-      { name: "FreePBX", uses: ["Call centre setup", "Extensions", "Recording"] },
       { name: "SIP", uses: ["Trunking", "Failover", "Carrier integration"] },
-      { name: "Laravel Reverb", uses: ["Broadcasting", "Presence channels"] },
-      { name: "WebSockets", uses: ["Live dashboards", "Agent state", "Chat"] },
+      { name: "FreePBX", uses: ["Call centre setup", "Extensions", "Recording"] },
+      { name: "WebRTC", uses: ["Browser calling", "Media negotiation"] },
     ],
   },
   {
-    id: "cloud",
+    id: "infra",
     hue: "var(--hue-cloud)",
-    label: "Cloud & DevOps",
+    label: "Automation & infrastructure",
     items: [
-      { name: "AWS", uses: ["Load balancing", "S3 · SES", "Deployment"] },
+      { name: "n8n", uses: ["Lead pipelines", "Approval gates", "Self-hosted workflows"] },
+      { name: "Webhooks", uses: ["Multi-source ingest", "CRM sync", "Idempotent handlers"] },
       { name: "Docker", uses: ["Reproducible envs", "Build pipeline"] },
       { name: "CI/CD", uses: ["Tests + analysis", "Zero-downtime release"] },
-      { name: "Nginx", uses: ["Reverse proxy", "TLS", "Caching"] },
+      { name: "AWS", uses: ["Load balancing", "S3 · SES", "Deployment"] },
       { name: "Monitoring", uses: ["Error tracking", "Health checks", "Alerting"] },
-    ],
-  },
-  {
-    id: "frontend",
-    hue: "var(--hue-interface)",
-    label: "Interface",
-    items: [
-      { name: "React", uses: ["Dashboards", "Case-study tooling"] },
-      { name: "Next.js", uses: ["SaaS front ends", "SEO surfaces"] },
-      { name: "TypeScript", uses: ["Typed API clients", "Shared contracts"] },
-      { name: "Livewire", uses: ["Laravel-native UI", "Fast internal tools"] },
-      { name: "Tailwind", uses: ["Design systems", "Consistent spacing"] },
     ],
   },
 ];
@@ -115,9 +114,13 @@ const TechMatrix = () => {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <span className="mono-label text-hue">Stack</span>
-              <h2 className="type-h3 mt-4 max-w-lg text-foreground">
-                The tools, and where they actually sit.
+              {/* Chip, matching SectionHeader everywhere else on the page. */}
+              <span className="chip-hue">
+                <span className="mono-tiny tabular-nums opacity-70">05</span>
+                <span className="mono-label">Stack</span>
+              </span>
+              <h2 className="type-h3 mt-5 max-w-lg text-foreground">
+                Five layers, and what runs each one.
               </h2>
             </div>
 

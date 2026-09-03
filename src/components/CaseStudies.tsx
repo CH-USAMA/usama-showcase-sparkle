@@ -159,33 +159,47 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
         </div>
       </div>
 
-      {/* ---- problem / architecture / result ---- */}
-      <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-5">
-          <Reveal>
-            <h4 className="mono-tiny text-hue">Problem</h4>
-            <p className="type-body mt-4 text-muted-foreground">{study.problem}</p>
-          </Reveal>
-          <Reveal index={1}>
-            <h4 className="mono-tiny mt-9 text-hue">Result</h4>
-            <p className="type-body mt-4 text-muted-foreground">{study.result}</p>
-          </Reveal>
-        </div>
+      {/* ---- problem, then architecture, then result ----
 
-        <div className="lg:col-span-7">
-          <Reveal>
-            <h4 className="mono-tiny text-hue">Architecture</h4>
-            <p className="type-body mt-4 text-muted-foreground">{study.approach}</p>
-          </Reveal>
-          <Reveal index={1}>
-            <ArchitectureFlow
-              stages={study.flow}
-              caption="Request path"
-              orientation="row"
-              className="mt-8"
-            />
-          </Reveal>
-        </div>
+          The two columns used to place Problem and Result side by side with
+          Architecture beside them, so the reading order was problem, result,
+          architecture: the outcome arrived before the engineering that caused
+          it, and the architecture read as a footnote. It now runs in the order
+          the work actually happened, with the request path given the full
+          width it needs to be legible. */}
+      <div className="mt-12 lg:mt-16">
+        <Reveal>
+          <div className="grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
+            <h4 className="mono-tiny text-hue lg:col-span-3">The problem</h4>
+            <p className="type-body max-w-2xl text-muted-foreground lg:col-span-9">
+              {study.problem}
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal index={1}>
+          <div className="mt-8 grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
+            <h4 className="mono-tiny text-hue lg:col-span-3">The engineering</h4>
+            <div className="lg:col-span-9">
+              <p className="type-body max-w-2xl text-muted-foreground">{study.approach}</p>
+              <ArchitectureFlow
+                stages={study.flow}
+                caption="Request path"
+                orientation="row"
+                className="mt-8"
+              />
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal index={2}>
+          <div className="mt-8 grid gap-8 border-t border-hairline/[0.08] pt-8 lg:grid-cols-12 lg:gap-12">
+            <h4 className="mono-tiny text-hue lg:col-span-3">The result</h4>
+            <p className="type-body max-w-2xl text-muted-foreground lg:col-span-9">
+              {study.result}
+            </p>
+          </div>
+        </Reveal>
       </div>
     </article>
   );
@@ -221,15 +235,20 @@ const CaseStudies = () => (
         eyebrow="Selected systems"
         title={
           <>
-            Eight systems, and the
+            Selected systems, and the
             <br className="hidden sm:block" /> decisions behind them.
           </>
         }
         lead="Problem, architecture, result. The parts a client actually pays for, rather than a grid of screenshots."
       />
 
+      {/* Four on the home page, all eight on /projects.
+          Eight full dossiers here made the home page a documentation site and
+          blurred the line between this section and the case-study index. These
+          four are the first four in the sequence and cover four different
+          domains: VoIP, security tooling, multi-tenant SaaS and AI retrieval. */}
       <div className="mt-14 lg:mt-20">
-        {caseStudies.map((study, i) => (
+        {caseStudies.slice(0, 4).map((study, i) => (
           <Dossier key={study.id} study={study} flipped={i % 2 === 1} />
         ))}
       </div>
@@ -237,11 +256,11 @@ const CaseStudies = () => (
       <Reveal>
         <div className="flex flex-wrap items-center justify-between gap-6 border-t border-hairline/[0.08] pt-10">
           <p className="type-body max-w-md text-muted-foreground">
-            The full archive adds transport, quarrying, hardware retail, and
-            software-house platforms.
+            Four more written up in full, plus the archive: commerce, retail POS,
+            mining, transport and the group platforms behind them.
           </p>
           <CTA to="/projects" tone="ghost" arrow>
-            Browse all projects
+            Explore Case Studies
           </CTA>
         </div>
       </Reveal>

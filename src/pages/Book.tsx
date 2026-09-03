@@ -21,29 +21,47 @@ const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
    the engagement tiers. Nothing here is a new claim.
 --------------------------------------------------------------------------- */
 
-/** Reused verbatim from the Audience section — same four, same questions. */
-const FOR_WHOM = [
-  { n: "01", who: "Startup founders", ask: "Will this architecture survive our first real traffic?" },
-  { n: "02", who: "SaaS teams", ask: "Why does every feature take three weeks now?" },
-  { n: "03", who: "Operations-heavy businesses", ask: "How much of this is a person copying data between tabs?" },
-  { n: "04", who: "Communication platforms", ask: "Can anyone here actually debug the dialplan?" },
+
+/**
+ * The problems people actually arrive with. Personas told a reader which box
+ * they fell into; these tell them whether their problem is one I take. Every
+ * line maps to a capability in capabilities.ts, so nothing here is a new claim.
+ */
+const FOR = [
+  "Scaling a Laravel application that has outgrown its foundations",
+  "Building a SaaS backend: multi-tenancy, billing, roles, audit trails",
+  "Introducing AI into an existing product without bolting it on",
+  "Designing real-time infrastructure: WebSockets, presence, live state",
+  "Building or fixing VoIP and Asterisk systems",
+  "Automating manual back-office work that runs unattended",
+  "Deciding between Laravel, Node.js and Python for a given layer",
 ];
 
 const AGENDA = [
   {
     n: "01",
-    title: "The constraint",
-    body: "What is actually breaking, slowing down, or costing money. Not the feature list. The bottleneck underneath it.",
+    title: "The system as it stands",
+    body: "What you have running today, who uses it, and what it has to keep doing while anything changes.",
   },
   {
     n: "02",
-    title: "The current architecture",
-    body: "What you have now, where it fails under load, and which parts are worth keeping. Bring a diagram if you have one; a description is fine if you don't.",
+    title: "The problem and the constraints",
+    body: "What is actually breaking, slowing down, or costing money, and what you cannot change: budget, team, deadline, the parts nobody is allowed to touch.",
   },
   {
     n: "03",
-    title: "The shortest path to a fix",
-    body: "An opinionated next step, with the trade-off stated. Sometimes that is a sprint, sometimes it is one query and an index, sometimes it is that you do not need me.",
+    title: "The existing architecture",
+    body: "Where it fails under load and which parts are worth keeping. Bring a diagram if you have one; a description is fine if you do not.",
+  },
+  {
+    n: "04",
+    title: "The approaches worth considering",
+    body: "Usually more than one, with the trade-off of each stated plainly rather than a single recommendation presented as the only option.",
+  },
+  {
+    n: "05",
+    title: "The recommended next step",
+    body: "One opinionated answer. Sometimes a sprint, sometimes one query and an index, sometimes that you do not need me.",
   },
 ];
 
@@ -166,28 +184,35 @@ const Book = () => {
           {/* ---- who / agenda ---- */}
           <div className="mt-20 grid gap-14 lg:mt-24 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <Head index="01" eyebrow="Who books this" title="You are probably asking one of these." />
+              <Head
+                index="01"
+                eyebrow="Who this is for"
+                title="Bring one of these and the call will be useful."
+              />
               <ul className="mt-9 border-t border-hairline/[0.08]">
-                {FOR_WHOM.map((a, i) => (
-                  <Reveal as="li" key={a.n} index={Math.min(i + 1, 4)}>
-                    <div className="border-b border-hairline/[0.08] py-5">
-                      <div className="flex items-baseline gap-3">
-                        <span className="mono-tiny tabular-nums text-hue">{a.n}</span>
-                        <span className="font-inter text-[14px] font-medium text-foreground">
-                          {a.who}
-                        </span>
-                      </div>
-                      <p className="mt-2 pl-9 font-inter text-[13.5px] leading-snug text-muted-foreground">
-                        “{a.ask}”
-                      </p>
+                {FOR.map((item, i) => (
+                  <Reveal as="li" key={item} index={Math.min(i + 1, 4)}>
+                    <div className="flex gap-3 border-b border-hairline/[0.08] py-4">
+                      <span
+                        aria-hidden="true"
+                        className="mt-[11px] h-px w-3 shrink-0 bg-hue"
+                      />
+                      <span className="type-body text-muted-foreground">{item}</span>
                     </div>
                   </Reveal>
                 ))}
               </ul>
+
+              <Reveal>
+                <p className="mono-tiny mt-7 leading-[1.7] text-subtle">
+                  If your problem is not on this list, it is still worth asking.
+                  The worst outcome is a short answer pointing you somewhere better.
+                </p>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-7">
-              <Head index="02" eyebrow="What we cover" title="Three things, in this order." />
+              <Head index="02" eyebrow="What we discuss" title="Five things, in this order." />
               <ol className="mt-9 border-t border-hairline/[0.08]">
                 {AGENDA.map((s, i) => (
                   <Reveal as="li" key={s.n} index={Math.min(i + 1, 4)}>

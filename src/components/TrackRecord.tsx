@@ -1,8 +1,6 @@
 import type { CSSProperties } from "react";
-import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
-import { PLATFORM_PROOF } from "@/data/site";
 
 /**
  * Entries are derived from the completion dates already recorded against each
@@ -44,7 +42,7 @@ const LOG = [
 ];
 
 const CREDENTIALS = [
-  "Top Rated Plus on Upwork, top 3% of freelancers",
+  "Top Rated Plus on Upwork",
   "Level 2 Seller on Fiverr with 89+ reviews",
   "Enterprise SaaS products serving 10K+ users",
   "Production Asterisk deployments for 40+ agent call centres",
@@ -109,40 +107,12 @@ const TrackRecord = () => (
 
         {/* ---- platforms + credentials ---- */}
         <div className="lg:col-span-5">
+          {/* The Upwork and Fiverr rows used to render here as well as in
+              ProofStrip. Stating the same proof twice reads as insecurity, so
+              the platform links live in ProofStrip only and this column keeps
+              the credentials, which appear nowhere else. */}
           <Reveal variant="fade">
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              {PLATFORM_PROOF.map((p) => (
-                <a
-                  key={p.name}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="panel panel-hover group flex items-center justify-between gap-4 rounded-lg px-5 py-4"
-                >
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="font-inter text-[15px] font-medium tracking-tight text-foreground">
-                        {p.name}
-                      </span>
-                      <span className="mono-tiny rounded border border-hue bg-hue-soft px-1.5 py-1 text-hue">
-                        {p.status}
-                      </span>
-                    </div>
-                    <div className="mono-tiny mt-2.5 text-subtle">
-                      {p.rating} · {p.reviews} · {p.earned}
-                    </div>
-                  </div>
-                  <ArrowUpRight
-                    className="h-4 w-4 shrink-0 text-subtle transition-all duration-standard group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-hue"
-                    aria-hidden="true"
-                  />
-                </a>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal variant="fade" index={1}>
-            <div className="mt-8">
+            <div>
               <h3 className="mono-tiny text-subtle">Credentials</h3>
               <ul className="mt-5 space-y-3">
                 {CREDENTIALS.map((c) => (
