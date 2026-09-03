@@ -66,36 +66,74 @@ const Navbar = () => {
       setActive("");
       return;
     }
-    const sections = LINKS.filter((l) => l.hash)
-      .map((l) => document.getElementById(l.id))
-      .filter(
-      Boolean
-    ) as HTMLElement[];
-    if (!sections.length) return;
 
     // Track which sections are inside the detection band. Keeping a set rather
-    // than reading each callback in isolation means that when the band empties
-    // — scrolled back into the hero — the indicator clears instead of leaving
+    // than reading each callback in isolation means that when the band empties,
+    // scrolled back into the hero, the indicator clears instead of leaving
     // whichever section happened to be last.
     const inBand = new Set<string>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) inBand.add(e.target.id);
-          else inBand.delete(e.target.id);
-        });
-        if (inBand.size === 0) {
-          setActive("");
-          return;
+    let io: IntersectionObserver | null = null;
+    let mo: MutationObserver | null = null;
+
+    const attach = () => {
+      const sections = (
+        LINKS.filter((l) => l.hash)
+          .map((l) => document.getElementById(l.id))
+          .filter(Boolean) as HTMLElement[]
+      )
+        // True document order, not nav order. The two differ: the nav reads
+        // About, Work, Services, Process while the page runs Services, Work,
+        // About, Process, so picking the first match in nav order highlighted
+        // the wrong item. compareDocumentPosition rather than offsetTop,
+        // because offsetTop is measured against the offset parent and these
+        // sections sit inside a positioned <main>.
+        .sort((a, b) =>
+          a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+        );
+      if (!sections.length) return false;
+      const order = sections.map((el) => el.id);
+
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) inBand.add(e.target.id);
+            else inBand.delete(e.target.id);
+          });
+          if (inBand.size === 0) {
+            setActive("");
+            return;
+          }
+          // The section furthest down the page that the reader has entered:
+          // scrolling forward means the later section is the current one.
+          const current = [...order].reverse().find((id) => inBand.has(id));
+          if (current) setActive(current);
+        },
+        { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.25, 0.5] }
+      );
+      sections.forEach((s) => io!.observe(s));
+      return true;
+    };
+
+    // Every section this observes lives in a lazily-loaded chunk, so none of
+    // them are in the DOM when the navbar mounts. The effect used to read
+    // getElementById once, find nothing, return early, and never run again,
+    // because neither of its dependencies changes afterwards. The result was a
+    // nav indicator that could never activate: `active` stayed empty for the
+    // life of the page and the underline never appeared.
+    if (!attach()) {
+      mo = new MutationObserver(() => {
+        if (attach()) {
+          mo?.disconnect();
+          mo = null;
         }
-        // pick the earliest section in nav order that is currently in the band
-        const first = LINKS.find((l) => inBand.has(l.id));
-        if (first) setActive(first.id);
-      },
-      { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.25, 0.5] }
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
+
+    return () => {
+      io?.disconnect();
+      mo?.disconnect();
+    };
   }, [onHome, location.pathname]);
 
   /* lock scroll behind the mobile sheet */
