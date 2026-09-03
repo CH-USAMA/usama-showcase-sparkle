@@ -35,11 +35,7 @@ export function brokeredPreviewStorage() {
     new Promise((resolve) => {
       const requestId = newId();
       let done = false;
-      // Assigned once below, but `finish` closes over it and clears it, so the
-      // binding has to exist before the timer does. prefer-const cannot see
-      // that ordering constraint.
-      // eslint-disable-next-line prefer-const
-      let timer: ReturnType<typeof setTimeout> | undefined;
+      let timer: ReturnType<typeof setTimeout>;
       const finish = (r: { ok: boolean; value?: string | null } | null) => {
         if (done) return;
         done = true;
