@@ -1,5 +1,4 @@
 import { projectsData } from "@/data/projects";
-import { projectsData } from "@/data/projects";
 /**
  * Single source of truth for site-wide constants.
  *
