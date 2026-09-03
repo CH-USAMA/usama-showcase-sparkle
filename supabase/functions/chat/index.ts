@@ -12,7 +12,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
    Four controls now sit in front of the gateway: an origin allowlist, a
    per-IP rate limit, hard size caps, and strict validation that drops
-   anything that is not a user or assistant turn.
+   anything that is not a user or assistant turn. The allowlist covers the
+   published hosts exactly and the Lovable preview subdomains by pattern.
 --------------------------------------------------------------------------- */
 
 const ALLOWED_ORIGINS = new Set([
@@ -150,7 +151,12 @@ serve(async (req) => {
 
   // A browser request from an unlisted origin is refused outright rather than
   // served and then blocked by the browser after the budget has been spent.
-  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+  //
+  // This has to use the same predicate corsFor() does. When preview-host
+  // patterns were added, corsFor() moved to originAllowed() and this gate did
+  // not, so a Lovable preview origin was handed CORS headers and then given a
+  // 403 by the very next branch.
+  if (origin && !originAllowed(origin)) {
     return json({ error: "Origin not allowed" }, 403, cors);
   }
 
