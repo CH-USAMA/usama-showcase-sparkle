@@ -603,4 +603,176 @@ export const projectsData = {
       "Single corporate identity online"
     ]
   }
+  ,
+  14: {
+    id: 14,
+    title: "HoboTech VAPT Portal",
+    description: "Security portal that parses a penetration-test PDF into individual findings, then tracks each one to remediation",
+    fullDescription: `A vulnerability assessment and penetration testing report portal built for HoboTech. Security staff upload a VAPT report PDF and the portal turns it into tracked, assignable work without anyone retyping it.
+
+    THE PROBLEM: A penetration test arrives as a PDF. Every finding in it then has to be transcribed into a tracker by hand before anyone can be assigned to fix it, which is slow, error-prone, and the point at which findings quietly get lost.
+
+    PARSING: A background worker extracts the engagement metadata and every individual finding, including title, severity, CVSS score and vector, affected asset, description, impact, remediation steps, evidence and OWASP mapping. The parser was verified against a real 35-page, 22-finding report at full field coverage.
+
+    WORKFLOW: Each finding is a ticket. It carries its own status through Open, In Progress, Remediated and Closed, with Risk Accepted and False Positive as explicit terminal states rather than informal ones. An SLA due date is derived from the severity. Assignment sends mail through the client SMTP server and the report appears on the assignee dashboard and calendar.
+
+    AUTHORISATION: Closing a finding, accepting risk, or classifying something as a false positive is reserved for staff. Once staff close a finding, an assigned employee cannot reopen or reclassify it. Staff can attach internal notes the assignee never sees, and every ticket keeps a history of who raised it and who assigned it.
+
+    STACK NOTES: Next.js and TypeScript over Prisma and PostgreSQL. NextAuth with argon2 password hashing and TOTP two-factor. Evidence and report files go to S3 through presigned URLs rather than the application server. PDF parsing runs on BullMQ over Redis, so a large report never blocks a request.`,
+    image: "/projects/hobotech-vapt.jpg",
+    gallery: ["/projects/hobotech-vapt.jpg"],
+    technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "BullMQ", "Redis", "AWS S3", "NextAuth"],
+    category: "Security",
+    client: "HoboTech",
+    duration: "Ongoing",
+    teamSize: "Solo developer",
+    completionDate: "2026",
+    liveUrl: "https://vapt.ismart.link",
+    githubUrl: "#",
+    features: [
+      "Automatic extraction of every finding from a VAPT PDF",
+      "CVSS score, vector, OWASP mapping and evidence captured per finding",
+      "Severity-derived SLA due dates",
+      "Finding lifecycle with Risk Accepted and False Positive as explicit states",
+      "Staff-only closure and reclassification",
+      "Comment threads, evidence attachments and internal staff notes",
+      "TOTP two-factor authentication with argon2 password hashing",
+      "Presigned S3 uploads and background parsing on a Redis queue"
+    ],
+    challenges: [
+      { title: "Parsing unstructured reports", description: "Extracting every field of every finding from a PDF laid out for human readers, reliably enough that nobody re-checks it by hand" },
+      { title: "Authorisation that holds", description: "Separating what an assigned employee may do from what security staff may do, so a finding cannot be quietly reopened or reclassified" },
+      { title: "Long work off the request path", description: "Running multi-page PDF extraction on a queue so an upload returns immediately and a large report cannot time out a web request" }
+    ],
+    results: [
+      "Findings reach an owner without manual data entry",
+      "Verified at full field coverage against a real 35-page, 22-finding report",
+      "Every finding carries an audit trail and an SLA date"
+    ]
+  },
+  15: {
+    id: 15,
+    title: "Tavora, Luxury Watch Platform",
+    description: "Luxury watch storefront with a WhatsApp checkout flow and a full self-service admin panel",
+    fullDescription: `A luxury watch storefront with a cart and a WhatsApp checkout flow, plus an admin panel that lets the owner run the whole site without a developer.
+
+    THE CHECKOUT DECISION: There is no payment gateway. Checkout hands the cart to WhatsApp, which is where this market's buyers already negotiate on a high-value item. A gateway is a deliberately deferred phase rather than an omission, and deferring it removed compliance and reconciliation work that would have bought nothing at this stage.
+
+    ADMIN: Products, categories, collections, testimonials, homepage content, media, orders and site settings are all editable in the panel. Rich text is sanitised on write rather than trusted, and CSV import exists so a catalogue can be loaded in bulk instead of typed.
+
+    STACK NOTES: Next.js App Router with TypeScript and Tailwind. Turso, a libSQL database, with Drizzle ORM for typed queries. Better Auth for sessions. Vercel Blob for product media.`,
+    image: "/projects/tavora.jpg",
+    gallery: ["/projects/tavora.jpg"],
+    technologies: ["Next.js", "TypeScript", "Tailwind", "Drizzle ORM", "Turso", "Better Auth", "Vercel Blob"],
+    category: "E-Commerce",
+    duration: "6 weeks",
+    teamSize: "Solo developer",
+    completionDate: "July 2026",
+    liveUrl: "https://tavora-hazel.vercel.app",
+    githubUrl: "https://github.com/CH-USAMA/tavora",
+    features: [
+      "Cart with WhatsApp checkout handoff",
+      "Admin panel for products, categories and collections",
+      "Editable homepage content and site settings",
+      "Media library on Vercel Blob",
+      "Sanitised rich-text editing",
+      "CSV catalogue import",
+      "Order records",
+      "Typed queries through Drizzle over libSQL"
+    ],
+    challenges: [
+      { title: "Selling without a gateway", description: "Designing a checkout that completes in WhatsApp, where high-value watch buyers actually negotiate, without leaving the order untracked" },
+      { title: "Owner-operated content", description: "Making homepage, collections and settings editable safely, including sanitising rich text on write rather than at render" },
+      { title: "Catalogue loading", description: "Bulk CSV import so a watch catalogue does not have to be entered by hand" }
+    ],
+    results: [
+      "Storefront and admin panel live",
+      "Catalogue and homepage editable without a developer",
+      "Payment gateway deferred by decision, not left broken"
+    ]
+  },
+  16: {
+    id: 16,
+    title: "Padel Arena",
+    description: "Live padel score tracker with full deuce and golden-point rules, player stats, and a venue book",
+    fullDescription: `A score tracker, player leaderboard and venue book for a padel group in Lahore.
+
+    THE SCORING PROBLEM: Padel scoring is the interesting part. The counter implements the full progression through 15, 30, 40, deuce and advantage, plus the sudden-death golden point the group actually plays, and it does so as state rather than as a display. Undo exists because a mis-tap during a live match is the normal case, not the exception.
+
+    THE INTERFACE: Full-screen and mobile-first, with two tap zones, one colour per team. It is designed to be used at arm's length on a court, not read.
+
+    RECORDS: Matches are doubles, best of five sets. Players and venues are full CRUD, and deactivating a player hides them from new match setup while keeping their history intact, which is the difference between deactivation and deletion. Every match keeps a point-by-point log, so history is never reconstructed from a final score. The dashboard reports played, win and loss counts, win percentage, sets won and lost, venue usage and recent activity.
+
+    STACK NOTES: Next.js App Router with Tailwind, Drizzle ORM over Turso.`,
+    image: "/projects/padel-arena.jpg",
+    gallery: ["/projects/padel-arena.jpg"],
+    technologies: ["Next.js", "TypeScript", "Tailwind", "Drizzle ORM", "Turso"],
+    category: "Product",
+    duration: "2 weeks",
+    teamSize: "Solo developer",
+    completionDate: "July 2026",
+    liveUrl: "https://padel-arena-inky.vercel.app",
+    githubUrl: "https://github.com/CH-USAMA/padel-arena",
+    features: [
+      "Full-screen two-zone live score counter",
+      "Deuce, advantage and golden-point rules held as state",
+      "Undo for mis-taps mid-match",
+      "Doubles matches, best of five sets",
+      "Player CRUD with deactivation that preserves history",
+      "Venue book seeded with Lahore courts",
+      "Point-by-point match log",
+      "Leaderboard with win percentage and set counts"
+    ],
+    challenges: [
+      { title: "Scoring as state", description: "Modelling deuce, advantage and a sudden-death golden point as real state transitions rather than as display formatting" },
+      { title: "Usable at arm's length", description: "An interface operated mid-rally on a phone propped on a bench, where a mis-tap must be recoverable" },
+      { title: "History that survives edits", description: "Deactivating players and editing matches without losing the point-by-point record already captured" }
+    ],
+    results: [
+      "Full house scoring rules automated, including the golden point",
+      "Every match retains a point-by-point log",
+      "Leaderboard and venue usage generated from real match records"
+    ]
+  },
+  17: {
+    id: 17,
+    title: "Financial OS",
+    description: "Single-user finance system modelling loans as ledgers rather than balances, built around a property purchase",
+    fullDescription: `A private, single-user web application for tracking the money involved in a house purchase: loans from family and friends, property sale proceeds, bank balances, recurring expenses, freelance receivables and pooled savings goals.
+
+    THE MODELLING DECISION: A loan is a ledger, not a number. Every loan tracks disbursements and repayments over time, so a loan that grows because someone sends more money later, or shrinks through partial repayment, stays correct without anyone editing a balance by hand. Storing the current figure instead would have been simpler and wrong within a week.
+
+    WHAT IT TRACKS: Properties record installments received, expenses, and what has been distributed to lenders from each sale. Alongside those sit bank accounts, fixed expenses, freelance clients, and commitment plans, which are pooled goals with pledges, contributions and a progress bar.
+
+    STACK NOTES: Next.js with libSQL on Turso, Vercel Blob for document storage and Recharts for reporting. Login-protected and single-tenant by design; this is a personal system, published here as a work sample rather than as a product.`,
+    image: "/projects/financial-os.jpg",
+    gallery: ["/projects/financial-os.jpg"],
+    technologies: ["Next.js", "libSQL", "Turso", "Vercel Blob", "Recharts"],
+    category: "Fintech",
+    duration: "3 weeks",
+    teamSize: "Solo developer",
+    completionDate: "July 2026",
+    liveUrl: "https://financial-os-blond.vercel.app",
+    githubUrl: "#",
+    features: [
+      "Loans modelled as ledgers of disbursements and repayments",
+      "Property installments, expenses and lender distributions",
+      "Bank account balances",
+      "Fixed recurring expenses",
+      "Freelance client receivables",
+      "Commitment plans with pledges, contributions and progress",
+      "Reporting through Recharts",
+      "Login-protected single-tenant access"
+    ],
+    challenges: [
+      { title: "Loans that move", description: "Representing a loan as a running ledger so later disbursements and partial repayments stay accurate without manual correction" },
+      { title: "Money in several shapes", description: "Reconciling loans, sale proceeds, bank balances, receivables and pooled goals into one view without double counting" },
+      { title: "Distribution tracking", description: "Recording what each property sale has already paid back to which lender" }
+    ],
+    results: [
+      "Loan balances stay correct as money moves in both directions",
+      "House purchase tracked end to end in one system",
+      "Pooled goals show real progress against pledges"
+    ]
+  }
 };

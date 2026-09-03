@@ -116,6 +116,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dev-usama-portfolio.vercel.app/project/14</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-usama-portfolio.vercel.app/project/15</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-usama-portfolio.vercel.app/project/16</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-usama-portfolio.vercel.app/project/17</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dev-usama-portfolio.vercel.app/blog/laravel-vs-django-for-saas</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
