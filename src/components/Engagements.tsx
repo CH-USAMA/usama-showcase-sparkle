@@ -70,7 +70,7 @@ const TIERS = [
 const Engagements = () => (
   <section
     id="pricing"
-    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
     style={{
       "--hue": "var(--hue-backend)",
       "--hue-2": "var(--hue-cloud)",
@@ -103,13 +103,13 @@ const Engagements = () => (
 
               <div className="flex items-baseline justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <span className="mono-tiny tabular-nums text-primary/70">{t.n}</span>
+                  <span className="mono-tiny tabular-nums text-hue">{t.n}</span>
                   <h3 className="font-inter text-xl font-medium tracking-tight text-foreground">
                     {t.name}
                   </h3>
                 </div>
                 {t.emphasis && (
-                  <span className="mono-tiny rounded border border-primary/30 bg-primary/[0.08] px-2 py-1 text-primary">
+                  <span className="mono-tiny rounded border border-hue bg-hue-soft px-2 py-1 text-hue">
                     Most common
                   </span>
                 )}
@@ -135,7 +135,7 @@ const Engagements = () => (
                     className="flex items-start gap-2.5 font-inter text-[13px] leading-relaxed text-muted-foreground"
                   >
                     <Check
-                      className="mt-[3px] h-3.5 w-3.5 shrink-0 text-primary/80"
+                      className="mt-[3px] h-3.5 w-3.5 shrink-0 text-hue"
                       aria-hidden="true"
                     />
                     <span>{b}</span>

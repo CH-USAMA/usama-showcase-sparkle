@@ -68,7 +68,7 @@ const Philosophy = () => {
   return (
     <section
       id="about"
-      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-automation)",
         "--hue-2": "var(--hue-interface)",
@@ -145,7 +145,7 @@ const Philosophy = () => {
                     >
                       <span
                         className={`mono-tiny shrink-0 tabular-nums transition-colors duration-standard ${
-                          on ? "text-primary" : "text-subtle"
+                          on ? "text-hue" : "text-subtle"
                         }`}
                       >
                         {p.n}
@@ -160,7 +160,7 @@ const Philosophy = () => {
                         </span>
                         <span
                           className={`mt-1.5 block font-inter text-[13px] transition-colors duration-standard ${
-                            on ? "text-primary/90" : "text-subtle"
+                            on ? "text-hue" : "text-subtle"
                           }`}
                         >
                           {p.line}
@@ -168,7 +168,7 @@ const Philosophy = () => {
                       </span>
                       <span
                         aria-hidden="true"
-                        className={`h-px shrink-0 self-center bg-primary transition-all duration-standard ease-out-expo ${
+                        className={`h-px shrink-0 self-center bg-hue transition-all duration-standard ease-out-expo ${
                           on ? "w-8 opacity-80" : "w-3 opacity-25"
                         }`}
                       />

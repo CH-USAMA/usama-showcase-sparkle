@@ -42,7 +42,7 @@ const Insights = () => {
   return (
     <section
       id="blog"
-      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-ai)",
         "--hue-2": "var(--hue-realtime)",
@@ -83,7 +83,7 @@ const Insights = () => {
                   )}
 
                   <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="mono-tiny rounded border border-primary/25 bg-primary/[0.07] px-2 py-1 text-primary">
+                    <span className="mono-tiny rounded border border-hue bg-hue-soft px-2 py-1 text-hue">
                       Latest
                     </span>
                     {featured.tags.slice(0, 2).map((t) => (
@@ -97,7 +97,7 @@ const Insights = () => {
                     </span>
                   </div>
 
-                  <h3 className="type-h3 mt-4 text-foreground transition-colors duration-standard group-hover:text-primary">
+                  <h3 className="type-h3 mt-4 text-foreground transition-colors duration-standard group-hover:text-hue">
                     {featured.title}
                   </h3>
 
@@ -105,7 +105,7 @@ const Insights = () => {
                     {featured.excerpt}
                   </p>
 
-                  <span className="mt-5 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-primary">
+                  <span className="mt-5 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-hue">
                     <span className="hover-underline">Read the article</span>
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-standard group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </span>
@@ -124,7 +124,7 @@ const Insights = () => {
                     className="group block border-b border-hairline/[0.08] py-5 transition-[padding-left] duration-standard ease-out-expo hover:pl-3"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="mono-tiny text-primary/70">
+                      <span className="mono-tiny text-hue">
                         {post.tags[0] ?? "Engineering"}
                       </span>
                       <span className="mono-tiny text-subtle">

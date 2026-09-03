@@ -140,7 +140,10 @@ const Navbar = () => {
               alt=""
               width={1280}
               height={512}
-              className={`w-auto transition-[height] duration-large ease-out-expo ${
+              /* The mark is white on transparent, so it disappears against the
+                 light palette. Inverting it there keeps one asset instead of
+                 shipping and maintaining a second, light-mode logo file. */
+              className={`w-auto transition-[height] duration-large ease-out-expo [html.light_&]:invert ${
                 scrolled ? "h-7" : "h-8 sm:h-9"
               }`}
             />

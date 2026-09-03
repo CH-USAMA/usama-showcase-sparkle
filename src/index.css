@@ -502,13 +502,13 @@
     pointer-events: none;
     background:
       radial-gradient(
-        58% 44% at var(--wash-x, 50%) var(--wash-y, 0%),
-        hsl(var(--hue, var(--primary)) / 0.08),
+        58% 46% at var(--wash-x, 50%) var(--wash-y, 0%),
+        hsl(var(--hue, var(--primary)) / 0.16),
         transparent 72%
       ),
       radial-gradient(
-        44% 40% at var(--wash-x2, 88%) var(--wash-y2, 100%),
-        hsl(var(--hue-2, var(--hue, var(--primary))) / 0.05),
+        46% 42% at var(--wash-x2, 88%) var(--wash-y2, 100%),
+        hsl(var(--hue-2, var(--hue, var(--primary))) / 0.10),
         transparent 70%
       );
   }
@@ -550,5 +550,71 @@
     animation-name: core-pulse;
     animation-timing-function: var(--ease-out);
     animation-iteration-count: infinite;
+  }
+}
+
+/* ============================================================================
+   SECTION SURFACES
+
+   The page used to be one flat ground with hairline rules between sections,
+   which read as a single uninterrupted column rather than as a document with
+   parts. These give a section somewhere to sit.
+   ========================================================================= */
+@layer utilities {
+  /* A raised band. Alternate it down the page so sections have rhythm. */
+  .band {
+    background-color: hsl(var(--surface-1) / 0.55);
+    border-top: 1px solid hsl(var(--hairline) / 0.07);
+    border-bottom: 1px solid hsl(var(--hairline) / 0.07);
+  }
+
+  /* A hue-tinted rule along the top edge of a section, so the domain colour
+     is present at full strength somewhere rather than only in 10px labels. */
+  .band-edge {
+    position: relative;
+  }
+  .band-edge::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--hue, var(--primary)) / 0.5) 18%,
+      hsl(var(--hue, var(--primary)) / 0.5) 62%,
+      transparent
+    );
+  }
+
+  /* Card surface for content that is genuinely card-shaped. Restrained on
+     purpose: one surface step, a hairline, and a radius. */
+  .card-surface {
+    background-color: hsl(var(--surface-1) / 0.6);
+    border: 1px solid hsl(var(--hairline) / 0.08);
+    border-radius: 1rem;
+  }
+
+  .card-surface-hover {
+    transition: border-color var(--dur-standard) var(--ease-out),
+      background-color var(--dur-standard) var(--ease-out);
+  }
+  .card-surface-hover:hover {
+    background-color: hsl(var(--surface-2) / 0.6);
+    border-color: hsl(var(--hue, var(--primary)) / 0.28);
+  }
+
+  /* Eyebrow label as a tinted chip rather than bare small text. */
+  .chip-hue {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background-color: hsl(var(--hue, var(--primary)) / 0.1);
+    border: 1px solid hsl(var(--hue, var(--primary)) / 0.22);
+    color: hsl(var(--hue, var(--primary)));
   }
 }

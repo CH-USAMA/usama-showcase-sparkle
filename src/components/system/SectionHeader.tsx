@@ -33,11 +33,12 @@ const SectionHeader = ({
     <div className={`${centered ? "text-center mx-auto max-w-3xl" : "max-w-3xl"} ${className}`}>
       <Reveal>
         <div className={`flex items-center gap-3 ${centered ? "justify-center" : ""}`}>
-          {index && (
-            <span className="mono-tiny text-hue tabular-nums">{index}</span>
-          )}
-          <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
-          <span className="mono-label text-hue">{eyebrow}</span>
+          {/* The eyebrow carries the section's domain colour as a filled chip.
+              As bare 10px text the hue system was present but invisible. */}
+          <span className="chip-hue">
+            {index && <span className="mono-tiny tabular-nums opacity-70">{index}</span>}
+            <span className="mono-label">{eyebrow}</span>
+          </span>
         </div>
       </Reveal>
 

@@ -108,7 +108,7 @@ const TechMatrix = () => {
 
   return (
     <section
-      className="wash relative border-t border-hairline/[0.08] py-20 lg:py-24"
+      className="wash band band-edge relative py-24 lg:py-32"
       style={{ "--hue": activeGroup.hue } as CSSProperties}
     >
       <div className="container mx-auto">

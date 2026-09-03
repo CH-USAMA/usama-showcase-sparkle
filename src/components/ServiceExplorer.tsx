@@ -32,7 +32,7 @@ const ServiceExplorer = () => {
   return (
     <section
       id="services"
-      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-backend)",
         "--hue-2": "var(--hue-realtime)",

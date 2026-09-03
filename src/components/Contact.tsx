@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { lazy, Suspense, useState } from "react";
 import type { FormEvent } from "react";
 import { Check, Loader2, Mail, MapPin, Phone } from "lucide-react";
@@ -79,7 +80,16 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section
+      id="contact"
+      className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-backend)",
+        "--hue-2": "var(--hue-ai)",
+        "--wash-x": "26%",
+        "--wash-y": "4%",
+      } as CSSProperties}
+    >
       <div className="container mx-auto">
         <SectionHeader
           index="10"

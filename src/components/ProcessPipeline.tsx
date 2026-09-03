@@ -77,7 +77,7 @@ const ProcessPipeline = () => {
   return (
     <section
       id="process"
-      className="wash relative scroll-mt-24 py-24 lg:py-32"
+      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-realtime)",
         "--hue-2": "var(--hue-backend)",
@@ -102,11 +102,11 @@ const ProcessPipeline = () => {
             {/* stacked layout fills downward, row layout fills rightward —
                 separate elements so one transform axis can't collapse the other */}
             <motion.span
-              className="block h-full w-full origin-top bg-primary/70 lg:hidden"
+              className="block h-full w-full origin-top bg-hue lg:hidden"
               style={reduced ? { transform: "scaleY(1)" } : { scaleY: progress }}
             />
             <motion.span
-              className="hidden h-full w-full origin-left bg-primary/70 lg:block"
+              className="hidden h-full w-full origin-left bg-hue lg:block"
               style={reduced ? { transform: "scaleX(1)" } : { scaleX: progress }}
             />
           </div>
@@ -119,11 +119,11 @@ const ProcessPipeline = () => {
                   aria-hidden="true"
                   className="absolute left-0 top-1.5 flex h-8 w-8 items-center justify-center rounded-full border border-hairline/[0.12] bg-background lg:left-0 lg:top-0"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-hue" />
                 </span>
 
                 <div className="flex items-baseline gap-2.5">
-                  <span className="mono-tiny tabular-nums text-primary/80">{s.n}</span>
+                  <span className="mono-tiny tabular-nums text-hue">{s.n}</span>
                   <span className="mono-tiny text-subtle">{s.when}</span>
                 </div>
 
@@ -137,7 +137,7 @@ const ProcessPipeline = () => {
 
                 <dl className="mt-5 space-y-3 border-t border-hairline/[0.07] pt-4">
                   <div>
-                    <dt className="mono-tiny text-primary/70">You get</dt>
+                    <dt className="mono-tiny text-hue">You get</dt>
                     <dd className="mt-1.5 font-inter text-[12.5px] leading-relaxed text-muted-foreground">
                       {s.deliver}
                     </dd>

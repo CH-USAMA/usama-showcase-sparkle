@@ -36,7 +36,7 @@ export interface CaseStudy {
 }
 
 /**
- * Six systems, restructured from the existing portfolio entries into
+ * Eight systems, restructured from the existing portfolio entries into
  * problem → architecture → result.
  *
  * Every `metric` below is quoted verbatim from the same project's `results`
@@ -88,8 +88,36 @@ export const caseStudies: CaseStudy[] = [
     detailPath: "/project/4",
   },
   {
-    id: "clinic",
+    id: "vapt-portal",
     n: "02",
+    category: "Security tooling",
+    hue: "var(--hue-cloud)",
+    title: "HoboTech VAPT Portal",
+    metric: { value: "100%", label: "Field coverage on a 22-finding report" },
+    image: "/projects/hobotech-vapt.jpg",
+    client: "HoboTech",
+    year: "2026",
+    role: "Architecture · Backend · Security",
+    problem:
+      "A penetration test arrives as a PDF written for human readers. Every finding then has to be retyped into a tracker before anyone can be assigned to fix it, which is slow, error-prone, and exactly where findings quietly get lost.",
+    approach:
+      "Uploads go straight to S3 through presigned URLs, and a BullMQ worker on Redis does the extraction off the request path so a large report cannot time out. The parser pulls each finding whole: severity, CVSS score and vector, affected asset, impact, remediation, evidence and OWASP mapping. From there every finding is a ticket with a severity-derived SLA date, and closing one or accepting risk is reserved for staff.",
+    result:
+      "Findings reach an owner without anyone retyping a report, and each one carries an audit trail from the moment it is parsed. The extraction was verified against a real 35-page, 22-finding report at full field coverage.",
+    flow: [
+      { label: "Upload", note: "Presigned S3" },
+      { label: "Queue", note: "BullMQ · Redis" },
+      { label: "Parse", note: "CVSS · OWASP" },
+      { label: "Assign", note: "Owner · SLA" },
+      { label: "Remediate", note: "Ticket · audit" },
+    ],
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "BullMQ", "AWS S3"],
+    liveUrl: "https://vapt.ismart.link",
+    detailPath: "/project/14",
+  },
+  {
+    id: "clinic",
+    n: "03",
     category: "Healthcare SaaS",
     hue: "var(--hue-backend)",
     title: "iSmart Clinic",
@@ -113,7 +141,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "rag-legal",
-    n: "03",
+    n: "04",
     category: "AI retrieval",
     hue: "var(--hue-ai)",
     title: "RAG-Powered Legal Assistant",
@@ -140,7 +168,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "lead-engine",
-    n: "04",
+    n: "05",
     category: "Automation infrastructure",
     hue: "var(--hue-automation)",
     title: "Smart Lead Qualification Engine",
@@ -167,7 +195,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "contentops",
-    n: "05",
+    n: "06",
     category: "AI agents",
     hue: "var(--hue-ai)",
     title: "AI Content Operations Pipeline",
@@ -194,8 +222,34 @@ export const caseStudies: CaseStudy[] = [
     detailPath: "/project/1",
   },
   {
+    id: "tavora",
+    n: "07",
+    category: "Commerce",
+    hue: "var(--hue-interface)",
+    title: "Tavora Luxury Watches",
+    image: "/projects/tavora.jpg",
+    year: "2026",
+    role: "Architecture · Full stack",
+    problem:
+      "A luxury watch catalogue needed to sell without a payment gateway. At this price point buyers negotiate before they pay, and the owner needed to run the entire site, catalogue and homepage included, without calling a developer for every change.",
+    approach:
+      "Checkout hands the cart to WhatsApp, where the negotiation already happens, and the order is recorded on the way out so nothing is lost to the handoff. Behind it sits an admin panel covering products, categories, collections, media, homepage content and settings, with rich text sanitised on write rather than trusted at render, and CSV import so a catalogue is loaded rather than typed.",
+    result:
+      "The storefront and its admin run in production with the owner editing content directly. The payment gateway is a deferred phase by decision, not an unfinished one.",
+    flow: [
+      { label: "Admin", note: "Catalogue" },
+      { label: "Storefront", note: "Next.js" },
+      { label: "Cart", note: "Client state" },
+      { label: "WhatsApp", note: "Negotiation" },
+      { label: "Order", note: "Recorded" },
+    ],
+    stack: ["Next.js", "TypeScript", "Drizzle ORM", "Turso", "Better Auth", "Vercel Blob"],
+    liveUrl: "https://tavora-hazel.vercel.app",
+    detailPath: "/project/15",
+  },
+  {
     id: "interiors",
-    n: "06",
+    n: "08",
     category: "Commerce",
     hue: "var(--hue-interface)",
     title: "Focus Interiors",

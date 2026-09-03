@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
+import SectionHeader from "@/components/system/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
 import {
   Accordion,
@@ -36,33 +38,32 @@ const faqs = [
 
 const SEOFaq = () => {
   return (
-    <section className="py-24 bg-secondary/20 relative">
-      <div className="container mx-auto px-4 sm:px-6">
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-primary/40" />
-              <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">FAQ</span>
-              <div className="h-px w-12 bg-primary/40" />
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-inter font-bold mb-4 text-foreground tracking-tight">
-              Frequently asked questions
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto font-inter leading-relaxed">
-              Common questions about hiring a senior backend engineer, automation, AI, and VoIP work.
-            </p>
-          </div>
-        </AnimatedSection>
+    <section
+      className="wash band band-edge relative py-24 lg:py-32"
+      style={{
+        "--hue": "var(--hue-realtime)",
+        "--hue-2": "var(--hue-cloud)",
+        "--wash-x": "72%",
+        "--wash-y": "6%",
+      } as CSSProperties}
+    >
+      <div className="container mx-auto">
+        <SectionHeader
+          index="11"
+          eyebrow="FAQ"
+          title="The questions that come up first."
+          lead="Common questions about hiring a senior backend engineer, and about automation, AI and VoIP work."
+        />
 
-        <div className="max-w-3xl mx-auto">
+        <div className="mt-12 max-w-3xl lg:mt-16">
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, i) => (
               <AnimatedSection key={i} delay={i * 0.08}>
                 <AccordionItem
                   value={`faq-${i}`}
-                  className="border border-border/30 rounded-2xl px-6 bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-colors"
+                  className="card-surface card-surface-hover px-6"
                 >
-                  <AccordionTrigger className="text-left text-foreground font-inter font-semibold hover:text-primary transition-colors text-base">
+                  <AccordionTrigger className="text-left text-foreground font-inter font-semibold hover:text-hue transition-colors text-base">
                     {faq.q}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground leading-relaxed font-inter">

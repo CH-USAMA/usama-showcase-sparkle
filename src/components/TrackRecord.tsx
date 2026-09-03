@@ -55,7 +55,7 @@ const CREDENTIALS = [
 const TrackRecord = () => (
   <section
     id="experience"
-    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
     style={{
       "--hue": "var(--hue-cloud)",
       "--hue-2": "var(--hue-interface)",
@@ -79,7 +79,7 @@ const TrackRecord = () => (
               <Reveal as="li" key={block.year} index={i}>
                 <div className="grid grid-cols-[3.75rem_1fr] gap-x-4 border-t border-hairline/[0.08] py-7 sm:grid-cols-[5rem_1fr] sm:gap-x-6">
                   <div className="pt-0.5">
-                    <div className="font-mono text-[15px] tabular-nums text-primary">
+                    <div className="font-mono text-[15px] tabular-nums text-hue">
                       {block.year}
                     </div>
                     <div className="mono-tiny mt-2 leading-[1.6] text-subtle">
@@ -124,7 +124,7 @@ const TrackRecord = () => (
                       <span className="font-inter text-[15px] font-medium tracking-tight text-foreground">
                         {p.name}
                       </span>
-                      <span className="mono-tiny rounded border border-primary/25 bg-primary/[0.08] px-1.5 py-1 text-primary">
+                      <span className="mono-tiny rounded border border-hue bg-hue-soft px-1.5 py-1 text-hue">
                         {p.status}
                       </span>
                     </div>
@@ -133,7 +133,7 @@ const TrackRecord = () => (
                     </div>
                   </div>
                   <ArrowUpRight
-                    className="h-4 w-4 shrink-0 text-subtle transition-all duration-standard group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+                    className="h-4 w-4 shrink-0 text-subtle transition-all duration-standard group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-hue"
                     aria-hidden="true"
                   />
                 </a>
@@ -152,7 +152,7 @@ const TrackRecord = () => (
                   >
                     <span
                       aria-hidden="true"
-                      className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-primary/70"
+                      className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-hue"
                     />
                     {c}
                   </li>

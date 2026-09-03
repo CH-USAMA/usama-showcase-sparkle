@@ -35,9 +35,21 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
 
   return (
     <article
-      className="relative border-t border-hairline/[0.08] py-16 lg:py-24"
+      /* A panel, not a slab of text on the page ground. Each dossier used to
+         be separated from the next by a single hairline, which made eight of
+         them read as one uninterrupted column. */
+      className="card-surface relative mt-8 overflow-hidden p-6 sm:p-9 lg:mt-12 lg:p-12"
       style={{ "--hue": study.hue } as CSSProperties}
     >
+      {/* the domain colour, present at full strength on the panel edge */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, hsl(var(--hue) / 0.55) 20%, hsl(var(--hue) / 0.55) 60%, transparent)",
+        }}
+      />
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
         {/* ---- identity column ---- */}
         <div className={`lg:col-span-5 ${flipped ? "lg:order-2" : ""}`}>
@@ -64,6 +76,19 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
                 <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
                   {study.metric.label}
                 </span>
+              </div>
+            </Reveal>
+          )}
+
+          {/* Where there is no defensible metric, the stack fills the space the
+              figure would have taken rather than leaving a hole in the column. */}
+          {!study.metric && (
+            <Reveal index={2}>
+              <div className="mt-7 border-l-2 border-hue pl-5">
+                <span className="mono-tiny text-subtle">Built with</span>
+                <p className="mt-2 font-inter text-[15px] leading-relaxed text-muted-foreground">
+                  {study.stack.join(" · ")}
+                </p>
               </div>
             </Reveal>
           )}
@@ -124,7 +149,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
                     {study.stack.join(" · ")}
                   </span>
                   <span
-                    className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary anim-status"
+                    className="h-1.5 w-1.5 shrink-0 rounded-full bg-hue"
                     aria-hidden="true"
                   />
                 </figcaption>
@@ -138,18 +163,18 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
       <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <Reveal>
-            <h4 className="mono-tiny text-primary">Problem</h4>
+            <h4 className="mono-tiny text-hue">Problem</h4>
             <p className="type-body mt-4 text-muted-foreground">{study.problem}</p>
           </Reveal>
           <Reveal index={1}>
-            <h4 className="mono-tiny mt-9 text-primary">Result</h4>
+            <h4 className="mono-tiny mt-9 text-hue">Result</h4>
             <p className="type-body mt-4 text-muted-foreground">{study.result}</p>
           </Reveal>
         </div>
 
         <div className="lg:col-span-7">
           <Reveal>
-            <h4 className="mono-tiny text-primary">Architecture</h4>
+            <h4 className="mono-tiny text-hue">Architecture</h4>
             <p className="type-body mt-4 text-muted-foreground">{study.approach}</p>
           </Reveal>
           <Reveal index={1}>
@@ -177,7 +202,7 @@ const Dossier = ({ study, flipped }: { study: CaseStudy; flipped: boolean }) => 
 const CaseStudies = () => (
   <section
     id="work"
-    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
     style={{
       "--hue": "var(--hue-ai)",
       "--hue-2": "var(--hue-automation)",
@@ -196,7 +221,7 @@ const CaseStudies = () => (
         eyebrow="Selected systems"
         title={
           <>
-            Six systems, and the
+            Eight systems, and the
             <br className="hidden sm:block" /> decisions behind them.
           </>
         }

@@ -74,7 +74,7 @@ const TESTIMONIALS = [
 const Audience = () => (
   <section
     id="clients"
-    className="wash relative scroll-mt-24 py-24 lg:py-32"
+    className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
     style={{
       "--hue": "var(--hue-interface)",
       "--hue-2": "var(--hue-ai)",
@@ -95,7 +95,7 @@ const Audience = () => (
           <Reveal key={a.n} index={i} variant="fade">
             <div className="group h-full bg-background p-7 transition-colors duration-standard hover:bg-surface-1/70 lg:p-9">
               <div className="flex items-center gap-3">
-                <span className="mono-tiny tabular-nums text-primary/70">{a.n}</span>
+                <span className="mono-tiny tabular-nums text-hue">{a.n}</span>
                 <span className="mono-tiny text-subtle">{a.who}</span>
               </div>
 
@@ -111,7 +111,7 @@ const Audience = () => (
                   </dd>
                 </div>
                 <div>
-                  <dt className="mono-tiny text-primary/70">What I do about it</dt>
+                  <dt className="mono-tiny text-hue">What I do about it</dt>
                   <dd className="mt-2 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
                     {a.solve}
                   </dd>
@@ -132,8 +132,8 @@ const Audience = () => (
       <div className="mt-20 lg:mt-24">
         <Reveal>
           <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
-            <span className="mono-label text-primary">Client feedback</span>
+            <span className="h-px w-8 bg-hue" aria-hidden="true" />
+            <span className="mono-label text-hue">Client feedback</span>
           </div>
         </Reveal>
 
