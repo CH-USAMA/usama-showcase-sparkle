@@ -75,8 +75,11 @@ const ProjectDetail = () => {
 
   const paragraphs = parseOverview(project.fullDescription);
 
+  // Not every project records a client (some are self-initiated products).
+  const client = (project as { client?: string }).client;
+
   const meta = [
-    project.client && { k: "Client", v: project.client },
+    client && { k: "Client", v: client },
     project.duration && { k: "Duration", v: project.duration },
     project.teamSize && { k: "Team", v: project.teamSize },
     project.completionDate && { k: "Delivered", v: project.completionDate },
