@@ -10,7 +10,7 @@ const SystemGraph = lazy(() => import("@/components/system/SystemGraph"));
 
 const READOUTS = [
   { label: "Status", value: "Available for work", status: "on" as const },
-  { label: "Core stack", value: "Laravel · PHP 8" },
+  { label: "Core stack", value: "React · Node · Laravel" },
   { label: "Response", value: "Within 4 hours" },
   { label: "Based in", value: "Lahore · UTC+5" },
 ];
@@ -67,9 +67,9 @@ const Hero = () => {
               <span className="inline-flex items-center gap-2 rounded-full border border-hairline/[0.1] bg-surface-1/70 px-3 py-1.5 backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary anim-status" aria-hidden="true" />
                 <span className="mono-tiny text-muted-foreground">
-                  <span className="sm:hidden">Backend · AI · Automation</span>
+                  <span className="sm:hidden">React · Node · Laravel</span>
                   <span className="hidden sm:inline">
-                    Backend systems · AI · Automation · VoIP
+                    React · React Native · Node.js · Laravel · TypeScript
                   </span>
                 </span>
               </span>
@@ -77,9 +77,7 @@ const Hero = () => {
 
             {/* LCP element: painted immediately, never faded in */}
             <h1 className="type-display mt-7 text-foreground">
-              Production-grade
-              <br />
-              backend,{" "}
+              Full-stack products,{" "}
               <span className="relative whitespace-nowrap">
                 <span className="font-display italic text-gradient">engineered.</span>
                 <span
@@ -93,9 +91,9 @@ const Hero = () => {
               className="enter-lift type-lead mt-7 max-w-xl text-muted-foreground"
               style={delay(140)}
             >
-              I architect and ship scalable Laravel systems, automation infrastructure,
-              real-time platforms, and AI-powered backends for teams that need software
-              to work in production.
+              I build and ship complete products in TypeScript and PHP: React web apps,
+              React Native mobile apps, Node.js services, and Laravel backends that hold
+              the business rules and stay up in production.
             </p>
 
             <div

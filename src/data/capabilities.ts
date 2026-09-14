@@ -11,12 +11,22 @@ import type { FlowStage } from "@/components/system/ArchitectureFlow";
  * Node.js and TypeScript take the event-driven edge, Python takes AI and data.
  * Without it a reader sees three languages of equal weight.
  */
-export type Runtime = "laravel" | "node" | "python" | "automation" | "asterisk" | "infra";
+export type Runtime =
+  | "react"
+  | "reactnative"
+  | "node"
+  | "laravel"
+  | "python"
+  | "automation"
+  | "asterisk"
+  | "infra";
 
 /** What actually runs the domain — not an aspirational language list. */
 export const RUNTIME_LABEL: Record<Runtime, string> = {
-  laravel: "Laravel · PHP",
+  react: "React · TypeScript",
+  reactnative: "React Native · Expo",
   node: "Node.js · TypeScript",
+  laravel: "Laravel · PHP",
   python: "Python",
   automation: "n8n · webhooks",
   asterisk: "Asterisk · SIP",
@@ -46,11 +56,62 @@ export interface Capability {
  */
 export const CAPABILITIES: Capability[] = [
   {
+    id: "frontend",
+    runtime: "react",
+    hue: "var(--hue-interface)",
+    n: "01",
+    title: "React & TypeScript Front Ends",
+    summary:
+      "Typed React applications with real state management, data fetching that handles error and loading honestly, accessible components, and bundles small enough to load on a phone.",
+    stack: ["React 18", "TypeScript", "Next.js", "TanStack Query", "Tailwind", "Vite"],
+    flow: [
+      { label: "Route", note: "App shell" },
+      { label: "Fetch", note: "Typed client" },
+      { label: "State", note: "Query cache" },
+      { label: "Render", note: "Accessible UI" },
+      { label: "Ship", note: "Code-split" },
+    ],
+  },
+  {
+    id: "mobile",
+    runtime: "reactnative",
+    hue: "var(--hue-interface)",
+    n: "02",
+    title: "React Native Mobile Apps",
+    summary:
+      "Cross-platform iOS and Android apps from one TypeScript codebase: offline-first data, push notifications, native modules where they are needed, and store releases over the air.",
+    stack: ["React Native", "Expo", "TypeScript", "Push", "Offline sync", "EAS Build"],
+    flow: [
+      { label: "Screen", note: "Navigation" },
+      { label: "Local store", note: "Offline-first" },
+      { label: "Sync", note: "API · retries" },
+      { label: "Native", note: "Camera · push" },
+      { label: "Release", note: "EAS · OTA" },
+    ],
+  },
+  {
+    id: "node",
+    runtime: "node",
+    hue: "var(--hue-realtime)",
+    n: "03",
+    title: "Node.js & TypeScript Services",
+    summary:
+      "Typed Node services and APIs: shared contracts between client and server, event-driven workers, third-party integrations, and edge functions that stay boring under load.",
+    stack: ["Node.js", "TypeScript", "Express / Nest", "Zod", "Prisma", "Edge functions"],
+    flow: [
+      { label: "Request", note: "Typed route" },
+      { label: "Validate", note: "Zod schema" },
+      { label: "Service", note: "Domain logic" },
+      { label: "Worker", note: "Events · jobs" },
+      { label: "Store", note: "SQL · Redis" },
+    ],
+  },
+  {
     id: "laravel",
     runtime: "laravel",
     hue: "var(--hue-backend)",
-    n: "01",
-    title: "Laravel & Backend Systems",
+    n: "04",
+    title: "Laravel & PHP Backends",
     summary:
       "Production-grade Laravel applications: thin controllers, business rules in tested action classes, idempotent write paths, and queue architecture that survives retries.",
     stack: ["Laravel", "PHP 8.3", "MySQL", "Redis", "Horizon", "Octane"],
@@ -67,7 +128,7 @@ export const CAPABILITIES: Capability[] = [
     id: "saas",
     runtime: "laravel",
     hue: "var(--hue-backend)",
-    n: "02",
+    n: "05",
     title: "SaaS & API Engineering",
     summary:
       "Multi-tenant platforms with subscription billing, roles, permissions, and audit trails. Versioned REST and GraphQL APIs designed for third parties to actually depend on.",
@@ -84,7 +145,7 @@ export const CAPABILITIES: Capability[] = [
     id: "ai",
     runtime: "python",
     hue: "var(--hue-ai)",
-    n: "03",
+    n: "06",
     title: "AI & Agent Integration",
     summary:
       "RAG pipelines, autonomous agents, and LLM features wired into existing backends with retrieval you can inspect, evaluation harnesses, and guardrails around every write.",
@@ -102,7 +163,7 @@ export const CAPABILITIES: Capability[] = [
     id: "automation",
     runtime: "automation",
     hue: "var(--hue-automation)",
-    n: "04",
+    n: "07",
     title: "Automation Infrastructure",
     summary:
       "n8n workflows, MCP agents, and orchestration that replace manual back-office work, built with retries, dead-letter queues, and observability rather than a happy path.",
@@ -120,7 +181,7 @@ export const CAPABILITIES: Capability[] = [
     id: "voip",
     runtime: "asterisk",
     hue: "var(--hue-realtime)",
-    n: "05",
+    n: "08",
     title: "VoIP & Asterisk",
     summary:
       "Self-hosted call centres on Asterisk and FreePBX: IVR trees, predictive dialers, SIP trunk failover, call recording, and dispatch wired straight into the CRM.",
@@ -138,7 +199,7 @@ export const CAPABILITIES: Capability[] = [
     id: "realtime",
     runtime: "node",
     hue: "var(--hue-realtime)",
-    n: "06",
+    n: "09",
     title: "Real-Time Systems",
     summary:
       "Presence, live dashboards, and chat infrastructure on Laravel Reverb, Pusher, or Socket.IO, with reconnection, backpressure, and per-channel authorisation handled.",
@@ -155,7 +216,7 @@ export const CAPABILITIES: Capability[] = [
     id: "cloud",
     runtime: "infra",
     hue: "var(--hue-cloud)",
-    n: "07",
+    n: "10",
     title: "Cloud & DevOps",
     summary:
       "Load-balanced deployments on AWS or DigitalOcean with CI/CD, zero-downtime releases, backups, monitoring, and runbooks written before the first incident, not after.",
