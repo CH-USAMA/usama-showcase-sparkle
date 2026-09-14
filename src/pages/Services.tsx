@@ -27,30 +27,38 @@ const Footer = lazy(() => import("@/components/Footer"));
    landing page reads, so the two can no longer drift.
 --------------------------------------------------------------------------- */
 
-/** Laravel first and largest — the ordering is the argument. */
+/** One product, four layers — TypeScript runs through all of them. */
 const RUNTIMES = [
   {
-    id: "laravel",
-    name: "Laravel · PHP",
-    role: "The application core",
-    body: "Domain logic, APIs, queues, billing, permissions, audit trails. The part of the system that holds the business rules and has to be right. This is the specialisation everything else is arranged around.",
-    hue: "var(--hue-backend)",
+    id: "react",
+    name: "React · TypeScript",
+    role: "The product surface",
+    body: "Typed React applications: routing, data fetching, state, accessible components, and a bundle small enough to load on a phone. This is where the product is actually used.",
+    hue: "var(--hue-interface)",
+    primary: true,
+  },
+  {
+    id: "react-native",
+    name: "React Native · Expo",
+    role: "The mobile app",
+    body: "iOS and Android from the same TypeScript codebase: offline-first data, push notifications, native modules where they earn their place, and store releases over the air.",
+    hue: "var(--hue-interface)",
     primary: true,
   },
   {
     id: "node",
     name: "Node.js · TypeScript",
-    role: "The event-driven edge",
-    body: "WebSockets, socket services, presence and live state, and the integrations that have to stay connected. Used where the work is events rather than requests.",
+    role: "The service layer",
+    body: "Typed APIs, event-driven workers, WebSockets and live state, and integrations that have to stay connected — sharing types end to end with the client.",
     hue: "var(--hue-realtime)",
     primary: false,
   },
   {
-    id: "python",
-    name: "Python",
-    role: "AI and data",
-    body: "RAG pipelines, retrieval and reranking, agents, evaluation harnesses, and data processing. Used where the problem is intelligence rather than transactions.",
-    hue: "var(--hue-ai)",
+    id: "laravel",
+    name: "Laravel · PHP",
+    role: "The application core",
+    body: "Domain logic, queues, billing, permissions and audit trails, with MySQL or PostgreSQL behind them. The part that holds the business rules and has to be right.",
+    hue: "var(--hue-backend)",
     primary: false,
   },
 ];
