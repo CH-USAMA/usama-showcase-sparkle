@@ -92,8 +92,8 @@ const jsonLd = {
 const Services = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Backend Engineering Capabilities | Laravel, Node.js, Python, VoIP"
-      description="Laravel and PHP for the application core, Node.js for real-time and event-driven services, Python for AI and data, Asterisk for telephony. One engineer across the stack."
+      title="Full-Stack Capabilities | React, React Native, Node.js, Laravel, TypeScript"
+      description="React and TypeScript on the front end, React Native for mobile, Node.js for typed services and real-time, Laravel and PHP for the application core. One engineer across the whole stack."
       canonical={`${SITE_URL}/services`}
       jsonLd={jsonLd}
     />
@@ -114,17 +114,17 @@ const Services = () => (
         <Reveal>
           <span className="mono-label text-hue">Capabilities</span>
           <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
-            One engineer, and the right runtime for each layer.
+            React, React Native, Node.js and Laravel — one engineer across the stack.
           </h1>
           <p className="type-lead measure mt-7 text-muted-foreground">
-            I am not a generalist who lists languages. Each of these owns a specific part
-            of a production system, and the reason for using it is the shape of the
-            problem, not preference.
+            TypeScript runs from the interface to the service layer, and Laravel carries
+            the application core. Each of these owns a specific part of a production
+            system, and the reason for using it is the shape of the problem.
           </p>
         </Reveal>
 
-        {/* ---- the three runtimes: the distinction the site is arguing ---- */}
-        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] lg:mt-16 lg:grid-cols-3">
+        {/* ---- the runtimes: the distinction the site is arguing ---- */}
+        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
           {RUNTIMES.map((r, i) => (
             <Reveal key={r.id} index={Math.min(i + 1, 4)}>
               <div
