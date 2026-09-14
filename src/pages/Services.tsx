@@ -68,7 +68,7 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "ItemList",
-      name: "Backend engineering capabilities",
+      name: "Full-stack engineering capabilities",
       itemListElement: servicesData.map((s, i) => ({
         "@type": "ListItem",
         position: i + 1,
@@ -159,7 +159,7 @@ const Services = () => (
               <span className="mono-label text-hue">What I take on</span>
             </div>
             <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
-              Seven domains, each with the stack that runs it.
+              Ten domains, each with the stack that runs it.
             </h2>
           </Reveal>
 
