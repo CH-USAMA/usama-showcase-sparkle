@@ -128,7 +128,7 @@ export const CAPABILITIES: Capability[] = [
     id: "saas",
     runtime: "laravel",
     hue: "var(--hue-backend)",
-    n: "02",
+    n: "05",
     title: "SaaS & API Engineering",
     summary:
       "Multi-tenant platforms with subscription billing, roles, permissions, and audit trails. Versioned REST and GraphQL APIs designed for third parties to actually depend on.",
@@ -145,7 +145,7 @@ export const CAPABILITIES: Capability[] = [
     id: "ai",
     runtime: "python",
     hue: "var(--hue-ai)",
-    n: "03",
+    n: "06",
     title: "AI & Agent Integration",
     summary:
       "RAG pipelines, autonomous agents, and LLM features wired into existing backends with retrieval you can inspect, evaluation harnesses, and guardrails around every write.",
@@ -163,7 +163,7 @@ export const CAPABILITIES: Capability[] = [
     id: "automation",
     runtime: "automation",
     hue: "var(--hue-automation)",
-    n: "04",
+    n: "07",
     title: "Automation Infrastructure",
     summary:
       "n8n workflows, MCP agents, and orchestration that replace manual back-office work, built with retries, dead-letter queues, and observability rather than a happy path.",
@@ -181,7 +181,7 @@ export const CAPABILITIES: Capability[] = [
     id: "voip",
     runtime: "asterisk",
     hue: "var(--hue-realtime)",
-    n: "05",
+    n: "08",
     title: "VoIP & Asterisk",
     summary:
       "Self-hosted call centres on Asterisk and FreePBX: IVR trees, predictive dialers, SIP trunk failover, call recording, and dispatch wired straight into the CRM.",
@@ -199,7 +199,7 @@ export const CAPABILITIES: Capability[] = [
     id: "realtime",
     runtime: "node",
     hue: "var(--hue-realtime)",
-    n: "06",
+    n: "09",
     title: "Real-Time Systems",
     summary:
       "Presence, live dashboards, and chat infrastructure on Laravel Reverb, Pusher, or Socket.IO, with reconnection, backpressure, and per-channel authorisation handled.",
@@ -216,7 +216,7 @@ export const CAPABILITIES: Capability[] = [
     id: "cloud",
     runtime: "infra",
     hue: "var(--hue-cloud)",
-    n: "07",
+    n: "10",
     title: "Cloud & DevOps",
     summary:
       "Load-balanced deployments on AWS or DigitalOcean with CI/CD, zero-downtime releases, backups, monitoring, and runbooks written before the first incident, not after.",
