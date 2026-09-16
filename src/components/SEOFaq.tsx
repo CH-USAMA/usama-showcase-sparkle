@@ -11,8 +11,8 @@ import {
 
 const faqs = [
   {
-    q: "Can you own a Laravel backend end to end?",
-    a: "Yes. I take Laravel systems from architecture through to production: domain modelling, API design, queue and event flow, database schema and indexing, deployment, and the monitoring that tells you when something is wrong. Engagements start with an architecture call to establish the constraints before any code is written.",
+    q: "Can you own a product end to end?",
+    a: "Yes. I take products from architecture through production: React web interfaces, React Native apps, Node.js services, Laravel/PHP application logic, database design, deployment, and monitoring. Engagements start with an architecture call to establish the constraints before code is written.",
   },
   {
     q: "Which AI and automation stacks do you specialize in?",
@@ -31,8 +31,8 @@ const faqs = [
     a: "Every engagement starts with a free 30-minute discovery call to understand your goals and constraints. I then deliver a clear technical proposal with stack, architecture, milestones, timeline, and a fixed quote before any code is written.",
   },
   {
-    q: "How do you decide between Laravel, Node.js and Python on a system?",
-    a: "By the shape of the problem, not by preference. Laravel and PHP carry the application core: domain logic, APIs, queues and billing, with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the work that is AI or data: RAG pipelines, agents, processing. Asterisk and SIP handle telephony, and Docker and CI/CD ship all of it.",
+    q: "How do you choose the stack for a product?",
+    a: "By the shape of each layer, not by preference. React and React Native handle web and mobile experiences, TypeScript keeps contracts aligned, Node.js handles services and real-time work, Laravel/PHP carries domain-heavy application logic, and Python handles focused AI and data workloads.",
   },
 ];
 
@@ -52,7 +52,7 @@ const SEOFaq = () => {
           index="11"
           eyebrow="FAQ"
           title="The questions that come up first."
-          lead="Common questions about hiring a senior backend engineer, and about automation, AI and VoIP work."
+          lead="Common questions about hiring a full-stack product engineer for web, mobile, backend, automation, AI, and VoIP work."
         />
 
         <div className="mt-12 max-w-3xl lg:mt-16">

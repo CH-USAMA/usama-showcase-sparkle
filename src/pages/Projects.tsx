@@ -45,7 +45,7 @@ const jsonLd = {
   url: `${SITE_URL}/projects`,
   name: "Selected systems | Usama Munawar",
   description:
-    "Case studies of production backend systems: VoIP infrastructure, multi-tenant SaaS, RAG retrieval, automation pipelines and commerce platforms.",
+    "Case studies of production web, mobile, and backend products built with React, Node.js, TypeScript, Laravel, AI, and automation.",
   inLanguage: "en",
   mainEntity: {
     "@type": "ItemList",
@@ -61,8 +61,8 @@ const jsonLd = {
 const Projects = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Selected Systems | Backend Case Studies | Usama Munawar"
-      description="Production systems with the architecture written down: Asterisk call routing, multi-tenant healthcare SaaS, RAG retrieval, lead automation and headless commerce."
+      title="Full-Stack Product Case Studies | Usama Munawar"
+      description="Production product case studies across React, Node.js, TypeScript, Laravel, mobile, AI, automation, and real-time systems."
       canonical={`${SITE_URL}/projects`}
       jsonLd={jsonLd}
     />

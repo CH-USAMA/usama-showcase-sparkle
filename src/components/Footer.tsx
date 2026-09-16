@@ -33,8 +33,8 @@ const Footer = () => (
             {OWNER.name}
           </div>
           <p className="mt-3 max-w-sm font-inter text-[13.5px] leading-relaxed text-muted-foreground">
-            Backend systems engineer. Laravel, automation infrastructure,
-            VoIP platforms, and AI integrations, built to run in production.
+            Full-stack product engineer. React, React Native, Node.js, TypeScript,
+            and Laravel products, built to run in production.
           </p>
           <div className="mt-6 flex items-center gap-2">
             {SOCIAL_LINKS.map((s) => {

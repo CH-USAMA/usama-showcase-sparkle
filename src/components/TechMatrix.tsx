@@ -20,20 +20,56 @@ interface Group {
 }
 
 /**
- * Five groups, ordered as layers of one system rather than as six unrelated
- * skill buckets. The previous set opened with "Backend" and filed Node.js
- * inside it, then closed with an "Interface" group of React and Tailwind,
- * which read as a full-stack CV. Node.js and TypeScript now own the real-time
- * layer they actually serve, and the front-end tools sit there too because
- * that is what they are: the delivery surface of those services.
+ * Six groups, ordered from product surface to production infrastructure.
+ * React, React Native, Node.js, Laravel/PHP and TypeScript are the core product
+ * stack; AI, automation, VoIP and infrastructure remain supporting strengths.
  *
  * Every entry says what it is used for. Nothing here is a proficiency score.
  */
 const GROUPS: Group[] = [
   {
+    id: "web",
+    hue: "var(--hue-interface)",
+    label: "React web",
+    items: [
+      { name: "React", uses: ["Product interfaces", "Dashboards", "Design systems"] },
+      { name: "TypeScript", uses: ["Typed components", "Shared contracts", "Safer refactors"] },
+      { name: "Next.js", uses: ["SEO surfaces", "App routing", "Server rendering"] },
+      { name: "TanStack Query", uses: ["Server state", "Caching", "Optimistic updates"] },
+      { name: "Tailwind CSS", uses: ["Responsive UI", "Design tokens", "Accessible states"] },
+      { name: "Vite", uses: ["Fast builds", "Code splitting", "Modern delivery"] },
+    ],
+  },
+  {
+    id: "mobile",
+    hue: "var(--hue-interface)",
+    label: "React Native",
+    items: [
+      { name: "React Native", uses: ["iOS apps", "Android apps", "Shared product logic"] },
+      { name: "Expo", uses: ["Native APIs", "OTA updates", "Release workflows"] },
+      { name: "TypeScript", uses: ["Typed navigation", "API contracts", "State models"] },
+      { name: "Offline sync", uses: ["Local-first data", "Retries", "Conflict handling"] },
+      { name: "Push", uses: ["Notifications", "Deep links", "User re-engagement"] },
+      { name: "EAS Build", uses: ["Store builds", "Signing", "Release channels"] },
+    ],
+  },
+  {
+    id: "services",
+    hue: "var(--hue-realtime)",
+    label: "Node.js services",
+    items: [
+      { name: "Node.js", uses: ["Typed APIs", "Socket services", "Integrations"] },
+      { name: "TypeScript", uses: ["Shared contracts", "Runtime boundaries", "Worker code"] },
+      { name: "NestJS / Express", uses: ["Service APIs", "Middleware", "Modular services"] },
+      { name: "WebSockets", uses: ["Live dashboards", "Presence", "Chat"] },
+      { name: "Zod", uses: ["Input validation", "Contract parsing", "Safe integrations"] },
+      { name: "Edge functions", uses: ["Webhooks", "AI streaming", "Lightweight services"] },
+    ],
+  },
+  {
     id: "backend",
     hue: "var(--hue-backend)",
-    label: "Backend systems",
+    label: "Laravel & PHP",
     items: [
       { name: "Laravel", uses: ["Multi-tenant SaaS", "Queue architecture", "Domain actions"] },
       { name: "PHP 8.3", uses: ["Typed services", "Enums · readonly", "Pest / PHPUnit"] },
@@ -44,52 +80,29 @@ const GROUPS: Group[] = [
     ],
   },
   {
-    id: "realtime",
-    hue: "var(--hue-realtime)",
-    label: "Real-time & services",
-    items: [
-      { name: "Node.js", uses: ["Socket services", "Event-driven work", "Integrations"] },
-      { name: "TypeScript", uses: ["Typed API clients", "Shared contracts"] },
-      { name: "WebSockets", uses: ["Live dashboards", "Agent state", "Chat"] },
-      { name: "Laravel Reverb", uses: ["Broadcasting", "Presence channels"] },
-      { name: "Next.js", uses: ["Service front ends", "SEO surfaces"] },
-    ],
-  },
-  {
     id: "ai",
     hue: "var(--hue-ai)",
-    label: "AI & intelligence",
+    label: "AI & automation",
     items: [
       { name: "Python", uses: ["Retrieval pipelines", "Data processing", "Evaluation"] },
       { name: "RAG", uses: ["Hybrid retrieval", "Semantic chunking", "Citation grounding"] },
       { name: "LangChain", uses: ["Agent graphs", "Tool calling", "Reviewer chains"] },
-      { name: "Claude / GPT-4", uses: ["Structured output", "Scoring rubrics", "Drafting"] },
-      { name: "pgvector", uses: ["In-database vectors", "Cheaper retrieval"] },
-      { name: "MCP", uses: ["Agent tooling", "Workflow bridges"] },
-    ],
-  },
-  {
-    id: "comms",
-    hue: "var(--hue-interface)",
-    label: "Communication",
-    items: [
-      { name: "Asterisk", uses: ["Dialplan", "AGI scripting", "Predictive dialer"] },
-      { name: "SIP", uses: ["Trunking", "Failover", "Carrier integration"] },
-      { name: "FreePBX", uses: ["Call centre setup", "Extensions", "Recording"] },
-      { name: "WebRTC", uses: ["Browser calling", "Media negotiation"] },
+      { name: "Claude / GPT", uses: ["Structured output", "Scoring rubrics", "Drafting"] },
+      { name: "n8n", uses: ["Workflow orchestration", "Approvals", "Integrations"] },
+      { name: "MCP", uses: ["Agent tooling", "Workflow bridges", "Context access"] },
     ],
   },
   {
     id: "infra",
     hue: "var(--hue-cloud)",
-    label: "Automation & infrastructure",
+    label: "Cloud & communications",
     items: [
-      { name: "n8n", uses: ["Lead pipelines", "Approval gates", "Self-hosted workflows"] },
-      { name: "Webhooks", uses: ["Multi-source ingest", "CRM sync", "Idempotent handlers"] },
       { name: "Docker", uses: ["Reproducible envs", "Build pipeline"] },
       { name: "CI/CD", uses: ["Tests + analysis", "Zero-downtime release"] },
       { name: "AWS", uses: ["Load balancing", "S3 · SES", "Deployment"] },
       { name: "Monitoring", uses: ["Error tracking", "Health checks", "Alerting"] },
+      { name: "Asterisk", uses: ["Dialplan", "AGI scripting", "Predictive dialer"] },
+      { name: "SIP / WebRTC", uses: ["Trunking", "Browser calling", "Failover"] },
     ],
   },
 ];
@@ -120,7 +133,7 @@ const TechMatrix = () => {
                 <span className="mono-label">Stack</span>
               </span>
               <h2 className="type-h3 mt-5 max-w-lg text-foreground">
-                Five layers, and what runs each one.
+                Six layers, one product stack.
               </h2>
             </div>
 

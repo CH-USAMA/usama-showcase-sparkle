@@ -18,9 +18,9 @@ const NotFound = () => {
   const suggestedPosts = blogsData.slice(0, 3);
 
   const destinations = [
-    { to: "/", icon: Home, title: "Home", desc: "Backend engineering services and case studies." },
-    { to: "/projects", icon: FolderKanban, title: "Projects", desc: "Laravel, VoIP, and AI systems shipped to production." },
-    { to: "/blog", icon: Newspaper, title: "Blog", desc: "Deep dives on Laravel, automation, and AI engineering." },
+    { to: "/", icon: Home, title: "Home", desc: "Full-stack product engineering services and case studies." },
+    { to: "/projects", icon: FolderKanban, title: "Projects", desc: "React, Node.js, Laravel, mobile, and AI products shipped to production." },
+    { to: "/blog", icon: Newspaper, title: "Blog", desc: "Deep dives on web, mobile, backend, automation, and AI engineering." },
     { to: "/book", icon: CalendarCheck, title: "Architecture call", desc: "Free 30 minutes on your architecture." },
   ];
 
@@ -28,7 +28,7 @@ const NotFound = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Page Not Found (404) | Usama Munawar"
-        description="The page you were looking for doesn't exist. Explore projects, articles, or book a free backend engineering consultation."
+        description="The page you were looking for doesn't exist. Explore projects, articles, or book a free full-stack product consultation."
         canonical="https://dev-usama-portfolio.vercel.app/404"
         noindex
       />

@@ -109,7 +109,7 @@ const Philosophy = () => {
                 <source srcSet={profileWebp} type="image/webp" />
                 <img
                   src={profileJpg}
-                  alt="Usama Munawar, Backend Systems Engineer"
+                  alt="Usama Munawar, Full-Stack Product Engineer"
                   width={44}
                   height={44}
                   loading="lazy"
@@ -120,8 +120,8 @@ const Philosophy = () => {
               <span className="mono-tiny text-subtle">Usama Munawar</span>
               <span className="h-px w-6 bg-hairline/[0.18]" aria-hidden="true" />
               <span className="font-inter text-[13px] text-muted-foreground">
-                Backend Systems Engineer in Lahore. 5+ years shipping production systems
-                for startups and SaaS teams, with verified profiles on Upwork and Fiverr.
+                Full-Stack Product Engineer in Lahore. 5+ years shipping web, mobile,
+                and backend products, with verified profiles on Upwork and Fiverr.
               </span>
             </figcaption>
           </figure>
@@ -204,7 +204,7 @@ const Philosophy = () => {
                   </h3>
                 </div>
                 <p className="mt-3 font-inter text-[13px] leading-relaxed text-muted-foreground">
-                  Every backend I ship resolves to some version of this path. The
+                  Every connected product I ship resolves to some version of this path. The
                   interesting work is deciding where each stage lives, what happens when
                   one of them fails, and which of them you can afford to skip.
                 </p>
