@@ -10,7 +10,7 @@ export const SITE_URL = "https://dev-usama-portfolio.vercel.app";
 
 export const OWNER = {
   name: "Usama Munawar",
-  role: "Backend Systems Engineer",
+  role: "Full-Stack Product Engineer",
   email: "devusamaworks@gmail.com",
   phone: "+92 303 8004684",
   phoneE164: "+92-303-8004684",
@@ -65,7 +65,7 @@ export const METRICS = [
     label: "Systems documented",
     note: "Case studies and archive",
   },
-  { value: "5+", label: "Years senior backend", note: "Production systems" },
+  { value: "5+", label: "Years in production", note: "Web, mobile, and backend" },
 ] as const;
 
 export const PLATFORM_PROOF = [

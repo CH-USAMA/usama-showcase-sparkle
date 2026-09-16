@@ -38,9 +38,9 @@ const homeJsonLd = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/#webpage`,
       url: `${SITE_URL}/`,
-      name: "Backend Systems Engineer | Laravel, Automation, VoIP & AI | Usama Munawar",
+      name: "Full-Stack Product Engineer | React, Node.js & Laravel | Usama Munawar",
       description:
-        "Senior Backend Systems Engineer building scalable Laravel apps, automation infrastructure, VoIP platforms, and AI integrations.",
+        "Full-stack product engineer building React web apps, React Native mobile apps, Node.js services, and Laravel/PHP backends.",
       inLanguage: "en",
       primaryImageOfPage: `${SITE_URL}/og-image.png`,
     },
@@ -54,7 +54,7 @@ const homeJsonLd = {
     },
     {
       "@type": "Service",
-      serviceType: "Backend Engineering & Laravel Development",
+      serviceType: "Full-Stack Product Engineering",
       provider: { "@type": "Person", name: "Usama Munawar", url: SITE_URL },
       areaServed: "Worldwide",
       hasOfferCatalog: {
@@ -121,8 +121,8 @@ const Index = () => {
     <div id="top">
       <SEOHead
         canonical={`${SITE_URL}/`}
-        title="Usama Munawar | Laravel, VoIP & AI Backend Engineer"
-        description="Senior backend engineer building scalable Laravel apps, n8n automation, VoIP/Asterisk platforms, and AI integrations. Five years of production systems, with the architecture written down."
+        title="Usama Munawar | React, Node.js & Laravel Engineer"
+        description="Full-stack product engineer building React web apps, React Native mobile apps, Node.js services, and Laravel/PHP backends in TypeScript and PHP."
         jsonLd={homeJsonLd}
       />
 

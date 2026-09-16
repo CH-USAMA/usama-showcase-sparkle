@@ -40,8 +40,8 @@ const Blog = () => {
   return (
     <>
     <SEOHead
-      title="Blog | Laravel, AI Engineering & Automation | Usama Munawar"
-      description="Articles on Laravel, PHP, backend architecture, AI engineering, n8n automation, VoIP/Asterisk, and modern web development."
+      title="Blog | React, Node.js, Laravel & AI | Usama Munawar"
+      description="Articles on React, React Native, Node.js, TypeScript, Laravel/PHP, product architecture, AI, automation, and VoIP."
       canonical="https://dev-usama-portfolio.vercel.app/blog"
       ogType="website"
     />
@@ -74,11 +74,11 @@ const Blog = () => {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
-              The Engineering Log: Backend & Architecture Insights
+              The Engineering Log: Full-Stack Product Insights
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8 leading-relaxed">
-              Deep dives into AI, automation, web development, Laravel, and business digitization.
+              Deep dives into React, React Native, Node.js, TypeScript, Laravel, AI, and automation.
               <span className="text-primary font-medium"> Updated daily with trending topics.</span>
             </p>
           </div>
@@ -92,7 +92,7 @@ const Blog = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1">Get one deep-dive per month</h2>
-                <p className="text-sm text-muted-foreground">Laravel, VoIP, and AI engineering write-ups. No spam. Unsubscribe anytime.</p>
+                <p className="text-sm text-muted-foreground">Web, mobile, backend, and AI engineering write-ups. No spam. Unsubscribe anytime.</p>
               </div>
               <form
                 action="https://formspree.io/f/mkgzjlde"

@@ -28,13 +28,15 @@ const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
  * line maps to a capability in capabilities.ts, so nothing here is a new claim.
  */
 const FOR = [
+  "Shipping a React web or React Native mobile product end to end",
+  "Building typed Node.js services and integrations",
   "Scaling a Laravel application that has outgrown its foundations",
   "Building a SaaS backend: multi-tenancy, billing, roles, audit trails",
   "Introducing AI into an existing product without bolting it on",
   "Designing real-time infrastructure: WebSockets, presence, live state",
   "Building or fixing VoIP and Asterisk systems",
   "Automating manual back-office work that runs unattended",
-  "Deciding between Laravel, Node.js and Python for a given layer",
+  "Choosing the right boundary between React, Node.js, Laravel and Python",
 ];
 
 const AGENDA = [
@@ -78,11 +80,11 @@ const faqs = [
   },
   {
     q: "Is the call really free, and is it a sales call?",
-    a: "It is free and there is no pitch. You bring the Laravel scaling, automation, VoIP, or AI integration problem, and you leave with an opinionated technical next step whether or not we end up working together.",
+    a: "It is free and there is no pitch. Bring a web, mobile, API, Laravel scaling, automation, VoIP, or AI integration problem, and leave with an opinionated technical next step whether or not we work together.",
   },
   {
-    q: "How do you decide between Laravel, Node.js and Python on a system?",
-    a: "By the shape of the problem. Laravel and PHP carry the application core: domain logic, APIs, queues and billing, with MySQL or PostgreSQL and Redis behind them. Node.js and TypeScript take the event-driven edge: WebSockets, socket services, integrations. Python takes the AI and data work: RAG pipelines, agents, processing. Asterisk and SIP handle telephony.",
+    q: "How do you choose the stack for a product?",
+    a: "By the shape of each layer. React and React Native handle web and mobile experiences, TypeScript keeps contracts consistent, Node.js handles services and real-time work, and Laravel/PHP carries domain-heavy application logic, queues, billing, and APIs. Python takes focused AI and data workloads.",
   },
   {
     q: "Do you sign NDAs?",
@@ -101,7 +103,7 @@ const bookJsonLd = {
   url: `${SITE_URL}/book`,
   name: "Book an Architecture Call | Usama Munawar",
   description:
-    "Book a free 30-minute architecture call with Usama Munawar, a backend systems engineer working in Laravel, Node.js, Python, VoIP and automation.",
+    "Book a free 30-minute architecture call with Usama Munawar, a full-stack product engineer working in React, React Native, Node.js, TypeScript, Laravel and PHP.",
   inLanguage: "en",
   primaryImageOfPage: `${SITE_URL}/og-image.png`,
 };
@@ -133,7 +135,7 @@ const Book = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Book an Architecture Call | Usama Munawar"
-        description="A free 30-minute architecture call. Bring a Laravel scaling, automation, VoIP or AI integration problem and leave with an opinionated next step."
+        description="A free 30-minute architecture call for React, React Native, Node.js, TypeScript, Laravel/PHP, automation, or AI product work."
         canonical={`${SITE_URL}/book`}
         jsonLd={[bookJsonLd, faqJsonLd]}
       />
