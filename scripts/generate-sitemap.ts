@@ -142,7 +142,7 @@ function generateRss() {
     `    <title>Usama Munawar | React, Node.js &amp; Laravel Engineering Blog</title>`,
     `    <link>${BASE_URL}/blog</link>`,
     `    <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
-    `    <description>Deep dives on Laravel, VoIP/Asterisk, n8n automation, AI agents, and production engineering by Usama Munawar.</description>`,
+    `    <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>`,
     `    <language>en-us</language>`,
     `    <lastBuildDate>${lastBuildDate}</lastBuildDate>`,
     ``,
