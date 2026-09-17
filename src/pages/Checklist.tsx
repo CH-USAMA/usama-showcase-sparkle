@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { CheckCircle2, Download, ShieldCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
-const BASE_URL = "https://dev-usama-portfolio.vercel.app";
+const BASE_URL = "https://www.chaudharyusama.com";
 
 const sections: { title: string; items: string[] }[] = [
   {

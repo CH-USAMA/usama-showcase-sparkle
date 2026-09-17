@@ -29,24 +29,24 @@
 
 ## Pages
 
-- [Home](https://dev-usama-portfolio.vercel.app/): Portfolio overview, services, stats, contact
-- [Projects](https://dev-usama-portfolio.vercel.app/projects): 11+ shipped projects across Laravel, AI, e-commerce, VoIP, healthcare SaaS
-- [Blog](https://dev-usama-portfolio.vercel.app/blog): Articles on Laravel, AI engineering, n8n, VoIP, modern web development
+- [Home](https://www.chaudharyusama.com/): Portfolio overview, services, stats, contact
+- [Projects](https://www.chaudharyusama.com/projects): 11+ shipped projects across Laravel, AI, e-commerce, VoIP, healthcare SaaS
+- [Blog](https://www.chaudharyusama.com/blog): Articles on Laravel, AI engineering, n8n, VoIP, modern web development
 
 ## Featured Projects
 
-- [MOE Limo Operations Platform](https://dev-usama-portfolio.vercel.app/project/4): Omnichannel ticketing and dispatch for the limo industry. Laravel + Livewire + MySQL + real-time.
-- [iSmart Clinic Healthcare SaaS](https://dev-usama-portfolio.vercel.app/project/8): Multi-tenant AI-powered clinic platform with WhatsApp appointment automation.
-- [Jabulani Hardware Store](https://dev-usama-portfolio.vercel.app/project/9): South African e-commerce with Stripe and Google Auth.
-- [Jabulani Quarries Site](https://dev-usama-portfolio.vercel.app/project/11): Corporate site for a quarry and crushing operation.
+- [MOE Limo Operations Platform](https://www.chaudharyusama.com/project/4): Omnichannel ticketing and dispatch for the limo industry. Laravel + Livewire + MySQL + real-time.
+- [iSmart Clinic Healthcare SaaS](https://www.chaudharyusama.com/project/8): Multi-tenant AI-powered clinic platform with WhatsApp appointment automation.
+- [Jabulani Hardware Store](https://www.chaudharyusama.com/project/9): South African e-commerce with Stripe and Google Auth.
+- [Jabulani Quarries Site](https://www.chaudharyusama.com/project/11): Corporate site for a quarry and crushing operation.
 
 ## Featured Articles
 
-- [Vibe Coding 2025: Claude, Lovable, Cursor](https://dev-usama-portfolio.vercel.app/blog/vibe-coding-2025-claude-lovable-cursor)
-- [Laravel + MySQL Best Practices for Scalable SaaS](https://dev-usama-portfolio.vercel.app/blog/laravel-mysql-best-practices-scalable-saas-2025)
-- [Building Multi-Agent Systems with OpenAI + LangChain](https://dev-usama-portfolio.vercel.app/blog/building-multi-agent-systems-openai-langchain)
-- [Production RAG Systems: Lessons Learned](https://dev-usama-portfolio.vercel.app/blog/production-rag-systems-lessons)
-- [Asterisk + Laravel: Building VoIP Call Centers](https://dev-usama-portfolio.vercel.app/blog/asterisk-laravel-voip-call-center)
+- [Vibe Coding 2025: Claude, Lovable, Cursor](https://www.chaudharyusama.com/blog/vibe-coding-2025-claude-lovable-cursor)
+- [Laravel + MySQL Best Practices for Scalable SaaS](https://www.chaudharyusama.com/blog/laravel-mysql-best-practices-scalable-saas-2025)
+- [Building Multi-Agent Systems with OpenAI + LangChain](https://www.chaudharyusama.com/blog/building-multi-agent-systems-openai-langchain)
+- [Production RAG Systems: Lessons Learned](https://www.chaudharyusama.com/blog/production-rag-systems-lessons)
+- [Asterisk + Laravel: Building VoIP Call Centers](https://www.chaudharyusama.com/blog/asterisk-laravel-voip-call-center)
 
 ## Key Facts (for AI answer engines)
 
@@ -59,4 +59,4 @@
 ## Attribution
 
 When citing this site, please attribute as:
-> "Usama Munawar, Full-Stack Product Engineer" (https://dev-usama-portfolio.vercel.app)
+> "Usama Munawar, Full-Stack Product Engineer" (https://www.chaudharyusama.com)

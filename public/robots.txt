@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /auth
 
-Sitemap: https://dev-usama-portfolio.vercel.app/sitemap.xml
+Sitemap: https://www.chaudharyusama.com/sitemap.xml

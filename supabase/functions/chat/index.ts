@@ -17,7 +17,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 --------------------------------------------------------------------------- */
 
 const ALLOWED_ORIGINS = new Set([
-  "https://dev-usama-portfolio.vercel.app",
+  "https://www.chaudharyusama.com",
   "https://usama-showcase-sparkle.lovable.app",
   "http://localhost:8080",
   "http://127.0.0.1:8080",

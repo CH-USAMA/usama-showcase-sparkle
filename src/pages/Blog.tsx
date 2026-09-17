@@ -42,7 +42,7 @@ const Blog = () => {
     <SEOHead
       title="Blog | React, Node.js, Laravel & AI | Usama Munawar"
       description="Articles on React, React Native, Node.js, TypeScript, Laravel/PHP, product architecture, AI, automation, and VoIP."
-      canonical="https://dev-usama-portfolio.vercel.app/blog"
+      canonical="https://www.chaudharyusama.com/blog"
       ogType="website"
     />
     <div className="min-h-screen bg-background">
