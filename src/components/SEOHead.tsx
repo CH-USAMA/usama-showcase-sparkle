@@ -10,7 +10,7 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const BASE_URL = "https://dev-usama-portfolio.vercel.app";
+const BASE_URL = "https://www.chaudharyusama.com";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const SEOHead = ({

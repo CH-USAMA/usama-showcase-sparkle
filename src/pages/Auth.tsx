@@ -97,7 +97,7 @@ const Auth = () => {
     <SEOHead
       title="Admin Login | Usama Munawar"
       description="Secure admin sign-in for managing portfolio blog posts and content."
-      canonical="https://dev-usama-portfolio.vercel.app/auth"
+      canonical="https://www.chaudharyusama.com/auth"
       noindex
     />
     <div className="min-h-screen flex items-center justify-center bg-background p-4">

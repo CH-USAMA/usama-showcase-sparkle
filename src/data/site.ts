@@ -6,7 +6,7 @@ import { projectsData } from "@/data/projects";
  * custom domain a find-and-replace exercise. Import from here instead.
  */
 
-export const SITE_URL = "https://dev-usama-portfolio.vercel.app";
+export const SITE_URL = "https://www.chaudharyusama.com";
 
 export const OWNER = {
   name: "Usama Munawar",

@@ -29,7 +29,7 @@ const NotFound = () => {
       <SEOHead
         title="Page Not Found (404) | Usama Munawar"
         description="The page you were looking for doesn't exist. Explore projects, articles, or book a free full-stack product consultation."
-        canonical="https://dev-usama-portfolio.vercel.app/404"
+        canonical="https://www.chaudharyusama.com/404"
         noindex
       />
       <Navbar />

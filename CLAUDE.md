@@ -4,7 +4,7 @@ Personal portfolio + lead-gen site for **Usama Munawar** (Backend Systems Engine
 
 - **Repo:** https://github.com/CH-USAMA/usama-showcase-sparkle
 - **Origin:** generated in [Lovable](https://lovable.dev/projects/229265ce-3579-4bf7-85dd-77988fd0c57f); Lovable still pushes to `main`.
-- **Live (canonical):** https://dev-usama-portfolio.vercel.app
+- **Live (canonical):** https://www.chaudharyusama.com
 - **Mirror:** `usama-showcase-sparkle.lovable.app` — hard-redirected to the canonical host in `src/main.tsx`.
 
 > Lovable commits to `main` directly. Before starting local work, `git pull`. Expect commit messages like "Changes".
@@ -77,7 +77,7 @@ Supabase is currently used for: `supabase.auth` (the `/auth` page still has an o
 - Sections use `AnimatedSection` (framer-motion) wrappers; entrance animations are everywhere, including on the hero `<h1>`.
 - Every page should render a `<SEOHead>` with an explicit `canonical`.
 - Images: WebP in `src/assets`, `loading="lazy" decoding="async"` + explicit `width`/`height` on non-LCP images.
-- Absolute URLs are hardcoded as `https://dev-usama-portfolio.vercel.app` in ~8 files. If a custom domain is ever added, grep for it.
+- Absolute URLs are hardcoded as `https://www.chaudharyusama.com` in ~8 files. If a custom domain is ever added, grep for it.
 
 ## Known traps
 

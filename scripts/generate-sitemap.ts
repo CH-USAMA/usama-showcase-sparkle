@@ -37,7 +37,7 @@ if (blogsData.length === 0) throw new Error("parsed 0 blog posts from src/data/b
 const missing = blogsData.filter((p) => !meta.has(p.slug)).map((p) => p.slug);
 if (missing.length) throw new Error(`no title/excerpt parsed for: ${missing.join(", ")}`);
 
-const BASE_URL = "https://dev-usama-portfolio.vercel.app";
+const BASE_URL = "https://www.chaudharyusama.com";
 
 // JS string escapes survive the regex verbatim; unescape the two that occur.
 const unescapeJs = (s: string) => s.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
@@ -139,10 +139,10 @@ function generateRss() {
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">`,
     `  <channel>`,
-    `    <title>Usama Munawar | Laravel, VoIP &amp; AI Engineering Blog</title>`,
+    `    <title>Usama Munawar | React, Node.js &amp; Laravel Engineering Blog</title>`,
     `    <link>${BASE_URL}/blog</link>`,
     `    <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />`,
-    `    <description>Deep dives on Laravel, VoIP/Asterisk, n8n automation, AI agents, and production engineering by Usama Munawar.</description>`,
+    `    <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>`,
     `    <language>en-us</language>`,
     `    <lastBuildDate>${lastBuildDate}</lastBuildDate>`,
     ``,

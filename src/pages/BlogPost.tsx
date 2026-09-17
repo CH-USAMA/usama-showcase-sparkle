@@ -128,7 +128,7 @@ const BlogPost = () => {
     <SEOHead
       title={post.title.length > 55 ? post.title.slice(0, 55).replace(/[\s,.;:]+\S*$/, '') + '…' : post.title}
       description={post.excerpt}
-      canonical={`https://dev-usama-portfolio.vercel.app/blog/${post.slug}`}
+      canonical={`https://www.chaudharyusama.com/blog/${post.slug}`}
       ogType="article"
       ogImage={post.featured_image || undefined}
       jsonLd={[
@@ -141,25 +141,25 @@ const BlogPost = () => {
           "author": {
             "@type": "Person",
             "name": post.author || "Usama Munawar",
-            "url": "https://dev-usama-portfolio.vercel.app",
+            "url": "https://www.chaudharyusama.com",
           },
           "publisher": {
             "@type": "Person",
             "name": "Usama Munawar",
-            "url": "https://dev-usama-portfolio.vercel.app",
+            "url": "https://www.chaudharyusama.com",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://dev-usama-portfolio.vercel.app/favicon.png",
+              "url": "https://www.chaudharyusama.com/favicon.png",
             },
           },
           "datePublished": post.published_at,
           "dateModified": post.published_at,
           "keywords": (post.tags || []).join(", "),
           "articleSection": post.tags?.[0] || "Engineering",
-          "url": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
+          "url": `https://www.chaudharyusama.com/blog/${post.slug}`,
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}`,
+            "@id": `https://www.chaudharyusama.com/blog/${post.slug}`,
           },
           "wordCount": post.content ? post.content.split(/\s+/).length : undefined,
           "inLanguage": "en-US",
@@ -168,9 +168,9 @@ const BlogPost = () => {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dev-usama-portfolio.vercel.app/" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://dev-usama-portfolio.vercel.app/blog" },
-            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://dev-usama-portfolio.vercel.app/blog/${post.slug}` },
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.chaudharyusama.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.chaudharyusama.com/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.chaudharyusama.com/blog/${post.slug}` },
           ],
         },
       ]}
