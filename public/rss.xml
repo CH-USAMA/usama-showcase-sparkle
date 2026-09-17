@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Usama Munawar | Laravel, VoIP &amp; AI Engineering Blog</title>
+    <title>Usama Munawar | React, Node.js &amp; Laravel Engineering Blog</title>
     <link>https://www.chaudharyusama.com/blog</link>
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Deep dives on Laravel, VoIP/Asterisk, n8n automation, AI agents, and production engineering by Usama Munawar.</description>
+    <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 Jul 2026 09:00:00 GMT</lastBuildDate>
 
