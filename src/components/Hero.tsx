@@ -38,7 +38,7 @@ const Hero = () => {
   return (
     <section
       ref={spotlight}
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-hero-gradient pb-20 pt-28 lg:pb-24 lg:pt-28"
+      className="relative isolate flex min-h-[min(100svh,850px)] items-center overflow-hidden bg-hero-gradient pb-20 pt-28 lg:pb-24 lg:pt-28"
     >
       {/* blueprint field, faded toward the edges so it never reads as tiling */}
       <div className="grid-field mask-radial pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
@@ -77,9 +77,9 @@ const Hero = () => {
 
             {/* LCP element: painted immediately, never faded in */}
             <h1 className="type-display mt-7 text-foreground">
-              Full-stack products,{" "}
+              I ship websites &amp; apps,{" "}
               <span className="relative whitespace-nowrap">
-                <span className="font-display italic text-gradient">engineered.</span>
+                <span className="font-display italic text-gradient">built to last.</span>
                 <span
                   aria-hidden="true"
                   className="absolute -bottom-0.5 left-0 h-px w-full bg-gradient-to-r from-primary/50 via-primary/15 to-transparent"
@@ -91,9 +91,9 @@ const Hero = () => {
               className="enter-lift type-lead mt-7 max-w-xl text-muted-foreground"
               style={delay(140)}
             >
-              I build and ship complete products in TypeScript and PHP: React web apps,
-              React Native mobile apps, Node.js services, and Laravel backends that hold
-              the business rules and stay up in production.
+              I'm Usama Munawar. I build websites and digital products end to end:
+              React frontends, React Native apps, Node.js services, and Laravel backends
+              that work together in production.
             </p>
 
             <div
