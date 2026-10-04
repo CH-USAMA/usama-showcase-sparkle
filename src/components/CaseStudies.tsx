@@ -7,7 +7,7 @@ import CTA from "@/components/system/CTA";
 import { caseStudies } from "@/data/caseStudies";
 import type { CaseStudy } from "@/data/caseStudies";
 
-const ProjectCard = ({ study }: { study: CaseStudy }) => {
+export const ProjectCard = ({ study }: { study: CaseStudy }) => {
   return (
     <article
       className="project-card group relative flex h-full flex-col overflow-hidden rounded-lg border border-hairline/[0.12] bg-surface-1"
@@ -47,10 +47,8 @@ const ProjectCard = ({ study }: { study: CaseStudy }) => {
 /**
  * SELECTED SYSTEMS — the section the whole page is built to deliver a reader to.
  *
- * Each entry is presented as a dossier: identity, outcome, metadata, visual,
- * then problem / architecture / result with the architecture animated as a
- * live request path. A skill list tells someone what you know; this tells them
- * what you decided.
+ * Image-led cards reveal the detailed architecture only when opened, keeping
+ * the first read visual while preserving the evidence and links.
  */
 const CaseStudies = () => (
   <section
@@ -76,11 +74,7 @@ const CaseStudies = () => (
         lead="A selection of live products and production systems. Open a card for the decisions behind each build."
       />
 
-      {/* Four on the home page, all eight on /projects.
-          Eight full dossiers here made the home page a documentation site and
-          blurred the line between this section and the case-study index. These
-          four are the first four in the sequence and cover four different
-          domains: VoIP, security tooling, multi-tenant SaaS and AI retrieval. */}
+      {/* A visual selection; the complete collection remains on /projects. */}
       <div className="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:gap-7">
         {[caseStudies[6], caseStudies[7], caseStudies[1], caseStudies[0], caseStudies[2], caseStudies[3]].map((study, i) => (
           <Reveal key={study.id} index={Math.min(i, 3)}><ProjectCard study={study} /></Reveal>

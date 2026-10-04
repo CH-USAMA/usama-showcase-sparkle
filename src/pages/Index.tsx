@@ -38,7 +38,7 @@ const homeJsonLd = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/#webpage`,
       url: `${SITE_URL}/`,
-      name: "Full-Stack Product Engineer | React, Node.js & Laravel | Usama Munawar",
+      name: "Usama Munawar | Websites, Apps & Production Systems",
       description:
         "Full-stack product engineer building React web apps, React Native mobile apps, Node.js services, and Laravel/PHP backends.",
       inLanguage: "en",
@@ -121,8 +121,8 @@ const Index = () => {
     <div id="top">
       <SEOHead
         canonical={`${SITE_URL}/`}
-        title="Usama Munawar | React, Node.js & Laravel Engineer"
-        description="Full-stack product engineer building React web apps, React Native mobile apps, Node.js services, and Laravel/PHP backends in TypeScript and PHP."
+        title="Usama Munawar | Websites, Apps & Production Systems"
+        description="Explore websites, mobile apps and production systems shipped by Usama Munawar with React, React Native, Node.js, TypeScript and Laravel/PHP."
         jsonLd={homeJsonLd}
       />
 

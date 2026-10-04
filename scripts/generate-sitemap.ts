@@ -76,10 +76,10 @@ const projectEntries: SitemapEntry[] = Object.keys(projectsData).map((id) => ({
   priority: "0.7",
 }));
 
-const today = new Date().toISOString().slice(0, 10);
 const blogEntries: SitemapEntry[] = blogsData.map((post) => ({
   path: `/blog/${post.slug}`,
-  lastmod: (post.published_at || today).slice(0, 10),
+  // Publication is the last known page-specific content date. Never use a build-day fallback.
+  lastmod: post.published_at ? post.published_at.slice(0, 10) : undefined,
   changefreq: "monthly",
   priority: "0.8",
 }));

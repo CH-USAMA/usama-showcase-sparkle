@@ -81,12 +81,9 @@
     --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 
     /* ---- Gradients (restrained) ---- */
-    --hero-gradient: radial-gradient(
-        120% 80% at 50% -10%,
-        hsl(176 60% 12% / 0.5) 0%,
-        transparent 60%
-      ),
-      linear-gradient(180deg, hsl(220 30% 4%) 0%, hsl(220 30% 3.5%) 100%);
+    --hero-gradient: radial-gradient(ellipse at 82% 30%, hsl(var(--hue-realtime) / 0.15), transparent 58%),
+      radial-gradient(ellipse at 13% 84%, hsl(var(--hue-interface) / 0.08), transparent 55%),
+      linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--background)));
     --card-gradient: linear-gradient(160deg, hsl(220 24% 7%), hsl(220 22% 5%));
     --accent-gradient: linear-gradient(120deg, hsl(176 92% 50%), hsl(194 96% 58%));
     --text-gradient: linear-gradient(110deg, hsl(176 95% 58%), hsl(194 96% 66%));
@@ -635,6 +632,18 @@
     background-color: hsl(var(--surface-2) / 0.6);
     border-color: hsl(var(--hue, var(--primary)) / 0.28);
   }
+
+  .project-card {
+    transition: transform var(--dur-standard) var(--ease-out),
+      border-color var(--dur-standard) var(--ease-out),
+      box-shadow var(--dur-standard) var(--ease-out);
+  }
+  .project-card:hover, .project-card:focus-within {
+    transform: translateY(-5px);
+    border-color: hsl(var(--hue, var(--primary)) / 0.5);
+    box-shadow: 0 16px 46px -28px hsl(var(--hue, var(--primary)) / 0.42);
+  }
+  .project-details summary::marker { color: hsl(var(--hue, var(--primary))); }
 
   /* Eyebrow label as a tinted chip rather than bare small text. */
   .chip-hue {

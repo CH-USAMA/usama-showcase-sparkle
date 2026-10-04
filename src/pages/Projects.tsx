@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
 import { caseStudies } from "@/data/caseStudies";
+import { ProjectCard } from "@/components/CaseStudies";
 import { projectsData } from "@/data/projects";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -22,10 +23,8 @@ const Footer = lazy(() => import("@/components/Footer"));
    different project's detail page. Both problems disappear by reading the same
    two canonical sources the rest of the site reads.
 
-   Weight follows evidence: the six systems with a written architecture get the
-   full treatment, and everything else is a compact archive row. Metrics render
-   only where caseStudies.ts carries a verified one — the clinic dossier has no
-   defensible figure and shows none here either.
+   All written case studies share the homepage's visual card; the rest use the
+   existing project entries. Metrics appear only where caseStudies.ts has one.
 --------------------------------------------------------------------------- */
 
 /** Detail pages already owned by a case study — not repeated in the archive. */
@@ -43,7 +42,7 @@ const jsonLd = {
   "@type": "CollectionPage",
   "@id": `${SITE_URL}/projects#webpage`,
   url: `${SITE_URL}/projects`,
-  name: "Selected systems | Usama Munawar",
+  name: "Websites, apps & systems I've shipped | Usama Munawar",
   description:
     "Case studies of production web, mobile, and backend products built with React, Node.js, TypeScript, Laravel, AI, and automation.",
   inLanguage: "en",
@@ -61,8 +60,8 @@ const jsonLd = {
 const Projects = () => (
   <div className="min-h-screen bg-background">
     <SEOHead
-      title="Full-Stack Product Case Studies | Usama Munawar"
-      description="Production product case studies across React, Node.js, TypeScript, Laravel, mobile, AI, automation, and real-time systems."
+      title="Websites, Apps & Systems I've Built | Usama Munawar"
+      description="Explore websites, apps and production systems shipped by Usama Munawar across React, React Native, Node.js, TypeScript, Laravel, AI and automation."
       canonical={`${SITE_URL}/projects`}
       jsonLd={jsonLd}
     />
@@ -83,92 +82,19 @@ const Projects = () => (
         <Reveal>
           <span className="mono-label text-hue">Selected systems</span>
           <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
-            The systems, and the decisions behind them.
+            Websites, apps &amp; systems I've shipped.
           </h1>
           <p className="type-lead measure mt-7 text-muted-foreground">
-            Six with the architecture written down, and the rest of the archive below.
-            Where a figure appears it comes from the project record, where none does,
-            there was nothing defensible to quote.
+            Real projects, from customer-facing websites to the infrastructure behind them.
+            Open a case study for the challenge, build and outcome.
           </p>
         </Reveal>
 
         {/* ---- case studies ---- */}
-        <ul className="mt-16 border-t border-hairline/[0.08] lg:mt-20">
+        <ul className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3 lg:mt-20 lg:gap-7">
           {caseStudies.map((c, i) => (
             <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
-              <article
-                className="border-b border-hairline/[0.08] py-12 lg:py-16"
-                style={{ "--hue": c.hue } as CSSProperties}
-              >
-                <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-                  {/* identity */}
-                  <div className="lg:col-span-5">
-                    <div className="flex items-center gap-3">
-                      <span className="mono-tiny tabular-nums text-hue">{c.n}</span>
-                      <span className="h-px w-6 bg-hue opacity-50" aria-hidden="true" />
-                      <span className="mono-tiny text-muted-foreground">{c.category}</span>
-                    </div>
-
-                    <h2 className="type-h3 mt-5 text-foreground">{c.title}</h2>
-
-                    {c.metric && (
-                      <div className="mt-6 flex items-baseline gap-4 border-l-2 border-hue pl-5">
-                        <span className="font-inter text-[2rem] font-semibold leading-none tracking-tight text-hue sm:text-[2.5rem]">
-                          {c.metric.value}
-                        </span>
-                        <span className="mono-tiny max-w-[9rem] leading-[1.5] text-muted-foreground">
-                          {c.metric.label}
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-                      {c.detailPath && (
-                        <CTA to={c.detailPath} tone="ghost" size="sm" arrow>
-                          Read the case study
-                        </CTA>
-                      )}
-                      {c.liveUrl && (
-                        <a
-                          href={c.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
-                        >
-                          <span className="hover-underline">Visit live system</span>
-                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* the problem and the shape of the answer */}
-                  <div className="lg:col-span-7">
-                    <dl className="space-y-6">
-                      <div>
-                        <dt className="mono-tiny text-subtle">The problem</dt>
-                        <dd className="type-body measure mt-2.5 text-muted-foreground">
-                          {c.problem}
-                        </dd>
-                      </div>
-                      <div>
-                        <dt className="mono-tiny text-subtle">The result</dt>
-                        <dd className="type-body measure mt-2.5 text-muted-foreground">
-                          {c.result}
-                        </dd>
-                      </div>
-                    </dl>
-
-                    <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline/[0.08] pt-5">
-                      {c.stack.map((t) => (
-                        <span key={t} className="mono-tiny text-subtle">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </article>
+              <ProjectCard study={c} />
             </Reveal>
           ))}
         </ul>
@@ -178,7 +104,7 @@ const Projects = () => (
           <div className="mt-20 lg:mt-24">
             <Reveal>
               <div className="flex items-center gap-3">
-                <span className="mono-tiny text-hue tabular-nums">07</span>
+                <span className="mono-tiny text-hue tabular-nums">09</span>
                 <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
                 <span className="mono-label text-hue">Archive</span>
               </div>
@@ -187,26 +113,24 @@ const Projects = () => (
               </h2>
             </Reveal>
 
-            <ul className="mt-9 border-t border-hairline/[0.08]">
+            <ul className="mt-9 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {archive.map((p, i) => (
                 <Reveal as="li" key={p.id} index={Math.min(i + 1, 4)}>
                   <Link
                     to={`/project/${p.id}`}
-                    className="group flex flex-col gap-3 border-b border-hairline/[0.08] py-6 transition-colors duration-standard hover:bg-surface-1/50 sm:flex-row sm:items-baseline sm:gap-8"
+                    className="project-card group flex h-full flex-col overflow-hidden rounded-lg border border-hairline/[0.12] bg-surface-1"
                   >
-                    <span className="mono-tiny w-28 shrink-0 text-subtle">{p.category}</span>
-                    <span className="flex-1">
-                      <span className="font-inter text-[15px] font-medium text-foreground">
+                    <span className="block overflow-hidden bg-surface-2"><img src={p.image} alt={`${p.title} project preview`} width={800} height={500} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover transition-transform duration-large group-hover:scale-[1.045]" /></span>
+                    <span className="flex flex-1 flex-col p-5">
+                      <span className="mono-tiny text-hue">{p.category}</span>
+                      <span className="mt-3 font-inter text-lg font-medium text-foreground">
                         {p.title}
                       </span>
-                      <span className="type-body mt-1.5 block max-w-2xl text-muted-foreground">
+                      <span className="mt-2 line-clamp-3 font-inter text-sm leading-relaxed text-muted-foreground">
                         {p.description}
                       </span>
+                      <span className="mt-auto flex items-center gap-2 pt-5 font-inter text-sm text-hue">Explore project <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" /></span>
                     </span>
-                    <ArrowUpRight
-                      className="hidden h-4 w-4 shrink-0 text-subtle transition-colors duration-standard group-hover:text-hue sm:block"
-                      aria-hidden="true"
-                    />
                   </Link>
                 </Reveal>
               ))}
