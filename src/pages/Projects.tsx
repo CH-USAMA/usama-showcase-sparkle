@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
 import { caseStudies } from "@/data/caseStudies";
+import { ProjectCard } from "@/components/CaseStudies";
 import { projectsData } from "@/data/projects";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -22,10 +23,8 @@ const Footer = lazy(() => import("@/components/Footer"));
    different project's detail page. Both problems disappear by reading the same
    two canonical sources the rest of the site reads.
 
-   Weight follows evidence: the six systems with a written architecture get the
-   full treatment, and everything else is a compact archive row. Metrics render
-   only where caseStudies.ts carries a verified one — the clinic dossier has no
-   defensible figure and shows none here either.
+   All written case studies share the homepage's visual card; the rest use the
+   existing project entries. Metrics appear only where caseStudies.ts has one.
 --------------------------------------------------------------------------- */
 
 /** Detail pages already owned by a case study — not repeated in the archive. */
@@ -43,7 +42,7 @@ const jsonLd = {
   "@type": "CollectionPage",
   "@id": `${SITE_URL}/projects#webpage`,
   url: `${SITE_URL}/projects`,
-  name: "Selected systems | Usama Munawar",
+  name: "Websites, apps & systems I've shipped | Usama Munawar",
   description:
     "Case studies of production web, mobile, and backend products built with React, Node.js, TypeScript, Laravel, AI, and automation.",
   inLanguage: "en",
@@ -95,65 +94,7 @@ const Projects = () => (
         <ul className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3 lg:mt-20 lg:gap-7">
           {caseStudies.map((c, i) => (
             <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
-              <article
-                className="project-card group flex h-full flex-col overflow-hidden rounded-lg border border-hairline/[0.12] bg-surface-1"
-                style={{ "--hue": c.hue } as CSSProperties}
-              >
-                <div className="relative overflow-hidden bg-surface-2">
-                  <img src={c.image} alt={`${c.title} project preview`} width={1200} height={750} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover transition-transform duration-large ease-out-expo group-hover:scale-[1.045]" />
-                  <span className="absolute bottom-0 left-0 h-1 w-24 bg-hue transition-[width] duration-large group-hover:w-full" aria-hidden="true" />
-                </div>
-                <div className="flex flex-1 flex-col p-5 sm:p-7">
-                    <div className="flex items-center gap-3">
-                      <span className="mono-tiny tabular-nums text-hue">{c.n}</span>
-                      <span className="h-px w-6 bg-hue opacity-50" aria-hidden="true" />
-                      <span className="mono-tiny text-muted-foreground">{c.category}</span>
-                    </div>
-
-                    <h2 className="type-h3 mt-5 text-foreground">{c.title}</h2>
-                    <p className="mt-3 line-clamp-3 font-inter text-sm leading-relaxed text-muted-foreground">{c.result}</p>
-                    {c.metric && (
-                      <div className="mt-5 flex items-baseline gap-3 border-l-2 border-hue pl-4">
-                        <span className="font-inter text-2xl font-semibold leading-none text-hue">
-                          {c.metric.value}
-                        </span>
-                        <span className="mono-tiny leading-[1.5] text-muted-foreground">
-                          {c.metric.label}
-                        </span>
-                      </div>
-                    )}
-                    <details className="project-details mt-6 border-t border-hairline/[0.1] pt-4">
-                      <summary className="cursor-pointer font-inter text-sm font-medium text-hue">Inside the build</summary>
-                      <dl className="mt-5 space-y-4 font-inter text-sm leading-relaxed text-muted-foreground">
-                        {c.client && <div><dt className="mono-tiny text-hue">Client</dt><dd>{c.client}</dd></div>}
-                        {c.year && <div><dt className="mono-tiny text-hue">Year</dt><dd>{c.year}</dd></div>}
-                        <div><dt className="mono-tiny text-hue">Role</dt><dd>{c.role}</dd></div>
-                        <div><dt className="mono-tiny text-hue">Challenge</dt><dd>{c.problem}</dd></div>
-                        <div><dt className="mono-tiny text-hue">Build</dt><dd>{c.approach}</dd></div>
-                        <div><dt className="mono-tiny text-hue">Outcome</dt><dd>{c.result}</dd></div>
-                      </dl>
-                    </details>
-                    <div className="mt-5 flex flex-wrap gap-1.5">{c.stack.map(t => <span key={t} className="rounded border border-hairline/[0.12] px-2 py-1 font-mono text-[10px] text-muted-foreground">{t}</span>)}</div>
-                    <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-7">
-                      {c.detailPath && (
-                        <CTA to={c.detailPath} tone="ghost" size="sm" arrow>
-                          Read case study
-                        </CTA>
-                      )}
-                      {c.liveUrl && (
-                        <a
-                          href={c.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
-                        >
-                          <span className="hover-underline">Visit live system</span>
-                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                        </a>
-                      )}
-                    </div>
-                </div>
-              </article>
+              <ProjectCard study={c} />
             </Reveal>
           ))}
         </ul>
