@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/:path*", "destination": "https://www.chaudharyusama.com/:path*", "permanent": true, "has": [{ "type": "host", "value": "chaudharyusama.com" }] },
+    { "source": "/:path*", "destination": "https://www.chaudharyusama.com/:path*", "permanent": true, "has": [{ "type": "host", "value": "dev-usama-portfolio.vercel.app" }] }
+  ],
   "rewrites": [
     { "source": "/((?!api|sitemap\\.xml|robots\\.txt|usama-profile\\.jpg|og-image\\.png|google6d7b29d71fa21ec1\\.html).*)", "destination": "/index.html" }
   ],

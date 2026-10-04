@@ -14,15 +14,15 @@ const BASE_URL = "https://www.chaudharyusama.com";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const SEOHead = ({
-  title = "Full-Stack Product Engineer | React, Node.js & Laravel",
-  description = "Usama Munawar builds production web, mobile, and backend products with React, React Native, Node.js, TypeScript, Laravel, and PHP.",
+  title = "Usama Munawar | Websites, Apps & Production Systems",
+  description = "Usama Munawar designs and ships websites, mobile apps and production systems with React, React Native, Node.js, TypeScript and Laravel/PHP.",
   canonical,
   ogImage = DEFAULT_OG_IMAGE,
   ogType = "website",
   noindex = false,
   jsonLd,
 }: SEOHeadProps) => {
-  const url = canonical || (typeof window !== "undefined" ? window.location.href : BASE_URL);
+  const url = canonical || `${BASE_URL}${typeof window !== "undefined" ? window.location.pathname : "/"}`;
   const robots = noindex
     ? "noindex, nofollow"
     : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
