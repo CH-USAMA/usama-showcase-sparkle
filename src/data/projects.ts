@@ -1,3 +1,8 @@
+import galwayAsset from "@/assets/galway.webp.asset.json";
+import marianAsset from "@/assets/marian.webp.asset.json";
+import afrosourceAsset from "@/assets/afrosource.webp.asset.json";
+import syedStarAsset from "@/assets/syedstar.webp.asset.json";
+
 export const projectsData = {
   1: {
     id: 1,
@@ -242,47 +247,47 @@ export const projectsData = {
   },
   6: {
     id: 6,
-    title: "Five Stars Galway, Smart Booking",
-    description: "Taxi booking platform with intelligent route optimization and automated dispatch",
-    fullDescription: `Five Stars Galway Taxis is a premium taxi service in Ireland. The project focused on creating an intelligent booking platform with route optimization and automated dispatch capabilities.
+    title: "Five Stars Galway Taxis",
+    description: "A 24/7 local transport website connecting Galway passengers to booking, airport transfers, guided tours, accessible vehicles, couriers and group travel",
+    fullDescription: `THE BUSINESS NEED: Five Stars Galway Taxis needed one clear digital front door for a broad local transport operation. A passenger may need an immediate city taxi, an airport connection, a wheelchair-accessible vehicle, a same-day courier or a guided tour, and each journey has a different decision path.
 
-    Google Maps integration provides accurate fare estimates and optimal routing. The booking system includes automated dispatch logic that assigns drivers based on proximity, availability, and predicted demand patterns.
+    THE EXPERIENCE: I structured the website around high-intent service pages and a direct Book Now path into the live iCabbi web booker. Airport transfers, guided tours, elderly and accessible transport, courier services, and 8-to-21-seat minibus travel each have dedicated content instead of competing in one generic services page.
 
-    Local SEO optimization captures customers searching for taxi services in the Galway area, with the mobile-first design ensuring seamless booking from any device.`,
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=500&fit=crop",
-    gallery: [
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop"
-    ],
-    technologies: ["WordPress", "Google Maps API", "Booking System", "SEO", "Automation"],
+    LOCAL DISCOVERY: The information architecture targets how people actually search in Galway: taxi service, airport transfers, minibus hire, accessible transport and destination-led tours. Tour pages surface destinations including the Cliffs of Moher, Kylemore Abbey, the Aran Islands and Connemara, while reviews and fleet information answer trust questions before the booking handoff.
+
+    DELIVERY: The result is a mobile-first service website that moves visitors from local discovery to the appropriate transport option and then into a specialist booking system, while retaining phone and contact routes for journeys that need a conversation.`,
+    image: galwayAsset.url,
+    gallery: [galwayAsset.url],
+    technologies: ["WordPress", "iCabbi Booking", "Local SEO", "Responsive UX", "Service Architecture"],
     category: "Transport",
     client: "Five Stars Galway Taxis (Ireland)",
     duration: "1.5 months",
     teamSize: "Solo project",
-    completionDate: "February 2024",
+    completionDate: "Live project",
     liveUrl: "https://www.fivestarsgalwaytaxis.ie",
     githubUrl: "#",
     features: [
       "Online Booking System",
-      "Google Maps Integration",
-      "Fare Calculator",
-      "Automated Dispatch",
+      "iCabbi Online Booking Handoff",
+      "Airport Transfer Landing Pages",
+      "Guided Tour Destination Pages",
+      "Wheelchair-Accessible Transport Content",
+      "Minibus and Group Transport",
+      "Courier Service Journey",
       "Local SEO Optimization",
       "Mobile-First Design",
-      "Real-time Availability",
       "Customer Reviews"
     ],
     challenges: [
-      { title: "Route Optimization", description: "Implementing intelligent routing within booking system constraints" },
-      { title: "Local SEO", description: "Standing out in a competitive local market with strong search presence" },
-      { title: "Mobile UX", description: "Ensuring frictionless mobile booking experience for on-the-go users" }
+      { title: "Many journeys, one front door", description: "Separating immediate taxis, airport runs, tours, accessible vehicles, couriers and group transport without making the navigation feel fragmented" },
+      { title: "Booking handoff", description: "Moving a high-intent visitor into the external iCabbi booking flow while keeping phone and enquiry routes available" },
+      { title: "Local discovery", description: "Organising service and destination pages around the language Galway residents and visitors use when searching" }
     ],
     results: [
-      "50% increase in online bookings",
-      "40% reduction in phone calls",
-      "Top 5 local search rankings",
-      "Improved customer satisfaction"
+      "Six distinct transport needs presented through dedicated service journeys",
+      "Direct online booking through the live iCabbi web booker",
+      "Destination-led guided-tour discovery",
+      "Accessible and group transport made visible before enquiry"
     ]
   },
   7: {
@@ -774,5 +779,92 @@ export const projectsData = {
       "House purchase tracked end to end in one system",
       "Pooled goals show real progress against pledges"
     ]
+  },
+  18: {
+    id: 18,
+    title: "Marian Holy Art",
+    description: "An Irish devotional commerce website combining Catholic gifts, pilgrimage services, outreach and a clear customer journey",
+    fullDescription: `THE BUSINESS NEED: Marian Holy Art is more than a product catalogue. The business sells Catholic devotional gifts inspired by Knock and Lourdes, organises pilgrimage and religious tours, supports relic visits and outreach, and needs to communicate the story and mission behind the collection.
+
+    COMMERCE EXPERIENCE: I organised the storefront around featured products, collections and offers, with direct paths into detailed product pages and the full shop. The live catalogue includes commemorative medals, devotional jewellery and Catholic jigsaw puzzles, while cart, account and policy journeys support a complete online purchase experience.
+
+    STORY AND SERVICES: The site gives David's story, the organisation's mission, pilgrimage planning and religious-artifact services their own place rather than burying them beneath product grids. Support for Mary's Meals, Carlo Acutis Ireland outreach and Depaul adds the real-world context behind the brand.
+
+    DELIVERY: The resulting website brings commerce, faith-led storytelling and service enquiries into one responsive experience, with consent management, contact routes, shipping reassurance and clear product discovery.`,
+    image: marianAsset.url,
+    gallery: [marianAsset.url],
+    technologies: ["WordPress", "WooCommerce", "Responsive UX", "Content Architecture", "Consent Management"],
+    category: "E-Commerce",
+    client: "Marian Holy Art (Ireland)",
+    duration: "Client project",
+    teamSize: "Web delivery",
+    completionDate: "Live project",
+    liveUrl: "https://marianholyart.com/",
+    githubUrl: "#",
+    features: ["Devotional Product Catalogue", "Featured Collections and Offers", "Cart and Customer Accounts", "Pilgrimage and Tour Services", "Mission and Outreach Content", "Shipping and Returns Information", "Cookie Consent Management", "Responsive Storefront"],
+    challenges: [
+      { title: "Commerce with meaning", description: "Presenting products as part of a faith-led mission without making the purchase journey difficult to scan" },
+      { title: "Several business modes", description: "Bringing gifts, pilgrimage planning, religious artifacts and outreach into one coherent navigation" },
+      { title: "Trust before checkout", description: "Surfacing the story, contact details, policies and service assurances buyers need before ordering" }
+    ],
+    results: ["Live product catalogue with account and cart journeys", "Pilgrimage services integrated alongside commerce", "Mission and outreach work given clear visibility", "Responsive customer journey from discovery to purchase"]
+  },
+  19: {
+    id: 19,
+    title: "Afrosource Belgium",
+    description: "A multilingual B2B drinks catalogue for Belgian trade buyers with 1,600+ products, volume pricing and export services",
+    fullDescription: `THE BUSINESS NEED: Afrosource serves bars, hotels, restaurants and event buyers from Uccle, while also handling beverage export to Africa, imports into Belgium, customs and alcohol excise. The site needed to behave like a trade catalogue rather than a consumer bottle shop.
+
+    CATALOGUE ARCHITECTURE: The live experience presents more than 1,600 drinks across beer, soft drinks, wine, champagne and spirits. Search, popular-brand shortcuts, stock status, pack size, alcohol percentage, per-bottle price and volume pricing help a buyer evaluate a crate before starting an order. A €500 minimum and trade-client registration are stated early so the commercial rules are clear.
+
+    MULTILINGUAL UX: French, Dutch and English share the same journeys across the age gate, catalogue, product information, services and account flow. Necessary-only cookies retain the language, crate, login and age decision without introducing advertising tracking.
+
+    SERVICE CONVERSION: Export, import, customs and excise services have direct WhatsApp enquiry routes. This lets the site support both repeat catalogue purchasing and higher-touch logistics work from the same interface.`,
+    image: afrosourceAsset.url,
+    gallery: [afrosourceAsset.url],
+    technologies: ["WordPress", "WooCommerce", "Multilingual UX", "B2B Commerce", "Catalogue Search"],
+    category: "B2B Commerce",
+    client: "Afrosource (Belgium)",
+    duration: "Client project",
+    teamSize: "Web delivery",
+    completionDate: "Live project",
+    liveUrl: "https://afrosource.be/",
+    githubUrl: "#",
+    features: ["French, Dutch and English Journeys", "Age Verification", "1,600+ Drink Catalogue", "Stock and Pack Information", "Volume Pricing", "Trade Account Registration", "Export and Import Services", "Customs and Excise Enquiries"],
+    challenges: [
+      { title: "Trade catalogue density", description: "Making stock, crate quantities, unit economics and volume tiers scannable across a very large range" },
+      { title: "Three complete languages", description: "Keeping commercial rules and product journeys understandable in French, Dutch and English" },
+      { title: "Commerce plus logistics", description: "Supporting catalogue buyers and complex export, import, customs and excise enquiries without mixing their calls to action" }
+    ],
+    results: ["More than 1,600 drinks searchable in one trade catalogue", "Commercial rules and volume pricing visible before registration", "Three-language buying and service journeys", "Direct enquiry paths for export, import and customs work"]
+  },
+  20: {
+    id: 20,
+    title: "Syed Star Engineering",
+    description: "An industrial product and lead-generation website for packaging lines, process machinery and custom fabrication",
+    fullDescription: `THE BUSINESS NEED: Syed Star Engineering manufactures packaging, bottling and process machinery in Lahore. Buyers do not arrive looking for generic company information; they arrive with a production requirement and need to find the relevant machine, industry experience and route to a technical quotation quickly.
+
+    PRODUCT DISCOVERY: I structured the site around complete production lines and individual equipment. Filling and capping machines, RO plants, stainless-steel tanks, filter presses, milk chillers, vibro sifters and shrink-wrap machines each lead to technical detail and a pre-contextualised quote path.
+
+    INDUSTRY ARCHITECTURE: Separate journeys address beverage, juice, dairy, water treatment, pharmaceutical, ketchup and jam, material handling, and general fabrication requirements. Workshop imagery, client proof and the company's manufacturing history establish that the machinery is built, installed and supported by an operating engineering team.
+
+    LEAD GENERATION: Search, popular equipment shortcuts and persistent call, WhatsApp, email and quote actions reduce the distance from requirement to enquiry. Technical guides on stainless grades, bottling-line planning and milk chilling also capture buyers while they are still defining a project.`,
+    image: syedStarAsset.url,
+    gallery: [syedStarAsset.url],
+    technologies: ["Responsive Web", "Product Catalogue", "Technical SEO", "Lead Generation", "Content Architecture"],
+    category: "Industrial",
+    client: "Syed Star Engineering (Pakistan)",
+    duration: "Client project",
+    teamSize: "Web delivery",
+    completionDate: "Live project",
+    liveUrl: "https://www.syedstarengineering.com/",
+    githubUrl: "#",
+    features: ["Equipment Catalogue", "Eight Industry Journeys", "Product Search and Shortcuts", "Contextual Quote Requests", "Workshop and Client Proof", "Technical Knowledge Base", "WhatsApp and Call Conversion", "Mobile-Responsive Experience"],
+    challenges: [
+      { title: "Technical breadth", description: "Organising machinery for multiple production stages and industries without reducing everything to a flat catalogue" },
+      { title: "Requirement-led conversion", description: "Helping buyers move from an incomplete manufacturing requirement to the right equipment and quote path" },
+      { title: "Proving manufacturing depth", description: "Balancing polished presentation with workshop, installation and after-sales evidence that industrial buyers expect" }
+    ],
+    results: ["Eight industry-specific discovery paths", "Direct quote journey from every featured equipment type", "Technical guides supporting early-stage buyer research", "Call, WhatsApp, email and quotation actions available throughout"]
   }
 };

@@ -76,7 +76,7 @@ const CaseStudies = () => (
 
       {/* A visual selection; the complete collection remains on /projects. */}
       <div className="mt-14 grid gap-5 md:grid-cols-2 lg:mt-20 lg:gap-7">
-        {[caseStudies[6], caseStudies[7], caseStudies[1], caseStudies[0], caseStudies[2], caseStudies[3]].map((study, i) => (
+        {[caseStudies[8], caseStudies[9], caseStudies[10], caseStudies[11], caseStudies[7], caseStudies[6]].map((study, i) => (
           <Reveal key={study.id} index={Math.min(i, 3)}><ProjectCard study={study} /></Reveal>
         ))}
       </div>
