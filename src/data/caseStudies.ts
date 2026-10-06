@@ -5,6 +5,10 @@ import imgLeadEngine from "@/assets/project-leadengine.webp";
 import imgRag from "@/assets/project-rag.webp";
 import imgInteriors from "@/assets/project-interiors.webp";
 import imgContentOps from "@/assets/project-contentops.webp";
+import galwayAsset from "@/assets/galway.webp.asset.json";
+import marianAsset from "@/assets/marian.webp.asset.json";
+import afrosourceAsset from "@/assets/afrosource.webp.asset.json";
+import syedStarAsset from "@/assets/syedstar.webp.asset.json";
 
 export interface CaseStudy {
   id: string;
@@ -274,5 +278,73 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Shopify", "React", "OpenAI", "Edge Functions"],
     liveUrl: "https://focusinteriors.com.pk",
     detailPath: "/project/5",
+  },
+  {
+    id: "five-stars-galway",
+    n: "09",
+    category: "Local service platform",
+    hue: "var(--hue-automation)",
+    title: "Five Stars Galway Taxis",
+    image: galwayAsset.url,
+    client: "Five Stars Galway Taxis",
+    role: "Service architecture · Booking journey · Local discovery",
+    problem: "One Galway operator serves immediate taxis, airport transfers, tours, accessible passengers, couriers and large groups. A generic transport page could not help each customer reach the right journey quickly.",
+    approach: "Dedicated service and destination pages lead into the live iCabbi web booker, while phone and enquiry routes remain available for complex trips. Fleet, reviews and local destination content answer trust questions before the handoff.",
+    result: "Passengers can move from a specific transport need to the relevant service and booking path, whether they need a city ride, airport connection, accessible vehicle, guided tour or 21-seat minibus.",
+    flow: [{ label: "Search", note: "Local intent" }, { label: "Service", note: "Matched journey" }, { label: "Trust", note: "Fleet · reviews" }, { label: "Book", note: "iCabbi" }],
+    stack: ["WordPress", "iCabbi Booking", "Local SEO", "Responsive UX"],
+    liveUrl: "https://www.fivestarsgalwaytaxis.ie/",
+    detailPath: "/project/6",
+  },
+  {
+    id: "marian-holy-art",
+    n: "10",
+    category: "Devotional commerce",
+    hue: "var(--hue-interface)",
+    title: "Marian Holy Art",
+    image: marianAsset.url,
+    client: "Marian Holy Art",
+    role: "Commerce UX · Content architecture",
+    problem: "The organisation needed to sell devotional gifts while also explaining its mission, pilgrimage services, religious artifacts and outreach work without letting one side obscure the other.",
+    approach: "A product-led storefront connects featured items, collections, offers, accounts and cart journeys, while separate story and service areas preserve the faith-led context behind the catalogue.",
+    result: "Customers can discover and buy devotional products, understand the organisation behind them, and enquire about pilgrimage or religious services within one responsive experience.",
+    flow: [{ label: "Discover", note: "Story · collection" }, { label: "Product", note: "Gift detail" }, { label: "Trust", note: "Mission · policy" }, { label: "Cart", note: "Purchase" }],
+    stack: ["WordPress", "WooCommerce", "Responsive UX", "Consent Management"],
+    liveUrl: "https://marianholyart.com/",
+    detailPath: "/project/18",
+  },
+  {
+    id: "afrosource",
+    n: "11",
+    category: "B2B commerce",
+    hue: "var(--hue-backend)",
+    title: "Afrosource Belgium",
+    image: afrosourceAsset.url,
+    client: "Afrosource",
+    role: "Multilingual commerce · Catalogue UX",
+    problem: "Trade buyers need to compare a very large drinks range by stock, crate size, unit economics and volume tier, while logistics customers need a separate route into export, import and customs help.",
+    approach: "The catalogue exposes commercial data across French, Dutch and English, with age verification, trade registration and necessary-only preferences. Service pages route higher-touch logistics enquiries directly to WhatsApp.",
+    result: "More than 1,600 drinks and four major product ranges are searchable through a three-language trade experience, alongside dedicated export, import, customs and excise journeys.",
+    flow: [{ label: "Verify", note: "Age · language" }, { label: "Search", note: "1,600+ drinks" }, { label: "Compare", note: "Stock · volume" }, { label: "Convert", note: "Account · WhatsApp" }],
+    stack: ["WordPress", "WooCommerce", "Multilingual UX", "B2B Commerce"],
+    liveUrl: "https://afrosource.be/",
+    detailPath: "/project/19",
+  },
+  {
+    id: "syed-star-engineering",
+    n: "12",
+    category: "Industrial platform",
+    hue: "var(--hue-cloud)",
+    title: "Syed Star Engineering",
+    image: syedStarAsset.url,
+    client: "Syed Star Engineering",
+    role: "Product architecture · Technical content · Lead generation",
+    problem: "Industrial buyers arrive with production requirements rather than neat product names. The website had to make a broad machinery range understandable and prove workshop depth before asking for a quotation.",
+    approach: "Equipment and eight industry journeys connect buyers to product detail and contextual quote forms. Workshop evidence, client proof, technical guides, search and persistent contact actions support both research and conversion.",
+    result: "Buyers can navigate from a packaging or process requirement to relevant machinery, technical context and a direct quote, WhatsApp, call or email route.",
+    flow: [{ label: "Requirement", note: "Industry · search" }, { label: "Equipment", note: "Technical detail" }, { label: "Proof", note: "Workshop · clients" }, { label: "Quote", note: "Context retained" }],
+    stack: ["Responsive Web", "Product Catalogue", "Technical SEO", "Lead Generation"],
+    liveUrl: "https://www.syedstarengineering.com/",
+    detailPath: "/project/20",
   },
 ];
