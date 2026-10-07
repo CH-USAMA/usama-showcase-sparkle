@@ -345,7 +345,7 @@ const Navbar = () => {
         }`}
       >
         {open && (
-          <div>
+          <div className="h-dvh">
             <div className="container mx-auto flex h-full flex-col pb-10 pt-24">
               <ul className="flex-1 overflow-y-auto">
                 {LINKS.map((l, i) => (
