@@ -119,11 +119,9 @@ const faqJsonLd = {
 };
 
 /** Section heading treatment, matching SectionHeader but scoped to this page. */
-const Head = ({ index, eyebrow, title }: { index: string; eyebrow: string; title: string }) => (
+const Head = ({ index: _index, eyebrow, title }: { index: string; eyebrow: string; title: string }) => (
   <Reveal>
     <div className="flex items-center gap-3">
-      <span className="mono-tiny text-hue tabular-nums">{index}</span>
-      <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
       <span className="mono-label text-hue">{eyebrow}</span>
     </div>
     <h2 className="type-h3 mt-5 max-w-2xl text-foreground">{title}</h2>
@@ -220,12 +218,11 @@ const Book = () => {
                   <Reveal as="li" key={s.n} index={Math.min(i + 1, 4)}>
                     <div className="border-b border-hairline/[0.08] py-6">
                       <div className="flex items-baseline gap-3">
-                        <span className="mono-tiny tabular-nums text-hue">{s.n}</span>
                         <h3 className="font-inter text-[15px] font-medium text-foreground">
                           {s.title}
                         </h3>
                       </div>
-                      <p className="type-body measure mt-2.5 pl-9 text-muted-foreground">{s.body}</p>
+                      <p className="type-body measure mt-2.5 text-muted-foreground">{s.body}</p>
                     </div>
                   </Reveal>
                 ))}
@@ -264,8 +261,6 @@ const Book = () => {
           <section className="mt-20 lg:mt-24" aria-labelledby="book-faq-heading">
             <Reveal>
               <div className="flex items-center gap-3">
-                <span className="mono-tiny text-hue tabular-nums">05</span>
-                <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
                 <span className="mono-label text-hue">Before you book</span>
               </div>
               <h2 id="book-faq-heading" className="type-h3 mt-5 max-w-2xl text-foreground">

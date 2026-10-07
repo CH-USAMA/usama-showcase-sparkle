@@ -143,13 +143,6 @@ const Philosophy = () => {
                       aria-pressed={on}
                       className="group flex w-full items-baseline gap-5 py-5 text-left focus-visible:outline-none"
                     >
-                      <span
-                        className={`mono-tiny shrink-0 tabular-nums transition-colors duration-standard ${
-                          on ? "text-hue" : "text-subtle"
-                        }`}
-                      >
-                        {p.n}
-                      </span>
                       <span className="flex-1">
                         <span
                           className={`block font-inter text-lg font-medium tracking-tight transition-colors duration-standard sm:text-xl ${

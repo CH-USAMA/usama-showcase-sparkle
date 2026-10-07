@@ -154,8 +154,6 @@ const Services = () => (
         <div className="mt-20 lg:mt-28">
           <Reveal>
             <div className="flex items-center gap-3">
-              <span className="mono-tiny text-hue tabular-nums">01</span>
-              <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
               <span className="mono-label text-hue">What I take on</span>
             </div>
             <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
@@ -173,12 +171,11 @@ const Services = () => (
                   <div className="grid gap-5 lg:grid-cols-12 lg:gap-10">
                     <div className="lg:col-span-4">
                       <div className="flex items-baseline gap-3">
-                        <span className="mono-tiny tabular-nums text-hue">{c.n}</span>
                         <h3 className="font-inter text-[17px] font-medium tracking-tight text-foreground">
                           {c.title}
                         </h3>
                       </div>
-                      <p className="mono-tiny mt-2.5 pl-9 text-subtle">
+                      <p className="mono-tiny mt-2.5 text-subtle">
                         {RUNTIME_LABEL[c.runtime]}
                       </p>
                     </div>
@@ -222,7 +219,6 @@ const Services = () => (
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="chip-hue">
-                <span className="mono-tiny tabular-nums opacity-70">02</span>
                 <span className="mono-label">Who these are for</span>
               </span>
             </div>
@@ -240,7 +236,6 @@ const Services = () => (
               <Reveal key={a.n} index={Math.min(i + 1, 4)} variant="fade">
                 <div className="h-full bg-surface-1 p-7 lg:p-9">
                   <div className="flex items-center gap-3">
-                    <span className="mono-tiny tabular-nums text-hue">{a.n}</span>
                     <span className="mono-tiny text-subtle">{a.who}</span>
                   </div>
 

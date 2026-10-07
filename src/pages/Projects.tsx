@@ -104,8 +104,6 @@ const Projects = () => (
           <div className="mt-20 lg:mt-24">
             <Reveal>
               <div className="flex items-center gap-3">
-                <span className="mono-tiny text-hue tabular-nums">09</span>
-                <span className="h-px w-8 bg-hue opacity-50" aria-hidden="true" />
                 <span className="mono-label text-hue">Archive</span>
               </div>
               <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
