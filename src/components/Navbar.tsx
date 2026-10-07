@@ -345,7 +345,7 @@ const Navbar = () => {
         }`}
       >
         {open && (
-          <div>
+          <div className="h-dvh">
             <div className="container mx-auto flex h-full flex-col pb-10 pt-24">
               <ul className="flex-1 overflow-y-auto">
                 {LINKS.map((l, i) => (
@@ -358,11 +358,8 @@ const Navbar = () => {
                       <Link
                         to={l.to}
                         onClick={() => setOpen(false)}
-                        className="flex items-baseline gap-4 py-4"
+                        className="flex items-baseline py-4"
                       >
-                        <span className="mono-tiny tabular-nums text-subtle">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
                         <span className="font-inter text-xl tracking-tight text-foreground">
                           {l.label}
                         </span>
@@ -374,11 +371,8 @@ const Navbar = () => {
                           e.preventDefault();
                           goTo(l.hash!);
                         }}
-                        className="flex items-baseline gap-4 py-4"
+                        className="flex items-baseline py-4"
                       >
-                        <span className="mono-tiny tabular-nums text-subtle">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
                         <span className="font-inter text-xl tracking-tight text-foreground">
                           {l.label}
                         </span>

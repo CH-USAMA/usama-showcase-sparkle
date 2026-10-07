@@ -234,7 +234,7 @@ const BlogPost = () => {
                 className="mb-12 rounded-2xl border border-border/40 bg-muted/30 p-6"
               >
                 <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4">In this article</h2>
-                <ol className="space-y-2 list-decimal list-inside">
+                <ul className="space-y-2">
                   {extractHeadings(post.content).map((h) => (
                     <li key={h.id}>
                       <a href={`#${h.id}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -242,7 +242,7 @@ const BlogPost = () => {
                       </a>
                     </li>
                   ))}
-                </ol>
+                </ul>
               </nav>
             )}
 

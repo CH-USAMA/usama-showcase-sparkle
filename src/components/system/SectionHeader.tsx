@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Reveal from "@/components/system/Reveal";
 
 interface SectionHeaderProps {
-  /** Two-digit section index, e.g. "02" — reinforces the systems language. */
+  /** Retained for call-site compatibility; section numbering is no longer displayed. */
   index?: string;
   eyebrow: string;
   title: ReactNode;
@@ -17,11 +17,11 @@ interface SectionHeaderProps {
  * site is arguing that its author is an engineer.
  *
  * The eyebrow row reads `--hue` from the section around it, so each section's
- * index, rule and label arrive in that section's domain colour. The heading
+ * label arrives in that section's domain colour. The heading
  * itself stays foreground white — colour is for the labels, not the argument.
  */
 const SectionHeader = ({
-  index,
+  index: _index,
   eyebrow,
   title,
   lead,
@@ -36,7 +36,6 @@ const SectionHeader = ({
           {/* The eyebrow carries the section's domain colour as a filled chip.
               As bare 10px text the hue system was present but invisible. */}
           <span className="chip-hue">
-            {index && <span className="mono-tiny tabular-nums opacity-70">{index}</span>}
             <span className="mono-label">{eyebrow}</span>
           </span>
         </div>

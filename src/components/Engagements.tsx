@@ -103,7 +103,6 @@ const Engagements = () => (
 
               <div className="flex items-baseline justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <span className="mono-tiny tabular-nums text-hue">{t.n}</span>
                   <h3 className="font-inter text-xl font-medium tracking-tight text-foreground">
                     {t.name}
                   </h3>

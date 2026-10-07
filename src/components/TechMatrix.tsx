@@ -129,7 +129,6 @@ const TechMatrix = () => {
             <div>
               {/* Chip, matching SectionHeader everywhere else on the page. */}
               <span className="chip-hue">
-                <span className="mono-tiny tabular-nums opacity-70">05</span>
                 <span className="mono-label">Stack</span>
               </span>
               <h2 className="type-h3 mt-5 max-w-lg text-foreground">

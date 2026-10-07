@@ -123,7 +123,6 @@ const ProcessPipeline = () => {
                 </span>
 
                 <div className="flex items-baseline gap-2.5">
-                  <span className="mono-tiny tabular-nums text-hue">{s.n}</span>
                   <span className="mono-tiny text-subtle">{s.when}</span>
                 </div>
 

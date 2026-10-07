@@ -19,7 +19,7 @@ export const ProjectCard = ({ study }: { study: CaseStudy }) => {
         <span className="absolute bottom-0 left-0 h-1 w-24 bg-hue transition-[width] duration-large group-hover:w-full" aria-hidden="true" />
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-7">
-        <div className="flex items-center justify-between gap-4"><span className="mono-tiny text-hue">{study.n} / {study.year || "Project"}</span>{study.metric && <span className="mono-tiny text-hue">{study.metric.value} · {study.metric.label}</span>}</div>
+        <div className="flex items-center justify-between gap-4">{study.year && <span className="mono-tiny text-hue">{study.year}</span>}{study.metric && <span className="mono-tiny text-hue">{study.metric.value} · {study.metric.label}</span>}</div>
         <h3 className="mt-4 font-inter text-2xl font-semibold leading-tight text-foreground">{study.title}</h3>
         <p className="mt-3 line-clamp-2 font-inter text-sm leading-relaxed text-muted-foreground">{study.result}</p>
         <div className="mt-5 flex flex-wrap gap-1.5">{study.stack.slice(0, 4).map(s => <span key={s} className="rounded border border-hairline/[0.12] px-2 py-1 font-mono text-[10px] text-muted-foreground">{s}</span>)}</div>

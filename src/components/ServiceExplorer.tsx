@@ -13,7 +13,7 @@ import { CAPABILITIES } from "@/data/capabilities";
 /**
  * WHAT I BUILD.
  *
- * Numbered rows that expand in place. It behaves as an accordion for keyboard
+ * Rows expand in place. It behaves as an accordion for keyboard
  * and touch (click / Enter toggles, aria-expanded reflects state) and *also*
  * opens on hover for fine pointers, so a mouse user never has to click to
  * browse. One row open at a time keeps the section scannable.
@@ -82,13 +82,6 @@ const ServiceExplorer = () => {
                     className="flex w-full items-baseline gap-4 py-6 text-left transition-[padding] duration-standard ease-out-expo focus-visible:outline-none sm:gap-7 lg:py-8 lg:group-hover:pl-5"
                   >
                     <span
-                      className={`mono-tiny shrink-0 tabular-nums transition-colors duration-standard ${
-                        isOpen ? "text-hue" : "text-subtle"
-                      }`}
-                    >
-                      {c.n}
-                    </span>
-                    <span
                       className={`type-h3 flex-1 transition-colors duration-standard ${
                         isOpen ? "text-foreground" : "text-muted-foreground"
                       }`}
@@ -116,7 +109,7 @@ const ServiceExplorer = () => {
                       transition={transition.standard}
                       className="overflow-hidden"
                     >
-                      <div className="grid gap-8 pb-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:pl-[3.4rem]">
+                      <div className="grid gap-8 pb-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:pl-5">
                         <div>
                           <p className="type-body max-w-md text-muted-foreground">
                             {c.summary}
