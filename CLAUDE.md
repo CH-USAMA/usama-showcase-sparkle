@@ -17,10 +17,15 @@ Vite 5 + React 18 + TypeScript + Tailwind + shadcn/ui, React Router 6 (SPA, **no
 
 ```bash
 npm install
-npm run dev      # predev regenerates public/sitemap.xml, then vite on :8080
-npm run build    # prebuild regenerates sitemap, then vite build
-npm run lint     # currently 37 errors / 9 warnings (mostly no-explicit-any) — not clean
+npm run dev        # predev regenerates public/sitemap.xml, then vite on :8080
+npm run dev:clean  # frees :8080 first (kills orphaned dev servers), then dev — preferred
+npm run kill       # just free :8080 (and its process tree); extra ports: npm run kill -- 5173
+npm run build      # prebuild regenerates sitemap, then vite build
+npm run lint       # not clean (mostly no-explicit-any)
 ```
+
+Port-freeing logic lives in `scripts/kill-dev.mjs` (cross-platform). It exists because an
+abruptly-closed Vite server can leave a Node process holding :8080, breaking the next `npm run dev`.
 
 ## Layout
 

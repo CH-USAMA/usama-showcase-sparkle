@@ -6,6 +6,8 @@
   "scripts": {
     "predev": "tsx scripts/generate-sitemap.ts",
     "dev": "vite",
+    "kill": "node scripts/kill-dev.mjs",
+    "dev:clean": "node scripts/kill-dev.mjs && npm run dev",
     "prebuild": "tsx scripts/generate-sitemap.ts",
     "build": "vite build",
     "build:dev": "tsx scripts/generate-sitemap.ts && vite build --mode development",
