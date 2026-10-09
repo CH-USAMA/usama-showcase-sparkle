@@ -10,6 +10,7 @@
     "dev:clean": "node scripts/kill-dev.mjs && npm run dev",
     "prebuild": "tsx scripts/generate-sitemap.ts",
     "build": "vite build",
+    "postbuild": "tsx scripts/prerender.ts",
     "build:dev": "tsx scripts/generate-sitemap.ts && vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
