@@ -141,7 +141,7 @@ const Philosophy = () => {
                       onMouseEnter={() => setActive(i)}
                       onFocus={() => setActive(i)}
                       aria-pressed={on}
-                      className="group flex w-full items-baseline gap-5 py-5 text-left focus-visible:outline-none"
+                      className="group flex w-full items-baseline gap-5 py-5 text-left"
                     >
                       <span className="flex-1">
                         <span

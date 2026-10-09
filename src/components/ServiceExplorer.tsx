@@ -79,7 +79,7 @@ const ServiceExplorer = () => {
                     aria-controls={`cap-${c.id}`}
                     onClick={() => setOpen(isOpen ? null : c.id)}
                     onFocus={() => setOpen(c.id)}
-                    className="flex w-full items-baseline gap-4 py-6 text-left transition-[padding] duration-standard ease-out-expo focus-visible:outline-none sm:gap-7 lg:py-8 lg:group-hover:pl-5"
+                    className="flex w-full items-baseline gap-4 py-6 text-left transition-[padding] duration-standard ease-out-expo sm:gap-7 lg:py-8 lg:group-hover:pl-5"
                   >
                     <span
                       className={`type-h3 flex-1 transition-colors duration-standard ${

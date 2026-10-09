@@ -233,6 +233,7 @@ const Contact = () => {
                         type="email"
                         required
                         autoComplete="email"
+                        spellCheck={false}
                         placeholder="you@company.com"
                         className={`${field} mt-2.5`}
                       />
@@ -288,7 +289,7 @@ const Contact = () => {
                         {status === "sending" ? (
                           <>
                             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                            Sending
+                            Sending…
                           </>
                         ) : (
                           <>
