@@ -21,6 +21,7 @@ import { db } from "../api/_lib/db";
 import { toPost, toProject } from "../api/_lib/rows";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
 import { DEFAULT_SUPABASE_ANON_KEY, DEFAULT_SUPABASE_URL } from "../src/lib/supabaseDefaults";
+import { usableLinks } from "../src/lib/readingList";
 
 loadEnv();
 
@@ -49,18 +50,20 @@ async function syncTrending(): Promise<string> {
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = (await res.json()) as { success?: boolean; posts?: BlogPost[] };
-    const links = (data.posts ?? [])
-      .filter((p) => typeof p.title === "string" && typeof p.source_url === "string")
-      .map(({ id, slug, title, source_url, published_at, tags }) => ({
+    const links = usableLinks(
+      (data.posts ?? []).map(({ id, slug, title, source_url, published_at, tags }) => ({
         id,
         slug,
         title,
         source_url,
         published_at,
         tags: Array.isArray(tags) ? tags : [],
-      }));
+      }))
+    );
     if (!data.success || links.length === 0) throw new Error("the feed returned no links");
-    write(TRENDING_FILE, { generatedAt: new Date().toISOString(), links });
+    // Always the fetch time (not write()'s "unchanged keeps the old stamp"):
+    // browsers refresh the list once this copy is an hour old.
+    writeFileSync(TRENDING_FILE, JSON.stringify({ generatedAt: new Date().toISOString(), links }, null, 1));
     return `${links.length} links from the feed`;
   } catch (e) {
     if (!existsSync(TRENDING_FILE)) write(TRENDING_FILE, { generatedAt: new Date(0).toISOString(), links: [] });
@@ -69,6 +72,12 @@ async function syncTrending(): Promise<string> {
 }
 // Runs alongside the database queries.
 const trending = syncTrending();
+
+/** Exits once the reading list is settled, so an early exit cannot cut it short. */
+async function exit(code: number): Promise<never> {
+  console.log(`content: reading list: ${await trending}`);
+  process.exit(code);
+}
 
 const strip = <T extends { status?: unknown }>({ status: _s, ...rest }: T) => rest;
 
@@ -95,11 +104,11 @@ if (process.env.TURSO_DATABASE_URL) {
   } catch (e) {
     if (!process.env.CONTENT_ALLOW_STALE) {
       console.error("content: could not read the database:", (e as Error).message);
-      process.exit(1);
+      await exit(1);
     }
     // Keep the last good snapshot rather than regressing to the seed files.
     console.warn("content: database unreachable, CONTENT_ALLOW_STALE set; keeping the existing snapshot");
-    if (existsSync("src/data/snapshot.posts.json") && existsSync("src/data/snapshot.projects.json")) process.exit(0);
+    if (existsSync("src/data/snapshot.posts.json") && existsSync("src/data/snapshot.projects.json")) await exit(0);
     posts = seedPosts().map(strip);
     projects = seedProjects();
     source = "seed";

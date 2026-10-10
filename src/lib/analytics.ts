@@ -23,12 +23,20 @@ const shouldTrack = (path: string) => {
   return true;
 };
 
+/**
+ * GA's own off switch (see index.html) follows the route: set on /admin and
+ * /auth, so GA's automatic events (scroll, session start) stay quiet there
+ * too. Call on every route change, before anything is sent.
+ */
+export const syncTrackingFlag = (path: string) => {
+  if (!isBrowser()) return;
+  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = !shouldTrack(path);
+};
+
 /** Send a SPA page_view to GA4. Call this on every route change. */
 export const trackPageView = (path: string, title?: string) => {
-  if (!isBrowser()) return;
-  // GA's own switch (see index.html): it also mutes GA's automatic events.
-  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = !shouldTrack(path);
-  if (!window.gtag || !shouldTrack(path)) return;
+  if (!isBrowser() || !window.gtag) return;
+  if (!shouldTrack(path)) return;
 
   const page_location = window.location.origin + path + window.location.search;
   const page_title = title ?? document.title;
@@ -66,6 +74,12 @@ export const updateConsent = (granted: boolean) => {
 /** Report Core Web Vitals (LCP, INP, CLS, FCP, TTFB) as GA4 events. */
 export const initWebVitals = () => {
   if (!isBrowser()) return;
+  // The metrics describe the page the visit started on, but LCP is reported
+  // on the first click (often a link to another page) and CLS and INP when
+  // the tab is hidden, by which time the URL may have changed. Pin them to
+  // the landing page.
+  const landing = { path: window.location.pathname, href: window.location.href, title: document.title };
+  if (!shouldTrack(landing.path)) return;
   import("web-vitals").then(({ onCLS, onINP, onLCP, onFCP, onTTFB }) => {
     const send = (metric: { name: string; value: number; id: string; rating?: string }) => {
       trackEvent("web_vitals", {
@@ -74,6 +88,8 @@ export const initWebVitals = () => {
         metric_id: metric.id,
         metric_rating: metric.rating,
         non_interaction: true,
+        page_location: landing.href,
+        page_title: landing.title,
       });
     };
     onCLS(send); onINP(send); onLCP(send); onFCP(send); onTTFB(send);

@@ -5,6 +5,7 @@ import { CalendarDays, Check, Loader2, Mail, MapPin, Phone } from "lucide-react"
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
+import CalendarPlaceholder from "@/components/CalendarPlaceholder";
 import Telemetry from "@/components/system/Telemetry";
 import { trackEvent } from "@/lib/analytics";
 import { FORMSPREE_URL, OWNER, WHATSAPP_URL } from "@/data/site";
@@ -345,10 +346,8 @@ const Contact = () => {
               {calendar ? (
                 // A dark stage around Calendly's light card (see CalendlyEmbed).
                 <div className="bg-surface-1/60 p-2 sm:p-6 lg:p-10">
-                  <Suspense
-                    fallback={<div className="mx-auto h-[680px] w-full max-w-[720px] animate-pulse rounded-xl bg-white" />}
-                  >
-                    <CalendlyEmbed height={680} lazy={false} />
+                  <Suspense fallback={<CalendarPlaceholder />}>
+                    <CalendlyEmbed lazy={false} />
                   </Suspense>
                 </div>
               ) : (

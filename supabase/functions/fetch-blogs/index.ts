@@ -47,16 +47,24 @@ async function scrapeContent(url: string): Promise<string> {
   }
 }
 
-interface RSSItem {
+/** A feed item in the shape the site's BlogPost uses (is_auto: curated). */
+interface FeedPost {
+  id: string;
   title: string;
-  link: string;
-  pubDate: string;
-  description: string;
-  category: string;
+  slug: string;
+  excerpt: string;
+  rawDescription?: string;
+  content?: string;
+  featured_image: string;
+  published_at: string;
+  author: string;
+  tags: string[];
+  source_url: string;
+  is_auto: true;
 }
 
 function parseRSSItems(xml: string, category: string) {
-  const items: RSSItem[] = [];
+  const items: FeedPost[] = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
   let match;
   while ((match = itemRegex.exec(xml)) !== null) {
@@ -98,7 +106,10 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const allItems: RSSItem[] = [];
+    const allItems: FeedPost[] = [];
+    // hnrss.org fails now and then; the answer says so, and the site does
+    // not cache or show a partial answer in place of a fuller one.
+    let failedFeeds = 0;
 
     for (const feed of RSS_FEEDS) {
       try {
@@ -109,15 +120,38 @@ Deno.serve(async (req) => {
           const xml = await res.text();
           const items = parseRSSItems(xml, feed.category);
           allItems.push(...items);
+        } else {
+          failedFeeds++;
         }
       } catch (e) {
+        failedFeeds++;
         console.error(`Failed to fetch ${feed.url}:`, e);
       }
     }
 
+    // A post can match both feeds' searches: keep it once.
+    const seenLinks = new Set<string>();
+    const unique = allItems.filter((p) => {
+      const key = p.source_url || p.id;
+      if (seenLinks.has(key)) return false;
+      seenLinks.add(key);
+      return true;
+    });
+
     // Sort by date, limit to 10
-    allItems.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
-    const latest = allItems.slice(0, 10);
+    unique.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+    const latest = unique.slice(0, 10);
+
+    // Two posts with the same title get the same slug (and id): number the later ones.
+    const slugCount = new Map<string, number>();
+    for (const post of latest) {
+      const n = (slugCount.get(post.slug) ?? 0) + 1;
+      slugCount.set(post.slug, n);
+      if (n > 1) {
+        post.slug = `${post.slug}-${n}`;
+        post.id = `auto-${post.slug}`;
+      }
+    }
 
     // Scrape content for top posts in parallel
     await Promise.all(
@@ -132,7 +166,7 @@ Deno.serve(async (req) => {
       })
     );
 
-    return new Response(JSON.stringify({ success: true, posts: latest }), {
+    return new Response(JSON.stringify({ success: true, partial: failedFeeds > 0, posts: latest }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' },
     });
   } catch (error) {

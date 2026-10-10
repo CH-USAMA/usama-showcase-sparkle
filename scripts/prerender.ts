@@ -115,6 +115,8 @@ interface Route {
   /** false: keep the shell's own <head> (it is the home page's). */
   head?: boolean;
   title: string;
+  /** og:title and twitter:title when they differ from <title> (a post's full headline). */
+  shareTitle?: string;
   description: string;
   ogType?: string;
   ogImage?: string;
@@ -288,6 +290,7 @@ const blogRoutes: Route[] = posts.map((p) => {
   return {
     path: `/blog/${p.slug}`,
     title: p.seo_title || p.title,
+    shareTitle: p.title,
     description: fitDescription(p.excerpt),
     ogType: "article",
     ogImage: absImage(cover),
@@ -453,6 +456,7 @@ function appShellHead(html: string): string {
 function rewriteHead(html: string, r: Route): string {
   const canonical = `${BASE_URL}${r.path}`;
   const title = esc(r.title);
+  const shareTitle = esc(r.shareTitle ?? r.title);
   const description = esc(r.description);
   const ogImage = esc(r.ogImage || DEFAULT_OG_IMAGE);
   const ogType = r.ogType || "website";
@@ -465,12 +469,12 @@ function rewriteHead(html: string, r: Route): string {
     [/(<title>)[\s\S]*?(<\/title>)/, title],
     [/(<meta name="description" content=")[^"]*(")/, description],
     [/(<link rel="canonical" href=")[^"]*(")/, canonical],
-    [/(<meta property="og:title" content=")[^"]*(")/, title],
+    [/(<meta property="og:title" content=")[^"]*(")/, shareTitle],
     [/(<meta property="og:description" content=")[^"]*(")/, description],
     [/(<meta property="og:url" content=")[^"]*(")/, canonical],
     [/(<meta property="og:type" content=")[^"]*(")/, ogType],
     [/(<meta property="og:image" content=")[^"]*(")/, ogImage],
-    [/(<meta name="twitter:title" content=")[^"]*(")/, title],
+    [/(<meta name="twitter:title" content=")[^"]*(")/, shareTitle],
     [/(<meta name="twitter:description" content=")[^"]*(")/, description],
     [/(<meta name="twitter:url" content=")[^"]*(")/, canonical],
     [/(<meta name="twitter:image" content=")[^"]*(")/, ogImage],

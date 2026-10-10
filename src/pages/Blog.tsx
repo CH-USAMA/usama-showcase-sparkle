@@ -8,7 +8,8 @@ import CTA from "@/components/system/CTA";
 import PostCard from "@/components/PostCard";
 import { formatDate } from "@/lib/postFormat";
 import { usePosts } from "@/lib/content/posts";
-import { useTrendingLinks } from "@/hooks/useTrendingBlogs";
+import { useTrendingLinks } from "@/hooks/useTrendingLinks";
+import { READING_LIST_SIZE } from "@/lib/readingList";
 import { safeHref } from "@/lib/url";
 import { FORMSPREE_URL, SITE_URL } from "@/data/site";
 import { useEnter } from "@/lib/boot";
@@ -47,7 +48,7 @@ const Blog = () => {
     [written, q]
   );
   const links = useMemo(
-    () => trending.filter((p) => safeHref(p.source_url) && match(p.title, "", p.tags)).slice(0, 8),
+    () => trending.filter((p) => match(p.title, "", p.tags)).slice(0, READING_LIST_SIZE),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [trending, q]
   );
@@ -127,8 +128,10 @@ const Blog = () => {
                 <p className="max-w-sm font-inter text-sm text-subtle">Links I am following this week, from other authors.</p>
               </div>
               <ul className="mt-8 divide-y divide-hairline/[0.08] rounded-2xl border border-hairline/[0.1] bg-surface-1">
-                {links.map((p) => (
-                  <li key={p.id}>
+                {/* Keyed by position: a refreshed list swaps the text of each row in
+                    place instead of moving rows under a reader. Rows hold no state. */}
+                {links.map((p, i) => (
+                  <li key={i}>
                     <a
                       href={safeHref(p.source_url)}
                       target="_blank"
