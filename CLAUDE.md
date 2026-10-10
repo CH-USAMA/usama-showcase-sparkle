@@ -93,7 +93,7 @@ The `/auth` page still has an open **Sign Up** tab; admin access is gated by `AD
 | --- | --- |
 | Formspree `mkgzjlde` | Contact form, chatbot lead capture + transcript, checklist lead magnet, newsletter |
 | Calendly `usamaresume30/30min` | `CalendlyEmbed`: inline on `/book`; on the home Contact section only after "Show available times" |
-| GA4 `G-6JEYSR3YVV` + `G-2ZHRMH3HLK` | `index.html` (loader, after `load` + idle) + `src/lib/analytics.ts`. Two properties = two GA containers: the largest main-thread cost left on mobile |
+| GA4 `G-6JEYSR3YVV` | `index.html` (loader, after `load` + idle) + `src/lib/analytics.ts`. One property on purpose: each extra GA4 ID adds its own container script (G-2ZHRMH3HLK was removed for that reason) |
 | Lovable AI Gateway | `supabase/functions/chat` via `LOVABLE_API_KEY`; model `google/gemini-3-flash-preview` |
 
 ## Conventions

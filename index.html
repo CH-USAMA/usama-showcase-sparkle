@@ -87,12 +87,9 @@
         security_storage: 'granted'
       });
       // SPA-friendly: we send page_views manually from the router
+      // One property: each extra GA4 ID loads its own container script,
+      // which cost phones up to half a second of blocked main thread.
       gtag('config', 'G-6JEYSR3YVV', {
-        send_page_view: false,
-        anonymize_ip: true,
-        transport_type: 'beacon'
-      });
-      gtag('config', 'G-2ZHRMH3HLK', {
         send_page_view: false,
         anonymize_ip: true,
         transport_type: 'beacon'
