@@ -146,7 +146,7 @@ export const servicesData: Service[] = [
     title: "n8n Automation & Back-Office Infrastructure",
     metaTitle: "n8n Automation & Workflow Services | Usama Munawar",
     metaDescription:
-      "n8n workflow automation and custom pipelines that replace manual back-office work. Reliable integrations, retries, monitoring, and Laravel-backed business logic.",
+      "n8n workflows and custom pipelines that replace manual back-office work, with reliable integrations, retries, monitoring and Laravel-backed business logic.",
     intro:
       "Manual back-office work is expensive and quietly error-prone. I build automation that survives contact with reality: retries, idempotency, alerting, and an audit trail of every run.",
     outcomes: [
@@ -202,7 +202,7 @@ export const servicesData: Service[] = [
     title: "AI & LLM Integration for Real Products",
     metaTitle: "AI, LLM & RAG Integration Services | Usama Munawar",
     metaDescription:
-      "Practical AI integration: RAG over your own data, LLM-backed support and agent workflows, streaming APIs, cost control, and evaluation, wired into Laravel backends.",
+      "Practical AI integration: RAG over your data, LLM support and agent workflows, streaming APIs, cost control and evaluation, wired into Laravel backends.",
     intro:
       "AI features are only useful when they are grounded, fast, and cheap enough to run at your volume. I build LLM systems that answer from your data, degrade gracefully, and have a bill you can predict.",
     outcomes: [

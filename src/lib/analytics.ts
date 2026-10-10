@@ -45,6 +45,8 @@ export const trackEvent = (
   params: Record<string, unknown> = {}
 ) => {
   if (!isBrowser() || !window.gtag) return;
+  // Admin and sign-in pages stay out of analytics, web vitals included.
+  if (!shouldTrack(window.location.pathname)) return;
   window.gtag("event", name, params);
 };
 

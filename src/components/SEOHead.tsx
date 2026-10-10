@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { fitDescription } from "@/lib/seo";
 
 interface SEOHeadProps {
   title?: string;
@@ -16,13 +17,15 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const SEOHead = ({
   title = "Usama Munawar | Websites, Apps & Production Systems",
-  description = "Usama Munawar designs and ships websites, mobile apps and production systems with React, React Native, Node.js, TypeScript and Laravel/PHP.",
+  description: rawDescription = "Usama Munawar designs and ships websites, mobile apps and production systems with React, React Native, Node.js, TypeScript and Laravel/PHP.",
   canonical,
   ogImage = DEFAULT_OG_IMAGE,
   ogType = "website",
   noindex = false,
   jsonLd,
 }: SEOHeadProps) => {
+  // Whole sentences or words, never cut mid-word in a result snippet.
+  const description = fitDescription(rawDescription);
   const url = canonical || `${BASE_URL}${typeof window !== "undefined" ? window.location.pathname : "/"}`;
   // Share scrapers need absolute image URLs; site paths get the canonical origin.
   const image = /^https?:\/\//i.test(ogImage) ? ogImage : `${BASE_URL}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;

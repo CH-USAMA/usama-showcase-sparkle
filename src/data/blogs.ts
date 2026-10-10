@@ -64,7 +64,7 @@ Laravel applications run comfortably on a single well configured VPS for a long 
 Frameworks rarely fail a SaaS. Unclear tenancy boundaries, unmonitored queues, and untested billing logic do. Pick the stack your team can maintain at two in the morning and spend the saved energy on the parts that actually decide whether the product survives.`,
     featured_image: "/blog/blog-laravel-vs-django.jpg",
     published_at: "2026-02-10",
-    author: "Usama",
+    author: "Usama Munawar",
     tags: ["Laravel", "Django", "SaaS", "Architecture"],
   },
   {
@@ -129,7 +129,7 @@ Business teams get a managed tool for lightweight internal workflows they own. E
 Automation tools are excellent glue and poor foundations. Use them to connect systems quickly, keep the business critical logic in tested code, and make sure every workflow tells you loudly when it breaks.`,
     featured_image: "/blog/blog-n8n-vs-make.jpg",
     published_at: "2026-02-04",
-    author: "Usama",
+    author: "Usama Munawar",
     tags: ["Automation", "n8n", "Make.com", "Integration"],
   },
   {
@@ -192,7 +192,7 @@ When Redis is used for queues, I monitor queue length, throughput, failed jobs, 
 Caching is a powerful tool, but it is also a liability when it becomes an invisible layer of state. The best systems I have built use Redis deliberately, with named keys, documented TTLs, and clear invalidation paths. That is how you keep a fast system from becoming a mysterious one.`,
     featured_image: "/blog/blog-redis-vs-db.webp",
     published_at: "2026-01-23",
-    author: "Usama",
+    author: "Usama Munawar",
     tags: ["Laravel", "Redis", "Performance", "Backend", "Caching"],
   },
   {
@@ -252,7 +252,7 @@ Regardless of the database, I set up:
 MySQL versus PostgreSQL is often a debate about future-proofing. My rule is to choose the database that fits the product as it exists today, with a clear migration path if the requirements change. A fast, well-indexed MySQL database will outperform a poorly tuned PostgreSQL database every time. The skill matters more than the brand.`,
     featured_image: "/blog/blog-mysql-vs-postgres.webp",
     published_at: "2026-01-22",
-    author: "Usama",
+    author: "Usama Munawar",
     tags: ["Laravel", "MySQL", "PostgreSQL", "Database", "SaaS"],
   },
   {

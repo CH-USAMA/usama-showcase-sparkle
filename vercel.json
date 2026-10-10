@@ -1,12 +1,42 @@
 {
+  "trailingSlash": false,
   "redirects": [
     { "source": "/:path*", "destination": "https://www.chaudharyusama.com/:path*", "permanent": true, "has": [{ "type": "host", "value": "chaudharyusama.com" }] },
-    { "source": "/:path*", "destination": "https://www.chaudharyusama.com/:path*", "permanent": true, "has": [{ "type": "host", "value": "dev-usama-portfolio.vercel.app" }] }
+    { "source": "/:path*", "destination": "https://www.chaudharyusama.com/:path*", "permanent": true, "has": [{ "type": "host", "value": "dev-usama-portfolio.vercel.app" }] },
+    { "source": "/projects/five-stars-galway-taxis", "destination": "/project/6", "permanent": true },
+    { "source": "/projects/focus-interiors", "destination": "/project/5", "permanent": true },
+    { "source": "/projects/marian-holy-art", "destination": "/project/18", "permanent": true },
+    { "source": "/projects/solutions-zilla-call-portal", "destination": "/project/4", "permanent": true },
+    { "source": "/projects/solutions-zilla-digital", "destination": "/project/7", "permanent": true },
+    { "source": "/projects/munawar-co", "destination": "/projects", "permanent": true },
+    { "source": "/projects/voxbucket", "destination": "/projects", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/((?!api|sitemap\\.xml|robots\\.txt|usama-profile\\.jpg|og-image\\.png|google6d7b29d71fa21ec1\\.html).*)", "destination": "/app.html" }
+    { "source": "/blog/:slug", "destination": "/app.html" },
+    { "source": "/project/:id", "destination": "/app.html" },
+    { "source": "/services/:slug", "destination": "/app.html" },
+    { "source": "/github/:repoId", "destination": "/app.html" },
+    { "source": "/auth", "destination": "/app.html" },
+    { "source": "/admin", "destination": "/app.html" },
+    { "source": "/admin/:path*", "destination": "/app.html" }
   ],
   "headers": [
+    {
+      "source": "/app.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    },
+    {
+      "source": "/auth",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/github/:repoId",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    },
+    {
+      "source": "/admin/:path*",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
     {
       "source": "/(.*)",
       "headers": [

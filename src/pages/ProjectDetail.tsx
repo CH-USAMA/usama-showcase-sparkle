@@ -14,6 +14,7 @@ import { projectShareImage } from "@/lib/content/shareImage";
 import NotFound from "@/pages/NotFound";
 import { responsiveImage } from "@/lib/img";
 import { FinalCTA, Footer } from "@/components/lazyParts";
+import { caseStudyTitle } from "@/lib/seo";
 
 
 /* ---------------------------------------------------------------------------
@@ -140,8 +141,8 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${title} | Case Study | Usama Munawar`}
-        description={project.description.slice(0, 155)}
+        title={caseStudyTitle(title)}
+        description={project.description}
         canonical={`${SITE_URL}/project/${project.id}`}
         ogImage={shareImage}
         ogType="article"

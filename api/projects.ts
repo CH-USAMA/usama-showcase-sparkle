@@ -1,6 +1,6 @@
 import { db } from "./_lib/db.js";
 import { toProject } from "./_lib/rows.js";
-import { PUBLIC_CACHE, guard, json } from "./_lib/http.js";
+import { PUBLIC_CACHE, guard, head, json } from "./_lib/http.js";
 
 /** GET /api/projects → every published project entry, in display order. */
 export function GET() {
@@ -11,3 +11,6 @@ export function GET() {
     return json(r.rows.map(toProject), { cache: PUBLIC_CACHE });
   });
 }
+
+/** HEAD: the GET response's status and headers (uptime monitors use it). */
+export const HEAD = head(GET);
