@@ -9,6 +9,7 @@ import { trendingRepos } from "@/data/github-trending";
 import { SITE_URL } from "@/data/site";
 import NotFound from "@/pages/NotFound";
 import { Footer } from "@/components/lazyParts";
+import { githubAvatar } from "@/lib/img";
 
 
 /*
@@ -70,7 +71,7 @@ const GitHubReadme = () => {
           </Link>
 
           <header className="mt-10 flex flex-wrap items-start gap-5">
-            <img src={repo.owner_avatar} alt="" width={64} height={64} decoding="async" className="h-16 w-16 rounded-2xl border border-hairline/[0.1]" />
+            <img decoding="async" src={githubAvatar(repo.owner_avatar, 128)} alt="" width={64} height={64} className="h-16 w-16 rounded-2xl border border-hairline/[0.1]" />
             <div className="min-w-0 flex-1">
               <h1 className="font-inter text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-[-0.03em] text-foreground">
                 {repo.full_name}

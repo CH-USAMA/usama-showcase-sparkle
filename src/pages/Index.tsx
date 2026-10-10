@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Fragment, lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -7,7 +7,8 @@ import SEOHead from "@/components/SEOHead";
 import { SITE_URL } from "@/data/site";
 import { scrollToId } from "@/lib/scrollToId";
 import { hasSavedScroll, MOUNT_ALL_EVENT } from "@/lib/scrollPositions";
-import { isBootRender } from "@/lib/boot";
+import { isBootRender, useBeforePaint } from "@/lib/boot";
+import { dropStashed, hasHomeStash, homeStashBox } from "@/lib/homeStash";
 import { Footer, preloadHomeSections, SECTIONS } from "./homeSections";
 
 /* Everything below the fold is split out: the hero and proof band are the only
@@ -25,6 +26,16 @@ import { Footer, preloadHomeSections, SECTIONS } from "./homeSections";
 const ChatLauncher = lazy(() => import("@/components/ChatLauncher"));
 
 const Fallback = () => <div className="py-24" aria-hidden="true" />;
+
+/**
+ * Rendered after a section inside its Suspense boundary, so its layout effect
+ * runs only once the section itself is on screen: then the prerendered copy
+ * of that section (lib/homeStash) can go, in the same commit.
+ */
+const Mounted = ({ i }: { i: number | "footer" }) => {
+  useBeforePaint(() => dropStashed(i), [i]);
+  return null;
+};
 
 const TOTAL = SECTIONS.length;
 
@@ -116,64 +127,80 @@ const Index = () => {
   // else is wanted at once. The rest then sits in ONE Suspense boundary, so
   // it appears together: a #services target must not render (and be scrolled
   // to) before the larger sections above it have.
+  // Booting over the prerendered page: its lower sections are still on screen,
+  // just below the app, until the app's own copies mount (lib/homeStash).
+  const [stashed] = useState(() => isBootRender() && hasHomeStash());
   const [count, setCount] = useState(0);
   const [rest, setRest] = useState(
     () =>
       // Build-time render: the whole page, for readers and crawlers without JS.
       import.meta.env.SSR ||
-      Boolean(hash || hasSavedScroll(key)) ||
-      // Replacing prerendered HTML the reader has already scrolled into (main.tsx
-      // has loaded the sections first, so the page keeps its height).
-      (isBootRender() && window.scrollY > 0)
+      // Arriving on a #section link or going back to a scrolled position.
+      // (Over prerendered HTML the target is already on screen, in the stash.)
+      (!stashed && Boolean(hash || hasSavedScroll(key)))
   );
   const all = rest || count >= TOTAL;
   const sentinel = useRef<HTMLDivElement | null>(null);
 
-  // Replacing the prerendered page, which had every section: fetch their code
-  // now, without mounting them, so a reader who scrolls on straight away gets
-  // them rendered at once rather than through a loading placeholder.
-  const [overPrerender] = useState(isBootRender);
+  // Everything still to mount, at once, but only once its code is in memory,
+  // so it renders in one go rather than through a loading placeholder.
+  const mountAll = useCallback(() => {
+    void preloadHomeSections().then(
+      () => setRest(true),
+      () => setRest(true)
+    );
+  }, []);
+
+  // Over the prerendered page, fetch the sections' code straight away
+  // (without mounting them): a reader may scroll on at any moment.
   useEffect(() => {
-    if (overPrerender) void preloadHomeSections().catch(() => undefined);
-  }, [overPrerender]);
+    if (stashed) void preloadHomeSections().catch(() => undefined);
+  }, [stashed]);
 
   useEffect(() => {
-    if (hash) setRest(true);
-  }, [hash]);
+    if (hash) mountAll();
+  }, [hash, mountAll]);
 
   useEffect(() => {
-    const mountAll = () => setRest(true);
     window.addEventListener(MOUNT_ALL_EVENT, mountAll);
     return () => window.removeEventListener(MOUNT_ALL_EVENT, mountAll);
-  }, []);
+  }, [mountAll]);
 
   useEffect(() => {
     if (all) return;
     let handle: IdleHandle | null = null;
+    let live = true;
+    const mountNext = () => {
+      if (live) setCount((c) => Math.min(TOTAL, c + 1));
+    };
     const next = () => {
-      handle = whenIdle(() => setCount((c) => Math.min(TOTAL, c + 1)));
+      // Load the next section's code first, so it mounts in one go.
+      handle = whenIdle(() => void SECTIONS[count].preload().then(mountNext, mountNext));
     };
     if (document.readyState === "complete") next();
     else window.addEventListener("load", next, { once: true });
     return () => {
+      live = false;
       window.removeEventListener("load", next);
       handle?.cancel();
     };
   }, [count, all]);
 
+  // Reading ahead of what has mounted (into the prerendered box, or towards
+  // the placeholder space): mount the rest.
   useEffect(() => {
     if (all) return;
-    const el = sentinel.current;
+    const el = stashed ? homeStashBox() : sentinel.current;
     if (!el) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setRest(true);
+        if (entry.isIntersecting) mountAll();
       },
-      { rootMargin: "0px 0px 600px 0px" }
+      { rootMargin: stashed ? "0px" : "0px 0px 600px 0px" }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [all]);
+  }, [all, stashed, mountAll]);
 
   /* React Router does not restore hash targets on navigation, so a link like
      /#work arriving from another route would otherwise land at the top. */
@@ -210,23 +237,29 @@ const Index = () => {
         {SECTIONS.slice(0, count).map((Section, i) => (
           <Suspense key={i} fallback={<Fallback />}>
             <Section />
+            <Mounted i={i} />
           </Suspense>
         ))}
         {rest && count < TOTAL && (
           <Suspense key="rest" fallback={<Fallback />}>
             {SECTIONS.slice(count).map((Section, i) => (
-              <Section key={count + i} />
+              <Fragment key={count + i}>
+                <Section />
+                <Mounted i={count + i} />
+              </Fragment>
             ))}
           </Suspense>
         )}
-        {/* Keeps the page its real height while sections are still mounting,
-            and mounts the rest as soon as the reader scrolls towards it. */}
-        {!all && <div ref={sentinel} aria-hidden="true" className="h-[200vh]" />}
+        {/* Without the prerendered sections below (a visit that started on
+            another page), this keeps the page its real height while sections
+            mount, and mounts the rest as soon as the reader scrolls towards it. */}
+        {!all && !stashed && <div ref={sentinel} aria-hidden="true" className="h-[200vh]" />}
       </main>
 
       {all && (
         <Suspense fallback={<Fallback />}>
           <Footer />
+          <Mounted i="footer" />
         </Suspense>
       )}
       {/* Not content, and it mounts late in the browser: leave it out of the build-time HTML. */}

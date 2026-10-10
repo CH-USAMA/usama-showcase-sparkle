@@ -68,12 +68,12 @@ const Insights = () => {
                   {featured.featured_image && (
                     <div className="relative overflow-hidden rounded-lg border border-hairline/[0.09]">
                       <img
+                        loading="lazy"
+                        decoding="async"
                         src={featured.featured_image}
                         alt=""
                         width={1200}
                         height={675}
-                        loading="lazy"
-                        decoding="async"
                         className="aspect-[16/9] w-full object-cover opacity-85 transition-[opacity,transform] duration-large ease-out-expo group-hover:scale-[1.02] group-hover:opacity-100"
                       />
                       <span

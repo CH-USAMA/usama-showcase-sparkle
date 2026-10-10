@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
-import profileWebp from "@/assets/usama-profile.webp";
-import profileJpg from "@/assets/usama-profile.jpg";
+// 96px: twice the 44px avatar it fills (the full photo was 58 kB).
+import profileWebp from "@/assets/usama-profile-96.webp";
+import profileJpg from "@/assets/usama-profile-96.jpg";
 import { useState } from "react";
 import { useEnter } from "@/lib/boot";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -108,12 +109,12 @@ const Philosophy = () => {
               <picture>
                 <source srcSet={profileWebp} type="image/webp" />
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={profileJpg}
                   alt="Usama Munawar, Full-Stack Product Engineer"
                   width={44}
                   height={44}
-                  loading="lazy"
-                  decoding="async"
                   className="h-11 w-11 rounded-full object-cover ring-1 ring-hairline/[0.16]"
                 />
               </picture>

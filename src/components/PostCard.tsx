@@ -25,16 +25,16 @@ const PostCard = ({ post, size = "grid", eager = false }: { post: BlogPost; size
       <div className="overflow-hidden rounded-xl border border-hairline/[0.08]">
         {cover ? (
           <img
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
             {...responsiveImage(cover, { widths: [480, 800], aspect: 16 / 9 })}
             sizes={lead ? "(min-width: 768px) 40rem, calc(100vw - 3rem)" : "(min-width: 1024px) 24rem, (min-width: 640px) 50vw, calc(100vw - 3rem)"}
             alt=""
             width={800}
             height={450}
-            loading={eager ? "eager" : "lazy"}
             // The lead card's cover is /blog's largest paint on phones.
             fetchPriority={eager ? "high" : undefined}
             {...(eager ? PRIORITY_TIMING : null)}
-            decoding="async"
             className="aspect-[16/9] w-full object-cover transition-transform duration-large ease-out-expo group-hover:scale-[1.03]"
           />
         ) : (
