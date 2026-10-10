@@ -1141,6 +1141,12 @@ main:focus {
   contain-intrinsic-size: auto 1000px;
 }
 
+/* The same sections after the app takes over, while they wait below it for
+   their live copies (src/lib/homeStash.ts sets each one's measured height). */
+[data-prerendered-sections] > section {
+  content-visibility: auto;
+}
+
 @layer utilities {
   /* Set by usePauseOffscreen on decorative regions that leave the viewport. */
   [data-paused],

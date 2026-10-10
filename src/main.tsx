@@ -4,8 +4,8 @@ import { BrowserRouter } from "react-router-dom"
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
 import { preloadRoute } from './routes'
-import { preloadHomeSections } from './pages/homeSections'
 import { captureReaderState, startBoot } from './lib/boot'
+import { stashHomeSections } from './lib/homeStash'
 import './index.css'
 import { ThemeProvider } from "@/components/ThemeProvider"
 
@@ -80,6 +80,10 @@ function priorityImagesPainted(cap: number) {
 
 const render = () => {
   startBoot(prerendered)
+  // The prerendered home page's lower sections stay on screen, below the app,
+  // until it mounts its own (lib/homeStash). First, so what follows only sees
+  // what React is about to redraw.
+  if (prerendered && window.location.pathname === '/') stashHomeSections(container)
   if (prerendered) captureReaderState(container)
   createRoot(container).render(
     <StrictMode>
@@ -97,13 +101,10 @@ const render = () => {
 // Load the current route's page before the first render. Until React renders,
 // the prerendered HTML for this route stays on screen; rendering first would
 // swap it for an empty Suspense fallback and then the page.
-const { pathname, hash } = window.location
+const { pathname } = window.location
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-const atHome = prerendered && pathname === '/'
-const belowHomeFold = () => atHome && (window.scrollY > 0 || hash !== '')
 
 const pending: Promise<unknown>[] = [preloadRoute(pathname)]
-if (belowHomeFold()) pending.push(preloadHomeSections())
 // The prerendered page is the real page: let the browser show it before React
 // replaces it. When the bundle is already cached, or the network is fast, the
 // app can otherwise render before the first frame is presented, and the first
@@ -124,16 +125,6 @@ if (prerendered) pending.push(firstPaint(1500), priorityImagesPainted(2000))
     await Promise.all(pending)
   } catch {
     return
-  }
-  // A reader already below the fold of the prerendered home page (scrolled,
-  // or arrived on a #section link) needs its sections in memory before React
-  // replaces the markup, or the page would collapse under them.
-  if (belowHomeFold()) {
-    try {
-      await preloadHomeSections()
-    } catch {
-      return
-    }
   }
   render()
 })()
