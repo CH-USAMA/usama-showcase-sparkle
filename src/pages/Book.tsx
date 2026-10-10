@@ -9,7 +9,8 @@ import { SITE_URL } from "@/data/site";
 import { useEnter } from "@/lib/boot";
 
 const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
-const calendarSpace = <div className="h-[720px] w-full bg-surface-1/50" aria-hidden="true" />;
+// Same box as CalendlyEmbed's card, so nothing moves when the calendar loads.
+const calendarSpace = <div className="mx-auto h-[720px] w-full max-w-[720px] rounded-xl bg-white" aria-hidden="true" />;
 
 /* ---------------------------------------------------------------------------
    /book — the destination of the site's one primary action.
@@ -258,7 +259,8 @@ const Book = () => {
           {/* ---- booking ---- */}
           <div id="pick-a-time" className="mt-20 scroll-mt-28 lg:mt-24">
             <Head index="04" eyebrow="Pick a time" title="Choose a slot that suits you." />
-            <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">
+            {/* A dark stage around Calendly's light card (see CalendlyEmbed). */}
+            <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09] bg-surface-1/60 p-2 sm:p-6 lg:p-10">
               {/* Calendly is a third-party script: never part of the build-time HTML. */}
               {import.meta.env.SSR ? (
                 calendarSpace

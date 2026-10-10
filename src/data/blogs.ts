@@ -9,6 +9,7 @@ export const blogsData: BlogPost[] = [
   {
     id: "26",
     title: "Laravel vs Django for SaaS: Choosing the Right Backend in 2026",
+    seo_title: "Laravel vs Django for SaaS: Choosing a Backend in 2026",
     slug: "laravel-vs-django-for-saas",
     excerpt: "A practical comparison of Laravel and Django for building multi-tenant SaaS products, covering ecosystem, billing, background jobs, hiring, and long-term maintenance cost.",
     content: `## The honest answer
@@ -70,6 +71,7 @@ Frameworks rarely fail a SaaS. Unclear tenancy boundaries, unmonitored queues, a
   {
     id: "25",
     title: "n8n vs Make.com for Enterprise Automation: A Field Comparison",
+    seo_title: "n8n vs Make.com for Enterprise Automation",
     slug: "n8n-vs-make-enterprise-automation",
     excerpt: "Self hosted n8n or managed Make.com? A practical comparison for teams running business critical automation, covering cost at scale, data residency, error handling, and when to write custom code instead.",
     content: `## The decision in one paragraph
@@ -316,6 +318,7 @@ On a recent dispatch platform, Laravel owned tenancy, jobs, billing, and the API
   {
     id: "21",
     title: "Asterisk vs Twilio: Real Cost Breakdown for Call Center Backends",
+    seo_title: "Asterisk vs Twilio: Call Center Cost Breakdown",
     slug: "asterisk-vs-twilio-cost-breakdown",
     excerpt: "Self-hosted Asterisk/FreePBX versus Twilio for outbound and inbound call operations: per-minute economics, engineering cost, break-even volume, and when each option is the responsible choice.",
     content: `## Why this comparison keeps coming up
@@ -391,6 +394,7 @@ Self-hosted Asterisk for the high-volume core, plus a managed provider for inter
   {
     id: "22",
     title: "n8n vs Custom Code: Where Automation Platforms Stop Paying Off",
+    seo_title: "n8n vs Custom Code: When Automation Stops Paying Off",
     slug: "n8n-vs-custom-code-automation",
     excerpt: "When a visual automation platform like n8n is the correct engineering decision, when it becomes technical debt, and the migration path from workflow to service without a rewrite.",
     content: `## The trap on both sides
@@ -463,6 +467,7 @@ On one operations platform, moving four billing-critical workflows out of a 60-n
   {
     id: "10",
     title: "Vibe Coding in 2025: How I Build Apps 10x Faster with Claude, Lovable & Cursor",
+    seo_title: "Vibe Coding in 2025 with Claude, Lovable and Cursor",
     slug: "vibe-coding-2025-claude-lovable-cursor",
     excerpt: "Vibe coding is revolutionizing software development. Learn how I use Claude AI, Lovable, Cursor, and Replit to ship production-ready Laravel and React apps in hours, not weeks.",
     content: `## What is Vibe Coding?
@@ -513,6 +518,7 @@ No, it's **augmenting** it. You still need deep knowledge of Laravel, PHP, MySQL
   {
     id: "11",
     title: "Laravel + MySQL Best Practices: Building Scalable SaaS Applications in 2025",
+    seo_title: "Laravel + MySQL Best Practices for Scalable SaaS",
     slug: "laravel-mysql-best-practices-scalable-saas-2025",
     excerpt: "A comprehensive guide to building production-ready SaaS applications with Laravel and MySQL, covering multi-tenancy, query optimization, caching, and deployment strategies.",
     content: `## Why Laravel + MySQL is Still King for SaaS
@@ -584,6 +590,7 @@ I've built multiple SaaS platforms with this stack:
   {
     id: "12",
     title: "Claude vs ChatGPT for Developers: Which AI Tool Should You Use in 2025?",
+    seo_title: "Claude vs ChatGPT for Developers: Which to Use in 2025?",
     slug: "claude-vs-chatgpt-developers-ai-tools-2025",
     excerpt: "An honest comparison of Claude (Anthropic) and ChatGPT (OpenAI) for software development, code generation, debugging, architecture planning, and vibe coding workflows.",
     content: `## The AI Tools Every Developer Needs
@@ -745,6 +752,7 @@ For one client, this automation replaced **20 hours/week** of manual lead sortin
   {
     id: "3",
     title: "From Developer to AI Engineer: Skills That Actually Matter in 2025",
+    seo_title: "Developer to AI Engineer: Skills That Matter in 2025",
     slug: "developer-to-ai-engineer-skills-2025",
     excerpt: "The transition from traditional web development to AI engineering, what skills to learn, what to skip, and how to stay relevant.",
     content: `## The Shift is Real
@@ -838,6 +846,7 @@ For a legal tech client, this architecture achieved **94% accuracy** on domain-s
   {
     id: "13",
     title: "PHP in 2025: Why It's Still the Best Choice for Web Development",
+    seo_title: "PHP in 2025: Still the Best Choice for Web Development",
     slug: "php-2025-best-choice-web-development",
     excerpt: "PHP powers 77% of the web. With PHP 8.3, Laravel 11, and modern tooling, it's faster, safer, and more developer-friendly than ever. Here's why PHP is thriving.",
     content: `## PHP Is Not Dead, It's Thriving
@@ -891,6 +900,7 @@ For most web applications, **PHP + MySQL** remains the most cost-effective, scal
   {
     id: "14",
     title: "Asterisk + Laravel: Building a Real-Time VoIP Call Center from Scratch",
+    seo_title: "Asterisk + Laravel: Building a Real-Time VoIP Call Center",
     slug: "asterisk-laravel-voip-call-center",
     excerpt: "How I integrated Asterisk PBX with Laravel to build Solutions Zilla, a real-time call center portal with live agent monitoring, call routing, and CDR analytics.",
     content: `## The Challenge
@@ -981,6 +991,7 @@ For new projects I usually combine both: **Laravel for the core business app**, 
   {
     id: "16",
     title: "Lovable AI Gateway: One API for Gemini, GPT, and Claude in Production",
+    seo_title: "Lovable AI Gateway: One API for Gemini, GPT and Claude",
     slug: "lovable-ai-gateway-production-guide",
     excerpt: "How I use the Lovable AI Gateway to ship AI features without juggling API keys, rate limits, and SDKs from OpenAI, Anthropic, and Google.",
     content: `## The Multi-Model Problem
@@ -1029,6 +1040,7 @@ The AI Gateway is the easiest way I have found to ship multi-model AI features w
   {
     id: "17",
     title: "Stripe + Laravel: Building Subscription Billing That Does Not Break",
+    seo_title: "Stripe + Laravel: Subscription Billing That Does Not Break",
     slug: "stripe-laravel-subscription-billing",
     excerpt: "A field guide to building robust Stripe subscription billing in Laravel, covering Cashier, webhooks, proration, dunning, and the edge cases nobody warns you about.",
     content: `## Billing Is Where SaaS Apps Die

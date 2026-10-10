@@ -343,11 +343,14 @@ const Contact = () => {
 
             <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">
               {calendar ? (
-                <Suspense
-                  fallback={<div className="h-[680px] w-full animate-pulse bg-surface-1/50" />}
-                >
-                  <CalendlyEmbed height={680} lazy={false} />
-                </Suspense>
+                // A dark stage around Calendly's light card (see CalendlyEmbed).
+                <div className="bg-surface-1/60 p-2 sm:p-6 lg:p-10">
+                  <Suspense
+                    fallback={<div className="mx-auto h-[680px] w-full max-w-[720px] animate-pulse rounded-xl bg-white" />}
+                  >
+                    <CalendlyEmbed height={680} lazy={false} />
+                  </Suspense>
+                </div>
               ) : (
                 <div className="flex flex-col items-start gap-5 bg-surface-1/40 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
                   <div className="flex items-start gap-3.5">

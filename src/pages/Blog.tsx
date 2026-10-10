@@ -8,7 +8,7 @@ import CTA from "@/components/system/CTA";
 import PostCard from "@/components/PostCard";
 import { formatDate } from "@/lib/postFormat";
 import { usePosts } from "@/lib/content/posts";
-import { useTrendingBlogs } from "@/hooks/useTrendingBlogs";
+import { useTrendingLinks } from "@/hooks/useTrendingBlogs";
 import { safeHref } from "@/lib/url";
 import { FORMSPREE_URL, SITE_URL } from "@/data/site";
 import { useEnter } from "@/lib/boot";
@@ -32,7 +32,7 @@ const Blog = () => {
   const enter = useEnter();
   const [term, setTerm] = useState("");
   const written = usePosts();
-  const { data: trending = [] } = useTrendingBlogs();
+  const { data: trending = [] } = useTrendingLinks();
 
   const q = term.trim().toLowerCase();
   const match = (t: string, ex: string, tags: string[]) =>

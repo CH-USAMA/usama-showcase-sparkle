@@ -9,18 +9,13 @@ interface CalendlyEmbedProps {
   lazy?: boolean;
 }
 
-/** Tracks the theme class on <html>, so the embed re-renders on toggle. */
-function useIsDark() {
-  const [dark, setDark] = useState(() => typeof document !== "undefined" && document.documentElement.classList.contains("dark"));
-  useEffect(() => {
-    const root = document.documentElement;
-    const mo = new MutationObserver(() => setDark(root.classList.contains("dark")));
-    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
-    return () => mo.disconnect();
-  }, []);
-  return dark;
-}
-
+/*
+ * Calendly's frame is light in both themes: on this account's plan it ignores
+ * the colour parameters, so none are sent (and toggling the theme no longer
+ * reloads the frame). The card is at most 720 px wide, about the width of
+ * Calendly's own desktop layout; a wider frame only adds empty white around a
+ * 400 px calendar. Below about 650 px Calendly switches to its mobile layout.
+ */
 const CalendlyEmbed = ({
   url = "https://calendly.com/usamaresume30/30min",
   height = 700,
@@ -29,16 +24,9 @@ const CalendlyEmbed = ({
   lazy = true,
 }: CalendlyEmbedProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const dark = useIsDark();
-  // Calendly's own embed options: theme colours, no cookie banner inside the
-  // frame, and no event panel (it shows the account name).
-  const themedUrl = `${url}?${new URLSearchParams({
-    hide_gdpr_banner: "1",
-    hide_event_type_details: "1",
-    background_color: dark ? "0b0b0b" : "ffffff",
-    text_color: dark ? "f5f5f5" : "1a1d24",
-    primary_color: dark ? "3d9bff" : "0b62d6",
-  })}`;
+  // Calendly's own embed options: no cookie banner inside the frame, and no
+  // event panel (it shows the account name).
+  const embedUrl = `${url}?${new URLSearchParams({ hide_gdpr_banner: "1", hide_event_type_details: "1" })}`;
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(!lazy);
 
@@ -76,34 +64,33 @@ const CalendlyEmbed = ({
       document.body.appendChild(script);
     } else if ((window as typeof window & { Calendly?: { initInlineWidget: (opts: Record<string, unknown>) => void } }).Calendly) {
       (window as typeof window & { Calendly: { initInlineWidget: (opts: Record<string, unknown>) => void } }).Calendly.initInlineWidget({
-        url: themedUrl,
+        url: embedUrl,
         parentElement: containerRef.current,
         prefill: {},
         utm: {},
       });
     }
-  }, [themedUrl, visible]);
+  }, [embedUrl, visible]);
 
   return (
-    <div className={`overflow-hidden rounded-2xl bg-card/60 ${className}`}>
+    <div className={`mx-auto w-full max-w-[720px] overflow-hidden rounded-xl bg-white ${className}`}>
       <div ref={sentinelRef} />
       {visible ? (
         <div
-          key={themedUrl}
           ref={containerRef}
           className="calendly-inline-widget"
-          data-url={themedUrl}
+          data-url={embedUrl}
           style={{ minWidth: "320px", height: `${height}px` }}
           aria-label={title}
           role="region"
         />
       ) : (
         <div
-          className="flex items-center justify-center bg-card/30 animate-pulse"
+          className="flex animate-pulse items-center justify-center"
           style={{ minWidth: "320px", height: `${height}px` }}
           aria-hidden="true"
         >
-          <span className="text-sm text-muted-foreground font-inter">Loading calendar…</span>
+          <span className="font-inter text-sm text-neutral-500">Loading calendar…</span>
         </div>
       )}
     </div>

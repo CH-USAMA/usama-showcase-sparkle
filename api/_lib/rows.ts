@@ -17,6 +17,7 @@ export function toPost(r: Row, withContent = true): PostEntry {
     id: String(r.id),
     slug: String(r.slug),
     title: String(r.title),
+    seo_title: r.seo_title == null || String(r.seo_title).trim() === "" ? undefined : String(r.seo_title),
     excerpt: String(r.excerpt ?? ""),
     content: withContent ? String(r.content ?? "") : "",
     featured_image: r.featured_image == null ? null : String(r.featured_image),
@@ -42,4 +43,4 @@ export function toProject(r: Row): ProjectEntry {
 }
 
 export const POST_LIST_COLUMNS =
-  "id, slug, title, excerpt, featured_image, author, tags, status, published_at, updated_at";
+  "id, slug, title, seo_title, excerpt, featured_image, author, tags, status, published_at, updated_at";

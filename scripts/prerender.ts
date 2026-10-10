@@ -287,7 +287,7 @@ const blogRoutes: Route[] = posts.map((p) => {
   const url = `${BASE_URL}/blog/${p.slug}`;
   return {
     path: `/blog/${p.slug}`,
-    title: p.title,
+    title: p.seo_title || p.title,
     description: fitDescription(p.excerpt),
     ogType: "article",
     ogImage: absImage(cover),

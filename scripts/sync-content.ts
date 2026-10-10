@@ -10,6 +10,9 @@
  * back to the original TypeScript content files, so the build never breaks.
  * If the database is configured but unreachable, the build fails rather than
  * silently shipping stale content; set CONTENT_ALLOW_STALE=1 to override.
+ *
+ * It also writes src/data/snapshot.trending.json, the /blog reading list
+ * ("Worth reading elsewhere"), from the fetch-blogs edge function.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadEnv } from "./lib/env";
@@ -17,8 +20,55 @@ import { seedPosts, seedProjects } from "./lib/seed-entries";
 import { db } from "../api/_lib/db";
 import { toPost, toProject } from "../api/_lib/rows";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
+import { DEFAULT_SUPABASE_ANON_KEY, DEFAULT_SUPABASE_URL } from "../src/lib/supabaseDefaults";
 
 loadEnv();
+
+const TRENDING_FILE = "src/data/snapshot.trending.json";
+
+/**
+ * The reading list comes from the fetch-blogs edge function, which takes 3 to
+ * 20 seconds to answer. A copy taken here renders with the page, and browsers
+ * refresh it once it is an hour old. Vercel builds and `npm run
+ * content:trending` take a fresh copy; other runs keep the committed one, so
+ * starting the dev server does not change the working tree. A slow or failed
+ * fetch keeps the previous copy too.
+ */
+async function syncTrending(): Promise<string> {
+  const refresh = Boolean(process.env.VERCEL) || process.argv.includes("--trending") || !existsSync(TRENDING_FILE);
+  if (!refresh) return "kept the committed copy";
+  // Vercel has no VITE_SUPABASE_* variables; the app uses these same defaults.
+  const base = process.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || DEFAULT_SUPABASE_ANON_KEY;
+  try {
+    const res = await fetch(`${base}/functions/v1/fetch-blogs`, {
+      method: "POST",
+      headers: { "content-type": "application/json", apikey: key, authorization: `Bearer ${key}` },
+      body: "{}",
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = (await res.json()) as { success?: boolean; posts?: BlogPost[] };
+    const links = (data.posts ?? [])
+      .filter((p) => typeof p.title === "string" && typeof p.source_url === "string")
+      .map(({ id, slug, title, source_url, published_at, tags }) => ({
+        id,
+        slug,
+        title,
+        source_url,
+        published_at,
+        tags: Array.isArray(tags) ? tags : [],
+      }));
+    if (!data.success || links.length === 0) throw new Error("the feed returned no links");
+    write(TRENDING_FILE, { generatedAt: new Date().toISOString(), links });
+    return `${links.length} links from the feed`;
+  } catch (e) {
+    if (!existsSync(TRENDING_FILE)) write(TRENDING_FILE, { generatedAt: new Date(0).toISOString(), links: [] });
+    return `kept the previous copy (${(e as Error).message})`;
+  }
+}
+// Runs alongside the database queries.
+const trending = syncTrending();
 
 const strip = <T extends { status?: unknown }>({ status: _s, ...rest }: T) => rest;
 
@@ -87,3 +137,4 @@ write("src/data/snapshot.projects.json", { generatedAt, source, projects });
 const listed = projects.length;
 write("src/data/snapshot.meta.json", { generatedAt, source, postCount: posts.length, projectCount: listed });
 console.log(`content: snapshot from ${source} (${posts.length} posts, ${projects.length} projects)`);
+console.log(`content: reading list: ${await trending}`);

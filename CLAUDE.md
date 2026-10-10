@@ -75,7 +75,8 @@ In the browser, `main.tsx` waits for the page's chunks and its first paint, then
 - **Posts and projects** are rows in Turso, edited at `/admin` (Supabase sign-in, then the email must be in `ADMIN_EMAILS`). `/api/*` serves published rows; admin writes go through `/api/admin/*` and can trigger a rebuild via `VERCEL_DEPLOY_HOOK_URL`, so new content gets prerendered and into the sitemap.
 - The **snapshot** (`src/data/snapshot.*.json`) is what pages render first and what the sitemap, RSS, `llms.txt` and prerendered pages are built from. TanStack Query uses it as `initialData` and refetches `/api` in the background.
 - **Markdown** is rendered by `src/components/Markdown.tsx` (react-markdown + remark-gfm, `skipHtml`, URLs through `safeHref`). No `dangerouslySetInnerHTML` anywhere outside shadcn.
-- **Trending posts** on `/blog` come from the `fetch-blogs` edge function (HN RSS), cached in localStorage for 1h, noindex and not in the sitemap.
+- **Trending posts** on `/blog` come from the `fetch-blogs` edge function (HN RSS). The list renders from `src/data/snapshot.trending.json`, refreshed on Vercel builds and by `npm run content:trending`; browsers refresh it once it is 1h old (localStorage cache). Their own pages are noindex and not in the sitemap.
+- **Search titles**: a post's optional `seo_title` (the editor's "Search title") is its `<title>` when the headline is over ~60 characters; the h1, JSON-LD `headline` and share tags keep the full headline. New columns go in `ADDED_COLUMNS` in `api/_lib/db.ts`; `npm run content:migrate` adds them (schema only, no rows). Run it against the live database before deploying code that reads them.
 - **Project routes are numeric ids** (`/project/4`), not slugs.
 
 Environment (Vercel + `.env.local`, never committed): `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `ADMIN_EMAILS`, optional `VERCEL_DEPLOY_HOOK_URL`; public `VITE_SUPABASE_*` (see `.env.example`). Without Turso credentials the build uses the seed files.
