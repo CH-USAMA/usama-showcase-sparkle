@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -9,7 +9,7 @@ import PostCard from "@/components/PostCard";
 import { formatDate } from "@/lib/postFormat";
 import { usePosts } from "@/lib/content/posts";
 import { useTrendingLinks } from "@/hooks/useTrendingLinks";
-import { READING_LIST_SIZE } from "@/lib/readingList";
+import { READING_LIST_SIZE, type ReadingLink } from "@/lib/readingList";
 import { safeHref } from "@/lib/url";
 import { FORMSPREE_URL, SITE_URL } from "@/data/site";
 import { useEnter } from "@/lib/boot";
@@ -29,13 +29,22 @@ const host = (url: string) => {
  * work-card grid. Links curated from the news feed sit in their own clearly
  * labelled list, credited to their source and never to the site's author.
  */
+// Stable, so the effect below does not see a new list on every render.
+const NO_LINKS: ReadingLink[] = [];
+
 const Blog = () => {
   const enter = useEnter();
   const [term, setTerm] = useState("");
   const written = usePosts();
-  const { data: trending = [] } = useTrendingLinks();
+  const { data: trending = NO_LINKS } = useTrendingLinks();
 
   const q = term.trim().toLowerCase();
+  // A refresh that lands during a search waits until the search is cleared,
+  // so the rows under the reader do not change.
+  const [readingList, setReadingList] = useState(trending);
+  useEffect(() => {
+    if (!q) setReadingList(trending);
+  }, [trending, q]);
   const match = (t: string, ex: string, tags: string[]) =>
     !q || t.toLowerCase().includes(q) || ex.toLowerCase().includes(q) || tags.some((x) => x.toLowerCase().includes(q));
 
@@ -48,9 +57,9 @@ const Blog = () => {
     [written, q]
   );
   const links = useMemo(
-    () => trending.filter((p) => match(p.title, "", p.tags)).slice(0, READING_LIST_SIZE),
+    () => readingList.filter((p) => match(p.title, "", p.tags)).slice(0, READING_LIST_SIZE),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [trending, q]
+    [readingList, q]
   );
 
   const [lead, ...rest] = posts;

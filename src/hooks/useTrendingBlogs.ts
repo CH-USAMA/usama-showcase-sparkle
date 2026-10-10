@@ -5,14 +5,18 @@ import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/supabasePublic";
 const CACHE_KEY = "trending-blogs-cache";
 export const CACHE_TTL = 1000 * 60 * 60; // 1 hour
 /**
- * The function returns the 10 newest posts of its two feeds. Fewer means a
- * feed failed: such an answer is used but not cached, so the next view asks again.
+ * Only complete answers are cached; a partial one (one of the function's two
+ * feeds failed) is used but not cached, so the next view asks again. The
+ * function says so with `partial`; the deployed version may predate that
+ * flag, and a complete answer from it had 10 posts.
  */
 const FULL_ANSWER = 10;
 
 interface CachedData {
   posts: BlogPost[];
   timestamp: number;
+  /** Set on complete answers; older caches have no flag. */
+  complete?: boolean;
 }
 
 function getCached(): BlogPost[] | null {
@@ -20,7 +24,8 @@ function getCached(): BlogPost[] | null {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const cached: CachedData = JSON.parse(raw);
-    if (Date.now() - cached.timestamp < CACHE_TTL && cached.posts?.length >= FULL_ANSWER) return normalise(cached.posts);
+    const complete = cached.complete ?? cached.posts?.length >= FULL_ANSWER;
+    if (Date.now() - cached.timestamp < CACHE_TTL && complete) return normalise(cached.posts);
   } catch {
     /* Corrupt or unreadable cache: fall through and refetch. */
   }
@@ -46,7 +51,7 @@ function normalise(posts: BlogPost[]): BlogPost[] {
 
 function setCache(posts: BlogPost[]) {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, timestamp: Date.now() }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, timestamp: Date.now(), complete: true }));
   } catch {
     /* Caching is an optimisation; failing to write it must not break the page. */
   }
@@ -76,7 +81,8 @@ export async function loadTrending(): Promise<BlogPost[] | null> {
     const data = await invokeFetchBlogs();
     if (!data?.success || !data.posts?.length) return null;
     const posts = normalise(data.posts);
-    if (!data.partial && posts.length >= FULL_ANSWER) setCache(posts);
+    const complete = data.partial === false || (data.partial === undefined && posts.length >= FULL_ANSWER);
+    if (complete) setCache(posts);
     return posts;
   } catch {
     return null;
