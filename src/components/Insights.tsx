@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
-import { blogsData } from "@/data/blogs";
+import { usePosts } from "@/lib/content/posts";
 
 const readingTime = (content: string) =>
   Math.max(1, Math.round(content.trim().split(/\s+/).length / 200));
@@ -25,13 +25,14 @@ const formatDate = (value: string) =>
  * reader can choose rather than guess.
  */
 const Insights = () => {
+  const blogsData = usePosts();
   const posts = useMemo(
     () =>
       [...blogsData].sort(
         (a, b) =>
           new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
       ),
-    []
+    [blogsData]
   );
 
   if (posts.length === 0) return null;

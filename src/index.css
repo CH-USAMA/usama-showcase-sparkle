@@ -3,75 +3,193 @@
 @tailwind utilities;
 
 /* ============================================================================
-   DESIGN SYSTEM — "Command Center"
-   Dark-first engineering aesthetic. Precision over decoration.
+   FONTS: self-hosted (latin subset, OFL; licences in /public/fonts).
+
+   They used to come from Google Fonts: an extra origin and a CSS hop before
+   any font could start, and on mobile the swap from fallback to web font
+   moved the hero by 0.12 CLS. Each family now also has a metric-matched
+   fallback: the local system font, scaled to the web font's average glyph
+   width with its ascent/descent (computed from Capsize metrics, the same
+   method next/font uses), so text keeps its size and line breaks when the
+   real font arrives.
+   ========================================================================= */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-5.3.0-latin-wght-normal.woff2") format("woff2-variations"),
+    url("/fonts/inter-5.3.0-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-5.3.0-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-5.3.0-latin-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-5.3.0-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* Metric-matched fallbacks. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("ArialMT"), local("Helvetica");
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Instrument Serif Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times");
+  size-adjust: 83.94%;
+  ascent-override: 117.94%;
+  descent-override: 36.93%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Instrument Serif Fallback";
+  font-style: italic;
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Times-Italic");
+  size-adjust: 83.94%;
+  ascent-override: 117.94%;
+  descent-override: 36.93%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New"), local("CourierNewPSMT"), local("Courier");
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+
+/* ============================================================================
+   DESIGN SYSTEM — "Paper & Ink"
+   Editorial, light-first. Warm paper ground, ink type, one accent.
 
    Palette rules:
-   - One accent (electric cyan). It signals interactivity and system state.
-     It is never used as decoration for its own sake.
-   - Depth comes from layered surfaces + hairlines, not from glow.
-   - Glow is a highlight, not a texture. Reserve it for focus and hover.
+   - One accent. It means "you can act on this" and marks the single most
+     important word or figure in a block. It is never a background wash.
+   - No gradients on text, no coloured glows, no per-section tints. Depth
+     comes from alternating paper/white bands and 1px rules.
+   - The accent is chosen by `data-accent` on <html> (see the accent sets
+     below), so the whole site can be re-keyed by changing one attribute.
    ========================================================================= */
 
 @layer base {
+  /* ---- Accent sets. Each pairs a light-ground and a dark-ground value;
+     every light value is >= 4.5:1 against both white and the paper ground,
+     so it is AA for small text and for white button labels. ---- */
+  :root,
+  :root[data-accent="cobalt"] {
+    --accent-l: 212 92% 44%;
+    --accent-l-hover: 212 94% 37%;
+    --accent-l-fg: 0 0% 100%;
+    --accent-d: 210 100% 58%;
+    --accent-d-hover: 210 100% 66%;
+    --accent-d-fg: 220 60% 6%;
+  }
+  :root[data-accent="forest"] {
+    --accent-l: 160 70% 26%;
+    --accent-l-hover: 160 72% 20%;
+    --accent-l-fg: 0 0% 100%;
+    --accent-d: 155 52% 56%;
+    --accent-d-hover: 155 52% 66%;
+    --accent-d-fg: 160 40% 8%;
+  }
+  :root[data-accent="rust"] {
+    --accent-l: 14 78% 44%;
+    --accent-l-hover: 14 80% 37%;
+    --accent-l-fg: 0 0% 100%;
+    --accent-d: 18 88% 63%;
+    --accent-d-hover: 18 88% 72%;
+    --accent-d-fg: 14 40% 8%;
+  }
+  :root[data-accent="ink"] {
+    --accent-l: 224 24% 11%;
+    --accent-l-hover: 224 18% 24%;
+    --accent-l-fg: 0 0% 100%;
+    --accent-d: 40 14% 94%;
+    --accent-d-hover: 40 10% 82%;
+    --accent-d-fg: 224 24% 8%;
+  }
+
   :root {
-    /* ---- Ground ---- */
-    --background: 220 30% 3.5%;
-    --foreground: 210 22% 93%;
+    /* ---- Ground: warm paper, white cards ---- */
+    --background: 45 20% 97.5%;
+    --foreground: 224 24% 10%;
 
-    /* Layered surfaces — each step is a deliberate elevation */
-    --surface-1: 220 26% 5.5%;
-    --surface-2: 220 22% 8%;
-    --surface-3: 220 20% 11%;
+    --surface-1: 0 0% 100%;
+    --surface-2: 45 14% 95%;
+    --surface-3: 45 10% 91%;
 
-    --card: 220 26% 5.5%;
-    --card-foreground: 210 22% 93%;
-    --popover: 220 24% 6.5%;
-    --popover-foreground: 210 22% 93%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 24% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 24% 10%;
 
-    /* ---- Accent: electric cyan ---- */
-    --primary: 176 92% 47%;
-    --primary-foreground: 220 30% 4%;
-    --primary-glow: 176 100% 60%;
-    --accent-2: 194 96% 56%;
+    /* ---- Accent ---- */
+    --primary: var(--accent-l);
+    --primary-foreground: var(--accent-l-fg);
+    --primary-glow: var(--accent-l-hover);
+    --accent-2: var(--accent-l);
 
-    /* ---- Categorical hue family ----
-       The accent cyan plus five siblings, every one contrast-checked against
-       the page ground; the weakest (indigo) is 5.30:1, so all six are AA for
-       small text. Colour here is information, not decoration: a hue names a
-       domain and stays attached to it across the stack matrix, the services
-       and the case studies. --primary stays the one signal that means "you
-       can act on this", which is why it is never reassigned below. */
-    --hue-backend: 176 92% 47%;   /* 12.72:1 */
-    --hue-realtime: 198 94% 55%;  /*  8.80:1 */
-    --hue-ai: 250 90% 70%;        /*  5.30:1 */
-    --hue-automation: 285 80% 68%;/*  6.70:1 */
-    --hue-cloud: 40 95% 58%;      /* 11.23:1 */
-    --hue-interface: 340 85% 68%; /*  6.90:1 */
+    /* The old six-hue categorical family is collapsed onto the accent. A
+       rainbow of section colours was the loudest "generated" signal on the
+       page; the names stay so call sites keep reading as intent. */
+    --hue-backend: var(--primary);
+    --hue-realtime: var(--primary);
+    --hue-ai: var(--primary);
+    --hue-automation: var(--primary);
+    --hue-cloud: var(--primary);
+    --hue-interface: var(--primary);
 
-    --secondary: 220 20% 11%;
-    --secondary-foreground: 210 22% 93%;
+    --secondary: 45 14% 94%;
+    --secondary-foreground: 224 24% 10%;
 
-    --muted: 220 18% 12%;
-    --muted-foreground: 214 12% 58%;
-    --subtle-foreground: 214 12% 50%;  /* 4.8:1 on the page ground — AA for the small mono labels */
+    --muted: 45 14% 94%;
+    --muted-foreground: 222 9% 37%;     /* 6.9:1 on paper */
+    --subtle-foreground: 222 7% 45%;    /* 5.0:1 on paper */
 
-    --accent: 176 92% 47%;
-    --accent-foreground: 220 30% 4%;
+    /* shadcn's "accent" is a hover/selection surface, not the brand colour:
+       cmdk and menus paint selected rows bg-accent with text-accent-foreground,
+       and icons inside them in text-primary, which vanished when accent was
+       the primary blue. */
+    --accent: 45 14% 92%;
+    --accent-foreground: 224 24% 10%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 22% 93%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
 
     /* ---- Lines ---- */
-    --border: 220 16% 14%;
-    --hairline: 214 20% 100%;   /* used with alpha for 1px rules */
-    --input: 220 20% 10%;
-    --ring: 176 92% 47%;
+    --border: 40 10% 87%;
+    --hairline: 224 30% 12%;   /* used with alpha for 1px rules */
+    --input: 40 10% 87%;
+    --ring: var(--primary);
 
     --radius: 0.625rem;
 
-    /* ---- Motion system ----
-       Every duration in the app resolves to one of these. */
+    /* ---- Motion system ---- */
     --dur-micro: 180ms;
     --dur-standard: 380ms;
     --dur-large: 720ms;
@@ -80,80 +198,97 @@
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
     --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 
-    /* ---- Gradients (restrained) ---- */
-    --hero-gradient: radial-gradient(ellipse at 82% 30%, hsl(var(--hue-realtime) / 0.15), transparent 58%),
-      radial-gradient(ellipse at 13% 84%, hsl(var(--hue-interface) / 0.08), transparent 55%),
-      linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--background)));
-    --card-gradient: linear-gradient(160deg, hsl(220 24% 7%), hsl(220 22% 5%));
-    --accent-gradient: linear-gradient(120deg, hsl(176 92% 50%), hsl(194 96% 58%));
-    --text-gradient: linear-gradient(110deg, hsl(176 95% 58%), hsl(194 96% 66%));
-    --cool-gradient: linear-gradient(135deg, hsl(220 26% 6% / 0.92), hsl(176 50% 16% / 0.14));
-    --dark-section: 220 30% 3.5%;
+    /* ---- Surfaces (flat on purpose) ---- */
+    --hero-gradient: linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+    --card-gradient: linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--surface-1)));
+    --accent-gradient: linear-gradient(0deg, hsl(var(--primary)), hsl(var(--primary)));
+    --text-gradient: linear-gradient(0deg, hsl(var(--primary)), hsl(var(--primary)));
+    --cool-gradient: linear-gradient(180deg, hsl(var(--surface-1)), hsl(var(--surface-1)));
+    --dark-section: 224 24% 10%;
 
-    /* ---- Shadows ---- */
-    --shadow-glow: 0 0 0 1px hsl(176 92% 47% / 0.16), 0 12px 48px -18px hsl(176 92% 47% / 0.4);
-    --shadow-elegant: 0 24px 60px -24px hsl(220 40% 0% / 0.75);
-    --shadow-cool: 0 8px 32px -12px hsl(176 92% 47% / 0.18);
+    /* ---- Shadows: neutral, short, never tinted ---- */
+    --shadow-glow: 0 1px 2px hsl(224 30% 10% / 0.06), 0 8px 24px -12px hsl(224 30% 10% / 0.18);
+    --shadow-elegant: 0 1px 2px hsl(224 30% 10% / 0.05), 0 18px 40px -20px hsl(224 30% 10% / 0.22);
+    --shadow-cool: 0 1px 2px hsl(224 30% 10% / 0.05), 0 8px 20px -12px hsl(224 30% 10% / 0.16);
 
-    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    --noise-url: none;
 
-    --sidebar-background: 220 26% 5.5%;
-    --sidebar-foreground: 210 22% 93%;
-    --sidebar-primary: 176 92% 47%;
-    --sidebar-primary-foreground: 220 30% 4%;
-    --sidebar-accent: 220 20% 11%;
-    --sidebar-accent-foreground: 210 22% 93%;
-    --sidebar-border: 220 16% 14%;
-    --sidebar-ring: 176 92% 47%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 224 24% 10%;
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: 45 14% 94%;
+    --sidebar-accent-foreground: 224 24% 10%;
+    --sidebar-border: 40 10% 87%;
+    --sidebar-ring: var(--primary);
   }
 
-  /* Dark is the canonical theme. `.dark` intentionally mirrors :root so the
-     design is deterministic regardless of how ThemeProvider resolves. */
-  .dark {
-    color-scheme: dark;
-  }
-
-  /* A real light palette, used only where the theme toggle is exposed
-     (blog reading views). Not a second design — a legible inversion. */
   .light {
     color-scheme: light;
-    --background: 210 30% 98%;
-    --foreground: 220 30% 8%;
-    --surface-1: 0 0% 100%;
-    --surface-2: 210 25% 96%;
-    --surface-3: 210 20% 92%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 30% 8%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 8%;
-    --primary: 183 90% 30%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 183 90% 40%;
-    --accent-2: 199 90% 40%;
+  }
 
-    /* Same family, re-darkened for the light reading views. */
-    --hue-backend: 183 90% 30%;
-    --hue-realtime: 199 90% 36%;
-    --hue-ai: 250 68% 52%;
-    --hue-automation: 285 58% 48%;
-    --hue-cloud: 32 88% 38%;
-    --hue-interface: 340 68% 46%;
-    --secondary: 210 25% 94%;
-    --secondary-foreground: 220 30% 8%;
-    --muted: 210 25% 94%;
-    --muted-foreground: 215 16% 40%;
-    --subtle-foreground: 215 14% 52%;
-    --accent: 183 90% 30%;
-    --accent-foreground: 0 0% 100%;
-    --border: 214 20% 86%;
-    --hairline: 220 40% 10%;
-    --input: 210 25% 94%;
-    --ring: 183 90% 30%;
-    --hero-gradient: linear-gradient(180deg, hsl(210 30% 99%), hsl(210 30% 96%));
-    --card-gradient: linear-gradient(160deg, hsl(0 0% 100%), hsl(210 25% 97%));
-    --text-gradient: linear-gradient(110deg, hsl(183 90% 28%), hsl(199 90% 36%));
-    --shadow-glow: 0 0 0 1px hsl(183 90% 30% / 0.16), 0 12px 40px -18px hsl(183 90% 30% / 0.3);
-    --shadow-elegant: 0 24px 60px -28px hsl(220 40% 20% / 0.2);
+  /* Dark: true black with neutral greys, so the one electric accent is the
+     only colour on the page. */
+  .dark {
+    color-scheme: dark;
+    --background: 0 0% 1.5%;
+    --foreground: 0 0% 98%;
+    --surface-1: 0 0% 4.5%;
+    --surface-2: 0 0% 7.5%;
+    --surface-3: 0 0% 11%;
+    --card: 0 0% 4.5%;
+    --card-foreground: 0 0% 97%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 97%;
+
+    --primary: var(--accent-d);
+    --primary-foreground: var(--accent-d-fg);
+    --primary-glow: var(--accent-d-hover);
+    --accent-2: var(--accent-d);
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 97%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 64%;
+    --subtle-foreground: 0 0% 54%;
+    --border: 0 0% 14%;
+    --hairline: 0 0% 100%;
+    --input: 0 0% 14%;
+
+    --shadow-glow: 0 1px 2px hsl(0 0% 0% / 0.4), 0 12px 32px -16px hsl(0 0% 0% / 0.7);
+    --shadow-elegant: 0 1px 2px hsl(0 0% 0% / 0.4), 0 24px 48px -24px hsl(0 0% 0% / 0.8);
+    --shadow-cool: 0 1px 2px hsl(0 0% 0% / 0.4), 0 10px 24px -14px hsl(0 0% 0% / 0.7);
+
+    --sidebar-background: 0 0% 5.5%;
+    --sidebar-foreground: 0 0% 97%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 97%;
+    --sidebar-border: 0 0% 14%;
+    --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    --accent: 0 0% 11%;
+    --accent-foreground: 0 0% 97%;
+  }
+
+  /* An ink band: one deliberately dark block inside the light page (the
+     closing call to action). Re-scopes the tokens rather than hard-coding
+     colours, so everything inside — CTA, labels, rules — just works. */
+  .band-ink {
+    --background: 224 24% 10%;
+    --foreground: 40 14% 96%;
+    --surface-1: 224 20% 13%;
+    --surface-2: 224 18% 16%;
+    --muted-foreground: 224 8% 70%;
+    --subtle-foreground: 224 7% 60%;
+    --hairline: 0 0% 100%;
+    --primary: var(--accent-d);
+    --primary-foreground: var(--accent-d-fg);
+    --primary-glow: var(--accent-d-hover);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  .dark .band-ink {
+    --background: 0 0% 7%;
+    border: 1px solid hsl(0 0% 100% / 0.08);
   }
 }
 
@@ -184,6 +319,16 @@
   h3 { letter-spacing: -0.02em; }
   p  { line-height: 1.7; text-wrap: pretty; }
 
+  /* Headline accent: one word set in Instrument Serif italic, in the same
+     colour as the rest of the line. Mark it up as <em> inside any heading. */
+  :is(h1, h2, h3) em {
+    font-family: "Instrument Serif", "Instrument Serif Fallback", ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    padding-right: 0.04em;
+  }
+
   code, pre { @apply font-mono; }
 
   /* Focus: visible, consistent, never removed. */
@@ -213,9 +358,16 @@
   /* Sized for the hero's left column, not for full-bleed. A display size that
      overflows its container is not dramatic, it is broken. */
   .type-display {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.038em;
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+  /* Centred statement headline (hero, page titles). */
+  .type-hero {
+    font-size: clamp(2.75rem, 7vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
     font-weight: 600;
   }
   /* Full-bleed display, for headlines that own the whole measure. */
@@ -226,13 +378,13 @@
     font-weight: 600;
   }
   .type-h2 {
-    font-size: clamp(1.875rem, 4vw, 3.5rem);
-    line-height: 1.02;
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    line-height: 1.04;
     letter-spacing: -0.032em;
     font-weight: 600;
   }
   .type-h3 {
-    font-size: clamp(1.375rem, 2.4vw, 2rem);
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
     line-height: 1.15;
     letter-spacing: -0.022em;
     font-weight: 600;
@@ -246,18 +398,23 @@
     line-height: 1.7;
   }
 
-  /* The recurring engineering label. Mono, tracked out, small. */
+  /* The recurring label. The class names are historical: these used to be
+     JetBrains Mono tracked to 0.22em, on every label on the page, which read
+     as a terminal costume rather than as typography. Sans, semibold, lightly
+     tracked; mono is kept for things that are actually code (stack tags). */
   .mono-label {
-    @apply font-mono uppercase;
-    font-size: 0.6875rem;
-    letter-spacing: 0.22em;
-    line-height: 1;
+    @apply font-inter uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
   }
   .mono-tiny {
-    @apply font-mono uppercase;
-    font-size: 0.625rem;
-    letter-spacing: 0.18em;
-    line-height: 1;
+    @apply font-inter uppercase;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    line-height: 1.3;
   }
 }
 
@@ -319,9 +476,9 @@
 
   /* Panel: the workhorse container. Hairline + subtle inner light. */
   .panel {
-    background: linear-gradient(160deg, hsl(var(--surface-1)), hsl(var(--background)));
-    border: 1px solid hsl(var(--hairline) / 0.08);
-    box-shadow: inset 0 1px 0 0 hsl(var(--hairline) / 0.05);
+    background: hsl(var(--surface-1));
+    border: 1px solid hsl(var(--hairline) / 0.1);
+    box-shadow: 0 1px 2px hsl(var(--hairline) / 0.04);
   }
   .panel-hover {
     transition: border-color var(--dur-standard) var(--ease-out),
@@ -385,13 +542,15 @@
 
   /* `both` holds the start state through the delay and the end state after.
      If animations never run at all, the element keeps its natural opacity: 1. */
+  /* --enter-skip: how much of the entrance a prerendered copy of the element
+     already showed before React replaced it (see src/lib/boot.ts). */
   .enter {
     animation: enter-up var(--dur-large) var(--ease-entrance) both;
-    animation-delay: var(--enter-delay, 0ms);
+    animation-delay: calc(var(--enter-delay, 0ms) - var(--enter-skip, 0ms));
   }
   .enter-soft {
     animation: enter-soft var(--dur-scroll) var(--ease-entrance) both;
-    animation-delay: var(--enter-delay, 0ms);
+    animation-delay: calc(var(--enter-delay, 0ms) - var(--enter-skip, 0ms));
   }
 
   /* Entrance for above-the-fold text: it rises, but it never starts
@@ -413,7 +572,7 @@
 
   .enter-lift {
     animation: enter-lift var(--dur-large) var(--ease-entrance) both;
-    animation-delay: var(--enter-delay, 0ms);
+    animation-delay: calc(var(--enter-delay, 0ms) - var(--enter-skip, 0ms));
   }
 
   /* Resting state for a Reveal that has not entered the viewport yet. The
@@ -473,7 +632,14 @@
     to   { transform: rotate(360deg); }
   }
 
+  /* One full dash period (see SystemGraph: dasharray 16 984) per cycle. */
+  @keyframes particle-flow {
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: -1000; }
+  }
+
   .anim-dash-flow { animation: dash-flow 14s linear infinite; }
+  .anim-particle  { animation: particle-flow 6s linear infinite; }
   .anim-status    { animation: blink-status 2.6s var(--ease-in-out) infinite; }
   .anim-marquee   { animation: marquee-x 42s linear infinite; }
 }
@@ -521,29 +687,227 @@
     isolation: isolate;
   }
 
-  .wash::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background:
-      radial-gradient(
-        58% 46% at var(--wash-x, 50%) var(--wash-y, 0%),
-        hsl(var(--hue, var(--primary)) / 0.16),
-        transparent 72%
-      ),
-      radial-gradient(
-        46% 42% at var(--wash-x2, 88%) var(--wash-y2, 100%),
-        hsl(var(--hue-2, var(--hue, var(--primary))) / 0.10),
-        transparent 70%
-      );
-  }
+  /* The per-section radial washes are retired: soft coloured blobs behind
+     every heading were the most recognisably generated thing on the page.
+     `.wash` keeps its stacking context so nothing layered on it moves. */
 
   .text-hue { color: hsl(var(--hue, var(--primary))); }
   .bg-hue { background-color: hsl(var(--hue, var(--primary))); }
   .bg-hue-soft { background-color: hsl(var(--hue, var(--primary)) / 0.10); }
   .border-hue { border-color: hsl(var(--hue, var(--primary)) / 0.42); }}
+
+@property --fx-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes fx-beam {
+  to {
+    --fx-angle: 360deg;
+  }
+}
+
+@keyframes fx-twinkle {
+  0% { background-position: 0 0, 0 0; }
+  25% { background-position: 0 0, 6px 0; }
+  50% { background-position: 0 0, 6px 6px; }
+  75% { background-position: 0 0, 0 6px; }
+}
+
+/* ============================================================================
+   EFFECTS — the atmosphere layer (light streaks live in fx/SilkBackground).
+   One hue only: everything here is drawn in --primary.
+   ========================================================================= */
+@layer utilities {
+  /* Light along a section edge, as if spilling in from the next section. */
+  .fx-glow-top,
+  .fx-glow-bottom {
+    position: relative;
+    isolation: isolate;
+  }
+  /* The ellipse is centred inside its box and reaches zero at the box edges,
+     so the light never meets a section boundary at full strength; earlier
+     versions peaked on the boundary and left a visible horizontal seam. */
+  .fx-glow-top::before,
+  .fx-glow-bottom::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: min(1100px, 100%);
+    height: min(560px, 75%);
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .fx-glow-top::before {
+    top: 0;
+    background: radial-gradient(50% 50% at 50% 50%, hsl(var(--primary) / 0.14), hsl(var(--primary) / 0.05) 55%, transparent 100%);
+  }
+  .fx-glow-bottom::after {
+    bottom: 0;
+    background: radial-gradient(50% 50% at 50% 50%, hsl(var(--primary) / 0.12), hsl(var(--primary) / 0.04) 55%, transparent 100%);
+  }
+  .light .fx-glow-top::before,
+  .light .fx-glow-bottom::after {
+    opacity: 0.55;
+  }
+
+  /* Border beam: on hover, two arcs of light chase each other around the
+     card's edge, through the corners. A conic gradient masked down to the
+     1px border; its start angle is a registered custom property, so it can
+     be animated (browsers without @property show the arcs standing still).
+     The beam only runs while hovered, so idle cards cost nothing. */
+  .fx-border {
+    position: relative;
+    transition: box-shadow var(--dur-standard) var(--ease-out);
+  }
+  .fx-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    /* Two comets: a long accent tail brightening into a white head. */
+    background: conic-gradient(
+      from var(--fx-angle),
+      transparent 0deg,
+      hsl(var(--primary) / 0.12) 12deg,
+      hsl(var(--primary) / 0.65) 52deg,
+      hsl(var(--primary)) 66deg,
+      hsl(0 0% 100%) 72deg,
+      transparent 78deg,
+      transparent 180deg,
+      hsl(var(--primary) / 0.12) 192deg,
+      hsl(var(--primary) / 0.65) 232deg,
+      hsl(var(--primary)) 246deg,
+      hsl(0 0% 100%) 252deg,
+      transparent 258deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--dur-standard) var(--ease-out);
+  }
+  .fx-border:hover::after,
+  .fx-border:focus-visible::after,
+  .fx-border:focus-within::after {
+    opacity: 1;
+    animation: fx-beam 3.2s linear infinite;
+  }
+  .fx-border:hover,
+  .fx-border:focus-visible {
+    border-color: hsl(var(--primary) / 0.28);
+    box-shadow: 0 0 24px -6px hsl(var(--primary) / 0.35), 0 18px 60px -28px hsl(var(--primary) / 0.6);
+  }
+
+  /* Dot matrix that fills the tile on hover: a dense field of faint white and
+     accent dots, with a sparse brighter layer that steps between grid
+     positions so the field twinkles. Two tiles of different periods, so the
+     repeat never lines up into visible wallpaper. */
+  .fx-dots {
+    position: relative;
+    isolation: isolate;
+  }
+  .fx-dots::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%2748%27%3E%3Crect x=%272%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2714%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2720%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2744%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%272%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2720%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%272%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%278%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2732%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2738%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2744%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.18%27/%3E%3Crect x=%2714%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%278%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2732%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2738%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2742%27 height=%2742%27%3E%3Crect x=%272%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2714%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.9%27/%3E%3Crect x=%278%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.7%27/%3E%3Crect x=%2738%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.7%27/%3E%3Crect x=%272%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.7%27/%3E%3Crect x=%2738%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.9%27/%3E%3C/svg%3E");
+    background-size: 48px 48px, 42px 42px;
+    -webkit-mask-image: radial-gradient(75% 75% at 50% 50%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(75% 75% at 50% 50%, #000 55%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--dur-standard) var(--ease-out);
+  }
+  .fx-dots:hover::before,
+  .fx-dots:focus-visible::before {
+    opacity: 1;
+    animation: fx-twinkle 1.6s steps(1) infinite;
+  }
+  /* On paper the white dots would vanish, so the same tile becomes an alpha
+     mask over the accent colour instead. */
+  .light .fx-dots::before {
+    background-image: none;
+    background-color: hsl(var(--primary));
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%2748%27%3E%3Crect x=%272%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2714%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2720%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2744%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%272%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2720%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%272%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%278%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2732%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2738%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2744%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.18%27/%3E%3Crect x=%2714%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%278%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2732%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2738%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3C/svg%3E"), radial-gradient(75% 75% at 50% 50%, #000 55%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%2748%27%3E%3Crect x=%272%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2714%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2720%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%272%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2744%27 y=%278%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%272%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2714%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2720%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2738%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2714%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%272%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%278%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2720%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2732%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2738%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2744%27 y=%2720%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.18%27/%3E%3Crect x=%2714%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2726%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2726%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%278%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2714%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.25%27/%3E%3Crect x=%2726%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2732%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3Crect x=%2738%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2732%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%278%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2732%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2738%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2744%27 y=%2738%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%272%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%233d9bff%27 fill-opacity=%270.25%27/%3E%3Crect x=%278%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.35%27/%3E%3Crect x=%2720%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.5%27/%3E%3Crect x=%2732%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.08%27/%3E%3Crect x=%2744%27 y=%2744%27 width=%271.6%27 height=%271.6%27 fill=%27%23ffffff%27 fill-opacity=%270.12%27/%3E%3C/svg%3E"), radial-gradient(75% 75% at 50% 50%, #000 55%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-size: 48px 48px, 100% 100%;
+    mask-size: 48px 48px, 100% 100%;
+    animation: none;
+  }
+  .light .fx-dots:hover::before {
+    opacity: 0.5;
+  }
+
+  /* Planet horizon: the lit rim of a huge sphere rising from the bottom of a
+     card, for illustrations to sit on. */
+  .fx-horizon {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 170%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(closest-side, hsl(222 75% 9%) 93%, hsl(214 95% 40%) 98.5%, hsl(205 100% 75%) 99.6%, transparent 100%);
+    box-shadow: 0 -30px 90px -20px hsl(var(--primary) / 0.55);
+  }
+  .light .fx-horizon {
+    background: radial-gradient(closest-side, hsl(214 70% 92%) 93%, hsl(212 90% 60%) 98.5%, hsl(205 100% 80%) 99.6%, transparent 100%);
+    box-shadow: 0 -30px 90px -30px hsl(var(--primary) / 0.4);
+  }
+
+  /* Faint dot grid for the blue illustration panels. */
+  .fx-dotgrid {
+    background-image: radial-gradient(hsl(0 0% 100% / 0.16) 1px, transparent 1.2px);
+    background-size: 14px 14px;
+  }
+
+  /* The blue illustration panel used by service visuals and diagram covers. */
+  .fx-panel {
+    background:
+      radial-gradient(90% 70% at 85% 0%, hsl(210 100% 62% / 0.55), transparent 60%),
+      linear-gradient(160deg, hsl(214 88% 44%), hsl(222 82% 24%));
+  }
+
+  /* Accent rim on a framed window: light along the top edge and a glow
+     behind it, like a screen lit from above. */
+  .fx-rim {
+    position: relative;
+    box-shadow:
+      0 -1px 0 0 hsl(var(--primary) / 0.8),
+      0 -24px 90px -30px hsl(var(--primary) / 0.65),
+      0 30px 80px -40px hsl(0 0% 0% / 0.8);
+  }
+  .light .fx-rim {
+    box-shadow:
+      0 -1px 0 0 hsl(var(--primary) / 0.6),
+      0 -24px 80px -36px hsl(var(--primary) / 0.45),
+      0 30px 60px -40px hsl(224 30% 10% / 0.3);
+  }
+
+  /* Oversized wordmark at the foot of the page; the footer's blurred top row
+     overlaps its lower half (see Footer). */
+  .fx-wordmark {
+    font-family: "Instrument Serif", "Instrument Serif Fallback", ui-serif, Georgia, serif;
+    font-size: clamp(7rem, 27vw, 26rem);
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 98%);
+    mask-image: linear-gradient(180deg, #000 58%, transparent 98%);
+    user-select: none;
+  }
+}
 
 /* ============================================================================
    SYSTEM CORE
@@ -589,48 +953,43 @@
    ========================================================================= */
 @layer utilities {
   /* A raised band. Alternate it down the page so sections have rhythm. */
+  /* A white band on the paper ground. Sections alternate paper / band down
+     the page, which is all the rhythm the page needs. */
   .band {
-    background-color: hsl(var(--surface-1) / 0.55);
+    background-color: hsl(var(--surface-1));
     border-top: 1px solid hsl(var(--hairline) / 0.07);
     border-bottom: 1px solid hsl(var(--hairline) / 0.07);
   }
 
-  /* A hue-tinted rule along the top edge of a section, so the domain colour
-     is present at full strength somewhere rather than only in 10px labels. */
+  /* Home page rhythm on the paper theme: every second section is a white
+     band (the black theme gets its rhythm from section glows). Driven by
+     position rather than by a class on each component, so reordering the
+     sections in Index.tsx can never put two bands side by side. */
+  .light .home-rhythm > section:nth-of-type(even) {
+    background-color: hsl(var(--surface-1));
+    border-top: 1px solid hsl(var(--hairline) / 0.07);
+    border-bottom: 1px solid hsl(var(--hairline) / 0.07);
+  }
+
+  /* Formerly a hue-tinted gradient rule. Now a plain hairline. */
   .band-edge {
     position: relative;
   }
-  .band-edge::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    top: 0;
-    height: 1px;
-    pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      hsl(var(--hue, var(--primary)) / 0.5) 18%,
-      hsl(var(--hue, var(--primary)) / 0.5) 62%,
-      transparent
-    );
-  }
 
-  /* Card surface for content that is genuinely card-shaped. Restrained on
-     purpose: one surface step, a hairline, and a radius. */
+  /* Card surface for content that is genuinely card-shaped. */
   .card-surface {
-    background-color: hsl(var(--surface-1) / 0.6);
-    border: 1px solid hsl(var(--hairline) / 0.08);
-    border-radius: 1rem;
+    background-color: hsl(var(--surface-1));
+    border: 1px solid hsl(var(--hairline) / 0.1);
+    border-radius: 0.875rem;
   }
 
   .card-surface-hover {
     transition: border-color var(--dur-standard) var(--ease-out),
-      background-color var(--dur-standard) var(--ease-out);
+      box-shadow var(--dur-standard) var(--ease-out);
   }
   .card-surface-hover:hover {
-    background-color: hsl(var(--surface-2) / 0.6);
-    border-color: hsl(var(--hue, var(--primary)) / 0.28);
+    border-color: hsl(var(--hairline) / 0.2);
+    box-shadow: var(--shadow-cool);
   }
 
   .project-card {
@@ -638,23 +997,109 @@
       border-color var(--dur-standard) var(--ease-out),
       box-shadow var(--dur-standard) var(--ease-out);
   }
+  /* Lift only; the glow comes from .fx-border's beam. */
   .project-card:hover, .project-card:focus-within {
-    transform: translateY(-5px);
-    border-color: hsl(var(--hue, var(--primary)) / 0.5);
-    box-shadow: 0 16px 46px -28px hsl(var(--hue, var(--primary)) / 0.42);
+    transform: translateY(-3px);
   }
-  .project-details summary::marker { color: hsl(var(--hue, var(--primary))); }
+  .project-details summary::marker { color: hsl(var(--primary)); }
 
-  /* Eyebrow label as a tinted chip rather than bare small text. */
+  /* Eyebrow: accent text after a short rule. Was a tinted pill, one colour
+     per section; a row of differently coloured pills down the page read as a
+     template. The class name is kept so every SectionHeader picks this up. */
   .chip-hue {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    background-color: hsl(var(--hue, var(--primary)) / 0.1);
-    border: 1px solid hsl(var(--hue, var(--primary)) / 0.22);
-    color: hsl(var(--hue, var(--primary)));
+    gap: 0.75rem;
+    color: hsl(var(--primary));
+  }
+  .chip-hue::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background-color: currentColor;
+  }
+}
+
+/* iOS Safari zooms the page when a focused field's text is under 16px. */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Route changes move focus to <main> (see ScrollManager); no ring for that. */
+main:focus {
+  outline: none;
+}
+
+/* ============================================================================
+   ARTICLE TYPOGRAPHY
+
+   @tailwindcss/typography colours come from --tw-prose-* variables; pointing
+   them at the theme tokens makes posts legible on both black and paper
+   without a dark: variant. (Its defaults are grey-on-white, which made post
+   bodies near-invisible on the dark theme.)
+   ========================================================================= */
+@layer components {
+  .prose-site {
+    --tw-prose-body: hsl(var(--foreground) / 0.82);
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--primary));
+    --tw-prose-hr: hsl(var(--hairline) / 0.12);
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--primary));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--foreground));
+    --tw-prose-pre-bg: hsl(var(--surface-2));
+    --tw-prose-th-borders: hsl(var(--hairline) / 0.12);
+    --tw-prose-td-borders: hsl(var(--hairline) / 0.08);
+    font-family: Inter, "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+  }
+  .prose-site :where(h2, h3) {
+    scroll-margin-top: 6.5rem;
+    letter-spacing: -0.025em;
+  }
+  .prose-site :where(h2) {
+    margin-top: 2.6em;
+    padding-top: 1.2em;
+    border-top: 1px solid hsl(var(--hairline) / 0.08);
+  }
+  /* No rule above an article that opens with a heading. */
+  .prose-site > div > :where(h2):first-child,
+  .prose-site :where(h2):first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .prose-site :where(a) {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose-site :where(blockquote) {
+    font-style: normal;
+    background: hsl(var(--surface-1));
+    border-radius: 0 0.75rem 0.75rem 0;
+    padding: 0.75rem 1.25rem;
+  }
+  .prose-site .inline-code {
+    background-color: hsl(var(--surface-2));
+    border: 1px solid hsl(var(--hairline) / 0.1);
+    border-radius: 0.375rem;
+    padding: 0.15em 0.4em;
+    font-family: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, monospace;
+    font-size: 0.85em;
+    font-weight: 500;
+  }
+  .prose-site .inline-code::before,
+  .prose-site .inline-code::after {
+    content: none;
   }
 }
 
@@ -676,26 +1121,31 @@
 }
 
 /* ============================================================================
-   OFF-SCREEN SECTION COST
+   OFF-SCREEN SECTIONS
 
-   The home page is ~18,000px of 12 sections and 1,600 nodes, and Lighthouse
-   measured 3.4s of Style & Layout on the mobile profile: more than script
-   evaluation. All of that work competes with the main thread while the browser
-   is still trying to paint the hero.
-
-   content-visibility lets the browser skip layout and paint for sections that
-   are nowhere near the viewport, and `contain-intrinsic-size: auto` makes it
-   remember each one's real size after the first render, so scrollbar position
-   settles immediately. Purely a rendering hint: nothing about the design, the
-   markup or the animations changes.
-
-   The first two sections (hero and the proof strip) are excluded because they
-   are above the fold.
+   content-visibility:auto used to be set on every home section below the
+   fold. It saved layout work, but sections that had never rendered stood in
+   at a placeholder 1000px tall: navbar links to #work or #process landed in
+   the wrong place, and content jumped when scrolling back up as real heights
+   replaced placeholders. Smooth, correct scrolling matters more here; the
+   heavy work it was guarding (canvases, infinite SVG animations) now pauses
+   itself off screen instead (see [data-paused] below and fx/*).
    ========================================================================= */
+/* The home page's build-time HTML carries every section, for readers and
+   crawlers without JavaScript, but the app replaces that markup when it boots
+   and then mounts the sections progressively. Until then, the ones below the
+   hero skip layout and paint unless scrolled near: on a phone, laying out the
+   whole page up front was a long task in front of the first paint. */
+.prerender-defer > :nth-child(n + 3) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+
 @layer utilities {
-  main > section:nth-of-type(n + 3) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1000px;
+  /* Set by usePauseOffscreen on decorative regions that leave the viewport. */
+  [data-paused],
+  [data-paused] * {
+    animation-play-state: paused !important;
   }
 }
 

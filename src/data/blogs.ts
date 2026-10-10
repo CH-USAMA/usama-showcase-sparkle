@@ -1,29 +1,9 @@
-import blogLaravelVsNode from "@/assets/blog-laravel-vs-node.webp";
-import blogAsteriskVsTwilio from "@/assets/blog-asterisk-vs-twilio.webp";
-import blogN8nVsCustom from "@/assets/blog-n8n-vs-custom.webp";
-import blogMysqlVsPostgres from "@/assets/blog-mysql-vs-postgres.webp";
-import blogRedisVsDb from "@/assets/blog-redis-vs-db.webp";
-import blogLaravelVsDjango from "@/assets/blog-laravel-vs-django.jpg";
-import blogN8nVsMake from "@/assets/blog-n8n-vs-make.jpg";
 
-export interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  featured_image: string | null;
-  published_at: string;
-  author: string;
-  tags: string[];
-  /**
-   * Set only on posts merged in from the trending feed, never on the written
-   * articles. They were previously reached through `(post as any)`, which is
-   * what the no-explicit-any errors in Blog.tsx and BlogPost.tsx were.
-   */
-  is_auto?: boolean;
-  source_url?: string;
-}
+/* SEED DATA. Blog posts now live in the Turso database and are edited at
+   /admin. This file only seeds an empty database (npm run content:seed) and
+   is the offline fallback when no database is configured. */
+import type { BlogPost } from "./types";
+export type { BlogPost };
 
 export const blogsData: BlogPost[] = [
   {
@@ -82,7 +62,7 @@ Laravel applications run comfortably on a single well configured VPS for a long 
 ## Final thought
 
 Frameworks rarely fail a SaaS. Unclear tenancy boundaries, unmonitored queues, and untested billing logic do. Pick the stack your team can maintain at two in the morning and spend the saved energy on the parts that actually decide whether the product survives.`,
-    featured_image: blogLaravelVsDjango,
+    featured_image: "/blog/blog-laravel-vs-django.jpg",
     published_at: "2026-02-10",
     author: "Usama",
     tags: ["Laravel", "Django", "SaaS", "Architecture"],
@@ -147,7 +127,7 @@ Business teams get a managed tool for lightweight internal workflows they own. E
 ## Final thought
 
 Automation tools are excellent glue and poor foundations. Use them to connect systems quickly, keep the business critical logic in tested code, and make sure every workflow tells you loudly when it breaks.`,
-    featured_image: blogN8nVsMake,
+    featured_image: "/blog/blog-n8n-vs-make.jpg",
     published_at: "2026-02-04",
     author: "Usama",
     tags: ["Automation", "n8n", "Make.com", "Integration"],
@@ -210,7 +190,7 @@ When Redis is used for queues, I monitor queue length, throughput, failed jobs, 
 ## Final thought
 
 Caching is a powerful tool, but it is also a liability when it becomes an invisible layer of state. The best systems I have built use Redis deliberately, with named keys, documented TTLs, and clear invalidation paths. That is how you keep a fast system from becoming a mysterious one.`,
-    featured_image: blogRedisVsDb,
+    featured_image: "/blog/blog-redis-vs-db.webp",
     published_at: "2026-01-23",
     author: "Usama",
     tags: ["Laravel", "Redis", "Performance", "Backend", "Caching"],
@@ -270,7 +250,7 @@ Regardless of the database, I set up:
 ## Final thought
 
 MySQL versus PostgreSQL is often a debate about future-proofing. My rule is to choose the database that fits the product as it exists today, with a clear migration path if the requirements change. A fast, well-indexed MySQL database will outperform a poorly tuned PostgreSQL database every time. The skill matters more than the brand.`,
-    featured_image: blogMysqlVsPostgres,
+    featured_image: "/blog/blog-mysql-vs-postgres.webp",
     published_at: "2026-01-22",
     author: "Usama",
     tags: ["Laravel", "MySQL", "PostgreSQL", "Database", "SaaS"],
@@ -328,7 +308,7 @@ In Node the same thing works, but you are choosing and operating the queue libra
 On a recent dispatch platform, Laravel owned tenancy, jobs, billing, and the API, while a ~400-line Node service handled live driver location fan-out. One VPS, one database, two processes. Nothing exotic, and nothing that a future maintainer needs a tour to understand.
 
 **Need a second opinion on a stack decision?** Email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute architecture call.`,
-    featured_image: blogLaravelVsNode,
+    featured_image: "/blog/blog-laravel-vs-node.webp",
     published_at: "2026-07-28T09:00:00Z",
     author: "Usama Munawar",
     tags: ["Laravel", "Node.js", "Backend Architecture", "PHP", "Comparison"]
@@ -403,7 +383,7 @@ exten => _X.,1,NoOp(Outbound campaign leg)
 Self-hosted Asterisk for the high-volume core, plus a managed provider for international DIDs and overflow. It captures most of the saving without betting the whole operation on one carrier.
 
 **Working out which side of the line you're on?** Email devusamaworks@gmail.com or WhatsApp +92 303 8004684 and we can size it together on a free 30-minute call.`,
-    featured_image: blogAsteriskVsTwilio,
+    featured_image: "/blog/blog-asterisk-vs-twilio.webp",
     published_at: "2026-07-21T09:00:00Z",
     author: "Usama Munawar",
     tags: ["Asterisk", "Twilio", "VoIP", "FreePBX", "Comparison"]
@@ -474,7 +454,7 @@ n8n still receives the webhook, still notifies Slack, still writes to the spread
 On one operations platform, moving four billing-critical workflows out of a 60-node canvas into queued Laravel jobs eliminated a recurring class of duplicate-charge incidents and cut the automation run time from minutes to seconds, while the remaining 40 nodes of notification and reporting logic stayed exactly where the ops team could edit them.
 
 **Not sure which of your workflows crossed the line?** Email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute automation audit.`,
-    featured_image: blogN8nVsCustom,
+    featured_image: "/blog/blog-n8n-vs-custom.webp",
     published_at: "2026-07-14T09:00:00Z",
     author: "Usama Munawar",
     tags: ["n8n", "Automation", "Laravel", "Architecture", "Comparison"]

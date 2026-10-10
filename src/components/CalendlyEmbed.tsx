@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
 
 interface CalendlyEmbedProps {
   url?: string;
@@ -10,6 +9,18 @@ interface CalendlyEmbedProps {
   lazy?: boolean;
 }
 
+/** Tracks the theme class on <html>, so the embed re-renders on toggle. */
+function useIsDark() {
+  const [dark, setDark] = useState(() => typeof document !== "undefined" && document.documentElement.classList.contains("dark"));
+  useEffect(() => {
+    const root = document.documentElement;
+    const mo = new MutationObserver(() => setDark(root.classList.contains("dark")));
+    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => mo.disconnect();
+  }, []);
+  return dark;
+}
+
 const CalendlyEmbed = ({
   url = "https://calendly.com/usamaresume30/30min",
   height = 700,
@@ -18,6 +29,16 @@ const CalendlyEmbed = ({
   lazy = true,
 }: CalendlyEmbedProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dark = useIsDark();
+  // Calendly's own embed options: theme colours, no cookie banner inside the
+  // frame, and no event panel (it shows the account name).
+  const themedUrl = `${url}?${new URLSearchParams({
+    hide_gdpr_banner: "1",
+    hide_event_type_details: "1",
+    background_color: dark ? "0b0b0b" : "ffffff",
+    text_color: dark ? "f5f5f5" : "1a1d24",
+    primary_color: dark ? "3d9bff" : "0b62d6",
+  })}`;
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(!lazy);
 
@@ -55,22 +76,23 @@ const CalendlyEmbed = ({
       document.body.appendChild(script);
     } else if ((window as typeof window & { Calendly?: { initInlineWidget: (opts: Record<string, unknown>) => void } }).Calendly) {
       (window as typeof window & { Calendly: { initInlineWidget: (opts: Record<string, unknown>) => void } }).Calendly.initInlineWidget({
-        url,
+        url: themedUrl,
         parentElement: containerRef.current,
         prefill: {},
         utm: {},
       });
     }
-  }, [url, visible]);
+  }, [themedUrl, visible]);
 
   return (
-    <Card className={`overflow-hidden rounded-2xl border-border/30 bg-card/60 ${className}`}>
+    <div className={`overflow-hidden rounded-2xl bg-card/60 ${className}`}>
       <div ref={sentinelRef} />
       {visible ? (
         <div
+          key={themedUrl}
           ref={containerRef}
           className="calendly-inline-widget"
-          data-url={url}
+          data-url={themedUrl}
           style={{ minWidth: "320px", height: `${height}px` }}
           aria-label={title}
           role="region"
@@ -84,7 +106,7 @@ const CalendlyEmbed = ({
           <span className="text-sm text-muted-foreground font-inter">Loading calendar…</span>
         </div>
       )}
-    </Card>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import type { BlogPost } from "@/data/blogs";
+import type { BlogPost } from "@/data/types";
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/supabasePublic";
 
 const CACHE_KEY = "trending-blogs-cache";
 const CACHE_TTL = 1000 * 60 * 60; // 1 hour
@@ -46,6 +46,21 @@ function setCache(posts: BlogPost[]) {
   }
 }
 
+/*
+ * A plain fetch to the public edge function. It used to go through
+ * supabase.functions.invoke, which made the whole supabase-js client (~60 kB
+ * gzipped) a static dependency of both blog routes for one GET.
+ */
+async function invokeFetchBlogs(): Promise<{ success?: boolean; posts?: BlogPost[] } | null> {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/fetch-blogs`, {
+    method: "POST",
+    headers: { "content-type": "application/json", apikey: SUPABASE_ANON_KEY, authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+    body: "{}",
+  });
+  if (!res.ok) return null;
+  return res.json();
+}
+
 export const useTrendingBlogs = () => {
   return useQuery<BlogPost[]>({
     queryKey: ["trending-blogs"],
@@ -54,9 +69,9 @@ export const useTrendingBlogs = () => {
       if (cached) return cached;
 
       try {
-        const { data, error } = await supabase.functions.invoke("fetch-blogs");
-        if (error || !data?.success) return cached || [];
-        const posts = normalise(data.posts as BlogPost[]);
+        const data = await invokeFetchBlogs();
+        if (!data?.success || !data.posts) return cached || [];
+        const posts = normalise(data.posts);
         setCache(posts);
         return posts;
       } catch {

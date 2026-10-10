@@ -2,11 +2,10 @@ import type { CSSProperties } from "react";
 import profileWebp from "@/assets/usama-profile.webp";
 import profileJpg from "@/assets/usama-profile.jpg";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEnter } from "@/lib/boot";
 import SectionHeader from "@/components/system/SectionHeader";
 import ArchitectureFlow from "@/components/system/ArchitectureFlow";
 import Reveal from "@/components/system/Reveal";
-import { transition } from "@/lib/motion";
 
 const PRINCIPLES = [
   {
@@ -63,12 +62,13 @@ const CANONICAL_FLOW = [
  */
 const Philosophy = () => {
   const [active, setActive] = useState(0);
+  const enter = useEnter();
   const current = PRINCIPLES[active];
 
   return (
     <section
       id="about"
-      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
+      className="wash fx-glow-top relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-automation)",
         "--hue-2": "var(--hue-interface)",
@@ -95,8 +95,8 @@ const Philosophy = () => {
           <figure className="mt-14 border-y border-hairline/[0.08] py-10 lg:mt-16 lg:py-12">
             <blockquote>
               <p className="font-display text-2xl italic leading-[1.3] text-foreground sm:text-3xl lg:text-[2.25rem]">
-                “Don't just build software.{" "}
-                <span className="text-gradient not-italic">digitize, automate, and scale</span>{" "}
+                “Don’t just build software.{" "}
+                <span className="text-primary">Digitize, automate, and scale</span>{" "}
                 your entire business.”
               </p>
             </blockquote>
@@ -172,23 +172,17 @@ const Philosophy = () => {
             </ul>
 
             <div className="min-h-[7rem] pt-7" aria-live="polite">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={current.n}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={transition.standard}
-                  className="type-body max-w-xl text-muted-foreground"
-                >
-                  {current.body}
-                </motion.p>
-              </AnimatePresence>
+              {/* Keyed, so each principle mounts fresh and plays the CSS entrance. */}
+              <p key={current.n} className="enter type-body max-w-xl text-muted-foreground" {...enter()}>
+                {current.body}
+              </p>
             </div>
           </div>
 
           {/* ---- the canonical diagram ---- */}
-          <div className="lg:col-span-5">
+          {/* Sticky, so the tall lifecycle panel and the shorter principles
+              column finish together instead of leaving an empty block. */}
+          <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
             <Reveal variant="fade">
               <div className="panel rounded-xl p-6 lg:p-7">
                 <div className="flex items-baseline justify-between gap-4">

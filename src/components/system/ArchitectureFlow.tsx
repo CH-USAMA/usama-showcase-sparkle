@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { isBootRender } from "@/lib/boot";
 import { usePrefersReducedMotion } from "@/hooks/usePointerField";
 
-export interface FlowStage {
-  label: string;
-  /** Optional sub-label, e.g. the concrete technology at that stage. */
-  note?: string;
-}
+import type { FlowStage } from "@/data/types";
+export type { FlowStage };
 
 interface ArchitectureFlowProps {
   stages: FlowStage[];
@@ -43,7 +41,9 @@ const ArchitectureFlow = ({
    * rather than as already existing; scrolling back up does not replay it,
    * because a diagram that rebuilds every time you pass it is a distraction.
    */
-  const [built, setBuilt] = useState(false);
+  // The build-time render shows the finished diagram (its labels are content),
+  // and so does the render that replaces it, so it never blinks out.
+  const [built, setBuilt] = useState(() => import.meta.env.SSR || isBootRender());
   const reduced = usePrefersReducedMotion();
 
   useEffect(() => {

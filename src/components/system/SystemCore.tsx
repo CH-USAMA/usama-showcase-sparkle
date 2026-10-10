@@ -52,7 +52,7 @@ const SystemCore = () => {
       <svg viewBox={`0 0 ${VB} ${VB}`} className="h-full w-full overflow-visible">
         <defs>
           <radialGradient id="core-fill" cx="50%" cy="42%" r="62%">
-            <stop offset="0%" stopColor="hsl(var(--hue, var(--primary)))" stopOpacity="0.20" />
+            <stop offset="0%" stopColor="hsl(var(--hue, var(--primary)))" stopOpacity="0.12" />
             <stop offset="70%" stopColor="hsl(var(--hue, var(--primary)))" stopOpacity="0.05" />
             <stop offset="100%" stopColor="hsl(var(--hue, var(--primary)))" stopOpacity="0" />
           </radialGradient>
@@ -127,9 +127,10 @@ const SystemCore = () => {
               x={C}
               y={C + 4}
               textAnchor="middle"
-              className={`font-mono ${reduced ? "" : "anim-core-step"}`}
-              fontSize={13}
-              letterSpacing="0.18em"
+              className={`font-inter ${reduced ? "" : "anim-core-step"}`}
+              fontSize={14}
+              fontWeight={600}
+              letterSpacing="0.06em"
               fill="hsl(var(--foreground))"
               style={
                 reduced
@@ -150,9 +151,10 @@ const SystemCore = () => {
           x={C}
           y={C + 26}
           textAnchor="middle"
-          className="font-mono"
+          className="font-inter"
           fontSize={8}
-          letterSpacing="0.22em"
+          fontWeight={600}
+          letterSpacing="0.1em"
           fill="hsl(var(--muted-foreground))"
         >
           REQUEST LIFECYCLE

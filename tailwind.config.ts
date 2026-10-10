@@ -21,9 +21,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'display': ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
-				'inter': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-				'mono': ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+				'display': ['"Instrument Serif"', '"Instrument Serif Fallback"', 'ui-serif', 'Georgia', 'serif'],
+				'inter': ['Inter', '"Inter Fallback"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				'mono': ['"JetBrains Mono"', '"JetBrains Mono Fallback"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

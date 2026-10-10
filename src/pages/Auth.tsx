@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Toaster } from "@/components/ui/toaster";
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -94,6 +95,7 @@ const Auth = () => {
 
   return (
     <>
+    <Toaster />
     <SEOHead
       title="Admin Login | Usama Munawar"
       description="Secure admin sign-in for managing portfolio blog posts and content."

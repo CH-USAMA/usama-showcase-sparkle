@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { lazy, Suspense, useState } from "react";
 import type { FormEvent } from "react";
-import { Check, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { CalendarDays, Check, Loader2, Mail, MapPin, Phone } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
@@ -52,6 +52,9 @@ type Status = "idle" | "sending" | "sent" | "error";
  */
 const Contact = () => {
   const [status, setStatus] = useState<Status>("idle");
+  // Calendly's widget is ~5 MB of third-party script; it loads when asked for,
+  // not because the reader scrolled past the bottom of the home page.
+  const [calendar, setCalendar] = useState(false);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,7 +85,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
+      className="wash fx-glow-top relative scroll-mt-24 py-24 lg:py-32"
       style={{
         "--hue": "var(--hue-backend)",
         "--hue-2": "var(--hue-ai)",
@@ -94,7 +97,7 @@ const Contact = () => {
         <SectionHeader
           index="09"
           eyebrow="Contact"
-          title="Tell me what's breaking."
+          title={<>Tell me what&apos;s <em>breaking.</em></>}
           lead="Share the architecture, automation, or VoIP problem you're facing. You'll get an honest assessment back, including if the answer is that you do not need me."
         />
 
@@ -172,7 +175,7 @@ const Contact = () => {
                     </p>
                     <div className="mt-7 flex flex-wrap gap-3">
                       <CTA to="/book" tone="ghost" size="sm" arrow>
-                        Book an Architecture Call
+                        Book a free call
                       </CTA>
                       <button
                         type="button"
@@ -184,7 +187,9 @@ const Contact = () => {
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
+                  // action/method: a send before the app has loaded (or without
+                  // JavaScript) still reaches Formspree, as a POST.
+                  <form action={FORMSPREE_URL} method="POST" onSubmit={onSubmit} className="space-y-5" noValidate={false}>
                     {/* honeypot */}
                     <input
                       type="text"
@@ -197,7 +202,7 @@ const Contact = () => {
 
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="c-name" className="mono-tiny block text-subtle">
+                        <label htmlFor="c-name" className="block font-inter text-sm font-medium text-foreground">
                           Name <span className="text-primary">*</span>
                         </label>
                         <input
@@ -210,7 +215,7 @@ const Contact = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="c-company" className="mono-tiny block text-subtle">
+                        <label htmlFor="c-company" className="block font-inter text-sm font-medium text-foreground">
                           Company
                         </label>
                         <input
@@ -224,7 +229,7 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="c-email" className="mono-tiny block text-subtle">
+                      <label htmlFor="c-email" className="block font-inter text-sm font-medium text-foreground">
                         Email <span className="text-primary">*</span>
                       </label>
                       <input
@@ -241,7 +246,7 @@ const Contact = () => {
 
                     <div className="grid gap-5 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="c-type" className="mono-tiny block text-subtle">
+                        <label htmlFor="c-type" className="block font-inter text-sm font-medium text-foreground">
                           Project type
                         </label>
                         <select id="c-type" name="project_type" className={`${field} mt-2.5`} defaultValue={PROJECT_TYPES[0]}>
@@ -253,7 +258,7 @@ const Contact = () => {
                         </select>
                       </div>
                       <div>
-                        <label htmlFor="c-budget" className="mono-tiny block text-subtle">
+                        <label htmlFor="c-budget" className="block font-inter text-sm font-medium text-foreground">
                           Budget range
                         </label>
                         <select id="c-budget" name="budget" className={`${field} mt-2.5`} defaultValue={BUDGETS[5]}>
@@ -267,7 +272,7 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="c-message" className="mono-tiny block text-subtle">
+                      <label htmlFor="c-message" className="block font-inter text-sm font-medium text-foreground">
                         What are you building? <span className="text-primary">*</span>
                       </label>
                       <textarea
@@ -284,7 +289,7 @@ const Contact = () => {
                       <button
                         type="submit"
                         disabled={status === "sending"}
-                        className="group inline-flex h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-7 font-inter text-[15px] font-semibold text-primary-foreground shadow-[0_8px_28px_-12px_hsl(var(--primary)/0.6)] transition-colors duration-standard hover:bg-primary-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
+                        className="group inline-flex h-10 items-center justify-center gap-2 rounded-full bg-foreground px-5 font-inter text-sm font-medium text-background transition-colors duration-standard hover:bg-foreground/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
                       >
                         {status === "sending" ? (
                           <>
@@ -301,7 +306,7 @@ const Contact = () => {
                         )}
                       </button>
 
-                      <p className="mono-tiny text-subtle">Reply within 4 hours</p>
+                      <p className="font-inter text-sm text-subtle">Reply within 4 hours</p>
                     </div>
 
                     <p aria-live="polite" className="min-h-[1.25rem]">
@@ -327,19 +332,44 @@ const Contact = () => {
           <div className="mt-20 border-t border-hairline/[0.08] pt-14">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <span className="mono-label text-primary">Or book directly</span>
+                <span className="chip-hue">
+                  <span className="mono-label">Or book directly</span>
+                </span>
                 <h3 className="type-h3 mt-4 max-w-lg text-foreground">
-                  Pick a slot for a free 30-minute architecture call.
+                  Pick a slot for a free 30-minute call.
                 </h3>
               </div>
             </div>
 
             <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">
-              <Suspense
-                fallback={<div className="h-[640px] w-full animate-pulse bg-surface-1/50" />}
-              >
-                <CalendlyEmbed height={680} />
-              </Suspense>
+              {calendar ? (
+                <Suspense
+                  fallback={<div className="h-[680px] w-full animate-pulse bg-surface-1/50" />}
+                >
+                  <CalendlyEmbed height={680} lazy={false} />
+                </Suspense>
+              ) : (
+                <div className="flex flex-col items-start gap-5 bg-surface-1/40 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+                  <div className="flex items-start gap-3.5">
+                    <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                    <p className="max-w-md font-inter text-sm leading-relaxed text-muted-foreground">
+                      Open times are shown in your own time zone. Booking takes two clicks, and
+                      the scheduler is provided by Calendly.
+                    </p>
+                  </div>
+                  <CTA
+                    tone="ghost"
+                    arrow
+                    className="shrink-0"
+                    onClick={() => {
+                      setCalendar(true);
+                      trackEvent("calendar_open", { location: "contact" });
+                    }}
+                  >
+                    Show available times
+                  </CTA>
+                </div>
+              )}
             </div>
           </div>
         </Reveal>

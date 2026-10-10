@@ -1,0 +1,1823 @@
+{
+ "generatedAt": "2026-10-10T04:39:18.602Z",
+ "source": "database",
+ "projects": [
+  {
+   "id": 4,
+   "slug": "call-portal",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 0,
+   "project": {
+    "id": 4,
+    "title": "Solutions Zilla Call Portal",
+    "description": "Enterprise call center management with AI-powered analytics and intelligent routing",
+    "fullDescription": "THE PROBLEM: Solutions Zilla runs a BPO operation with over forty agents handling inbound and outbound calls. Calls were being routed manually, supervisors had no live visibility into agent state, and leads were frequently lost between the dialer and the CRM. The operation needed a single portal that could route calls intelligently, monitor agents in real time, and keep CRM records synchronized.\n\n    THE APPROACH: I built a call center portal that combines an Asterisk-based dialer with a Laravel backend and a React dashboard. The dialer owns the voice layer, the backend owns the business logic, and the dashboard gives supervisors and agents a live view of the floor.\n\n    ARCHITECTURE: Asterisk handles SIP registration, call bridging, and dialplan execution. The Laravel application connects to Asterisk over the Manager Interface and listens to call events in real time. Agent state, queue depth, and call outcomes are pushed through a Redis-backed WebSocket layer to the React dashboard. Campaign routing rules, lead ordering, and compliance windows live in the Laravel service rather than the dialplan, so they can be tested and versioned. CRM updates are written through queued jobs with retries, ensuring call records and dispositions are never lost because of a temporary API outage.\n\n    INTELLIGENT ROUTING: Calls are routed based on agent availability, skill, language, and recent performance. A dropped call is automatically re-queued or flagged for callback. The system captures call recordings, CDRs, and dispositions, then builds daily and hourly reports for supervisors. A health monitor watches SIP trunk registration, queue length, and agent wrap-up time, alerting the team before a small issue becomes an outage.\n\n    RESULTS: Call routing became faster and more consistent. Supervisors gained real-time visibility that reduced reaction time. Lead loss between the dialer and the CRM dropped to near zero, and the platform handled thousands of daily calls on a single mid-tier server.",
+    "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "Laravel",
+     "Next.js",
+     "MySQL",
+     "TailwindCSS",
+     "AI Analytics",
+     "API Integration"
+    ],
+    "category": "Enterprise",
+    "client": "Solutions Zilla",
+    "duration": "3 months",
+    "teamSize": "2 developers",
+    "completionDate": "January 2025",
+    "liveUrl": "https://call.solutionszilla.com",
+    "githubUrl": "#",
+    "features": [
+     "AI-Powered Analytics",
+     "Intelligent Call Routing",
+     "CRM Workflows",
+     "Real-time Dashboard",
+     "Sentiment Analysis",
+     "Performance Scoring",
+     "Lead Management",
+     "API Integrations"
+    ],
+    "challenges": [
+     {
+      "title": "Scale",
+      "description": "Handling thousands of daily leads with real-time analytics and sub-second queries"
+     },
+     {
+      "title": "AI Integration",
+      "description": "Embedding AI capabilities into existing call center workflows seamlessly"
+     },
+     {
+      "title": "Security",
+      "description": "Implementing robust security for sensitive client and lead data"
+     }
+    ],
+    "results": [
+     "30% improvement in lead conversion",
+     "50% faster data processing",
+     "AI-driven agent performance insights",
+     "Real-time operational visibility"
+    ]
+   },
+   "caseStudy": {
+    "id": "call-portal",
+    "n": "01",
+    "category": "VoIP infrastructure",
+    "hue": "var(--hue-realtime)",
+    "title": "Solutions Zilla Call Portal",
+    "metric": {
+     "value": "30%",
+     "label": "Improvement in lead conversion"
+    },
+    "image": "/projects/project-callportal.webp",
+    "client": "Solutions Zilla",
+    "year": "2025",
+    "role": "Architecture · Backend · Telephony",
+    "problem": "Manual call routing across 40+ agents caused dropped leads and inconsistent SLAs. Nobody could see queue state in real time, so supervisors were reacting to problems after the customer had already hung up.",
+    "approach": "A Laravel dispatch engine sitting on top of Asterisk: AGI scripts drive the dialplan, Redis holds live queue and agent state, and WebSockets push that state to a supervisor dashboard. CRM webhooks close the loop so every call lands against a record.",
+    "result": "Routing decisions that used to wait on a human now happen in the dialplan, and supervisors see queue state as it changes rather than in a next-day report.",
+    "flow": [
+     {
+      "label": "SIP trunk",
+      "note": "Inbound"
+     },
+     {
+      "label": "Asterisk",
+      "note": "AGI dialplan"
+     },
+     {
+      "label": "Laravel",
+      "note": "Dispatch rules"
+     },
+     {
+      "label": "Redis",
+      "note": "Queue state"
+     },
+     {
+      "label": "WebSocket",
+      "note": "Live board"
+     },
+     {
+      "label": "CRM",
+      "note": "Webhooks"
+     }
+    ],
+    "stack": [
+     "Laravel",
+     "Asterisk",
+     "MySQL",
+     "Redis",
+     "WebSockets"
+    ],
+    "liveUrl": "https://call.solutionszilla.com",
+    "detailPath": "/project/4",
+    "cover": "diagram"
+   },
+   "updatedAt": "2026-10-09T22:49:49.701Z"
+  },
+  {
+   "id": 14,
+   "slug": "vapt-portal",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 10,
+   "project": {
+    "id": 14,
+    "title": "HoboTech VAPT Portal",
+    "description": "Security portal that parses a penetration-test PDF into individual findings, then tracks each one to remediation",
+    "fullDescription": "A vulnerability assessment and penetration testing report portal built for HoboTech. Security staff upload a VAPT report PDF and the portal turns it into tracked, assignable work without anyone retyping it.\n\n    THE PROBLEM: A penetration test arrives as a PDF. Every finding in it then has to be transcribed into a tracker by hand before anyone can be assigned to fix it, which is slow, error-prone, and the point at which findings quietly get lost.\n\n    PARSING: A background worker extracts the engagement metadata and every individual finding, including title, severity, CVSS score and vector, affected asset, description, impact, remediation steps, evidence and OWASP mapping. The parser was verified against a real 35-page, 22-finding report at full field coverage.\n\n    WORKFLOW: Each finding is a ticket. It carries its own status through Open, In Progress, Remediated and Closed, with Risk Accepted and False Positive as explicit terminal states rather than informal ones. An SLA due date is derived from the severity. Assignment sends mail through the client SMTP server and the report appears on the assignee dashboard and calendar.\n\n    AUTHORISATION: Closing a finding, accepting risk, or classifying something as a false positive is reserved for staff. Once staff close a finding, an assigned employee cannot reopen or reclassify it. Staff can attach internal notes the assignee never sees, and every ticket keeps a history of who raised it and who assigned it.\n\n    STACK NOTES: Next.js and TypeScript over Prisma and PostgreSQL. NextAuth with argon2 password hashing and TOTP two-factor. Evidence and report files go to S3 through presigned URLs rather than the application server. PDF parsing runs on BullMQ over Redis, so a large report never blocks a request.",
+    "image": "/projects/hobotech-vapt.jpg",
+    "gallery": [
+     "/projects/hobotech-vapt.jpg"
+    ],
+    "technologies": [
+     "Next.js",
+     "TypeScript",
+     "Prisma",
+     "PostgreSQL",
+     "BullMQ",
+     "Redis",
+     "AWS S3",
+     "NextAuth"
+    ],
+    "category": "Security",
+    "client": "HoboTech",
+    "duration": "Ongoing",
+    "teamSize": "Solo developer",
+    "completionDate": "2026",
+    "liveUrl": "https://vapt.ismart.link",
+    "githubUrl": "#",
+    "features": [
+     "Automatic extraction of every finding from a VAPT PDF",
+     "CVSS score, vector, OWASP mapping and evidence captured per finding",
+     "Severity-derived SLA due dates",
+     "Finding lifecycle with Risk Accepted and False Positive as explicit states",
+     "Staff-only closure and reclassification",
+     "Comment threads, evidence attachments and internal staff notes",
+     "TOTP two-factor authentication with argon2 password hashing",
+     "Presigned S3 uploads and background parsing on a Redis queue"
+    ],
+    "challenges": [
+     {
+      "title": "Parsing unstructured reports",
+      "description": "Extracting every field of every finding from a PDF laid out for human readers, reliably enough that nobody re-checks it by hand"
+     },
+     {
+      "title": "Authorisation that holds",
+      "description": "Separating what an assigned employee may do from what security staff may do, so a finding cannot be quietly reopened or reclassified"
+     },
+     {
+      "title": "Long work off the request path",
+      "description": "Running multi-page PDF extraction on a queue so an upload returns immediately and a large report cannot time out a web request"
+     }
+    ],
+    "results": [
+     "Findings reach an owner without manual data entry",
+     "Verified at full field coverage against a real 35-page, 22-finding report",
+     "Every finding carries an audit trail and an SLA date"
+    ]
+   },
+   "caseStudy": {
+    "id": "vapt-portal",
+    "n": "02",
+    "category": "Security tooling",
+    "hue": "var(--hue-cloud)",
+    "title": "HoboTech VAPT Portal",
+    "metric": {
+     "value": "100%",
+     "label": "Field coverage on a 22-finding report"
+    },
+    "image": "/projects/hobotech-vapt.jpg",
+    "client": "HoboTech",
+    "year": "2026",
+    "role": "Architecture · Backend · Security",
+    "problem": "A penetration test arrives as a PDF written for human readers. Every finding then has to be retyped into a tracker before anyone can be assigned to fix it, which is slow, error-prone, and exactly where findings quietly get lost.",
+    "approach": "Uploads go straight to S3 through presigned URLs, and a BullMQ worker on Redis does the extraction off the request path so a large report cannot time out. The parser pulls each finding whole: severity, CVSS score and vector, affected asset, impact, remediation, evidence and OWASP mapping. From there every finding is a ticket with a severity-derived SLA date, and closing one or accepting risk is reserved for staff.",
+    "result": "Findings reach an owner without anyone retyping a report, and each one carries an audit trail from the moment it is parsed. The extraction was verified against a real 35-page, 22-finding report at full field coverage.",
+    "flow": [
+     {
+      "label": "Upload",
+      "note": "Presigned S3"
+     },
+     {
+      "label": "Queue",
+      "note": "BullMQ · Redis"
+     },
+     {
+      "label": "Parse",
+      "note": "CVSS · OWASP"
+     },
+     {
+      "label": "Assign",
+      "note": "Owner · SLA"
+     },
+     {
+      "label": "Remediate",
+      "note": "Ticket · audit"
+     }
+    ],
+    "stack": [
+     "Next.js",
+     "TypeScript",
+     "Prisma",
+     "PostgreSQL",
+     "BullMQ",
+     "AWS S3"
+    ],
+    "liveUrl": "https://vapt.ismart.link",
+    "detailPath": "/project/14"
+   },
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 21,
+   "slug": "clinic",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 20,
+   "project": null,
+   "caseStudy": {
+    "id": "clinic",
+    "n": "03",
+    "category": "Healthcare SaaS",
+    "hue": "var(--hue-backend)",
+    "title": "iSmart Clinic",
+    "image": "/projects/project-clinic.webp",
+    "role": "Multi-tenant architecture · Automation",
+    "problem": "Clinics were losing patients to no-shows and burning staff hours on manual billing reconciliation, with no reliable trail of who changed what.",
+    "approach": "A multi-tenant Laravel backend with strict per-clinic isolation, WhatsApp appointment automation for reminders and confirmations, role-based access, and event-sourced audit logs behind a Next.js front end.",
+    "result": "Reminders and confirmations run without staff involvement, and every billing change is attributable through the audit log.",
+    "flow": [
+     {
+      "label": "Booking",
+      "note": "Web · WhatsApp"
+     },
+     {
+      "label": "Tenant scope",
+      "note": "Per clinic"
+     },
+     {
+      "label": "Scheduler",
+      "note": "Queued jobs"
+     },
+     {
+      "label": "WhatsApp API",
+      "note": "Reminders"
+     },
+     {
+      "label": "Audit log",
+      "note": "Event-sourced"
+     }
+    ],
+    "stack": [
+     "Next.js",
+     "Laravel",
+     "PostgreSQL",
+     "WhatsApp API",
+     "Multi-tenant"
+    ],
+    "liveUrl": "https://solutionzilla.ismart.link",
+    "cover": "diagram"
+   },
+   "updatedAt": "2026-10-09T22:49:49.701Z"
+  },
+  {
+   "id": 3,
+   "slug": "rag-legal",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 30,
+   "project": {
+    "id": 3,
+    "title": "RAG-Powered Legal Assistant",
+    "description": "Production RAG system with 94% accuracy on legal queries using hybrid search",
+    "fullDescription": "THE PROBLEM: A legal tech startup needed to answer complex legal questions from a large corpus of case law, contracts, and regulations. Generic LLMs produced confident but incorrect answers, often citing non-existent cases or misinterpreting precedents. The firm could not adopt the tool until the answer quality was reliable and every response was traceable to source documents.\n\n    THE APPROACH: I built a Retrieval-Augmented Generation system that grounds every answer in retrieved source material. The system uses a hybrid search approach and a validation layer to prevent hallucinations and surface confidence levels to the user.\n\n    ARCHITECTURE: Documents are ingested through a semantic chunking pipeline that respects section boundaries, headings, and cross-references. Chunks are stored as dense vectors in Pinecone and also indexed for keyword search. At query time, the system runs both vector and BM25 retrieval, then reranks the combined results with a cross-encoder model. The top-k chunks are passed to a generation model with a strict prompt that requires citations and a confidence statement. A separate validation agent cross-references the generated answer against the retrieved context to flag unsupported claims.\n\n    FRONTEND AND USER EXPERIENCE: The React interface shows the answer, a confidence score, and clickable citations that open the referenced document at the relevant passage. Users can inspect the source, which builds trust and makes the tool useful for research rather than just quick answers. Search history and feedback are stored to improve the retrieval model over time.\n\n    RESULTS: The system achieved a measured accuracy of 94% on a held-out set of legal questions, up from 67% with a naive vector-only approach. Response times stayed under three seconds for typical queries. The firm deployed the tool to over fifty legal professionals, and source citations became the most-used feature.",
+    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "RAG",
+     "Pinecone",
+     "Python",
+     "FastAPI",
+     "React",
+     "LangChain"
+    ],
+    "category": "Deep Learning",
+    "client": "Legal Tech Startup",
+    "duration": "8 weeks",
+    "teamSize": "2 engineers",
+    "completionDate": "April 2025",
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "features": [
+     "Hybrid Search (Vector + BM25)",
+     "Semantic Document Chunking",
+     "Cross-Encoder Re-ranking",
+     "Hallucination Prevention",
+     "Source Citations",
+     "Confidence Scoring",
+     "Document Drill-down",
+     "Admin Analytics"
+    ],
+    "challenges": [
+     {
+      "title": "Accuracy Requirements",
+      "description": "Legal domain requires extremely high accuracy, hallucinations are unacceptable"
+     },
+     {
+      "title": "Document Complexity",
+      "description": "Processing complex legal documents with nested structures and cross-references"
+     },
+     {
+      "title": "Latency Optimization",
+      "description": "Keeping response times under 3 seconds despite complex retrieval pipeline"
+     }
+    ],
+    "results": [
+     "94% accuracy (up from 67%)",
+     "Sub-3 second response times",
+     "10,000+ documents indexed",
+     "Deployed to 50+ legal professionals"
+    ]
+   },
+   "caseStudy": {
+    "id": "rag-legal",
+    "n": "04",
+    "category": "AI retrieval",
+    "hue": "var(--hue-ai)",
+    "title": "RAG-Powered Legal Assistant",
+    "metric": {
+     "value": "94%",
+     "label": "Query accuracy"
+    },
+    "image": "/projects/project-rag.webp",
+    "cover": "diagram",
+    "client": "Legal tech startup",
+    "year": "2025",
+    "role": "Retrieval architecture · Evaluation",
+    "problem": "Generic LLM answers invented case law and misread precedent. The firm could not adopt the tool until every answer was traceable back to a source document.",
+    "approach": "Semantic chunking that respects section boundaries, hybrid retrieval over vector and BM25 indexes, cross-encoder reranking, then generation under a prompt that requires citations. A separate validation pass flags any claim the retrieved context does not support.",
+    "result": "Measured accuracy rose from 67% with naive vector-only retrieval to 94% on a held-out question set, with citations becoming the most-used feature of the interface.",
+    "flow": [
+     {
+      "label": "Question",
+      "note": "Legal query"
+     },
+     {
+      "label": "Hybrid search",
+      "note": "Vector + BM25"
+     },
+     {
+      "label": "Rerank",
+      "note": "Cross-encoder"
+     },
+     {
+      "label": "Generate",
+      "note": "Cited answer"
+     },
+     {
+      "label": "Validate",
+      "note": "Claim check"
+     }
+    ],
+    "stack": [
+     "Python",
+     "FastAPI",
+     "Pinecone",
+     "LangChain",
+     "React"
+    ],
+    "detailPath": "/project/3"
+   },
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 2,
+   "slug": "lead-engine",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 40,
+   "project": {
+    "id": 2,
+    "title": "Smart Lead Qualification Engine",
+    "description": "AI-driven lead scoring with n8n automation, reducing qualification time by 85%",
+    "fullDescription": "THE PROBLEM: A B2B SaaS sales team was spending more than six hours a day manually qualifying inbound leads. Leads arrived from web forms, email, paid campaigns, and partner integrations, but there was no consistent scoring model. High-value leads sat in the same queue as low-fit ones, and response delays caused the company to lose opportunities to faster competitors.\n\n    THE APPROACH: I built an automated lead qualification engine that scores, enriches, categorizes, and routes every lead in real time. The goal was to remove the repetitive triage work while surfacing the right leads to sales within minutes of submission.\n\n    ARCHITECTURE: The system is built around an n8n workflow that receives leads from multiple sources through webhooks and API integrations. Each lead is enriched with company data, then scored by an LLM against an ideal customer profile that includes company size, industry, budget signals, and engagement patterns. The scoring model outputs a numeric score and a short rationale. High-scoring leads are routed to the CRM and to a Slack channel with an AI-generated briefing. Lower-scoring leads enter an automated nurture sequence. The whole pipeline is idempotent, with retries and a dead-letter queue for failures.\n\n    INTEGRATIONS AND OBSERVABILITY: HubSpot receives the scored lead record and a set of custom properties. Sentry and execution logs track errors and scoring anomalies. The workflow exports to version-controlled JSON and is deployed to a self-hosted n8n instance. A React dashboard provides visibility into pipeline health, conversion rates, and score distribution over time.\n\n    RESULTS: The qualification bottleneck disappeared. The sales team now spends its time on leads that have already been scored and briefed, response time dropped to minutes, and the lead-to-close rate improved because the right prospects were reached faster. The system runs continuously without human intervention.",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "n8n",
+     "OpenAI API",
+     "PostgreSQL",
+     "Next.js",
+     "HubSpot API",
+     "Webhook"
+    ],
+    "category": "Automation",
+    "client": "B2B SaaS Company",
+    "duration": "4 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "May 2025",
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "features": [
+     "AI Lead Scoring (1-10)",
+     "Multi-Source Lead Ingestion",
+     "Automated CRM Sync",
+     "Slack Notifications",
+     "AI-Generated Lead Briefings",
+     "Nurture Sequence Automation",
+     "Real-time Analytics Dashboard",
+     "Custom Scoring Rules"
+    ],
+    "challenges": [
+     {
+      "title": "Scoring Accuracy",
+      "description": "Developing an AI scoring model that aligned with the client's ideal customer profile"
+     },
+     {
+      "title": "Integration Complexity",
+      "description": "Connecting multiple data sources and CRM systems reliably"
+     },
+     {
+      "title": "Real-time Processing",
+      "description": "Ensuring leads are scored and routed within minutes of submission"
+     }
+    ],
+    "results": [
+     "85% reduction in qualification time",
+     "3x increase in sales team efficiency",
+     "45% improvement in lead-to-close rate",
+     "24/7 autonomous operation"
+    ]
+   },
+   "caseStudy": {
+    "id": "lead-engine",
+    "n": "05",
+    "category": "Automation infrastructure",
+    "hue": "var(--hue-automation)",
+    "title": "Smart Lead Qualification Engine",
+    "metric": {
+     "value": "85%",
+     "label": "Less qualification time"
+    },
+    "image": "/projects/project-leadengine.webp",
+    "cover": "diagram",
+    "client": "B2B SaaS company",
+    "year": "2025",
+    "role": "Workflow architecture · Integrations",
+    "problem": "A sales team spent six hours a day triaging inbound leads by hand. Leads arrived from forms, email, paid campaigns, and partners with no shared scoring model, so high-fit prospects queued behind noise.",
+    "approach": "An n8n pipeline ingests every source through webhooks, enriches each lead with company data, and scores it against an ideal-customer profile with a written rationale. High scores route to CRM and Slack with a briefing; the rest enter nurture. Idempotent throughout, with retries and a dead-letter queue.",
+    "result": "Triage stopped being a person's job. Leads are scored and briefed within minutes of submission, and the pipeline runs unattended.",
+    "flow": [
+     {
+      "label": "Ingest",
+      "note": "Multi-source"
+     },
+     {
+      "label": "Enrich",
+      "note": "Company data"
+     },
+     {
+      "label": "Score",
+      "note": "LLM + ICP"
+     },
+     {
+      "label": "Route",
+      "note": "CRM · Slack"
+     },
+     {
+      "label": "Retry / DLQ",
+      "note": "Failure path"
+     }
+    ],
+    "stack": [
+     "n8n",
+     "OpenAI",
+     "PostgreSQL",
+     "HubSpot API",
+     "Sentry"
+    ],
+    "detailPath": "/project/2"
+   },
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 1,
+   "slug": "contentops",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 50,
+   "project": {
+    "id": 1,
+    "title": "AI-Powered Content Pipeline",
+    "description": "Multi-agent system that autonomously generates, reviews, and publishes content using GPT-4 + LangChain",
+    "fullDescription": "THE PROBLEM: A SaaS startup's content team was spending over twenty hours a week producing articles, landing pages, and email copy. The process was manual, inconsistent, and could not scale with the product roadmap. Every piece had to pass brand, legal, and SEO checks before publishing, which created a bottleneck that delayed campaigns by days.\n\n    THE APPROACH: I designed a multi-agent pipeline that decomposes content work into discrete, verifiable stages. A main orchestrator agent receives the brief, then delegates research, drafting, SEO optimization, quality review, and publishing to specialized sub-agents. Each stage is observable, retryable, and logged.\n\n    ARCHITECTURE: The orchestration layer is built with LangChain and a stateful graph pattern. The research agent pulls from a curated knowledge base stored in Pinecone, using hybrid vector plus keyword retrieval to ground every article in existing brand material and source documents. The draft agent uses GPT-4 with a structured output schema so headings, meta descriptions, and internal links are generated predictably. A reviewer agent scores each draft against a rubric that covers brand voice, factual accuracy, readability, and SEO criteria. A final publisher stage formats the content and pushes it to the CMS through a typed API.\n\n    AUTOMATION AND OBSERVABILITY: n8n handles scheduling, human approval gates, and notifications. Every run is logged with input brief, generated draft, reviewer scores, and final action. Failed or low-scoring drafts are routed to a human editor queue rather than being published silently. Cost is controlled by routing simpler tasks to smaller models and only invoking GPT-4 for the draft generation step.\n\n    RESULTS: The pipeline replaced the bulk of the manual content production workflow, cutting average time-to-publish from several days to under an hour for routine content. Engagement metrics improved because the output was more consistent and better structured. The system has been running in production with high uptime and clear audit history for every published piece.",
+    "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "LangChain",
+     "GPT-4",
+     "n8n",
+     "React",
+     "Supabase",
+     "Pinecone"
+    ],
+    "category": "AI Agents",
+    "client": "SaaS Startup (NDA)",
+    "duration": "6 weeks",
+    "teamSize": "Solo architect",
+    "completionDate": "June 2025",
+    "liveUrl": "#",
+    "githubUrl": "#",
+    "features": [
+     "Multi-Agent Orchestration",
+     "RAG-Powered Research",
+     "Autonomous Content Generation",
+     "Quality Scoring & Review",
+     "SEO Auto-Optimization",
+     "n8n Workflow Integration",
+     "Real-time Dashboard",
+     "Scheduled Publishing"
+    ],
+    "challenges": [
+     {
+      "title": "Agent Coordination",
+      "description": "Designing reliable inter-agent communication with proper error handling and retry logic"
+     },
+     {
+      "title": "Content Quality",
+      "description": "Ensuring AI-generated content meets brand guidelines and factual accuracy standards"
+     },
+     {
+      "title": "Cost Optimization",
+      "description": "Balancing GPT-4 quality with cost efficiency through intelligent model routing"
+     }
+    ],
+    "results": [
+     "10x faster content production",
+     "85% reduction in manual work",
+     "40% higher engagement vs manual content",
+     "99.2% uptime in production"
+    ]
+   },
+   "caseStudy": {
+    "id": "contentops",
+    "n": "06",
+    "category": "AI agents",
+    "hue": "var(--hue-ai)",
+    "title": "AI Content Operations Pipeline",
+    "metric": {
+     "value": "10x",
+     "label": "Content throughput"
+    },
+    "image": "/projects/project-contentops.webp",
+    "cover": "diagram",
+    "client": "SaaS startup (NDA)",
+    "year": "2025",
+    "role": "Agent orchestration · Observability",
+    "problem": "A content team spent 20+ hours a week on articles and landing copy that still had to clear brand, legal, and SEO review, a bottleneck that delayed campaigns by days.",
+    "approach": "A LangChain agent graph splits the work into verifiable stages: research grounded in a Pinecone knowledge base, drafting against a structured output schema, then a reviewer agent scoring brand voice, accuracy, and SEO. n8n owns scheduling and human approval gates; low-scoring drafts route to an editor instead of publishing.",
+    "result": "Routine content moved from a multi-day cycle to under an hour, with every run logged from brief to reviewer score to final action.",
+    "flow": [
+     {
+      "label": "Brief",
+      "note": "Orchestrator"
+     },
+     {
+      "label": "Research",
+      "note": "RAG · Pinecone"
+     },
+     {
+      "label": "Draft",
+      "note": "Structured output"
+     },
+     {
+      "label": "Review",
+      "note": "Scored rubric"
+     },
+     {
+      "label": "Gate",
+      "note": "Human approval"
+     },
+     {
+      "label": "Publish",
+      "note": "CMS API"
+     }
+    ],
+    "stack": [
+     "LangChain",
+     "GPT-4",
+     "n8n",
+     "Pinecone",
+     "Supabase"
+    ],
+    "detailPath": "/project/1"
+   },
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 15,
+   "slug": "tavora",
+   "status": "published",
+   "featured": 6,
+   "sortOrder": 60,
+   "project": {
+    "id": 15,
+    "title": "Tavora, Luxury Watch Platform",
+    "description": "Luxury watch storefront with a WhatsApp checkout flow and a full self-service admin panel",
+    "fullDescription": "A luxury watch storefront with a cart and a WhatsApp checkout flow, plus an admin panel that lets the owner run the whole site without a developer.\n\n    THE CHECKOUT DECISION: There is no payment gateway. Checkout hands the cart to WhatsApp, which is where this market's buyers already negotiate on a high-value item. A gateway is a deliberately deferred phase rather than an omission, and deferring it removed compliance and reconciliation work that would have bought nothing at this stage.\n\n    ADMIN: Products, categories, collections, testimonials, homepage content, media, orders and site settings are all editable in the panel. Rich text is sanitised on write rather than trusted, and CSV import exists so a catalogue can be loaded in bulk instead of typed.\n\n    STACK NOTES: Next.js App Router with TypeScript and Tailwind. Turso, a libSQL database, with Drizzle ORM for typed queries. Better Auth for sessions. Vercel Blob for product media.",
+    "image": "/projects/tavora.jpg",
+    "gallery": [
+     "/projects/tavora.jpg"
+    ],
+    "technologies": [
+     "Next.js",
+     "TypeScript",
+     "Tailwind",
+     "Drizzle ORM",
+     "Turso",
+     "Better Auth",
+     "Vercel Blob"
+    ],
+    "category": "E-Commerce",
+    "duration": "6 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "July 2026",
+    "liveUrl": "https://tavora-hazel.vercel.app",
+    "githubUrl": "https://github.com/CH-USAMA/tavora",
+    "features": [
+     "Cart with WhatsApp checkout handoff",
+     "Admin panel for products, categories and collections",
+     "Editable homepage content and site settings",
+     "Media library on Vercel Blob",
+     "Sanitised rich-text editing",
+     "CSV catalogue import",
+     "Order records",
+     "Typed queries through Drizzle over libSQL"
+    ],
+    "challenges": [
+     {
+      "title": "Selling without a gateway",
+      "description": "Designing a checkout that completes in WhatsApp, where high-value watch buyers actually negotiate, without leaving the order untracked"
+     },
+     {
+      "title": "Owner-operated content",
+      "description": "Making homepage, collections and settings editable safely, including sanitising rich text on write rather than at render"
+     },
+     {
+      "title": "Catalogue loading",
+      "description": "Bulk CSV import so a watch catalogue does not have to be entered by hand"
+     }
+    ],
+    "results": [
+     "Storefront and admin panel live",
+     "Catalogue and homepage editable without a developer",
+     "Payment gateway deferred by decision, not left broken"
+    ]
+   },
+   "caseStudy": {
+    "id": "tavora",
+    "n": "07",
+    "category": "Commerce",
+    "hue": "var(--hue-interface)",
+    "title": "Tavora Luxury Watches",
+    "image": "/projects/tavora.jpg",
+    "year": "2026",
+    "role": "Architecture · Full stack",
+    "problem": "A luxury watch catalogue needed to sell without a payment gateway. At this price point buyers negotiate before they pay, and the owner needed to run the entire site, catalogue and homepage included, without calling a developer for every change.",
+    "approach": "Checkout hands the cart to WhatsApp, where the negotiation already happens, and the order is recorded on the way out so nothing is lost to the handoff. Behind it sits an admin panel covering products, categories, collections, media, homepage content and settings, with rich text sanitised on write rather than trusted at render, and CSV import so a catalogue is loaded rather than typed.",
+    "result": "The storefront and its admin run in production with the owner editing content directly. The payment gateway is a deferred phase by decision, not an unfinished one.",
+    "flow": [
+     {
+      "label": "Admin",
+      "note": "Catalogue"
+     },
+     {
+      "label": "Storefront",
+      "note": "Next.js"
+     },
+     {
+      "label": "Cart",
+      "note": "Client state"
+     },
+     {
+      "label": "WhatsApp",
+      "note": "Negotiation"
+     },
+     {
+      "label": "Order",
+      "note": "Recorded"
+     }
+    ],
+    "stack": [
+     "Next.js",
+     "TypeScript",
+     "Drizzle ORM",
+     "Turso",
+     "Better Auth",
+     "Vercel Blob"
+    ],
+    "liveUrl": "https://tavora-hazel.vercel.app",
+    "detailPath": "/project/15"
+   },
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 5,
+   "slug": "interiors",
+   "status": "published",
+   "featured": 5,
+   "sortOrder": 70,
+   "project": {
+    "id": 5,
+    "title": "Focus Interiors, AI-Enhanced E-Commerce",
+    "description": "Luxury interior design platform with AI recommendations and automated SEO",
+    "fullDescription": "Focus Interiors is a premium interior design company. This project involved creating a sophisticated e-commerce platform enhanced with AI-powered product recommendations and automated SEO optimization.\n\n    The AI recommendation engine analyzes user behavior, browsing patterns, and purchase history to suggest relevant products. Automated SEO tools generate optimized meta tags, alt text, and structured data for every product listing.\n\n    Performance optimization was critical, the site achieves 95+ Lighthouse scores while serving high-resolution imagery through intelligent lazy loading and CDN optimization.",
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "Shopify",
+     "React",
+     "OpenAI",
+     "SEO Automation",
+     "APIs"
+    ],
+    "category": "E-Commerce",
+    "client": "Focus Interiors (Pakistan)",
+    "duration": "2 months",
+    "teamSize": "Solo project",
+    "completionDate": "March 2024",
+    "liveUrl": "https://focusinteriors.com.pk",
+    "githubUrl": "#",
+    "features": [
+     "AI Product Recommendations",
+     "Automated SEO Optimization",
+     "Premium Design Aesthetic",
+     "Fast Loading Galleries",
+     "Performance Optimization",
+     "Mobile Responsive",
+     "Structured Data",
+     "Analytics Dashboard"
+    ],
+    "challenges": [
+     {
+      "title": "Performance",
+      "description": "Optimizing high-resolution images while maintaining luxury visual quality"
+     },
+     {
+      "title": "AI Integration",
+      "description": "Building recommendation engine within Shopify's ecosystem constraints"
+     },
+     {
+      "title": "SEO Competition",
+      "description": "Ranking for highly competitive interior design keywords"
+     }
+    ],
+    "results": [
+     "35% increase in client inquiries",
+     "95+ Lighthouse performance score",
+     "Top 3 ranking for target keywords",
+     "AI-driven product discovery"
+    ]
+   },
+   "caseStudy": {
+    "id": "interiors",
+    "n": "08",
+    "category": "Commerce",
+    "hue": "var(--hue-interface)",
+    "title": "Focus Interiors",
+    "metric": {
+     "value": "35%",
+     "label": "Increase in client inquiries"
+    },
+    "image": "/projects/project-interiors.webp",
+    "client": "Focus Interiors",
+    "year": "2024",
+    "role": "Headless architecture · Performance",
+    "problem": "A luxury catalogue with poor product discoverability and low conversion. High-intent visitors could not find the piece they came for.",
+    "approach": "Migration to a headless stack with AI-assisted search and recommendations, automated metadata generation for the catalogue, and a Core Web Vitals pass on image delivery and rendering.",
+    "result": "Discovery improved without sacrificing the visual quality the brand depends on, and the storefront got measurably faster.",
+    "flow": [
+     {
+      "label": "Catalogue",
+      "note": "Source of truth"
+     },
+     {
+      "label": "Index",
+      "note": "AI search"
+     },
+     {
+      "label": "Storefront",
+      "note": "Headless"
+     },
+     {
+      "label": "Edge",
+      "note": "Cached render"
+     },
+     {
+      "label": "Checkout",
+      "note": "Conversion"
+     }
+    ],
+    "stack": [
+     "Shopify",
+     "React",
+     "OpenAI",
+     "Edge Functions"
+    ],
+    "liveUrl": "https://focusinteriors.com.pk",
+    "detailPath": "/project/5",
+    "cover": "diagram"
+   },
+   "updatedAt": "2026-10-09T22:49:49.701Z"
+  },
+  {
+   "id": 6,
+   "slug": "five-stars-galway",
+   "status": "published",
+   "featured": 1,
+   "sortOrder": 80,
+   "project": {
+    "id": 6,
+    "title": "Five Stars Galway Taxis",
+    "description": "A 24/7 local transport website connecting Galway passengers to booking, airport transfers, guided tours, accessible vehicles, couriers and group travel",
+    "fullDescription": "THE BUSINESS NEED: Five Stars Galway Taxis needed one clear digital front door for a broad local transport operation. A passenger may need an immediate city taxi, an airport connection, a wheelchair-accessible vehicle, a same-day courier or a guided tour, and each journey has a different decision path.\n\n    THE EXPERIENCE: I structured the website around high-intent service pages and a direct Book Now path into the live iCabbi web booker. Airport transfers, guided tours, elderly and accessible transport, courier services, and 8-to-21-seat minibus travel each have dedicated content instead of competing in one generic services page.\n\n    LOCAL DISCOVERY: The information architecture targets how people actually search in Galway: taxi service, airport transfers, minibus hire, accessible transport and destination-led tours. Tour pages surface destinations including the Cliffs of Moher, Kylemore Abbey, the Aran Islands and Connemara, while reviews and fleet information answer trust questions before the booking handoff.\n\n    DELIVERY: The result is a mobile-first service website that moves visitors from local discovery to the appropriate transport option and then into a specialist booking system, while retaining phone and contact routes for journeys that need a conversation.",
+    "image": "/projects/five-stars-galway.jpg",
+    "gallery": [
+     "/projects/five-stars-galway.jpg"
+    ],
+    "technologies": [
+     "WordPress",
+     "iCabbi Booking",
+     "Local SEO",
+     "Responsive UX",
+     "Service Architecture"
+    ],
+    "category": "Transport",
+    "client": "Five Stars Galway Taxis (Ireland)",
+    "duration": "1.5 months",
+    "teamSize": "Solo project",
+    "liveUrl": "https://www.fivestarsgalwaytaxis.ie",
+    "githubUrl": "#",
+    "features": [
+     "Online Booking System",
+     "iCabbi Online Booking Handoff",
+     "Airport Transfer Landing Pages",
+     "Guided Tour Destination Pages",
+     "Wheelchair-Accessible Transport Content",
+     "Minibus and Group Transport",
+     "Courier Service Journey",
+     "Local SEO Optimization",
+     "Mobile-First Design",
+     "Customer Reviews"
+    ],
+    "challenges": [
+     {
+      "title": "Many journeys, one front door",
+      "description": "Separating immediate taxis, airport runs, tours, accessible vehicles, couriers and group transport without making the navigation feel fragmented"
+     },
+     {
+      "title": "Booking handoff",
+      "description": "Moving a high-intent visitor into the external iCabbi booking flow while keeping phone and enquiry routes available"
+     },
+     {
+      "title": "Local discovery",
+      "description": "Organising service and destination pages around the language Galway residents and visitors use when searching"
+     }
+    ],
+    "results": [
+     "Six distinct transport needs presented through dedicated service journeys",
+     "Direct online booking through the live iCabbi web booker",
+     "Destination-led guided-tour discovery",
+     "Accessible and group transport made visible before enquiry"
+    ]
+   },
+   "caseStudy": {
+    "id": "five-stars-galway",
+    "n": "09",
+    "category": "Local service platform",
+    "hue": "var(--hue-automation)",
+    "title": "Five Stars Galway Taxis",
+    "image": "/projects/five-stars-galway.jpg",
+    "client": "Five Stars Galway Taxis",
+    "role": "Service architecture · Booking journey · Local discovery",
+    "problem": "One Galway operator serves immediate taxis, airport transfers, tours, accessible passengers, couriers and large groups. A generic transport page could not help each customer reach the right journey quickly.",
+    "approach": "Dedicated service and destination pages lead into the live iCabbi web booker, while phone and enquiry routes remain available for complex trips. Fleet, reviews and local destination content answer trust questions before the handoff.",
+    "result": "Passengers can move from a specific transport need to the relevant service and booking path, whether they need a city ride, airport connection, accessible vehicle, guided tour or 21-seat minibus.",
+    "flow": [
+     {
+      "label": "Search",
+      "note": "Local intent"
+     },
+     {
+      "label": "Service",
+      "note": "Matched journey"
+     },
+     {
+      "label": "Trust",
+      "note": "Fleet · reviews"
+     },
+     {
+      "label": "Book",
+      "note": "iCabbi"
+     }
+    ],
+    "stack": [
+     "WordPress",
+     "iCabbi Booking",
+     "Local SEO",
+     "Responsive UX"
+    ],
+    "liveUrl": "https://www.fivestarsgalwaytaxis.ie/",
+    "detailPath": "/project/6"
+   },
+   "updatedAt": "2026-10-09T23:03:02.027Z"
+  },
+  {
+   "id": 18,
+   "slug": "marian-holy-art",
+   "status": "published",
+   "featured": 2,
+   "sortOrder": 90,
+   "project": {
+    "id": 18,
+    "title": "Marian Holy Art",
+    "description": "An Irish devotional commerce website combining Catholic gifts, pilgrimage services, outreach and a clear customer journey",
+    "fullDescription": "THE BUSINESS NEED: Marian Holy Art is more than a product catalogue. The business sells Catholic devotional gifts inspired by Knock and Lourdes, organises pilgrimage and religious tours, supports relic visits and outreach, and needs to communicate the story and mission behind the collection.\n\n    COMMERCE EXPERIENCE: I organised the storefront around featured products, collections and offers, with direct paths into detailed product pages and the full shop. The live catalogue includes commemorative medals, devotional jewellery and Catholic jigsaw puzzles, while cart, account and policy journeys support a complete online purchase experience.\n\n    STORY AND SERVICES: The site gives David's story, the organisation's mission, pilgrimage planning and religious-artifact services their own place rather than burying them beneath product grids. Support for Mary's Meals, Carlo Acutis Ireland outreach and Depaul adds the real-world context behind the brand.\n\n    DELIVERY: The resulting website brings commerce, faith-led storytelling and service enquiries into one responsive experience, with consent management, contact routes, shipping reassurance and clear product discovery.",
+    "image": "/projects/marian-holy-art.jpg",
+    "gallery": [
+     "/projects/marian-holy-art.jpg"
+    ],
+    "technologies": [
+     "WordPress",
+     "WooCommerce",
+     "Responsive UX",
+     "Content Architecture",
+     "Consent Management"
+    ],
+    "category": "E-Commerce",
+    "client": "Marian Holy Art (Ireland)",
+    "liveUrl": "https://marianholyart.com/",
+    "githubUrl": "#",
+    "features": [
+     "Devotional Product Catalogue",
+     "Featured Collections and Offers",
+     "Cart and Customer Accounts",
+     "Pilgrimage and Tour Services",
+     "Mission and Outreach Content",
+     "Shipping and Returns Information",
+     "Cookie Consent Management",
+     "Responsive Storefront"
+    ],
+    "challenges": [
+     {
+      "title": "Commerce with meaning",
+      "description": "Presenting products as part of a faith-led mission without making the purchase journey difficult to scan"
+     },
+     {
+      "title": "Several business modes",
+      "description": "Bringing gifts, pilgrimage planning, religious artifacts and outreach into one coherent navigation"
+     },
+     {
+      "title": "Trust before checkout",
+      "description": "Surfacing the story, contact details, policies and service assurances buyers need before ordering"
+     }
+    ],
+    "results": [
+     "Live product catalogue with account and cart journeys",
+     "Pilgrimage services integrated alongside commerce",
+     "Mission and outreach work given clear visibility",
+     "Responsive customer journey from discovery to purchase"
+    ]
+   },
+   "caseStudy": {
+    "id": "marian-holy-art",
+    "n": "10",
+    "category": "Devotional commerce",
+    "hue": "var(--hue-interface)",
+    "title": "Marian Holy Art",
+    "image": "/projects/marian-holy-art.jpg",
+    "client": "Marian Holy Art",
+    "role": "Commerce UX · Content architecture",
+    "problem": "The organisation needed to sell devotional gifts while also explaining its mission, pilgrimage services, religious artifacts and outreach work without letting one side obscure the other.",
+    "approach": "A product-led storefront connects featured items, collections, offers, accounts and cart journeys, while separate story and service areas preserve the faith-led context behind the catalogue.",
+    "result": "Customers can discover and buy devotional products, understand the organisation behind them, and enquire about pilgrimage or religious services within one responsive experience.",
+    "flow": [
+     {
+      "label": "Discover",
+      "note": "Story · collection"
+     },
+     {
+      "label": "Product",
+      "note": "Gift detail"
+     },
+     {
+      "label": "Trust",
+      "note": "Mission · policy"
+     },
+     {
+      "label": "Cart",
+      "note": "Purchase"
+     }
+    ],
+    "stack": [
+     "WordPress",
+     "WooCommerce",
+     "Responsive UX",
+     "Consent Management"
+    ],
+    "liveUrl": "https://marianholyart.com/",
+    "detailPath": "/project/18"
+   },
+   "updatedAt": "2026-10-09T23:03:02.397Z"
+  },
+  {
+   "id": 19,
+   "slug": "afrosource",
+   "status": "published",
+   "featured": 3,
+   "sortOrder": 100,
+   "project": {
+    "id": 19,
+    "title": "Afrosource Belgium",
+    "description": "A multilingual B2B drinks catalogue for Belgian trade buyers with 1,600+ products, volume pricing and export services",
+    "fullDescription": "THE BUSINESS NEED: Afrosource serves bars, hotels, restaurants and event buyers from Uccle, while also handling beverage export to Africa, imports into Belgium, customs and alcohol excise. The site needed to behave like a trade catalogue rather than a consumer bottle shop.\n\n    CATALOGUE ARCHITECTURE: The live experience presents more than 1,600 drinks across beer, soft drinks, wine, champagne and spirits. Search, popular-brand shortcuts, stock status, pack size, alcohol percentage, per-bottle price and volume pricing help a buyer evaluate a crate before starting an order. A €500 minimum and trade-client registration are stated early so the commercial rules are clear.\n\n    MULTILINGUAL UX: French, Dutch and English share the same journeys across the age gate, catalogue, product information, services and account flow. Necessary-only cookies retain the language, crate, login and age decision without introducing advertising tracking.\n\n    SERVICE CONVERSION: Export, import, customs and excise services have direct WhatsApp enquiry routes. This lets the site support both repeat catalogue purchasing and higher-touch logistics work from the same interface.",
+    "image": "/projects/afrosource.jpg",
+    "gallery": [
+     "/projects/afrosource.jpg"
+    ],
+    "technologies": [
+     "WordPress",
+     "WooCommerce",
+     "Multilingual UX",
+     "B2B Commerce",
+     "Catalogue Search"
+    ],
+    "category": "B2B Commerce",
+    "client": "Afrosource (Belgium)",
+    "liveUrl": "https://afrosource.be/",
+    "githubUrl": "#",
+    "features": [
+     "French, Dutch and English Journeys",
+     "Age Verification",
+     "1,600+ Drink Catalogue",
+     "Stock and Pack Information",
+     "Volume Pricing",
+     "Trade Account Registration",
+     "Export and Import Services",
+     "Customs and Excise Enquiries"
+    ],
+    "challenges": [
+     {
+      "title": "Trade catalogue density",
+      "description": "Making stock, crate quantities, unit economics and volume tiers scannable across a very large range"
+     },
+     {
+      "title": "Three complete languages",
+      "description": "Keeping commercial rules and product journeys understandable in French, Dutch and English"
+     },
+     {
+      "title": "Commerce plus logistics",
+      "description": "Supporting catalogue buyers and complex export, import, customs and excise enquiries without mixing their calls to action"
+     }
+    ],
+    "results": [
+     "More than 1,600 drinks searchable in one trade catalogue",
+     "Commercial rules and volume pricing visible before registration",
+     "Three-language buying and service journeys",
+     "Direct enquiry paths for export, import and customs work"
+    ]
+   },
+   "caseStudy": {
+    "id": "afrosource",
+    "n": "11",
+    "category": "B2B commerce",
+    "hue": "var(--hue-backend)",
+    "title": "Afrosource Belgium",
+    "image": "/projects/afrosource.jpg",
+    "client": "Afrosource",
+    "role": "Multilingual commerce · Catalogue UX",
+    "problem": "Trade buyers need to compare a very large drinks range by stock, crate size, unit economics and volume tier, while logistics customers need a separate route into export, import and customs help.",
+    "approach": "The catalogue exposes commercial data across French, Dutch and English, with age verification, trade registration and necessary-only preferences. Service pages route higher-touch logistics enquiries directly to WhatsApp.",
+    "result": "More than 1,600 drinks and four major product ranges are searchable through a three-language trade experience, alongside dedicated export, import, customs and excise journeys.",
+    "flow": [
+     {
+      "label": "Verify",
+      "note": "Age · language"
+     },
+     {
+      "label": "Search",
+      "note": "1,600+ drinks"
+     },
+     {
+      "label": "Compare",
+      "note": "Stock · volume"
+     },
+     {
+      "label": "Convert",
+      "note": "Account · WhatsApp"
+     }
+    ],
+    "stack": [
+     "WordPress",
+     "WooCommerce",
+     "Multilingual UX",
+     "B2B Commerce"
+    ],
+    "liveUrl": "https://afrosource.be/",
+    "detailPath": "/project/19"
+   },
+   "updatedAt": "2026-10-09T23:03:02.504Z"
+  },
+  {
+   "id": 20,
+   "slug": "syed-star-engineering",
+   "status": "published",
+   "featured": 4,
+   "sortOrder": 110,
+   "project": {
+    "id": 20,
+    "title": "Syed Star Engineering",
+    "description": "An industrial product and lead-generation website for packaging lines, process machinery and custom fabrication",
+    "fullDescription": "THE BUSINESS NEED: Syed Star Engineering manufactures packaging, bottling and process machinery in Lahore. Buyers do not arrive looking for generic company information; they arrive with a production requirement and need to find the relevant machine, industry experience and route to a technical quotation quickly.\n\n    PRODUCT DISCOVERY: I structured the site around complete production lines and individual equipment. Filling and capping machines, RO plants, stainless-steel tanks, filter presses, milk chillers, vibro sifters and shrink-wrap machines each lead to technical detail and a pre-contextualised quote path.\n\n    INDUSTRY ARCHITECTURE: Separate journeys address beverage, juice, dairy, water treatment, pharmaceutical, ketchup and jam, material handling, and general fabrication requirements. Workshop imagery, client proof and the company's manufacturing history establish that the machinery is built, installed and supported by an operating engineering team.\n\n    LEAD GENERATION: Search, popular equipment shortcuts and persistent call, WhatsApp, email and quote actions reduce the distance from requirement to enquiry. Technical guides on stainless grades, bottling-line planning and milk chilling also capture buyers while they are still defining a project.",
+    "image": "/projects/syed-star.jpg",
+    "gallery": [
+     "/projects/syed-star.jpg"
+    ],
+    "technologies": [
+     "Responsive Web",
+     "Product Catalogue",
+     "Technical SEO",
+     "Lead Generation",
+     "Content Architecture"
+    ],
+    "category": "Industrial",
+    "client": "Syed Star Engineering (Pakistan)",
+    "liveUrl": "https://www.syedstarengineering.com/",
+    "githubUrl": "#",
+    "features": [
+     "Equipment Catalogue",
+     "Eight Industry Journeys",
+     "Product Search and Shortcuts",
+     "Contextual Quote Requests",
+     "Workshop and Client Proof",
+     "Technical Knowledge Base",
+     "WhatsApp and Call Conversion",
+     "Mobile-Responsive Experience"
+    ],
+    "challenges": [
+     {
+      "title": "Technical breadth",
+      "description": "Organising machinery for multiple production stages and industries without reducing everything to a flat catalogue"
+     },
+     {
+      "title": "Requirement-led conversion",
+      "description": "Helping buyers move from an incomplete manufacturing requirement to the right equipment and quote path"
+     },
+     {
+      "title": "Proving manufacturing depth",
+      "description": "Balancing polished presentation with workshop, installation and after-sales evidence that industrial buyers expect"
+     }
+    ],
+    "results": [
+     "Eight industry-specific discovery paths",
+     "Direct quote journey from every featured equipment type",
+     "Technical guides supporting early-stage buyer research",
+     "Call, WhatsApp, email and quotation actions available throughout"
+    ]
+   },
+   "caseStudy": {
+    "id": "syed-star-engineering",
+    "n": "12",
+    "category": "Industrial platform",
+    "hue": "var(--hue-cloud)",
+    "title": "Syed Star Engineering",
+    "image": "/projects/syed-star.jpg",
+    "client": "Syed Star Engineering",
+    "role": "Product architecture · Technical content · Lead generation",
+    "problem": "Industrial buyers arrive with production requirements rather than neat product names. The website had to make a broad machinery range understandable and prove workshop depth before asking for a quotation.",
+    "approach": "Equipment and eight industry journeys connect buyers to product detail and contextual quote forms. Workshop evidence, client proof, technical guides, search and persistent contact actions support both research and conversion.",
+    "result": "Buyers can navigate from a packaging or process requirement to relevant machinery, technical context and a direct quote, WhatsApp, call or email route.",
+    "flow": [
+     {
+      "label": "Requirement",
+      "note": "Industry · search"
+     },
+     {
+      "label": "Equipment",
+      "note": "Technical detail"
+     },
+     {
+      "label": "Proof",
+      "note": "Workshop · clients"
+     },
+     {
+      "label": "Quote",
+      "note": "Context retained"
+     }
+    ],
+    "stack": [
+     "Responsive Web",
+     "Product Catalogue",
+     "Technical SEO",
+     "Lead Generation"
+    ],
+    "liveUrl": "https://www.syedstarengineering.com/",
+    "detailPath": "/project/20"
+   },
+   "updatedAt": "2026-10-09T23:03:02.605Z"
+  },
+  {
+   "id": 7,
+   "slug": "solutions-zilla-digital",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 207,
+   "project": {
+    "id": 7,
+    "title": "Solutions Zilla Digital",
+    "description": "AI-enhanced corporate website for IT and BPO operations with smart lead gen",
+    "fullDescription": "Solutions Zilla Digital is the main corporate presence for an IT and BPO service provider, featuring AI-enhanced lead generation and intelligent content management.\n\n    The website serves as the primary lead generation platform, with AI-powered chatbot integration for instant visitor engagement and qualification. Service pages are optimized with structured data and dynamic content that adapts based on visitor industry and behavior.\n\n    The content management system includes AI-assisted writing tools for blog posts and case studies, maintaining consistent brand voice while scaling content production.",
+    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "WordPress",
+     "AI Chatbot",
+     "SEO Automation",
+     "Analytics"
+    ],
+    "category": "IT Services",
+    "client": "Solutions Zilla",
+    "duration": "2 months",
+    "teamSize": "Solo project",
+    "completionDate": "September 2023",
+    "liveUrl": "https://digital.solutionszilla.com",
+    "githubUrl": "#",
+    "features": [
+     "AI Chatbot Integration",
+     "Smart Lead Generation",
+     "Dynamic Content",
+     "Service Portfolio",
+     "Case Studies Section",
+     "SEO Automation",
+     "Performance Analytics",
+     "Contact Integration"
+    ],
+    "challenges": [
+     {
+      "title": "AI Chatbot",
+      "description": "Training the chatbot to handle diverse service inquiries accurately"
+     },
+     {
+      "title": "Lead Quality",
+      "description": "Using AI to filter and qualify leads before they reach the sales team"
+     },
+     {
+      "title": "Content Scale",
+      "description": "Maintaining quality while scaling content production with AI assistance"
+     }
+    ],
+    "results": [
+     "40% increase in qualified inquiries",
+     "60% faster lead response time",
+     "Enhanced market positioning",
+     "AI-driven visitor engagement"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 8,
+   "slug": "jabulani-hardware-store",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 208,
+   "project": {
+    "id": 8,
+    "title": "Jabulani Hardware Store",
+    "description": "Complete South African hardware e-commerce platform with Stripe payments, Google login, and fast search",
+    "fullDescription": "Jabulani Hardware Store is a full-featured e-commerce platform built for a South African hardware and building materials retailer. The platform serves thousands of customers across South Africa with a comprehensive product catalog spanning construction materials, tools, plumbing, electrical, and home improvement categories.\n\n    THE PROBLEM: The retailer was running an entirely offline operation with a paper-based stock ledger. Customers in outlying areas had no way to check availability before driving to the branch, and staff were spending hours a day answering price and stock calls. Any online store had to work on slow mobile connections and had to reflect real branch stock, otherwise it would generate more phone calls, not fewer.\n\n    ARCHITECTURE: The backend is a Laravel application with a React storefront. Products, variants, and stock levels live in MySQL with a denormalized search table rebuilt by a queued job whenever inventory changes, which keeps the catalog query path free of joins. Redis handles session storage, cart state, and a short-lived cache layer on category and product pages. Product imagery is processed on upload into three responsive WebP sizes and served through a CDN, which is where most of the mobile performance gain came from.\n\n    PAYMENTS AND AUTH: Stripe handles card payments with ZAR as the presentment currency, with webhooks driving order state transitions rather than the browser redirect, so a dropped connection after payment never leaves an order stranded. Google OAuth sits alongside email registration; roughly 60% of customers choose it, which measurably reduced abandonment at the account step.\n\n    SEARCH: Product search targets sub-200ms across 5,000+ SKUs. Rather than reaching for a separate search cluster, the implementation uses a MySQL full-text index over a flattened product document plus a prefix index for autocomplete, with filters applied as indexed integer columns. It is a deliberately boring choice that the client's own team can operate without new infrastructure.\n\n    RESULTS AND OPERATIONS: Performance was a top priority, the platform loads in under 2 seconds on 3G connections. The checkout flow was optimized through A/B testing, reducing cart abandonment by 35% with a streamlined 3-step process including guest checkout, saved addresses, and multiple payment options. The admin panel enables inventory management, order tracking, and sales analytics, and the whole stack runs on a single VPS with automated nightly database backups and queue monitoring.",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "Laravel",
+     "React",
+     "Stripe",
+     "Google Auth",
+     "MySQL",
+     "Redis",
+     "CDN"
+    ],
+    "category": "E-Commerce",
+    "client": "Jabulani Group of Companies (South Africa)",
+    "duration": "2.5 months",
+    "teamSize": "Solo developer",
+    "completionDate": "February 2025",
+    "liveUrl": "https://store.jabulanigroupofcompanies.co.za",
+    "githubUrl": "#",
+    "features": [
+     "Stripe Payment Integration",
+     "Google OAuth Login",
+     "Lightning-Fast Product Search",
+     "Real-time Inventory Management",
+     "Optimized Checkout Flow",
+     "Admin Analytics Dashboard",
+     "Mobile-First Responsive Design",
+     "CDN-Optimized Product Images"
+    ],
+    "challenges": [
+     {
+      "title": "Payment Integration",
+      "description": "Implementing Stripe for the South African market with ZAR currency support and local payment methods"
+     },
+     {
+      "title": "Search Performance",
+      "description": "Building sub-200ms product search across 5,000+ SKUs with filtering, sorting, and autocomplete"
+     },
+     {
+      "title": "Mobile Optimization",
+      "description": "Ensuring fast load times on slower mobile networks common in South Africa"
+     }
+    ],
+    "results": [
+     "35% reduction in cart abandonment",
+     "Sub-2 second page loads on 3G",
+     "60% of users login via Google Auth",
+     "4.8/5 customer satisfaction rating"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 9,
+   "slug": "solutions-zilla-software",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 209,
+   "project": {
+    "id": 9,
+    "title": "Solutions Zilla Software",
+    "description": "Professional software house website showcasing development services and client portfolio",
+    "fullDescription": "Solutions Zilla Software is the flagship website for a full-service software development company, designed to establish authority in the competitive IT services market and generate high-quality leads.\n\n    The site features a modern, conversion-optimized design with dynamic service pages, interactive technology stack showcases, and detailed case study presentations. Each service page is tailored with industry-specific content and social proof.\n\n    SEO was central to the strategy, the site ranks for key terms like \"custom software development,\" \"Laravel development company,\" and \"IT outsourcing Pakistan.\" Technical SEO includes schema markup, optimized Core Web Vitals, and a comprehensive content strategy.\n\n    The portfolio section includes filterable project showcases with before/after metrics, client testimonials with video integration, and detailed technology breakdowns that demonstrate expertise to potential clients.",
+    "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop",
+    "gallery": [
+     "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+     "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop"
+    ],
+    "technologies": [
+     "WordPress",
+     "Custom Theme",
+     "SEO",
+     "UI/UX Design",
+     "Analytics",
+     "Schema Markup"
+    ],
+    "category": "IT Services",
+    "client": "Solutions Zilla",
+    "duration": "6 weeks",
+    "teamSize": "Solo project",
+    "completionDate": "January 2025",
+    "liveUrl": "https://software.solutionszilla.com",
+    "githubUrl": "#",
+    "features": [
+     "Conversion-Optimized Design",
+     "Dynamic Service Pages",
+     "Interactive Tech Stack Showcase",
+     "Detailed Case Studies",
+     "Client Testimonial Videos",
+     "SEO & Schema Markup",
+     "Lead Generation Forms",
+     "Performance Analytics"
+    ],
+    "challenges": [
+     {
+      "title": "Brand Positioning",
+      "description": "Differentiating from hundreds of competing software companies with a unique value proposition"
+     },
+     {
+      "title": "SEO Competition",
+      "description": "Ranking for highly competitive software development keywords in a saturated market"
+     },
+     {
+      "title": "Conversion Rate",
+      "description": "Designing a journey that converts technical decision-makers into qualified leads"
+     }
+    ],
+    "results": [
+     "45% increase in organic traffic",
+     "3x more qualified lead submissions",
+     "Top 5 ranking for target keywords",
+     "2.5% visitor-to-lead conversion rate"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 10,
+   "slug": "jabulani-tech-solutions-agency-platform",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 210,
+   "project": {
+    "id": 10,
+    "title": "Jabulani Tech Solutions, Agency Platform",
+    "description": "Hand-built agency site with four case studies, a PHP contact pipeline, and local SEO for the Eastern Cape market",
+    "fullDescription": "Jabulani Tech Solutions is the IT and web-development arm of the Jabulani Group of Companies in the Eastern Cape, South Africa. The site presents their services, showcases four live systems built for the wider group, and collects qualified enquiries.\n\n    THE CONSTRAINT: The host is Hostinger shared hosting, Apache with PHP and no Node runtime. That ruled out any build step, so the whole site is hand-written HTML, CSS and vanilla JavaScript with a single PHP script behind the contact form. Every file can be edited and uploaded directly; nothing is compiled.\n\n    ARCHITECTURE: Five static pages, one per case study plus the home page, sharing two stylesheets and one JavaScript file. Theme state is written to localStorage and read by an inline script in the document head before first paint, so a returning visitor never sees a flash of the wrong theme. The contact form posts to form.php, which sends over authenticated SMTP with credentials kept in a gitignored secrets file and a committed example template alongside it.\n\n    DELIVERY: Apache configuration handles the HTTPS redirect, cache headers and security headers. The site ships robots.txt, a sitemap, Open Graph and Twitter cards, canonical URLs, and geographic meta for Eastern Cape local search. A custom 404 page redirects home rather than dead-ending.\n\n    WHY IT IS HERE: It is the counter-example to the rest of this portfolio. Given a host with no build tooling, the right answer was not a framework, and shipping plain HTML that a non-developer can maintain was the engineering decision.",
+    "image": "/projects/jabulani-agency.jpg",
+    "gallery": [
+     "/projects/jabulani-agency.jpg"
+    ],
+    "technologies": [
+     "HTML5",
+     "CSS3",
+     "Vanilla JS",
+     "PHP",
+     "SMTP",
+     "Apache",
+     "SEO"
+    ],
+    "category": "IT Services",
+    "client": "Jabulani Group of Companies (South Africa)",
+    "duration": "3 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "June 2026",
+    "liveUrl": "https://agency.jabulanigroupofcompanies.co.za",
+    "githubUrl": "#",
+    "features": [
+     "Four case-study pages",
+     "PHP SMTP contact pipeline",
+     "Light and dark theme with no flash of wrong theme",
+     "Local SEO for the Eastern Cape",
+     "Security and cache headers via Apache",
+     "Custom 404 with redirect",
+     "Sitemap and robots directives",
+     "Zero build step, zero dependencies"
+    ],
+    "challenges": [
+     {
+      "title": "No build tooling",
+      "description": "Shared hosting with Apache and PHP only, so no bundler, no framework and no npm install in the deployment path"
+     },
+     {
+      "title": "Theme without flicker",
+      "description": "Applying a stored theme before first paint using an inline head script rather than waiting for JavaScript to load"
+     },
+     {
+      "title": "Credential handling",
+      "description": "Keeping SMTP credentials out of version control while leaving the repository reproducible for the next maintainer"
+     }
+    ],
+    "results": [
+     "Live and serving the agency enquiries",
+     "Editable by a non-developer, no compile step",
+     "Four case studies published"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 11,
+   "slug": "jabulani-point-of-sale",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 211,
+   "project": {
+    "id": 11,
+    "title": "Jabulani Point of Sale",
+    "description": "Custom retail POS and stock manager running live transactions, with role-based access and exportable reporting",
+    "fullDescription": "A bespoke point-of-sale and inventory system built for the Jabulani Group retail operations in the Eastern Cape, live under the name Jabulani Stock Manager.\n\n    THE PROBLEM: The group needed to manage inventory, record sales and see staff activity across retail operations. Off-the-shelf POS products were priced for larger operators, carried features the team would never use, or assumed a market that did not match South African retail. Manual processes were producing stock discrepancies, slow checkouts and no visibility into which products actually moved.\n\n    WHAT WAS BUILT: A checkout interface designed around how the counter staff actually work, with barcode scanning, receipt printing and multiple payment types. Behind it sits real-time stock tracking with low-stock alerts, supplier records and purchase orders. A reporting layer breaks sales down by day, week and month across product, category and staff member, and exports to CSV for accounting and tax.\n\n    ACCESS AND SAFETY: Cashiers, managers and administrators each authenticate into a role that exposes only what that role needs. Every transaction writes an audit record. The system runs on a secured host with SSL and daily backups.\n\n    STATUS: In production, processing real transactions.",
+    "image": "/projects/jabulani-pos.jpg",
+    "gallery": [
+     "/projects/jabulani-pos.jpg"
+    ],
+    "technologies": [
+     "POS",
+     "Inventory",
+     "RBAC",
+     "Reporting",
+     "CSV Export",
+     "Audit Logs",
+     "SSL"
+    ],
+    "category": "Enterprise",
+    "client": "Jabulani Group of Companies (South Africa)",
+    "duration": "2 months",
+    "teamSize": "Solo developer",
+    "completionDate": "2026",
+    "liveUrl": "https://pos.jabulanigroupofcompanies.co.za",
+    "githubUrl": "#",
+    "features": [
+     "Barcode checkout with receipt printing",
+     "Multiple payment types",
+     "Real-time stock with low-stock alerts",
+     "Supplier records and purchase orders",
+     "Sales dashboard by product, category and staff",
+     "Role-based access for cashiers, managers and admins",
+     "CSV export for accounting and tax",
+     "Per-transaction audit logs and daily backups"
+    ],
+    "challenges": [
+     {
+      "title": "Fit over features",
+      "description": "Designing around the counter workflow the staff already had, rather than importing an off-the-shelf product assumptions"
+     },
+     {
+      "title": "Stock accuracy",
+      "description": "Keeping recorded stock and physical stock in agreement across concurrent sales and incoming purchase orders"
+     },
+     {
+      "title": "Role isolation",
+      "description": "Ensuring a cashier login cannot reach reporting, pricing or supplier data"
+     }
+    ],
+    "results": [
+     "Running real transactions in production",
+     "Stock visible in real time rather than reconciled by hand",
+     "Reports exportable for accounting and tax"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 12,
+   "slug": "jabulani-crush-and-quarry",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 212,
+   "project": {
+    "id": 12,
+    "title": "Jabulani Crush and Quarry",
+    "description": "SEO-first website for an open-cast mining operation that previously had no online presence at all",
+    "fullDescription": "Jabulani Crush and Quarry is an open-cast mining operation in Tsolo, Eastern Cape, supplying aggregate to construction companies across the province.\n\n    THE PROBLEM: The business had operated for years on word-of-mouth referrals with no digital footprint whatsoever. Contractors searching for aggregate suppliers in the Eastern Cape could not find them, so every enquiry depended on somebody already knowing the name.\n\n    THE APPROACH: A fully custom build with no template. Pages were structured around location-based search terms for quarry and aggregate queries in the region, with semantic HTML and schema markup throughout, and a filterable gallery of fleet, operations and completed work, because contractors buy on evidence of capability.\n\n    DESIGN: A dark interface with red accents, chosen to match the industrial character of the business and to distinguish it from the stock-photo template sites its competitors run.\n\n    PERFORMANCE: Compressed assets, lazy-loaded imagery and clean markup, because the audience is often browsing on mobile data from a site rather than an office.",
+    "image": "/projects/jabulani-quarry.jpg",
+    "gallery": [
+     "/projects/jabulani-quarry.jpg"
+    ],
+    "technologies": [
+     "HTML5",
+     "CSS3",
+     "Vanilla JS",
+     "Schema Markup",
+     "Local SEO",
+     "Responsive"
+    ],
+    "category": "Mining",
+    "client": "Jabulani Group of Companies (South Africa)",
+    "duration": "3 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "2026",
+    "liveUrl": "https://jabulaniquarriestsolo.co.za",
+    "githubUrl": "#",
+    "features": [
+     "Location-targeted SEO structure",
+     "Schema markup and semantic HTML",
+     "Filterable operations gallery",
+     "Dark industrial interface",
+     "Quote and contact touchpoints",
+     "Lazy-loaded, compressed imagery",
+     "Mobile-first responsive layout",
+     "Google Business Profile integration"
+    ],
+    "challenges": [
+     {
+      "title": "Starting from zero",
+      "description": "No existing site, no brand assets online and no search presence to build on"
+     },
+     {
+      "title": "Ranking locally",
+      "description": "Competing for Eastern Cape quarry and aggregate search terms against established directory listings"
+     },
+     {
+      "title": "Mobile data budgets",
+      "description": "Delivering a photo-led site that still loads quickly for contractors on site connections"
+     }
+    ],
+    "results": [
+     "Discoverable in search for the first time",
+     "Fully custom design, no templates",
+     "Operations gallery live for contractor evaluation"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 13,
+   "slug": "jabulani-group-corporate-site",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 213,
+   "project": {
+    "id": 13,
+    "title": "Jabulani Group Corporate Site",
+    "description": "Corporate hub presenting a multi-industry group and routing visitors to each division own site",
+    "fullDescription": "The Jabulani Group operates across mining, technology, retail and building materials. This is the corporate site that presents the group as one organisation and directs visitors to each division.\n\n    THE PROBLEM: The group online presence was fragmented across separate sites with no centre. Nothing communicated the scale of the organisation, and a visitor arriving at one division had no way to understand the rest.\n\n    THE APPROACH: A corporate hub that leads with the group story and then presents each division as its own card, carrying a distinct colour identity, a short description and a link through to that division dedicated site. The result is one ecosystem with several destinations, navigable in both directions.\n\n    DESIGN: Deliberately understated. The audience is B2B partners and investors, so the design conveys authority by getting out of the way and letting the businesses speak.\n\n    ENGINEERING: Lightweight HTML, CSS and JavaScript with no framework and no unnecessary dependencies, which keeps it fast everywhere and cheap to host alongside the other group properties.",
+    "image": "/projects/jabulani-group.jpg",
+    "gallery": [
+     "/projects/jabulani-group.jpg"
+    ],
+    "technologies": [
+     "HTML5",
+     "CSS3",
+     "Vanilla JS",
+     "SEO",
+     "Responsive"
+    ],
+    "category": "IT Services",
+    "client": "Jabulani Group of Companies (South Africa)",
+    "duration": "2 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "2026",
+    "liveUrl": "https://jabulanigroupofcompanies.co.za",
+    "githubUrl": "#",
+    "features": [
+     "Multi-division architecture with per-division identity",
+     "Inter-site navigation across the group ecosystem",
+     "Understated corporate design for B2B and investor audiences",
+     "Brand-focused SEO",
+     "Fully responsive layout",
+     "No framework, no build dependencies"
+    ],
+    "challenges": [
+     {
+      "title": "One story, many businesses",
+      "description": "Presenting divisions in unrelated sectors as a coherent group without flattening what makes each distinct"
+     },
+     {
+      "title": "Fragmented estate",
+      "description": "Connecting separately hosted division sites into a navigable ecosystem"
+     },
+     {
+      "title": "Authority without noise",
+      "description": "Conveying scale to B2B and investor audiences through restraint rather than decoration"
+     }
+    ],
+    "results": [
+     "Three or more divisions presented in one place",
+     "Group and division sites cross-linked",
+     "Single corporate identity online"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 16,
+   "slug": "padel-arena",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 216,
+   "project": {
+    "id": 16,
+    "title": "Padel Arena",
+    "description": "Live padel score tracker with full deuce and golden-point rules, player stats, and a venue book",
+    "fullDescription": "A score tracker, player leaderboard and venue book for a padel group in Lahore.\n\n    THE SCORING PROBLEM: Padel scoring is the interesting part. The counter implements the full progression through 15, 30, 40, deuce and advantage, plus the sudden-death golden point the group actually plays, and it does so as state rather than as a display. Undo exists because a mis-tap during a live match is the normal case, not the exception.\n\n    THE INTERFACE: Full-screen and mobile-first, with two tap zones, one colour per team. It is designed to be used at arm's length on a court, not read.\n\n    RECORDS: Matches are doubles, best of five sets. Players and venues are full CRUD, and deactivating a player hides them from new match setup while keeping their history intact, which is the difference between deactivation and deletion. Every match keeps a point-by-point log, so history is never reconstructed from a final score. The dashboard reports played, win and loss counts, win percentage, sets won and lost, venue usage and recent activity.\n\n    STACK NOTES: Next.js App Router with Tailwind, Drizzle ORM over Turso.",
+    "image": "/projects/padel-arena.jpg",
+    "gallery": [
+     "/projects/padel-arena.jpg"
+    ],
+    "technologies": [
+     "Next.js",
+     "TypeScript",
+     "Tailwind",
+     "Drizzle ORM",
+     "Turso"
+    ],
+    "category": "Product",
+    "duration": "2 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "July 2026",
+    "liveUrl": "https://padel-arena-inky.vercel.app",
+    "githubUrl": "https://github.com/CH-USAMA/padel-arena",
+    "features": [
+     "Full-screen two-zone live score counter",
+     "Deuce, advantage and golden-point rules held as state",
+     "Undo for mis-taps mid-match",
+     "Doubles matches, best of five sets",
+     "Player CRUD with deactivation that preserves history",
+     "Venue book seeded with Lahore courts",
+     "Point-by-point match log",
+     "Leaderboard with win percentage and set counts"
+    ],
+    "challenges": [
+     {
+      "title": "Scoring as state",
+      "description": "Modelling deuce, advantage and a sudden-death golden point as real state transitions rather than as display formatting"
+     },
+     {
+      "title": "Usable at arm's length",
+      "description": "An interface operated mid-rally on a phone propped on a bench, where a mis-tap must be recoverable"
+     },
+     {
+      "title": "History that survives edits",
+      "description": "Deactivating players and editing matches without losing the point-by-point record already captured"
+     }
+    ],
+    "results": [
+     "Full house scoring rules automated, including the golden point",
+     "Every match retains a point-by-point log",
+     "Leaderboard and venue usage generated from real match records"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.165Z"
+  },
+  {
+   "id": 17,
+   "slug": "financial-os",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 217,
+   "project": {
+    "id": 17,
+    "title": "Financial OS",
+    "description": "Single-user finance system modelling loans as ledgers rather than balances, built around a property purchase",
+    "fullDescription": "A private, single-user web application for tracking the money involved in a house purchase: loans from family and friends, property sale proceeds, bank balances, recurring expenses, freelance receivables and pooled savings goals.\n\n    THE MODELLING DECISION: A loan is a ledger, not a number. Every loan tracks disbursements and repayments over time, so a loan that grows because someone sends more money later, or shrinks through partial repayment, stays correct without anyone editing a balance by hand. Storing the current figure instead would have been simpler and wrong within a week.\n\n    WHAT IT TRACKS: Properties record installments received, expenses, and what has been distributed to lenders from each sale. Alongside those sit bank accounts, fixed expenses, freelance clients, and commitment plans, which are pooled goals with pledges, contributions and a progress bar.\n\n    STACK NOTES: Next.js with libSQL on Turso, Vercel Blob for document storage and Recharts for reporting. Login-protected and single-tenant by design; this is a personal system, published here as a work sample rather than as a product.",
+    "image": "/projects/financial-os.jpg",
+    "gallery": [
+     "/projects/financial-os.jpg"
+    ],
+    "technologies": [
+     "Next.js",
+     "libSQL",
+     "Turso",
+     "Vercel Blob",
+     "Recharts"
+    ],
+    "category": "Fintech",
+    "duration": "3 weeks",
+    "teamSize": "Solo developer",
+    "completionDate": "July 2026",
+    "liveUrl": "https://financial-os-blond.vercel.app",
+    "githubUrl": "#",
+    "features": [
+     "Loans modelled as ledgers of disbursements and repayments",
+     "Property installments, expenses and lender distributions",
+     "Bank account balances",
+     "Fixed recurring expenses",
+     "Freelance client receivables",
+     "Commitment plans with pledges, contributions and progress",
+     "Reporting through Recharts",
+     "Login-protected single-tenant access"
+    ],
+    "challenges": [
+     {
+      "title": "Loans that move",
+      "description": "Representing a loan as a running ledger so later disbursements and partial repayments stay accurate without manual correction"
+     },
+     {
+      "title": "Money in several shapes",
+      "description": "Reconciling loans, sale proceeds, bank balances, receivables and pooled goals into one view without double counting"
+     },
+     {
+      "title": "Distribution tracking",
+      "description": "Recording what each property sale has already paid back to which lender"
+     }
+    ],
+    "results": [
+     "Loan balances stay correct as money moves in both directions",
+     "House purchase tracked end to end in one system",
+     "Pooled goals show real progress against pledges"
+    ]
+   },
+   "caseStudy": null,
+   "updatedAt": "2026-10-09T11:52:45.166Z"
+  }
+ ]
+}

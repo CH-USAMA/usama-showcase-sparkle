@@ -1,8 +1,6 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/system/Reveal";
-import { transition } from "@/lib/motion";
 
 interface Tech {
   name: string;
@@ -120,7 +118,7 @@ const TechMatrix = () => {
 
   return (
     <section
-      className="wash band band-edge relative py-24 lg:py-32"
+      className="wash fx-glow-top relative py-24 lg:py-32"
       style={{ "--hue": activeGroup.hue } as CSSProperties}
     >
       <div className="container mx-auto">
@@ -176,15 +174,13 @@ const TechMatrix = () => {
         <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
           {/* matrix */}
           <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              <motion.ul
-                key={activeGroup.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={transition.standard}
-                className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-3"
-              >
+            {/* Keyed: each group mounts fresh and plays the CSS entrance. This
+                was framer-motion's AnimatePresence, the only thing loading the
+                library on /services. */}
+            <ul
+              key={activeGroup.id}
+              className="enter grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-3"
+            >
                 {activeGroup.items.map((t) => {
                   const on = tech?.name === t.name;
                   return (
@@ -193,7 +189,7 @@ const TechMatrix = () => {
                         type="button"
                         onMouseEnter={() => setTech(t)}
                         onFocus={() => setTech(t)}
-                        onClick={() => setTech(on ? null : t)}
+                        onClick={() => setTech(t)}
                         className={`flex h-full w-full flex-col items-start gap-1.5 px-4 py-4 text-left transition-colors duration-standard ${
                           on ? "bg-hue-soft" : "bg-surface-1 hover:bg-surface-2"
                         }`}
@@ -216,22 +212,14 @@ const TechMatrix = () => {
                     </li>
                   );
                 })}
-              </motion.ul>
-            </AnimatePresence>
+            </ul>
           </div>
 
           {/* detail panel */}
           <div className="lg:col-span-5">
             <div className="panel h-full min-h-[11rem] rounded-lg p-6" aria-live="polite">
-              <AnimatePresence mode="wait">
-                {tech ? (
-                  <motion.div
-                    key={tech.name}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={transition.standard}
-                  >
+              {tech ? (
+                  <div key={tech.name} className="enter">
                     <h3 className="font-mono text-sm uppercase tracking-[0.16em] text-hue">
                       {tech.name}
                     </h3>
@@ -249,20 +237,12 @@ const TechMatrix = () => {
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
+                  </div>
                 ) : (
-                  <motion.p
-                    key="empty"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={transition.micro}
-                    className="font-inter text-[13.5px] leading-relaxed text-subtle"
-                  >
+                  <p key="empty" className="font-inter text-[13.5px] leading-relaxed text-subtle">
                     Select a technology to see where it appears in the work.
-                  </motion.p>
+                  </p>
                 )}
-              </AnimatePresence>
             </div>
           </div>
         </div>

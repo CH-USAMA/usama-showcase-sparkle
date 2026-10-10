@@ -4,9 +4,9 @@ import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import CTA from "@/components/system/CTA";
 import { ArrowRight, CalendarCheck, FolderKanban, Home, Newspaper } from "lucide-react";
-import { blogsData } from "@/data/blogs";
+import { usePosts } from "@/lib/content/posts";
 
 const NotFound = () => {
   const location = useLocation();
@@ -15,13 +15,13 @@ const NotFound = () => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
 
-  const suggestedPosts = blogsData.slice(0, 3);
+  const suggestedPosts = usePosts().slice(0, 3);
 
   const destinations = [
     { to: "/", icon: Home, title: "Home", desc: "Full-stack product engineering services and case studies." },
     { to: "/projects", icon: FolderKanban, title: "Projects", desc: "React, Node.js, Laravel, mobile, and AI products shipped to production." },
     { to: "/blog", icon: Newspaper, title: "Blog", desc: "Deep dives on web, mobile, backend, automation, and AI engineering." },
-    { to: "/book", icon: CalendarCheck, title: "Architecture call", desc: "Free 30 minutes on your architecture." },
+    { to: "/book", icon: CalendarCheck, title: "Book a call", desc: "Free 30 minutes on your architecture." },
   ];
 
   return (
@@ -29,12 +29,12 @@ const NotFound = () => {
       <SEOHead
         title="Page Not Found (404) | Usama Munawar"
         description="The page you were looking for doesn't exist. Explore projects, articles, or book a free full-stack product consultation."
-        canonical="https://www.chaudharyusama.com/404"
+        canonical={null}
         noindex
       />
       <Navbar />
 
-      <main className="pt-28 pb-20">
+      <main id="main" className="pt-28 pb-20">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="text-center mb-12">
             <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">Error 404</span>
@@ -83,11 +83,9 @@ const NotFound = () => {
           )}
 
           <div className="mt-14 text-center">
-            <Link to="/book">
-              <Button size="lg" variant="hero" className="rounded-xl px-8 shadow-glow">
-                Book a free 30-min call
-              </Button>
-            </Link>
+            <CTA to="/book" size="lg" arrow>
+              Book a free 30-min call
+            </CTA>
           </div>
         </div>
       </main>

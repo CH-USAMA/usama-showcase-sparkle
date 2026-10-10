@@ -1,43 +1,8 @@
-import type { FlowStage } from "@/components/system/ArchitectureFlow";
-import imgCallPortal from "@/assets/project-callportal.webp";
-import imgClinic from "@/assets/project-clinic.webp";
-import imgLeadEngine from "@/assets/project-leadengine.webp";
-import imgRag from "@/assets/project-rag.webp";
-import imgInteriors from "@/assets/project-interiors.webp";
-import imgContentOps from "@/assets/project-contentops.webp";
-import galwayAsset from "@/assets/galway.webp.asset.json";
-import marianAsset from "@/assets/marian.webp.asset.json";
-import afrosourceAsset from "@/assets/afrosource.webp.asset.json";
-import syedStarAsset from "@/assets/syedstar.webp.asset.json";
+/* SEED DATA. Project cards now live in the Turso database (projects table,
+   case_study column) and are edited at /admin. */
+import type { CaseStudy } from "./types";
 
-export interface CaseStudy {
-  id: string;
-  n: string;
-  category: string;
-  /** Domain hue from the family in index.css — the same hue this domain
-      carries in the stack matrix and the service list. */
-  hue: string;
-  title: string;
-  /**
-   * Headline outcome, quoted verbatim from this project's canonical entry in
-   * projects.ts. Optional on purpose: a dossier with no verifiable figure runs
-   * without one rather than borrowing a number from a different claim.
-   */
-  metric?: { value: string; label: string };
-  image: string;
-  client?: string;
-  year?: string;
-  role: string;
-  problem: string;
-  approach: string;
-  result: string;
-  /** Restatement of the stack as a request path — no new claims, just structure. */
-  flow: FlowStage[];
-  stack: string[];
-  liveUrl?: string;
-  /** Route into the existing detail page where one exists. */
-  detailPath?: string;
-}
+export type { CaseStudy };
 
 /**
  * Eight systems, restructured from the existing portfolio entries into
@@ -69,7 +34,8 @@ export const caseStudies: CaseStudy[] = [
     hue: "var(--hue-realtime)",
     title: "Solutions Zilla Call Portal",
     metric: { value: "30%", label: "Improvement in lead conversion" },
-    image: imgCallPortal,
+    image: "/projects/project-callportal.webp",
+    cover: "diagram",
     client: "Solutions Zilla",
     year: "2025",
     role: "Architecture · Backend · Telephony",
@@ -125,7 +91,8 @@ export const caseStudies: CaseStudy[] = [
     category: "Healthcare SaaS",
     hue: "var(--hue-backend)",
     title: "iSmart Clinic",
-    image: imgClinic,
+    image: "/projects/project-clinic.webp",
+    cover: "diagram",
     role: "Multi-tenant architecture · Automation",
     problem:
       "Clinics were losing patients to no-shows and burning staff hours on manual billing reconciliation, with no reliable trail of who changed what.",
@@ -150,7 +117,8 @@ export const caseStudies: CaseStudy[] = [
     hue: "var(--hue-ai)",
     title: "RAG-Powered Legal Assistant",
     metric: { value: "94%", label: "Query accuracy" },
-    image: imgRag,
+    image: "/projects/project-rag.webp",
+    cover: "diagram",
     client: "Legal tech startup",
     year: "2025",
     role: "Retrieval architecture · Evaluation",
@@ -177,7 +145,8 @@ export const caseStudies: CaseStudy[] = [
     hue: "var(--hue-automation)",
     title: "Smart Lead Qualification Engine",
     metric: { value: "85%", label: "Less qualification time" },
-    image: imgLeadEngine,
+    image: "/projects/project-leadengine.webp",
+    cover: "diagram",
     client: "B2B SaaS company",
     year: "2025",
     role: "Workflow architecture · Integrations",
@@ -204,7 +173,8 @@ export const caseStudies: CaseStudy[] = [
     hue: "var(--hue-ai)",
     title: "AI Content Operations Pipeline",
     metric: { value: "10x", label: "Content throughput" },
-    image: imgContentOps,
+    image: "/projects/project-contentops.webp",
+    cover: "diagram",
     client: "SaaS startup (NDA)",
     year: "2025",
     role: "Agent orchestration · Observability",
@@ -258,7 +228,8 @@ export const caseStudies: CaseStudy[] = [
     hue: "var(--hue-interface)",
     title: "Focus Interiors",
     metric: { value: "35%", label: "Increase in client inquiries" },
-    image: imgInteriors,
+    image: "/projects/project-interiors.webp",
+    cover: "diagram",
     client: "Focus Interiors",
     year: "2024",
     role: "Headless architecture · Performance",
@@ -285,7 +256,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Local service platform",
     hue: "var(--hue-automation)",
     title: "Five Stars Galway Taxis",
-    image: galwayAsset.url,
+    image: "/projects/five-stars-galway.jpg",
     client: "Five Stars Galway Taxis",
     role: "Service architecture · Booking journey · Local discovery",
     problem: "One Galway operator serves immediate taxis, airport transfers, tours, accessible passengers, couriers and large groups. A generic transport page could not help each customer reach the right journey quickly.",
@@ -302,7 +273,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Devotional commerce",
     hue: "var(--hue-interface)",
     title: "Marian Holy Art",
-    image: marianAsset.url,
+    image: "/projects/marian-holy-art.jpg",
     client: "Marian Holy Art",
     role: "Commerce UX · Content architecture",
     problem: "The organisation needed to sell devotional gifts while also explaining its mission, pilgrimage services, religious artifacts and outreach work without letting one side obscure the other.",
@@ -319,7 +290,7 @@ export const caseStudies: CaseStudy[] = [
     category: "B2B commerce",
     hue: "var(--hue-backend)",
     title: "Afrosource Belgium",
-    image: afrosourceAsset.url,
+    image: "/projects/afrosource.jpg",
     client: "Afrosource",
     role: "Multilingual commerce · Catalogue UX",
     problem: "Trade buyers need to compare a very large drinks range by stock, crate size, unit economics and volume tier, while logistics customers need a separate route into export, import and customs help.",
@@ -336,7 +307,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Industrial platform",
     hue: "var(--hue-cloud)",
     title: "Syed Star Engineering",
-    image: syedStarAsset.url,
+    image: "/projects/syed-star.jpg",
     client: "Syed Star Engineering",
     role: "Product architecture · Technical content · Lead generation",
     problem: "Industrial buyers arrive with production requirements rather than neat product names. The website had to make a broad machinery range understandable and prove workshop depth before asking for a quotation.",

@@ -5,11 +5,12 @@ import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ReactMarkdown from "react-markdown";
+import { SUPABASE_URL } from "@/lib/supabasePublic";
 
 type Msg = { role: "user" | "assistant"; content: string };
 type Lead = { name: string; email: string; phone: string };
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = `${SUPABASE_URL}/functions/v1/chat`;
 import { trackEvent } from "@/lib/analytics";
 
 const FORMSPREE_URL = "https://formspree.io/f/mkgzjlde";
@@ -73,8 +74,13 @@ async function streamChat({
   }
 }
 
-const AIChatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+/**
+ * The chat panel. Mounted by ChatLauncher on click (this chunk is only
+ * fetched when someone reaches for the button); it opens straight away and
+ * hands control back through onClose once its exit animation has finished.
+ */
+const AIChatbot = ({ onClose }: { onClose: () => void }) => {
+  const [isOpen, setIsOpen] = useState(true);
   const [lead, setLead] = useState<Lead | null>(() => {
     if (typeof window === "undefined") return null;
     try {
@@ -234,41 +240,8 @@ const AIChatbot = () => {
 
   return (
     <>
-      {/* Floating Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            /* A spin-in suited the old circular button; on a pill it just reads
-               as a glitch. Rise and settle instead. */
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12 }}
-            transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
-          >
-            {/* Launcher styled to the site's system: hairline pill, mono label,
-                status dot. The previous 64px solid disc plus a permanent speech
-                bubble covered hero content on small screens. */}
-            <button
-              type="button"
-              onClick={() => { setIsOpen(true); trackEvent("chatbot_open"); }}
-              className="group inline-flex items-center gap-2.5 rounded-full border border-hairline/[0.14] bg-surface-1/90 py-2.5 pl-3 pr-4 shadow-elegant backdrop-blur-xl transition-colors duration-standard hover:border-primary/45"
-              aria-label="Open the AI assistant"
-            >
-              <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-primary/12">
-                <Bot className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
-                <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full border border-background bg-primary anim-status" />
-              </span>
-              <span className="mono-tiny text-muted-foreground transition-colors duration-standard group-hover:text-foreground">
-                Ask my AI
-              </span>
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Chat Window */}
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={onClose}>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
@@ -369,9 +342,9 @@ const AIChatbot = () => {
                       className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                     >
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        msg.role === "user" ? "bg-primary/20" : "bg-accent/20"
+                        msg.role === "user" ? "bg-primary/20" : "bg-primary/10"
                       }`}>
-                        {msg.role === "user" ? <User className="w-3.5 h-3.5 text-primary" /> : <Bot className="w-3.5 h-3.5 text-accent" />}
+                        {msg.role === "user" ? <User className="w-3.5 h-3.5 text-primary" /> : <Bot className="w-3.5 h-3.5 text-primary" />}
                       </div>
                       <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
                         msg.role === "user"
@@ -386,8 +359,8 @@ const AIChatbot = () => {
                   ))}
                   {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
-                      <div className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center">
-                        <Bot className="w-3.5 h-3.5 text-accent" />
+                      <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Bot className="w-3.5 h-3.5 text-primary" />
                       </div>
                       <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3">
                         <div className="flex gap-1.5">
@@ -440,7 +413,7 @@ const AIChatbot = () => {
                       className="flex items-center justify-center gap-2 w-full text-xs font-medium px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
-                      Book an Architecture Call →
+                      Book a free call →
                     </Link>
                   </motion.div>
                 )}

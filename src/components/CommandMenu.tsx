@@ -44,8 +44,8 @@ interface Entry {
  * navigation and keyboard access without adding a dependency. Focus trapping,
  * escape handling and aria wiring come from the underlying dialog.
  */
-const CommandMenu = () => {
-  const [open, setOpen] = useState(false);
+const CommandMenu = ({ initialOpen = false }: { initialOpen?: boolean }) => {
+  const [open, setOpen] = useState(initialOpen);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const CommandMenu = () => {
   ];
 
   const pages: Entry[] = [
-    { id: "book", label: "Book an architecture call", icon: CalendarCheck, run: () => navigate("/book") },
+    { id: "book", label: "Book a free call", icon: CalendarCheck, run: () => navigate("/book") },
     { id: "projects", label: "All projects", icon: FolderKanban, run: () => navigate("/projects") },
     { id: "blog", label: "Engineering blog", icon: Newspaper, run: () => navigate("/blog") },
     { id: "services-page", label: "Service detail pages", icon: Workflow, run: () => navigate("/services") },

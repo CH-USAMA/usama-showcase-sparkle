@@ -92,6 +92,9 @@ function elbow(x1: number, y1: number, tx: number, y2: number, x2: number, r = 1
 
 type Layout = "wide" | "compact";
 
+/** The two-sided layout fits from tablet width up; phones get the single trunk. */
+const WIDE_QUERY = "(min-width: 640px)";
+
 interface Geometry {
   vb: { w: number; h: number };
   photo: { cx: number; cy: number; r: number };
@@ -176,7 +179,7 @@ function buildCompact(): Geometry {
   return {
     vb: { w: W, h: H },
     photo: { cx, cy, r: pr },
-    type: { label: 12.5, meta: 8.5, dotX: 15, textX: 26 },
+    type: { label: 14, meta: 10, dotX: 15, textX: 26 },
     nodes,
   };
 }
@@ -198,7 +201,11 @@ const DEPTH_WIRES = 4;
 const DEPTH_RING = 6;
 
 const SystemGraph = () => {
-  const [layout, setLayout] = useState<Layout>("wide");
+  // Read the breakpoint on the first render, so phones never paint the wide
+  // layout first and then jump to the compact one.
+  const [layout, setLayout] = useState<Layout>(() =>
+    typeof window !== "undefined" && !window.matchMedia(WIDE_QUERY).matches ? "compact" : "wide"
+  );
   const [hovered, setHovered] = useState<string | null>(null);
 
   // The hovered node's layer. Used to lift siblings rather than only the node
@@ -210,7 +217,7 @@ const SystemGraph = () => {
   const ref = usePointerVars<HTMLDivElement>();
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
+    const mq = window.matchMedia(WIDE_QUERY);
     const apply = () => setLayout(mq.matches ? "wide" : "compact");
     apply();
     mq.addEventListener("change", apply);
@@ -235,7 +242,7 @@ const SystemGraph = () => {
       className="relative w-full select-none"
       style={{ aspectRatio: `${vb.w} / ${vb.h}` }}
       role="img"
-      aria-label="System diagram: Laravel, Node.js, Redis, APIs, Docker, AI, Python, automation, Asterisk and real-time services routed into a central node routed into a central node that shows the request lifecycle."
+      aria-label="System diagram: Laravel, Node.js, Redis, APIs, Docker, LLMs, Python, automation, Asterisk and real-time services routed into a central core that cycles through the request lifecycle."
     >
       <svg
         viewBox={`0 0 ${vb.w} ${vb.h}`}
@@ -250,7 +257,7 @@ const SystemGraph = () => {
             <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.32" />
           </linearGradient>
           <radialGradient id="sg-core" cx="50%" cy="50%" r="50%">
-            <stop offset="60%" stopColor="hsl(var(--primary))" stopOpacity="0.10" />
+            <stop offset="60%" stopColor="hsl(var(--primary))" stopOpacity="0.05" />
             <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -274,20 +281,24 @@ const SystemGraph = () => {
                     !activeLayer ? 1 : n.def.layer === activeLayer ? 1 : 0.18
                   }
                 />
-                {/* travelling signal: a short dash sliding along the wire */}
+                {/* Travelling particle. The dash period is exactly 1000 units,
+                    which is the distance one `particle-flow` cycle moves the
+                    offset, so the loop is seamless; the 984-unit gap is longer
+                    than any wire, so each wire carries one particle at a time
+                    with a rest between arrivals rather than a constant stream. */}
                 {!reduced && (
                   <path
                     d={n.path}
                     fill="none"
                     stroke="hsl(var(--primary))"
-                    strokeWidth={on ? 2 : 1.5}
+                    strokeWidth={on ? 2.4 : 2}
                     strokeLinecap="round"
-                    strokeDasharray="3 300"
-                    className="anim-dash-flow"
+                    strokeDasharray="16 984"
+                    className="anim-particle"
                     style={{
-                      animationDelay: `${i * 1.3}s`,
-                      animationDuration: on ? "5s" : "14s",
-                      opacity: on ? 0.95 : 0.55,
+                      animationDelay: `${-(i * 0.73) % 6}s`,
+                      animationDuration: on ? "3s" : "6s",
+                      opacity: on ? 1 : 0.85,
                     }}
                   />
                 )}
@@ -322,7 +333,7 @@ const SystemGraph = () => {
             r={photo.r + 32}
             fill="none"
             stroke="hsl(var(--primary))"
-            strokeOpacity={0.28}
+            strokeOpacity={0.22}
             strokeWidth={1}
             strokeDasharray="2 10"
             style={
@@ -378,7 +389,7 @@ const SystemGraph = () => {
                   rx={9}
                   fill="hsl(var(--surface-1))"
                   stroke={on ? "hsl(var(--primary))" : "hsl(var(--hairline))"}
-                  strokeOpacity={on ? 0.7 : inLayer && activeLayer ? 0.5 : lead ? 0.34 : 0.13}
+                  strokeOpacity={on ? 0.8 : inLayer && activeLayer ? 0.5 : lead ? 0.4 : 0.16}
                   strokeWidth={1}
                   className="transition-all duration-standard"
                 />
@@ -416,9 +427,8 @@ const SystemGraph = () => {
                   x={n.x + type.textX}
                   y={n.y + n.h / 2 + 13}
                   fill="hsl(var(--muted-foreground))"
-                  className="font-mono"
-                  fontSize={type.meta}
-                  letterSpacing="0.06em"
+                  className="font-inter"
+                  fontSize={type.meta + 0.5}
                   dominantBaseline="middle"
                 >
                   {n.def.meta}
@@ -444,11 +454,6 @@ const SystemGraph = () => {
       {/* ---- the core at the centre of the system ---- */}
       <div className="absolute" style={photoPct}>
         <div className="relative aspect-square w-full">
-          <div
-            className="absolute -inset-4 rounded-full opacity-70 blur-2xl"
-            style={{ background: "radial-gradient(circle, hsl(var(--hue, var(--primary))/0.18), transparent 70%)" }}
-            aria-hidden="true"
-          />
           <SystemCore />
         </div>
       </div>

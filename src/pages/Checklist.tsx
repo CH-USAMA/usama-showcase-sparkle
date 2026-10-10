@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import AnimatedSection from "@/components/AnimatedSection";
+import Reveal from "@/components/system/Reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -95,9 +95,9 @@ const Checklist = () => {
       />
       <Navbar />
 
-      <main className="pt-28 pb-24">
+      <main id="main" className="pt-28 pb-24">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <AnimatedSection>
+          <Reveal>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-12 bg-primary/40" />
               <span className="text-primary text-sm font-inter font-medium uppercase tracking-[0.25em]">
@@ -112,9 +112,9 @@ const Checklist = () => {
               as a pre-launch review, or as an audit of a system that is already struggling under
               load.
             </p>
-          </AnimatedSection>
+          </Reveal>
 
-          <AnimatedSection delay={0.1}>
+          <Reveal index={2}>
             <Card className="mt-10 border-border/40 bg-card/60 backdrop-blur-sm rounded-2xl">
               <CardContent className="p-6 sm:p-8">
                 <h2 className="text-xl font-inter font-semibold mb-2">
@@ -154,11 +154,11 @@ const Checklist = () => {
                 </p>
               </CardContent>
             </Card>
-          </AnimatedSection>
+          </Reveal>
 
           <div className="mt-14 space-y-10">
             {sections.map((section, i) => (
-              <AnimatedSection key={section.title} delay={0.05 * i}>
+              <Reveal key={section.title} index={Math.min(i, 3)}>
                 <section>
                   <h2 className="text-xl sm:text-2xl font-inter font-semibold tracking-tight mb-4">
                     {section.title}
@@ -172,11 +172,11 @@ const Checklist = () => {
                     ))}
                   </ul>
                 </section>
-              </AnimatedSection>
+              </Reveal>
             ))}
           </div>
 
-          <AnimatedSection delay={0.2}>
+          <Reveal index={3}>
             <Card className="mt-16 border-primary/30 bg-primary/5 rounded-2xl">
               <CardContent className="p-6 sm:p-8 text-center">
                 <h2 className="text-xl sm:text-2xl font-inter font-semibold mb-3">
@@ -196,7 +196,7 @@ const Checklist = () => {
                 </Button>
               </CardContent>
             </Card>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </main>
 

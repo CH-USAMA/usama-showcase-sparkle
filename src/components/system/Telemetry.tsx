@@ -26,21 +26,23 @@ const Telemetry = ({ items, className = "", columns = 2 }: TelemetryProps) => {
 
   return (
     <dl
-      className={`grid grid-cols-2 ${cols} gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] ${className}`}
+      className={`grid grid-cols-2 ${cols} gap-px overflow-hidden rounded-xl border border-hairline/[0.1] bg-hairline/[0.08] ${className}`}
     >
       {items.map((item) => (
-        <div key={item.label} className="bg-surface-1/80 px-4 py-3.5">
+        <div key={item.label} className="bg-surface-1 px-4 py-3.5">
           <dt className="mono-tiny text-subtle">{item.label}</dt>
           <dd className="mt-2 flex items-center gap-2">
             {item.status && (
               <span
                 aria-hidden="true"
                 className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                  item.status === "on" ? "bg-primary anim-status" : "bg-muted-foreground/60"
+                  item.status === "on"
+                    ? "bg-emerald-500 shadow-[0_0_0_3px_hsl(152_60%_45%/0.18)]"
+                    : "bg-muted-foreground/60"
                 }`}
               />
             )}
-            <span className="font-mono text-[11.5px] leading-[1.45] tracking-tight text-foreground sm:text-[12.5px]">
+            <span className="font-inter text-[13px] font-medium leading-[1.45] text-foreground sm:text-sm">
               {item.value}
             </span>
           </dd>

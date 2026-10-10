@@ -49,9 +49,9 @@ const Cursor = () => {
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const enabled = fine && !still;
     setOn(enabled);
+    // The native pointer is hidden (html.has-custom-cursor) only while the
+    // custom one is on screen; see move/leave below.
     if (!enabled) return;
-
-    document.documentElement.classList.add("has-custom-cursor");
     return () => document.documentElement.classList.remove("has-custom-cursor");
   }, []);
 
@@ -117,6 +117,7 @@ const Cursor = () => {
       if (!shown) {
         shown = true;
         if (root.current) root.current.style.opacity = "1";
+        document.documentElement.classList.add("has-custom-cursor");
       }
 
       const el = e.target as Element | null;
@@ -137,6 +138,7 @@ const Cursor = () => {
     const leave = () => {
       shown = false;
       if (root.current) root.current.style.opacity = "0";
+      document.documentElement.classList.remove("has-custom-cursor");
     };
 
     window.addEventListener("pointermove", move, { passive: true });

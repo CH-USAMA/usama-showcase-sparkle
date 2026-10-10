@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -10,8 +10,9 @@ import { getService, servicesData } from "@/data/services";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
 import NotFound from "@/pages/NotFound";
+import { useEnter } from "@/lib/boot";
+import { FinalCTA, Footer } from "@/components/lazyParts";
 
-const Footer = lazy(() => import("@/components/Footer"));
 
 /* ---------------------------------------------------------------------------
    /services/:slug, on the same system as everything else.
@@ -22,7 +23,16 @@ const Footer = lazy(() => import("@/components/Footer"));
    unchanged; only the surface it sits on is.
 --------------------------------------------------------------------------- */
 
+/** Where "Explore case studies" lands for each service. */
+const WORK_FILTER: Record<string, string> = {
+  "laravel-development": "platform",
+  "voip-asterisk": "platform",
+  "automation-n8n": "ai",
+  "ai-integration": "ai",
+};
+
 const ServiceDetail = () => {
+  const enter = useEnter();
   const { slug } = useParams<{ slug: string }>();
   const service = getService(slug);
 
@@ -74,7 +84,7 @@ const ServiceDetail = () => {
 
       <main
         id="main"
-        className="wash band-edge pb-24 pt-32 lg:pt-40"
+        className="fx-glow-top relative pt-32 lg:pt-40"
         style={{
           "--hue": service.hue,
           "--wash-x": "22%",
@@ -85,23 +95,21 @@ const ServiceDetail = () => {
           <nav aria-label="Breadcrumb">
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
+              className="-my-2.5 inline-flex min-h-10 items-center gap-2 py-2.5 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              <span className="hover-underline">All capabilities</span>
+              All services
             </Link>
           </nav>
 
-          {/* ---- header ---- */}
-          <Reveal>
-            <div className="mt-10">
-              <span className="chip-hue">
-                <span className="mono-label">{service.eyebrow}</span>
-              </span>
-              <h1 className="type-h2 mt-6 max-w-3xl text-foreground">{service.title}</h1>
-              <p className="type-lead mt-7 max-w-2xl text-muted-foreground">{service.intro}</p>
-            </div>
-          </Reveal>
+          {/* ---- header ---- (h1 is the LCP element: painted, never faded in) */}
+          <div className="mt-10">
+            <span className="chip-hue">
+              <span className="mono-label">{service.eyebrow}</span>
+            </span>
+            <h1 className="type-display mt-5 max-w-4xl text-foreground">{service.title}</h1>
+            <p className="enter-lift type-lead mt-6 max-w-2xl text-muted-foreground" {...enter()}>{service.intro}</p>
+          </div>
 
           <Reveal index={1}>
             <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -111,23 +119,22 @@ const ServiceDetail = () => {
                 arrow
                 onClick={() => trackEvent("book_call_click", { location: `service_${service.slug}` })}
               >
-                Book an Architecture Call
+                Book a free call
               </CTA>
-              <CTA to="/projects" tone="ghost" size="lg" arrow>
-                Explore Case Studies
+              <CTA to={`/projects${WORK_FILTER[service.slug] ? `?type=${WORK_FILTER[service.slug]}` : ""}`} tone="ghost" size="lg" arrow>
+                Explore case studies
               </CTA>
             </div>
           </Reveal>
 
           {/* ---- what it means in practice ---- */}
           <Reveal index={2}>
-            <dl className="mt-14 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-3">
+            {/* Same outcome tiles as the project pages: the value large, the label as a sentence. */}
+            <dl className="mt-14 grid gap-px overflow-hidden rounded-xl border border-hairline/[0.1] bg-hairline/[0.08] sm:grid-cols-3">
               {service.outcomes.map((o) => (
-                <div key={o.label} className="bg-surface-1 px-5 py-6">
-                  <dt className="font-inter text-[1.35rem] font-semibold tracking-tight text-hue">
-                    {o.value}
-                  </dt>
-                  <dd className="mono-tiny mt-2 text-muted-foreground">{o.label}</dd>
+                <div key={o.label} className="flex flex-col-reverse justify-end bg-surface-1 p-5 sm:p-6">
+                  <dd className="mt-3 font-inter text-sm leading-snug text-muted-foreground">{o.label}</dd>
+                  <dt className="font-inter text-[2rem] font-semibold leading-none tracking-[-0.03em] text-foreground">{o.value}</dt>
                 </div>
               ))}
             </dl>
@@ -136,7 +143,7 @@ const ServiceDetail = () => {
           <Reveal index={3}>
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline/[0.08] pt-6">
               {service.stack.map((t) => (
-                <span key={t} className="mono-tiny text-subtle">
+                <span key={t} className="rounded-md bg-surface-2 px-2 py-1 font-inter text-xs font-medium text-foreground">
                   {t}
                 </span>
               ))}
@@ -147,8 +154,10 @@ const ServiceDetail = () => {
           <div className="mt-16 grid items-start gap-12 lg:mt-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
             <div className="max-w-3xl">
               {service.sections.map((s, i) => (
+                // The divider goes by index: each section is the first child of
+                // its own Reveal, so :first-child matched (and stripped) them all.
                 <Reveal key={s.heading} index={Math.min(i + 1, 4)}>
-                  <section className="border-t border-hairline/[0.08] py-10 first:border-t-0 first:pt-0">
+                  <section className={`py-10 ${i > 0 ? "border-t border-hairline/[0.08]" : "pt-0"}`}>
                     <h2 className="type-h3 text-foreground">{s.heading}</h2>
                     <p className="type-body measure mt-4 text-muted-foreground">{s.body}</p>
                     {s.bullets && (
@@ -204,7 +213,7 @@ const ServiceDetail = () => {
                         trackEvent("book_call_click", { location: `service_rail_${service.slug}` })
                       }
                     >
-                      Book an Architecture Call
+                      Book a free call
                     </CTA>
                   </div>
                 </div>
@@ -212,7 +221,7 @@ const ServiceDetail = () => {
 
               <Reveal variant="fade" index={1}>
                 <div className="card-surface p-6">
-                  <h2 className="mono-label text-hue">Other capabilities</h2>
+                  <h2 className="mono-tiny text-subtle">Other services</h2>
                   <ul className="mt-5 border-t border-hairline/[0.08]">
                     {others.map((o) => (
                       <li key={o.slug} style={{ "--hue": o.hue } as CSSProperties}>
@@ -221,10 +230,7 @@ const ServiceDetail = () => {
                           className="group flex items-center justify-between gap-3 border-b border-hairline/[0.08] py-3.5 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
                         >
                           <span className="flex items-center gap-2.5">
-                            <span
-                              aria-hidden="true"
-                              className="h-1.5 w-1.5 shrink-0 rounded-full bg-hue"
-                            />
+                            <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                             {o.name}
                           </span>
                           <ArrowUpRight
@@ -240,6 +246,9 @@ const ServiceDetail = () => {
             </aside>
           </div>
         </div>
+        <Suspense fallback={<div className="py-24" />}>
+          <FinalCTA location={`service_${service.slug}`} secondary={{ to: "/services", label: "All services" }} />
+        </Suspense>
       </main>
 
       <Suspense fallback={<div className="py-20" />}>

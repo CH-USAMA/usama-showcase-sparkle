@@ -1,9 +1,9 @@
-import galwayAsset from "@/assets/galway.webp.asset.json";
-import marianAsset from "@/assets/marian.webp.asset.json";
-import afrosourceAsset from "@/assets/afrosource.webp.asset.json";
-import syedStarAsset from "@/assets/syedstar.webp.asset.json";
 
-export const projectsData = {
+/* SEED DATA. Projects now live in the Turso database and are edited at
+   /admin. This file only seeds an empty database (npm run content:seed). */
+import type { Project } from "./types";
+
+export const projectsData: Record<number, Project> = {
   1: {
     id: 1,
     title: "AI-Powered Content Pipeline",
@@ -256,14 +256,13 @@ export const projectsData = {
     LOCAL DISCOVERY: The information architecture targets how people actually search in Galway: taxi service, airport transfers, minibus hire, accessible transport and destination-led tours. Tour pages surface destinations including the Cliffs of Moher, Kylemore Abbey, the Aran Islands and Connemara, while reviews and fleet information answer trust questions before the booking handoff.
 
     DELIVERY: The result is a mobile-first service website that moves visitors from local discovery to the appropriate transport option and then into a specialist booking system, while retaining phone and contact routes for journeys that need a conversation.`,
-    image: galwayAsset.url,
-    gallery: [galwayAsset.url],
+    image: "/projects/five-stars-galway.jpg",
+    gallery: ["/projects/five-stars-galway.jpg"],
     technologies: ["WordPress", "iCabbi Booking", "Local SEO", "Responsive UX", "Service Architecture"],
     category: "Transport",
     client: "Five Stars Galway Taxis (Ireland)",
     duration: "1.5 months",
     teamSize: "Solo project",
-    completionDate: "Live project",
     liveUrl: "https://www.fivestarsgalwaytaxis.ie",
     githubUrl: "#",
     features: [
@@ -791,14 +790,11 @@ export const projectsData = {
     STORY AND SERVICES: The site gives David's story, the organisation's mission, pilgrimage planning and religious-artifact services their own place rather than burying them beneath product grids. Support for Mary's Meals, Carlo Acutis Ireland outreach and Depaul adds the real-world context behind the brand.
 
     DELIVERY: The resulting website brings commerce, faith-led storytelling and service enquiries into one responsive experience, with consent management, contact routes, shipping reassurance and clear product discovery.`,
-    image: marianAsset.url,
-    gallery: [marianAsset.url],
+    image: "/projects/marian-holy-art.jpg",
+    gallery: ["/projects/marian-holy-art.jpg"],
     technologies: ["WordPress", "WooCommerce", "Responsive UX", "Content Architecture", "Consent Management"],
     category: "E-Commerce",
     client: "Marian Holy Art (Ireland)",
-    duration: "Client project",
-    teamSize: "Web delivery",
-    completionDate: "Live project",
     liveUrl: "https://marianholyart.com/",
     githubUrl: "#",
     features: ["Devotional Product Catalogue", "Featured Collections and Offers", "Cart and Customer Accounts", "Pilgrimage and Tour Services", "Mission and Outreach Content", "Shipping and Returns Information", "Cookie Consent Management", "Responsive Storefront"],
@@ -820,14 +816,11 @@ export const projectsData = {
     MULTILINGUAL UX: French, Dutch and English share the same journeys across the age gate, catalogue, product information, services and account flow. Necessary-only cookies retain the language, crate, login and age decision without introducing advertising tracking.
 
     SERVICE CONVERSION: Export, import, customs and excise services have direct WhatsApp enquiry routes. This lets the site support both repeat catalogue purchasing and higher-touch logistics work from the same interface.`,
-    image: afrosourceAsset.url,
-    gallery: [afrosourceAsset.url],
+    image: "/projects/afrosource.jpg",
+    gallery: ["/projects/afrosource.jpg"],
     technologies: ["WordPress", "WooCommerce", "Multilingual UX", "B2B Commerce", "Catalogue Search"],
     category: "B2B Commerce",
     client: "Afrosource (Belgium)",
-    duration: "Client project",
-    teamSize: "Web delivery",
-    completionDate: "Live project",
     liveUrl: "https://afrosource.be/",
     githubUrl: "#",
     features: ["French, Dutch and English Journeys", "Age Verification", "1,600+ Drink Catalogue", "Stock and Pack Information", "Volume Pricing", "Trade Account Registration", "Export and Import Services", "Customs and Excise Enquiries"],
@@ -849,14 +842,11 @@ export const projectsData = {
     INDUSTRY ARCHITECTURE: Separate journeys address beverage, juice, dairy, water treatment, pharmaceutical, ketchup and jam, material handling, and general fabrication requirements. Workshop imagery, client proof and the company's manufacturing history establish that the machinery is built, installed and supported by an operating engineering team.
 
     LEAD GENERATION: Search, popular equipment shortcuts and persistent call, WhatsApp, email and quote actions reduce the distance from requirement to enquiry. Technical guides on stainless grades, bottling-line planning and milk chilling also capture buyers while they are still defining a project.`,
-    image: syedStarAsset.url,
-    gallery: [syedStarAsset.url],
+    image: "/projects/syed-star.jpg",
+    gallery: ["/projects/syed-star.jpg"],
     technologies: ["Responsive Web", "Product Catalogue", "Technical SEO", "Lead Generation", "Content Architecture"],
     category: "Industrial",
     client: "Syed Star Engineering (Pakistan)",
-    duration: "Client project",
-    teamSize: "Web delivery",
-    completionDate: "Live project",
     liveUrl: "https://www.syedstarengineering.com/",
     githubUrl: "#",
     features: ["Equipment Catalogue", "Eight Industry Journeys", "Product Search and Shortcuts", "Contextual Quote Requests", "Workshop and Client Proof", "Technical Knowledge Base", "WhatsApp and Call Conversion", "Mobile-Responsive Experience"],

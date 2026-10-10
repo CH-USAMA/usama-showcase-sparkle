@@ -1,95 +1,111 @@
 # CLAUDE.md — usama-showcase-sparkle
 
-Personal portfolio + lead-gen site for **Usama Munawar** (Backend Systems Engineer — Laravel, VoIP/Asterisk, n8n automation, AI).
+Personal portfolio + lead-gen site for **Usama Munawar** (full-stack product engineer: React, React Native, Node.js, Laravel/PHP, VoIP/Asterisk, automation, AI).
 
 - **Repo:** https://github.com/CH-USAMA/usama-showcase-sparkle
 - **Origin:** generated in [Lovable](https://lovable.dev/projects/229265ce-3579-4bf7-85dd-77988fd0c57f); Lovable still pushes to `main`.
-- **Live (canonical):** https://www.chaudharyusama.com
-- **Mirror:** `usama-showcase-sparkle.lovable.app` — hard-redirected to the canonical host in `src/main.tsx`.
+- **Live (canonical):** https://www.chaudharyusama.com (Vercel). `chaudharyusama.com` and `dev-usama-portfolio.vercel.app` 301 to it (`vercel.json`); the Lovable mirror is redirected in `src/main.tsx`.
 
 > Lovable commits to `main` directly. Before starting local work, `git pull`. Expect commit messages like "Changes".
 
 ## Stack
 
-Vite 5 + React 18 + TypeScript + Tailwind + shadcn/ui, React Router 6 (SPA, **no SSR/SSG**), react-helmet-async for per-route meta, framer-motion, TanStack Query. Deployed on Vercel as a static SPA. Supabase is used only for **auth + edge functions** — there are no database tables in use.
+Vite 5 + React 18 + TypeScript + Tailwind + shadcn/ui, React Router 6 (`BrowserRouter`), react-helmet-async, TanStack Query. Deployed on Vercel as static files plus a few serverless functions in `api/`.
+
+- **Every public route is rendered to HTML at build time** by the app itself (see *Prerendering* below). The browser does not hydrate: it renders over that HTML.
+- **Content (blog posts, projects) lives in Turso (libSQL)**, edited at `/admin`. Builds snapshot it; the browser refetches from `/api`.
+- **Supabase** is used for `/auth` sign-in (admin access) and edge functions (`chat`, `fetch-blogs`). It has no tables in use.
 
 ## Commands
 
 ```bash
 npm install
-npm run dev        # predev regenerates public/sitemap.xml, then vite on :8080
-npm run dev:clean  # frees :8080 first (kills orphaned dev servers), then dev — preferred
-npm run kill       # just free :8080 (and its process tree); extra ports: npm run kill -- 5173
-npm run build      # prebuild regenerates sitemap, then vite build
+npm run dev:clean  # frees :8080 (orphaned dev servers), then dev — preferred
+npm run dev        # predev: content snapshot + sitemap/rss/llms.txt, then vite on :8080 (serves /api too)
+npm run kill       # just free :8080; extra ports: npm run kill -- 5173
+npm run build      # prebuild: snapshot + sitemap/rss/llms.txt → client build → SSR build → postbuild: prerender
 npm run lint       # not clean (mostly no-explicit-any)
+npm run content:sync   # refresh src/data/snapshot.*.json from the database
+npm run content:seed   # load the TS seed files (src/data/blogs.ts, projects.ts, caseStudies.ts) into the database
 ```
 
-Port-freeing logic lives in `scripts/kill-dev.mjs` (cross-platform). It exists because an
-abruptly-closed Vite server can leave a Node process holding :8080, breaking the next `npm run dev`.
+`vite preview` does **not** serve the per-route HTML files (it falls back to `index.html` for every path), so it cannot show prerendered pages. Use `vercel dev`, or any static server that serves `<path>/index.html` and falls back to `app.html`.
 
 ## Layout
 
 ```
-index.html                     Static <head>: GA4 x2, 6 JSON-LD blocks, crawler fallback <main> inside #root
-src/main.tsx                   Providers + canonical-host redirect
-src/App.tsx                    All routes (Index eager, everything else React.lazy)
-src/pages/                     Index, Projects, ProjectDetail, Blog, BlogPost, Services, ServiceDetail,
-                               Book, Checklist, GitHubReadme, Auth, Admin*, NotFound
-src/components/                Landing sections (Hero, About, Skills, Portfolio, Packages, Contact…)
-src/components/ui/             49 shadcn primitives — only 19 are imported anywhere
-src/components/SEOHead.tsx     Per-route title/description/canonical/OG/JSON-LD via Helmet
-src/data/blogs.ts              19 blog posts as inline markdown strings (the CMS)
-src/data/projects.ts           11 case studies, keyed by NUMBER (routes are /project/1 … /project/11)
-src/data/services.ts           4 service pages
-src/data/github-trending/      Snapshotted GitHub READMEs for /github/:repoId
-scripts/generate-sitemap.ts    Writes public/sitemap.xml from projects/services + regex-parsed blogs.ts
-public/                        robots.txt, sitemap.xml (generated), rss.xml (HAND-MAINTAINED, stale),
-                               llms.txt, ai.txt, .htaccess (dead — Apache config on Vercel)
+index.html                     Shell: pre-paint theme script, static head (site-wide JSON-LD), GA loader, fallback <main>
+src/main.tsx                   Canonical-host redirect; boot over prerendered HTML (see below)
+src/entry-server.tsx           Build-time renderer: render(url) → { html, head } (Helmet tags)
+src/App.tsx                    All routes; ScrollManager, ChunkErrorBoundary
+src/routes.ts                  Lazy pages with preload(); preloadRoute(path) also loads that page's lazy parts
+src/lib/boot.ts                First render over prerendered HTML: useEnter, isBootRender, scroll/form carry-over
+src/pages/homeSections.ts      Home's below-the-fold sections (progressively mounted by Index)
+src/components/lazyParts.ts    Footer, FinalCTA, TrackRecord, TechMatrix, BlogRecommendations, TrendingRepos
+src/components/SEOHead.tsx     Per-route title/description/robots/canonical/OG/JSON-LD via Helmet
+src/data/snapshot.*.json       Build-time content snapshot (generated; committed so a DB-less build works)
+src/data/blogs.ts, projects.ts, caseStudies.ts   Seed content (used when no database is configured)
+src/data/services.ts           4 service pages (static, in code)
+api/                           Vercel functions: /api/posts, /api/projects, /api/admin/* (Turso via @libsql/client/web)
+scripts/sync-content.ts        DB → snapshot (falls back to seed files without credentials)
+scripts/generate-sitemap.ts    sitemap.xml, rss.xml, llms.txt (from the snapshot + scripts/llms.template.md)
+scripts/prerender.ts           Writes dist/<route>/index.html for 49 routes and dist/app.html
 supabase/functions/            chat (LLM proxy), fetch-blogs (HN RSS), scrape-github-trending
-supabase/migrations/           5 SQL files — STALE, do not reflect the live project (see below)
-vercel.json                    SPA rewrite + cache headers
+supabase/migrations/           STALE, do not reflect the live project (see below)
+vercel.json                    Domain redirects, SPA rewrite to /app.html, security + cache headers
 ```
+
+## Prerendering — read this before adding pages or components
+
+`npm run build` runs `vite build` (client), `vite build --ssr src/entry-server.tsx` (→ `dist-ssr/`), then `scripts/prerender.ts`, which renders every public route with the app (`/`, `/projects`, `/services`, `/blog`, `/book`, `/laravel-scaling-checklist`, every project, service and post in the snapshot) and writes `dist/<route>/index.html` with that route's own `<head>` and `<div id="root" data-prerendered>`. If a route fails to render, it gets a plain HTML body instead and the build log says `used plain HTML` — check for that line.
+
+In the browser, `main.tsx` waits for the page's chunks and its first paint, then renders over the prerendered markup. To keep that seamless:
+
+- **No `window`/`document`/`localStorage` during render** (effects are fine). Guard with `typeof window` or `import.meta.env.SSR`.
+- **Browser-only parts** (the hero diagram, Calendly, the chat launcher, the code highlighter) render their placeholder when `import.meta.env.SSR`.
+- **Entrance classes** (`enter`, `enter-lift`, `enter-soft`) on anything in a page's first render must spread `useEnter()`: `<p className="enter-lift" {...enter(140)}>`. Otherwise the entrance replays when React takes over. `Reveal` handles itself.
+- **Lazy parts of a page** go in `src/components/lazyParts.ts` and in that route's line in `preloadRoute`. A plain `React.lazy` there renders its fallback over the prerendered markup at boot.
+- **New route?** Add it to `App.tsx`, `preloadRoute` in `src/routes.ts`, the route list in `scripts/prerender.ts` and `scripts/generate-sitemap.ts`.
+- `vercel.json` rewrites every URL without a file to `/app.html` (empty shell, no URL-specific tags); the app renders those (admin, auth, posts published after the last build, and its noindex not-found page).
 
 ## How content works
 
-- **Blog posts** live in `src/data/blogs.ts` as objects with a markdown `content` string. Adding a post = editing that file. `/admin/*` pages are vestigial read-only stubs that say exactly this.
-- `BlogPost.tsx` renders markdown with a hand-rolled regex renderer into `dangerouslySetInnerHTML`, splitting out fenced code blocks to a lazy `CodeBlock`.
-- **Trending posts** are fetched client-side from the `fetch-blogs` edge function (HN RSS → scraped `<p>` text), merged into `/blog`, cached in localStorage for 1h, and rendered through the same `dangerouslySetInnerHTML` path. They are *not* in the sitemap.
-- **Projects/services** are static TS objects. Project routes are numeric ids, not slugs.
+- **Posts and projects** are rows in Turso, edited at `/admin` (Supabase sign-in, then the email must be in `ADMIN_EMAILS`). `/api/*` serves published rows; admin writes go through `/api/admin/*` and can trigger a rebuild via `VERCEL_DEPLOY_HOOK_URL`, so new content gets prerendered and into the sitemap.
+- The **snapshot** (`src/data/snapshot.*.json`) is what pages render first and what the sitemap, RSS, `llms.txt` and prerendered pages are built from. TanStack Query uses it as `initialData` and refetches `/api` in the background.
+- **Markdown** is rendered by `src/components/Markdown.tsx` (react-markdown + remark-gfm, `skipHtml`, URLs through `safeHref`). No `dangerouslySetInnerHTML` anywhere outside shadcn.
+- **Trending posts** on `/blog` come from the `fetch-blogs` edge function (HN RSS), cached in localStorage for 1h, noindex and not in the sitemap.
+- **Project routes are numeric ids** (`/project/4`), not slugs.
+
+Environment (Vercel + `.env.local`, never committed): `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `ADMIN_EMAILS`, optional `VERCEL_DEPLOY_HOOK_URL`; public `VITE_SUPABASE_*` (see `.env.example`). Without Turso credentials the build uses the seed files.
 
 ## Supabase — read this before touching it
 
-`src/integrations/supabase/types.ts` shows **zero tables** (`[_ in never]: never`), and no file calls `supabase.from()`. The project (`bjsbzhcbcsylmfkdcxeo`, anon key issued ~Mar 2026) is newer than the migrations in `supabase/migrations/` (Jul 2025, from the Lovable era). **Treat those migrations as historical artifacts, not the live schema.** They also contain two RLS bugs that must not be re-applied as-is:
+`src/integrations/supabase/types.ts` shows **zero tables** (`[_ in never]: never`), and no file calls `supabase.from()`. The project (`bjsbzhcbcsylmfkdcxeo`) is newer than the migrations in `supabase/migrations/` (Jul 2025, Lovable era). **Treat those migrations as historical artifacts, not the live schema.** They contain two RLS bugs that must not be re-applied as-is:
 
 - `profiles` UPDATE policy has no `WITH CHECK` and no column guard → any signed-in user could set their own `role = 'admin'`.
 - `blog_comments` has `SELECT USING (true)` over a table holding `guest_email` → public PII read.
 
-Supabase is currently used for: `supabase.auth` (the `/auth` page still has an open **Sign Up** tab) and `functions.invoke`.
+The `/auth` page still has an open **Sign Up** tab; admin access is gated by `ADMIN_EMAILS` on the server, not by sign-up.
 
 ## Third-party wiring
 
 | Thing | Where |
 | --- | --- |
-| Formspree `mkgzjlde` | Contact form, chatbot lead capture, chatbot transcript, checklist lead magnet — all four share one endpoint |
-| Calendly `usamaresume30/30min` | `CalendlyEmbed`, used on `/book` and in `Contact` |
-| GA4 `G-6JEYSR3YVV` + `G-2ZHRMH3HLK` | `index.html` (loader) + `src/lib/analytics.ts` (SPA page_view, events, web-vitals) |
+| Formspree `mkgzjlde` | Contact form, chatbot lead capture + transcript, checklist lead magnet, newsletter |
+| Calendly `usamaresume30/30min` | `CalendlyEmbed`: inline on `/book`; on the home Contact section only after "Show available times" |
+| GA4 `G-6JEYSR3YVV` + `G-2ZHRMH3HLK` | `index.html` (loader, after `load` + idle) + `src/lib/analytics.ts`. Two properties = two GA containers: the largest main-thread cost left on mobile |
 | Lovable AI Gateway | `supabase/functions/chat` via `LOVABLE_API_KEY`; model `google/gemini-3-flash-preview` |
-| Lovable asset CDN | `src/assets/usama-cv.pdf.asset.json` → `/__l5e/...` — **404s on Vercel** |
 
 ## Conventions
 
 - Import alias `@/` → `src/`.
-- Sections use `AnimatedSection` (framer-motion) wrappers; entrance animations are everywhere, including on the hero `<h1>`.
-- Every page should render a `<SEOHead>` with an explicit `canonical`.
-- Images: WebP in `src/assets`, `loading="lazy" decoding="async"` + explicit `width`/`height` on non-LCP images.
-- Absolute URLs are hardcoded as `https://www.chaudharyusama.com` in ~8 files. If a custom domain is ever added, grep for it.
+- Scroll entrances use `Reveal` (CSS, IntersectionObserver). framer-motion is only in the on-demand chat panel; keep it off page routes.
+- Every page renders a `<SEOHead>` with an explicit `canonical` (`null` on error pages).
+- Images: explicit `width`/`height`; `loading="lazy" decoding="async"` below the fold; content images through `responsiveImage()` (`src/lib/img.ts`: Unsplash resizing, 720px project thumbnails); a page's LCP image gets `fetchPriority="high"` and `PRIORITY_TIMING`.
+- Absolute URLs are hardcoded as `https://www.chaudharyusama.com` in several files. If the domain changes, grep for it.
 
 ## Known traps
 
-1. `manualChunks.syntax` in `vite.config.ts` makes Vite emit a `<link rel="modulepreload">` for the 634 kB syntax highlighter **on every page**, defeating the lazy import in `BlogPost.tsx`.
-2. ~20 internal links are raw `<a href="/...">` instead of `<Link>` → full page reloads on the primary "Book a call" CTA.
-3. `public/rss.xml` is written by hand and is missing the 7 newest posts. `sitemap.xml` is generated and is correct — the two disagree.
-4. The `.env` file is committed and **not** gitignored (currently only the public anon key, but the pattern is a footgun).
-5. `BlogComments.tsx` is fake — comments live in React state only and vanish on reload, while the form collects name + email.
-
-See `docs/audit-2026-09.md` for the full findings list with severities.
+1. Anything added through Lovable that touches `window` during render, uses entrance classes without `useEnter`, or adds a plain `React.lazy` to a page will build fine but degrade prerendering (see above). Check the build log and the page with JavaScript blocked.
+2. The 49 shadcn primitives in `src/components/ui/` are mostly unused (16 are imported).
+3. `docs/audit-2026-09.md` is the original findings list; several items there are fixed now.
