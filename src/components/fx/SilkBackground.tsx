@@ -71,6 +71,10 @@ void main() {
   // A low haze along the bottom edge, like light under a door.
   col += uHalo * 0.18 * smoothstep(0.15, -0.65, p.y - uLift);
   col = 1.0 - exp(-col * uGain);
+  // Dither by under one 8-bit step, so the dark gradients do not band. This
+  // was a film-grain overlay (an SVG feTurbulence filter), which a GPU-less
+  // browser had to rasterise in software before the first paint.
+  col += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;
   gl_FragColor = vec4(col, max(col.r, max(col.g, col.b)));
 }
 `;
@@ -336,8 +340,6 @@ const SilkBackground = ({ className = "", lift = 0, intensity = 1, seed = 0, res
           style={{ opacity: state === "live" ? 1 : 0 }}
         />
       )}
-      {/* Film grain on the dark theme; --noise-url is `none` on paper. */}
-      <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "var(--noise-url)" }} />
     </div>
   );
 };

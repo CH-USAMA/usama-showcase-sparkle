@@ -314,9 +314,10 @@ const Navbar = () => {
               onPointerEnter={() => void loadCommandMenu()}
               onFocus={() => void loadCommandMenu()}
               className="hidden h-9 items-center gap-2 rounded-full border border-hairline/[0.1] px-3 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
-              aria-label="Open command menu (⌘K)"
             >
+              {/* The visible text starts the accessible name (WCAG 2.5.3). */}
               <span>⌘K</span>
+              <span className="sr-only">, open command menu</span>
             </button>
 
             <ThemeSwitch />

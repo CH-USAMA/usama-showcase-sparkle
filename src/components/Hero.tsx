@@ -82,7 +82,10 @@ const Hero = () => {
 
     {/* ---- the window ---- */}
     <div ref={windowRef} className="enter-soft container relative mx-auto mt-16 lg:mt-20" {...enter(260)}>
-      <div className="fx-rim mx-auto max-w-6xl overflow-hidden rounded-2xl border border-hairline/[0.12] bg-surface-1/85 backdrop-blur-xl">
+      {/* Nearly opaque instead of backdrop-blurred: at 85% opacity the blur
+          barely showed, and a blur this size slowed the first paint on
+          machines without a GPU. */}
+      <div className="fx-rim mx-auto max-w-6xl overflow-hidden rounded-2xl border border-hairline/[0.12] bg-surface-1/[0.92]">
         <div className="flex h-11 items-center justify-between gap-4 border-b border-hairline/[0.08] px-4">
           <div className="flex gap-1.5" aria-hidden="true">
             <span className="h-2.5 w-2.5 rounded-full bg-hairline/[0.16]" />

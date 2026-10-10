@@ -62,7 +62,7 @@ const components: Components = {
     );
   },
   img: ({ src, alt }) =>
-    src ? <img src={src} alt={alt ?? ""} loading="lazy" decoding="async" className="rounded-xl border border-hairline/[0.1]" /> : null,
+    src ? <img loading="lazy" decoding="async" src={src} alt={alt ?? ""} className="rounded-xl border border-hairline/[0.1]" /> : null,
   table: ({ children }) => (
     <div className="not-prose my-8 overflow-x-auto rounded-xl border border-hairline/[0.1]">
       <table className="w-full border-collapse text-left font-inter text-sm">{children}</table>

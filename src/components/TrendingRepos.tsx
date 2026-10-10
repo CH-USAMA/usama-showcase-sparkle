@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, GitFork, Star } from "lucide-react";
 import { trendingRepos } from "@/data/github-trending";
 import Reveal from "@/components/system/Reveal";
+import { githubAvatar } from "@/lib/img";
 
 const formatStars = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
 
@@ -58,7 +59,7 @@ const TrendingRepos = () => {
               className="project-card fx-border group flex h-full flex-col rounded-2xl border border-hairline/[0.1] bg-surface-1 p-5"
             >
               <div className="flex items-center gap-3">
-                <img src={repo.owner_avatar} alt="" width={36} height={36} loading="lazy" decoding="async" className="h-9 w-9 rounded-lg" />
+                <img loading="lazy" decoding="async" src={githubAvatar(repo.owner_avatar, 72)} alt="" width={36} height={36} className="h-9 w-9 rounded-lg" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-inter text-[15px] font-semibold text-foreground">{repo.full_name}</p>
                   <p className="mt-0.5 flex items-center gap-3 font-inter text-xs text-subtle">

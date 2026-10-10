@@ -18,12 +18,12 @@ const WorkCard = ({ item, eager = false }: { item: WorkItem; eager?: boolean }) 
           <ProjectCover stages={item.diagram} caption={item.category} tone="panel" decorative />
         ) : (
           <img
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
             src={thumbOf(item.image)}
             alt=""
             width={720}
             height={450}
-            loading={eager ? "eager" : "lazy"}
-            decoding="async"
             className="aspect-[16/10] w-full object-cover object-top transition-transform duration-large ease-out-expo group-hover:scale-[1.03]"
           />
         )}
