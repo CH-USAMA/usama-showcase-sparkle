@@ -32,3 +32,4 @@ dist-ssr
 # for local development.
 .env*
 !.env.example
+.vercel
