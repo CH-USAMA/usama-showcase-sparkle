@@ -11,7 +11,7 @@
  *
  * Returns a cancel function, so effects can clean up.
  */
-export function scrollToId(id: string, { smooth = true, timeout = 4000 } = {}): () => void {
+export function scrollToId(id: string, { smooth = true, timeout = 15000 } = {}): () => void {
   const started = performance.now();
   let raf = 0;
   let settle = 0;

@@ -88,7 +88,8 @@ const Services = () => {
               </p>
             </div>
 
-            <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-5">
+            {/* A lone last card (10 in rows of 3) takes the middle column. */}
+            <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-5 lg:[&>li:last-child:nth-child(3n+1)]:col-start-2">
               {CAPABILITIES.map((c, i) => (
                 <Reveal as="li" key={c.id} index={Math.min(i % 3, 3)}>
                   <article
@@ -96,7 +97,8 @@ const Services = () => {
                     className="fx-border group flex h-full scroll-mt-28 flex-col rounded-2xl border border-hairline/[0.1] bg-surface-1 p-2.5"
                   >
                     <ServiceVisual id={c.id} />
-                    <div className="flex flex-1 items-end justify-between gap-4 px-2 pb-1.5 pt-4">
+                    {/* Text from the top, so titles in a row line up; the button sits at the bottom. */}
+                    <div className="flex flex-1 items-start justify-between gap-4 px-2 pb-1.5 pt-4">
                       <div className="min-w-0">
                         <h2 className="font-inter text-lg font-semibold tracking-tight text-foreground">{c.title}</h2>
                         <p className="mt-1 font-inter text-sm leading-relaxed text-muted-foreground">
@@ -104,7 +106,7 @@ const Services = () => {
                         </p>
                       </div>
                       {/* Four domains have a full page; the rest go to a call. */}
-                      <CTA to={c.href ?? "/book"} tone="ghost" size="sm" className="shrink-0" aria-label={`${c.href ? "Explore" : "Discuss"} ${c.title}`}>
+                      <CTA to={c.href ?? "/book"} tone="ghost" size="sm" className="shrink-0 self-end" aria-label={`${c.href ? "Explore" : "Discuss"} ${c.title}`}>
                         {c.href ? "Explore" : "Discuss"}
                       </CTA>
                     </div>

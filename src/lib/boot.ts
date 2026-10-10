@@ -110,6 +110,16 @@ export function restoreBoot() {
 /** App, after its first commit and before paint: anything mounted later animates normally. */
 export function endBoot() {
   boot.booting = false;
+  // The app handles clicks from here on (see the pre-boot handler in index.html).
+  document.documentElement.setAttribute("data-app", "");
+}
+
+/** Header actions tapped before the app took over (index.html queues them); read once. */
+export function takeBootActions(): string[] {
+  const w = window as Window & { __bootActions?: string[] };
+  const actions = w.__bootActions ?? [];
+  w.__bootActions = [];
+  return actions;
 }
 
 /** True while the first client render replaces prerendered markup. */

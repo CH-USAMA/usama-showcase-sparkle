@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { scrollToId } from "@/lib/scrollToId";
 import { MOUNT_ALL_EVENT } from "@/lib/scrollPositions";
 import { loadCommandMenu } from "@/lib/commandMenu";
+import { takeBootActions } from "@/lib/boot";
 import { Menu, X } from "lucide-react";
 import CTA from "@/components/system/CTA";
 import ThemeSwitch from "@/components/system/ThemeSwitch";
@@ -40,6 +41,18 @@ const isPlainClick = (e: React.MouseEvent) =>
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  // ⌘K on Apple devices, Ctrl K elsewhere (the prerendered page says ⌘K).
+  const [shortcut, setShortcut] = useState("⌘K");
+  useEffect(() => {
+    if (!/Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent)) setShortcut("Ctrl K");
+  }, []);
+  // Taps on the menu or command button before the app took over.
+  useEffect(() => {
+    for (const action of takeBootActions()) {
+      if (action === "menu") setOpen(true);
+      if (action === "command") window.dispatchEvent(new CustomEvent("open-command-menu"));
+    }
+  }, []);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
   const listRef = useRef<HTMLUListElement>(null);
@@ -311,12 +324,13 @@ const Navbar = () => {
               onClick={() =>
                 window.dispatchEvent(new CustomEvent("open-command-menu"))
               }
+              data-boot-action="command"
               onPointerEnter={() => void loadCommandMenu()}
               onFocus={() => void loadCommandMenu()}
-              className="hidden h-9 items-center gap-2 rounded-full border border-hairline/[0.1] px-3 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
+              className="hidden h-9 min-w-[3.75rem] items-center justify-center gap-2 rounded-full border border-hairline/[0.1] px-3 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
             >
               {/* The visible text starts the accessible name (WCAG 2.5.3). */}
-              <span>⌘K</span>
+              <span>{shortcut}</span>
               <span className="sr-only">, open command menu</span>
             </button>
 
@@ -336,6 +350,7 @@ const Navbar = () => {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-nav"
+              data-boot-action="menu"
               onClick={() => setOpen((v) => !v)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline/[0.1] text-foreground transition-colors duration-standard hover:border-hairline/[0.2] lg:hidden"
             >

@@ -21,6 +21,30 @@
         document.documentElement.classList.add(t);
         if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f9f8f5');
       })();
+      // Header buttons tapped on the prerendered page before the app has taken
+      // over (data-boot-action in Navbar and ThemeSwitch): the theme switches
+      // at once; the menu and command palette open when the app is running.
+      // Off once the app sets data-app on <html>.
+      (function () {
+        var queue = (window.__bootActions = []);
+        document.addEventListener('click', function (e) {
+          var root = document.documentElement;
+          if (root.hasAttribute('data-app')) return;
+          var el = e.target && e.target.closest && e.target.closest('[data-boot-action]');
+          if (!el) return;
+          var action = el.getAttribute('data-boot-action');
+          if (action !== 'theme') {
+            if (queue.indexOf(action) < 0) queue.push(action);
+            return;
+          }
+          var dark = !root.classList.contains('dark');
+          root.classList.remove('light', 'dark');
+          root.classList.add(dark ? 'dark' : 'light');
+          try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch (err) {}
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#040404' : '#f9f8f5');
+          el.setAttribute('aria-checked', String(!dark));
+        }, true);
+      })();
     </script>
 
     <!-- Title, description and language sit first in <head> so crawlers that

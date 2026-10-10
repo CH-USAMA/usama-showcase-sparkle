@@ -23,6 +23,7 @@ const ThemeSwitch = ({ className = "" }: { className?: string }) => {
     <button
       type="button"
       role="switch"
+      data-boot-action="theme"
       aria-checked={!isDark}
       aria-label="Light theme"
       title={isDark ? "Switch to light theme" : "Switch to dark theme"}
