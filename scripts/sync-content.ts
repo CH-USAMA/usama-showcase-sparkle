@@ -11,7 +11,7 @@
  * If the database is configured but unreachable, the build fails rather than
  * silently shipping stale content; set CONTENT_ALLOW_STALE=1 to override.
  */
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadEnv } from "./lib/env";
 import { seedPosts, seedProjects } from "./lib/seed-entries";
 import { db } from "../api/_lib/db";
@@ -62,14 +62,28 @@ if (process.env.TURSO_DATABASE_URL) {
 }
 
 const generatedAt = new Date().toISOString();
-writeFileSync("src/data/snapshot.posts.json", JSON.stringify({ generatedAt, source, posts }, null, 1));
-writeFileSync("src/data/snapshot.projects.json", JSON.stringify({ generatedAt, source, projects }, null, 1));
+
+/**
+ * Writes a snapshot file, keeping it byte-identical (old timestamp included)
+ * when the content has not changed, so a dev start or a build does not leave
+ * a modified file in the working tree.
+ */
+function write(file: string, body: { generatedAt: string } & Record<string, unknown>) {
+  let prev: Record<string, unknown> | null = null;
+  try {
+    prev = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : null;
+  } catch {
+    prev = null;
+  }
+  const same = prev !== null && JSON.stringify({ ...prev, generatedAt: "" }) === JSON.stringify({ ...body, generatedAt: "" });
+  writeFileSync(file, JSON.stringify(same ? { ...body, generatedAt: prev!.generatedAt } : body, null, 1));
+}
+
+write("src/data/snapshot.posts.json", { generatedAt, source, posts });
+write("src/data/snapshot.projects.json", { generatedAt, source, projects });
 // The home page only needs counts; keeping them in their own file keeps both
 // snapshots out of the entry bundle.
 // Everything /projects lists: projects with a card, a page, or both.
 const listed = projects.length;
-writeFileSync(
-  "src/data/snapshot.meta.json",
-  JSON.stringify({ generatedAt, source, postCount: posts.length, projectCount: listed }, null, 1)
-);
+write("src/data/snapshot.meta.json", { generatedAt, source, postCount: posts.length, projectCount: listed });
 console.log(`content: snapshot from ${source} (${posts.length} posts, ${projects.length} projects)`);
