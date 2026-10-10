@@ -1,5 +1,5 @@
 import type { Row } from "@libsql/client/web";
-import type { CaseStudy, PostEntry, Project, ProjectEntry } from "../../src/data/types";
+import type { CaseStudy, PostEntry, Project, ProjectEntry } from "../../src/data/types.js";
 
 /** Row ↔ object mapping for both tables. JSON columns are parsed here once. */
 
