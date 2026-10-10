@@ -19,6 +19,17 @@ export function json(data: unknown, init: { status?: number; cache?: string } = 
 
 export const error = (status: number, message: string) => json({ error: message }, { status });
 
+/** A public "not found": cached at the edge for a minute, like the content it stands in for. */
+export const MISSING_CACHE = "public, max-age=0, s-maxage=60";
+
+/** A HEAD handler from a GET handler: same status and headers, no body. */
+export const head =
+  (get: (request: Request) => Promise<Response>) =>
+  async (request: Request): Promise<Response> => {
+    const res = await get(request);
+    return new Response(null, { status: res.status, headers: res.headers });
+  };
+
 /** Turns a thrown error into a JSON 500 without leaking internals. */
 export async function guard(fn: () => Promise<Response>): Promise<Response> {
   try {

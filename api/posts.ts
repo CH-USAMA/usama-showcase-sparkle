@@ -1,6 +1,6 @@
 import { db } from "./_lib/db.js";
 import { POST_LIST_COLUMNS, toPost } from "./_lib/rows.js";
-import { PUBLIC_CACHE, error, guard, json } from "./_lib/http.js";
+import { MISSING_CACHE, PUBLIC_CACHE, guard, head, json } from "./_lib/http.js";
 
 /**
  * GET /api/posts            → published posts, newest first, without bodies
@@ -15,7 +15,9 @@ export function GET(request: Request) {
         sql: "SELECT * FROM posts WHERE slug = ? AND status = 'published' LIMIT 1",
         args: [slug],
       });
-      if (!r.rows[0]) return error(404, "Not found");
+      // Cached briefly like the list, so repeat visits to a wrong /blog/
+      // URL do not each cost a function run and a database query.
+      if (!r.rows[0]) return json({ error: "Not found" }, { status: 404, cache: MISSING_CACHE });
       const { status: _s, ...post } = toPost(r.rows[0]);
       return json(post, { cache: PUBLIC_CACHE });
     }
@@ -30,3 +32,6 @@ export function GET(request: Request) {
     return json(posts, { cache: PUBLIC_CACHE });
   });
 }
+
+/** HEAD: the GET response's status and headers (uptime monitors use it). */
+export const HEAD = head(GET);

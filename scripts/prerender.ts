@@ -14,11 +14,10 @@
 //      manifest), so they download alongside the entry instead of after it.
 //
 // Vercel serves a matching static file before it applies vercel.json's
-// rewrite, which sends every other URL (a post published after this build,
-// /admin, /auth, unknown paths) to dist/app.html: the shell with an empty
-// #root and no tags naming a URL, so those pages do not flash the home page
-// or claim to be it. The app then renders them, including its not-found page
-// (noindex) for URLs that match nothing.
+// rewrites. Those send the app's dynamic routes that have no file of their
+// own (a post published after this build, /admin, /auth) to dist/app.html:
+// the shell with an empty #root and no tags naming a URL. Any other URL gets
+// dist/404.html, the app's not-found page, with a real 404 status.
 // React replaces #root on its first render (main.tsx preloads the route first,
 // so that render is the real page, not a blank fallback).
 
@@ -35,6 +34,7 @@ import { projectShareImage } from "../src/lib/content/shareImage";
 import { safeHref } from "../src/lib/url";
 import { servicesData } from "../src/data/services";
 import { CAPABILITIES } from "../src/data/capabilities";
+import { caseStudyTitle, fitDescription } from "../src/lib/seo";
 
 const BASE_URL = "https://www.chaudharyusama.com";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
@@ -183,9 +183,9 @@ const staticRoutes: Route[] = [
   },
   {
     path: "/services",
-    title: "Full-Stack Capabilities | React, React Native, Node.js, Laravel, TypeScript",
+    title: "Full-Stack Development Services | Usama Munawar",
     description:
-      "React and TypeScript on the front end, React Native for mobile, Node.js for typed services and real-time, Laravel and PHP for the application core. One engineer across the whole stack.",
+      "React and TypeScript web apps, React Native mobile apps, Node.js services and Laravel backends, designed and built by one engineer across the whole stack.",
     ogType: "website",
     module: "src/pages/Services.tsx",
     parts: PARTS.services,
@@ -209,7 +209,7 @@ const staticRoutes: Route[] = [
     path: "/laravel-scaling-checklist",
     title: "Laravel Scaling Checklist | 26 Production Checks",
     description:
-      "A free 26-point checklist for scaling Laravel apps in production: indexing, Redis caching, queues, API resilience, observability, backups and zero-downtime deploys.",
+      "A free 26-point checklist for scaling Laravel in production: indexes, Redis caching, queues, observability, backups and zero-downtime deploys.",
     ogType: "article",
     module: "src/pages/Checklist.tsx",
     body: page(
@@ -235,8 +235,8 @@ const projectRoutes: Route[] = projects
     const url = `${BASE_URL}/project/${e.id}`;
     return {
       path: `/project/${e.id}`,
-      title: `${title} | Case Study | Usama Munawar`,
-      description: p.description.slice(0, 155),
+      title: caseStudyTitle(title),
+      description: fitDescription(p.description),
       ogType: "article",
       ogImage: absImage(projectShareImage(e)),
       module: "src/pages/ProjectDetail.tsx",
@@ -288,7 +288,7 @@ const blogRoutes: Route[] = posts.map((p) => {
   return {
     path: `/blog/${p.slug}`,
     title: p.title,
-    description: p.excerpt,
+    description: fitDescription(p.excerpt),
     ogType: "article",
     ogImage: absImage(cover),
     module: "src/pages/BlogPost.tsx",
@@ -508,9 +508,22 @@ async function renderPage(path: string) {
   }
 }
 
-// The SPA fallback (vercel.json rewrites every URL without a file here): no
+// The SPA fallback (vercel.json rewrites the app's dynamic routes here when
+// they have no file: a post published after this build, /admin, /auth): no
 // page in it, and no tags naming a URL.
 writeFileSync(resolve("dist/app.html"), rewrite(appShellHead(shell), homeRoute, "", false));
+
+// Every other URL without a file gets Vercel's 404 response, which serves
+// dist/404.html: the app's own not-found page, noindex and without a
+// canonical, rendered like any other page.
+const notFound = await renderPage("/404");
+if (!notFound) console.warn("prerender: 404.html falls back to the empty app shell");
+writeFileSync(
+  resolve("dist/404.html"),
+  notFound
+    ? rewrite(shell, { ...homeRoute, path: "/404" }, notFound.html, true, notFound.head)
+    : rewrite(appShellHead(shell), homeRoute, "", false)
+);
 
 let written = 0;
 const fellBack: string[] = [];

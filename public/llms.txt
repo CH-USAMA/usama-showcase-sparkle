@@ -39,8 +39,8 @@
 
 - [Laravel Development](https://www.chaudharyusama.com/services/laravel-development): Senior Laravel development for multi-tenant SaaS, APIs, queues, and billing. Production-grade PHP and MySQL architecture with tests, CI/CD, and handover.
 - [VoIP & Asterisk](https://www.chaudharyusama.com/services/voip-asterisk): Asterisk and FreePBX call platforms: predictive dialers, IVR trees, SIP trunk failover, call recording, and CRM integration built on Laravel backends.
-- [Automation Infrastructure](https://www.chaudharyusama.com/services/automation-n8n): n8n workflow automation and custom pipelines that replace manual back-office work. Reliable integrations, retries, monitoring, and Laravel-backed business logic.
-- [AI Integration](https://www.chaudharyusama.com/services/ai-integration): Practical AI integration: RAG over your own data, LLM-backed support and agent workflows, streaming APIs, cost control, and evaluation, wired into Laravel backends.
+- [Automation Infrastructure](https://www.chaudharyusama.com/services/automation-n8n): n8n workflows and custom pipelines that replace manual back-office work, with reliable integrations, retries, monitoring and Laravel-backed business logic.
+- [AI Integration](https://www.chaudharyusama.com/services/ai-integration): Practical AI integration: RAG over your data, LLM support and agent workflows, streaming APIs, cost control and evaluation, wired into Laravel backends.
 
 ## Projects
 

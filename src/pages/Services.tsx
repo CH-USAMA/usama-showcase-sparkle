@@ -54,8 +54,8 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Full-Stack Capabilities | React, React Native, Node.js, Laravel, TypeScript"
-        description="React and TypeScript on the front end, React Native for mobile, Node.js for typed services and real-time, Laravel and PHP for the application core. One engineer across the whole stack."
+        title="Full-Stack Development Services | Usama Munawar"
+        description="React and TypeScript web apps, React Native mobile apps, Node.js services and Laravel backends, designed and built by one engineer across the whole stack."
         canonical={`${SITE_URL}/services`}
         jsonLd={jsonLd}
       />

@@ -4,7 +4,7 @@ Personal portfolio + lead-gen site for **Usama Munawar** (full-stack product eng
 
 - **Repo:** https://github.com/CH-USAMA/usama-showcase-sparkle
 - **Origin:** generated in [Lovable](https://lovable.dev/projects/229265ce-3579-4bf7-85dd-77988fd0c57f); Lovable still pushes to `main`.
-- **Live (canonical):** https://www.chaudharyusama.com (Vercel). `chaudharyusama.com` and `dev-usama-portfolio.vercel.app` 301 to it (`vercel.json`); the Lovable mirror is redirected in `src/main.tsx`.
+- **Live (canonical):** https://www.chaudharyusama.com (Vercel project `portfolio`, team `ch-usamas-projects`). `chaudharyusama.com` and `dev-usama-portfolio.vercel.app` 308 to it (Vercel domain settings); the Lovable mirror is redirected in `src/main.tsx`.
 
 > Lovable commits to `main` directly. Before starting local work, `git pull`. Expect commit messages like "Changes".
 
@@ -49,10 +49,10 @@ src/data/services.ts           4 service pages (static, in code)
 api/                           Vercel functions: /api/posts, /api/projects, /api/admin/* (Turso via @libsql/client/web)
 scripts/sync-content.ts        DB → snapshot (falls back to seed files without credentials)
 scripts/generate-sitemap.ts    sitemap.xml, rss.xml, llms.txt (from the snapshot + scripts/llms.template.md)
-scripts/prerender.ts           Writes dist/<route>/index.html for 49 routes and dist/app.html
+scripts/prerender.ts           Writes dist/<route>/index.html for 49 routes, dist/app.html and dist/404.html
 supabase/functions/            chat (LLM proxy), fetch-blogs (HN RSS), scrape-github-trending
 supabase/migrations/           STALE, do not reflect the live project (see below)
-vercel.json                    Domain redirects, SPA rewrite to /app.html, security + cache headers
+vercel.json                    Old-URL redirects, rewrites for dynamic routes to /app.html, security + cache headers
 ```
 
 ## Prerendering — read this before adding pages or components
@@ -65,8 +65,9 @@ In the browser, `main.tsx` waits for the page's chunks and its first paint, then
 - **Browser-only parts** (the hero diagram, Calendly, the chat launcher, the code highlighter) render their placeholder when `import.meta.env.SSR`.
 - **Entrance classes** (`enter`, `enter-lift`, `enter-soft`) on anything in a page's first render must spread `useEnter()`: `<p className="enter-lift" {...enter(140)}>`. Otherwise the entrance replays when React takes over. `Reveal` handles itself.
 - **Lazy parts of a page** go in `src/components/lazyParts.ts` and in that route's line in `preloadRoute`. A plain `React.lazy` there renders its fallback over the prerendered markup at boot.
-- **New route?** Add it to `App.tsx`, `preloadRoute` in `src/routes.ts`, the route list in `scripts/prerender.ts` and `scripts/generate-sitemap.ts`.
-- `vercel.json` rewrites every URL without a file to `/app.html` (empty shell, no URL-specific tags); the app renders those (admin, auth, posts published after the last build, and its noindex not-found page).
+- **New route?** Add it to `App.tsx`, `preloadRoute` in `src/routes.ts`, the route list in `scripts/prerender.ts` and `scripts/generate-sitemap.ts`. If it has a URL parameter (or is not prerendered), also add a rewrite to `/app.html` in `vercel.json`: **any URL without a file and without a rewrite gets a real 404** (`dist/404.html`, the app's not-found page).
+- `vercel.json` rewrites the dynamic routes (`/blog/:slug`, `/project/:id`, `/services/:slug`, `/github/:repoId`, `/auth`, `/admin/*`) to `/app.html` (empty shell, no URL-specific tags, `X-Robots-Tag: noindex` when requested directly), so posts and projects published after the last build still work. Old `/projects/<name>` URLs 308 to their `/project/<id>` pages.
+- Domains: `www.chaudharyusama.com` is primary. `chaudharyusama.com` and `dev-usama-portfolio.vercel.app` redirect to it in the Vercel project's domain settings (308, every path); the host rules in `vercel.json` are a backup.
 
 ## How content works
 
