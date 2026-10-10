@@ -27,6 +27,8 @@ import type { PostEntry } from "@/data/types";
 interface Draft {
   id?: string;
   title: string;
+  /** Search-result title; empty means "use the headline". */
+  seo_title: string;
   slug: string;
   excerpt: string;
   content: string;
@@ -44,6 +46,7 @@ const todayIso = () => new Date().toISOString();
 
 const blank = (): Draft => ({
   title: "",
+  seo_title: "",
   slug: "",
   excerpt: "",
   content: "## Introduction\n\nStart writing here.",
@@ -57,6 +60,7 @@ const blank = (): Draft => ({
 const fromEntry = (p: PostEntry): Draft => ({
   id: p.id,
   title: p.title,
+  seo_title: p.seo_title ?? "",
   slug: p.slug,
   excerpt: p.excerpt,
   content: p.content,
@@ -128,6 +132,7 @@ const PostEditor = () => {
         ...(d.id ? { id: d.id } : {}),
         title: d.title,
         slug,
+        seo_title: d.seo_title.trim(),
         excerpt: d.excerpt,
         content: d.content,
         featured_image: d.featured_image.trim() || null,
@@ -248,6 +253,23 @@ const PostEditor = () => {
                   if (!slugTouched) set("slug", slugify(e.target.value));
                 }}
                 placeholder="Laravel queues in production: what actually breaks"
+              />
+            </Field>
+
+            <Field
+              label="Search title"
+              hint={d.seo_title ? `${d.seo_title.trim().length} of 60 characters` : "optional, for headlines over 60 characters"}
+            >
+              <input
+                className={`${inputCls} h-10`}
+                value={d.seo_title}
+                onChange={(e) => set("seo_title", e.target.value)}
+                maxLength={70}
+                placeholder={
+                  d.title.length > 60
+                    ? `The headline is ${d.title.length} characters; search results show about 60`
+                    : "Leave empty to use the headline"
+                }
               />
             </Field>
 

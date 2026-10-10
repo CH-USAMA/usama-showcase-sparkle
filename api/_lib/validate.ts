@@ -21,6 +21,7 @@ export const PostInput = z.object({
   id: z.string().trim().min(1).max(64).optional(),
   slug,
   title: z.string().trim().min(1).max(200),
+  seo_title: z.string().trim().max(70).default(""),
   excerpt: z.string().trim().max(600).default(""),
   content: z.string().max(200_000).default(""),
   featured_image: url.nullable().default(null),

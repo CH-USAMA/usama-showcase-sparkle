@@ -24,6 +24,7 @@ export const SCHEMA = [
     id             TEXT PRIMARY KEY,
     slug           TEXT NOT NULL UNIQUE,
     title          TEXT NOT NULL,
+    seo_title      TEXT,
     excerpt        TEXT NOT NULL DEFAULT '',
     content        TEXT NOT NULL DEFAULT '',
     featured_image TEXT,
@@ -50,6 +51,25 @@ export const SCHEMA = [
   `CREATE INDEX IF NOT EXISTS projects_order ON projects (status, sort_order)`,
 ];
 
+/**
+ * Columns added after the tables were first created. Each runs once: the
+ * column is added only if PRAGMA table_info does not list it yet.
+ */
+const ADDED_COLUMNS: { table: string; column: string; definition: string }[] = [
+  // The title search results show, when the headline is too long for them.
+  { table: "posts", column: "seo_title", definition: "TEXT" },
+];
+
+export async function migrate(c: Client = db()) {
+  for (const { table, column, definition } of ADDED_COLUMNS) {
+    const cols = await c.execute(`PRAGMA table_info(${table})`);
+    if (!cols.rows.some((r) => r.name === column)) {
+      await c.execute(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+    }
+  }
+}
+
 export async function ensureSchema(c: Client = db()) {
   await c.batch(SCHEMA, "write");
+  await migrate(c);
 }

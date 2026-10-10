@@ -53,7 +53,8 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={post.title}
+        title={post.seo_title || post.title}
+        shareTitle={post.title}
         description={post.excerpt}
         canonical={url}
         ogType="article"

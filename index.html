@@ -113,6 +113,10 @@
       // SPA-friendly: we send page_views manually from the router
       // One property: each extra GA4 ID loads its own container script,
       // which cost phones up to half a second of blocked main thread.
+      // Admin and sign-in pages stay out of analytics. The flag also stops
+      // GA's automatic events there (scroll, session start); src/lib/analytics.ts
+      // keeps it in step on client-side navigation.
+      if (/^\/(admin|auth)(\/|$)/.test(location.pathname)) window['ga-disable-G-6JEYSR3YVV'] = true;
       gtag('config', 'G-6JEYSR3YVV', {
         send_page_view: false,
         anonymize_ip: true,

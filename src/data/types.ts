@@ -13,6 +13,11 @@ export interface FlowStage {
 export interface BlogPost {
   id: string;
   title: string;
+  /**
+   * The <title> for search results when the headline is longer than they
+   * show (about 60 characters). Falls back to `title`.
+   */
+  seo_title?: string;
   slug: string;
   excerpt: string;
   /** Markdown. Omitted from list responses; present on single-post reads. */

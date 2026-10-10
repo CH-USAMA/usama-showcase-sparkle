@@ -3,6 +3,8 @@ import { fitDescription } from "@/lib/seo";
 
 interface SEOHeadProps {
   title?: string;
+  /** og:title and twitter:title, when they should differ from the <title> (a short search title). */
+  shareTitle?: string;
   description?: string;
   /** `null` omits the tag (error pages have no canonical URL). */
   canonical?: string | null;
@@ -17,6 +19,7 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const SEOHead = ({
   title = "Usama Munawar | Websites, Apps & Production Systems",
+  shareTitle,
   description: rawDescription = "Usama Munawar designs and ships websites, mobile apps and production systems with React, React Native, Node.js, TypeScript and Laravel/PHP.",
   canonical,
   ogImage = DEFAULT_OG_IMAGE,
@@ -42,14 +45,14 @@ const SEOHead = ({
       <meta name="robots" content={robots} />
       {canonical !== null && <link rel="canonical" href={url} />}
 
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={shareTitle || title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:type" content={ogType} />
       {canonical !== null && <meta property="og:url" content={url} />}
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
+      <meta name="twitter:title" content={shareTitle || title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 

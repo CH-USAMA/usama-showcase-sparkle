@@ -21,9 +21,9 @@ const projects = seedProjects();
 
 const statements = [
   ...posts.map((p) => ({
-    sql: `${verb} INTO posts (id, slug, title, excerpt, content, featured_image, author, tags, status, published_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    args: [p.id, p.slug, p.title, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, p.published_at],
+    sql: `${verb} INTO posts (id, slug, title, seo_title, excerpt, content, featured_image, author, tags, status, published_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    args: [p.id, p.slug, p.title, p.seo_title ?? null, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, p.published_at],
   })),
   ...projects.map((e) => ({
     sql: `${verb} INTO projects (id, slug, status, featured, sort_order, project, case_study)

@@ -25,8 +25,10 @@ const shouldTrack = (path: string) => {
 
 /** Send a SPA page_view to GA4. Call this on every route change. */
 export const trackPageView = (path: string, title?: string) => {
-  if (!isBrowser() || !window.gtag) return;
-  if (!shouldTrack(path)) return;
+  if (!isBrowser()) return;
+  // GA's own switch (see index.html): it also mutes GA's automatic events.
+  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_MEASUREMENT_ID}`] = !shouldTrack(path);
+  if (!window.gtag || !shouldTrack(path)) return;
 
   const page_location = window.location.origin + path + window.location.search;
   const page_title = title ?? document.title;

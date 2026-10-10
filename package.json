@@ -15,7 +15,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "content:seed": "tsx scripts/seed-content.ts",
-    "content:sync": "tsx scripts/sync-content.ts"
+    "content:migrate": "tsx scripts/migrate-content.ts",
+    "content:sync": "tsx scripts/sync-content.ts",
+    "content:trending": "tsx scripts/sync-content.ts --trending"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

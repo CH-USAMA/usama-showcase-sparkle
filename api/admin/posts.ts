@@ -30,9 +30,9 @@ export function POST(request: Request) {
     const publishedAt = p.published_at ?? new Date().toISOString();
     try {
       await db().execute({
-        sql: `INSERT INTO posts (id, slug, title, excerpt, content, featured_image, author, tags, status, published_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [id, p.slug, p.title, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, publishedAt],
+        sql: `INSERT INTO posts (id, slug, title, seo_title, excerpt, content, featured_image, author, tags, status, published_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [id, p.slug, p.title, p.seo_title || null, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, publishedAt],
       });
     } catch (e) {
       if (String(e).includes("UNIQUE")) return error(409, "A post with that slug or id already exists");
@@ -52,11 +52,11 @@ export function PUT(request: Request) {
     let changed: number;
     try {
       const r = await db().execute({
-        sql: `UPDATE posts SET slug = ?, title = ?, excerpt = ?, content = ?, featured_image = ?, author = ?,
+        sql: `UPDATE posts SET slug = ?, title = ?, seo_title = ?, excerpt = ?, content = ?, featured_image = ?, author = ?,
                 tags = ?, status = ?, published_at = COALESCE(?, published_at),
                 updated_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
               WHERE id = ?`,
-        args: [p.slug, p.title, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, p.published_at ?? null, p.id],
+        args: [p.slug, p.title, p.seo_title || null, p.excerpt, p.content, p.featured_image, p.author, JSON.stringify(p.tags), p.status, p.published_at ?? null, p.id],
       });
       changed = r.rowsAffected;
     } catch (e) {
