@@ -1,6 +1,16 @@
 {
- "generatedAt": "2026-10-10T10:57:38.870Z",
+ "generatedAt": "2026-10-10T11:25:10.814Z",
  "links": [
+  {
+   "id": "auto-effect-of-research-paper-mills-enough-to-start-affecting-llm-query-results",
+   "slug": "effect-of-research-paper-mills-enough-to-start-affecting-llm-query-results",
+   "title": "Effect of research paper mills enough to start affecting LLM query results",
+   "source_url": "https://news.err.ee/1610155906/effect-of-research-paper-mills-enough-to-start-affecting-llm-query-results",
+   "published_at": "2026-10-10T10:59:09.000Z",
+   "tags": [
+    "AI"
+   ]
+  },
   {
    "id": "auto-talorys-a-self-hosted-personal-ai-agent-on-cloudflare-s-free-tier",
    "slug": "talorys-a-self-hosted-personal-ai-agent-on-cloudflare-s-free-tier",
@@ -37,16 +47,6 @@
    "title": "Agent Mode in the DuckDB CLI",
    "source_url": "https://duckdb.org/2026/10/09/agent-mode",
    "published_at": "2026-10-10T10:23:16.000Z",
-   "tags": [
-    "AI"
-   ]
-  },
-  {
-   "id": "auto-if-your-team-is-too-busy-doing-their-normal-job-to-experiment-with-ai",
-   "slug": "if-your-team-is-too-busy-doing-their-normal-job-to-experiment-with-ai",
-   "title": "If your team is too busy doing their 'normal job' to experiment with AI",
-   "source_url": "https://ghuntley.com/replaced/",
-   "published_at": "2026-10-10T10:09:20.000Z",
    "tags": [
     "AI"
    ]

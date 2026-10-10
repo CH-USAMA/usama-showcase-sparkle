@@ -20,6 +20,7 @@ import { seedPosts, seedProjects } from "./lib/seed-entries";
 import { db } from "../api/_lib/db";
 import { toPost, toProject } from "../api/_lib/rows";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
+import { DEFAULT_SUPABASE_ANON_KEY, DEFAULT_SUPABASE_URL } from "../src/lib/supabaseDefaults";
 
 loadEnv();
 
@@ -36,10 +37,10 @@ const TRENDING_FILE = "src/data/snapshot.trending.json";
 async function syncTrending(): Promise<string> {
   const refresh = Boolean(process.env.VERCEL) || process.argv.includes("--trending") || !existsSync(TRENDING_FILE);
   if (!refresh) return "kept the committed copy";
-  const base = process.env.VITE_SUPABASE_URL;
-  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  // Vercel has no VITE_SUPABASE_* variables; the app uses these same defaults.
+  const base = process.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || DEFAULT_SUPABASE_ANON_KEY;
   try {
-    if (!base || !key) throw new Error("VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY is not set");
     const res = await fetch(`${base}/functions/v1/fetch-blogs`, {
       method: "POST",
       headers: { "content-type": "application/json", apikey: key, authorization: `Bearer ${key}` },
