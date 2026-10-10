@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { Check } from "lucide-react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
@@ -67,111 +66,100 @@ const TIERS = [
  * "Build" is emphasised with elevation and an accent rail rather than a
  * "most popular" badge — this isn't a checkout.
  */
+/** "From $3,500 / mo" → { amount: "$3,500", per: "/ mo" } */
+const splitPrice = (p: string) => {
+  const m = p.match(/^From\s+(\S+)\s*(\/\s*\w+)?/i);
+  return m ? { amount: m[1], per: m[2] } : { amount: p, per: undefined };
+};
+
 const Engagements = () => (
-  <section
-    id="pricing"
-    className="wash band-edge relative scroll-mt-24 py-24 lg:py-32"
-    style={{
-      "--hue": "var(--hue-backend)",
-      "--hue-2": "var(--hue-cloud)",
-      "--wash-x": "26%",
-      "--wash-y": "10%",
-    } as CSSProperties}
-  >
+  <section id="pricing" className="fx-glow-top relative scroll-mt-24 py-24 lg:py-32">
     <div className="container mx-auto">
       <SectionHeader
-        index="08"
+        align="center"
         eyebrow="Engagements"
-        title="Three ways to work together."
-        lead="Choose by the shape of the problem rather than the budget. Every engagement starts with the same free 30-minute architecture call."
+        title={
+          <>
+            Three ways to work <em>together.</em>
+          </>
+        }
+        lead="Choose by the shape of the problem rather than the budget. Every engagement starts with the same free 30-minute call."
       />
 
-      <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-hairline/[0.08] bg-hairline/[0.06] lg:mt-20 lg:grid-cols-3">
-        {TIERS.map((t, i) => (
-          <Reveal key={t.id} index={i} variant="fade">
-            <div
-              className={`relative flex h-full flex-col p-7 lg:p-9 ${
-                t.emphasis ? "bg-surface-1" : "bg-background"
-              }`}
-            >
-              {t.emphasis && (
-                <span
+      <div className="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-3">
+        {TIERS.map((t, i) => {
+          const { amount, per } = splitPrice(t.price);
+          return (
+            <Reveal key={t.id} index={i} variant="fade">
+              <div
+                className={`relative isolate flex h-full flex-col overflow-hidden rounded-2xl border bg-surface-1 p-7 lg:p-9 ${
+                  t.emphasis ? "border-primary/45" : "border-hairline/[0.1]"
+                }`}
+              >
+                {/* soft spotlight in the corner, as if the card is lit from above */}
+                <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent"
+                  className="pointer-events-none absolute -left-24 -top-28 -z-10 h-72 w-72 rounded-full"
+                  style={{
+                    background: `radial-gradient(circle, hsl(var(--primary) / ${t.emphasis ? 0.22 : 0.09}), transparent 70%)`,
+                  }}
                 />
-              )}
-
-              <div className="flex items-baseline justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <h3 className="font-inter text-xl font-medium tracking-tight text-foreground">
-                    {t.name}
-                  </h3>
+                <div className="flex h-7 items-center justify-between gap-3">
+                  <h3 className="mono-label text-muted-foreground">{t.name}</h3>
+                  {t.emphasis ? (
+                    <span className="rounded-full bg-primary px-2.5 py-1 font-inter text-xs font-semibold text-primary-foreground">
+                      Most common
+                    </span>
+                  ) : (
+                    <span className="font-inter text-xs text-subtle">{t.duration}</span>
+                  )}
                 </div>
-                {t.emphasis && (
-                  <span className="mono-tiny rounded border border-hue bg-hue-soft px-2 py-1 text-hue">
-                    Most common
+
+                <div className="mt-6 flex items-baseline gap-2">
+                  <span className="font-inter text-sm text-subtle">from</span>
+                  <span className="font-inter text-[2.75rem] font-semibold leading-none tracking-[-0.03em] text-foreground">
+                    {amount}
                   </span>
-                )}
+                  {per && <span className="font-inter text-sm text-subtle">{per}</span>}
+                </div>
+
+                <p className="mt-4 font-inter text-sm leading-relaxed text-muted-foreground">{t.for}</p>
+
+                <ul className="mt-7 flex-1 border-t border-hairline/[0.08]">
+                  {t.includes.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-start gap-2.5 border-b border-hairline/[0.08] py-3 font-inter text-sm leading-relaxed text-foreground/90"
+                    >
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 font-inter text-xs text-subtle">
+                  {t.shape}
+                  {t.emphasis && ` · ${t.duration}`}
+                </p>
               </div>
-
-              <p className="mono-tiny mt-4 leading-[1.6] text-subtle">{t.shape}</p>
-
-              <p className="mt-5 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
-                {t.for}
-              </p>
-
-              <div className="mt-7 flex items-baseline gap-3 border-y border-hairline/[0.07] py-5">
-                <span className="font-inter text-2xl font-semibold tracking-tight text-foreground">
-                  {t.price}
-                </span>
-                <span className="mono-tiny text-subtle">{t.duration}</span>
-              </div>
-
-              <ul className="mt-6 flex-1 space-y-3">
-                {t.includes.map((b) => (
-                  <li
-                    key={b}
-                    className="flex items-start gap-2.5 font-inter text-[13px] leading-relaxed text-muted-foreground"
-                  >
-                    <Check
-                      className="mt-[3px] h-3.5 w-3.5 shrink-0 text-hue"
-                      aria-hidden="true"
-                    />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          );
+        })}
       </div>
 
       {/* One action for all three tiers. Each card used to carry its own
-          "Book an Architecture Call", so the section presented the primary
-          action three times in a row, which reads as a pricing template
-          rather than as an engagement model. */}
+          "Book a free call", so the section presented the primary action three
+          times in a row, which reads as a pricing template rather than as an
+          engagement model. */}
       <Reveal>
-        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-hairline/[0.08] pt-10">
-          <CTA
-            to="/book"
-            size="lg"
-            arrow
-            onClick={() => trackEvent("book_call_click", { location: "engagements" })}
-          >
-            Book an Architecture Call
+        <div className="mt-12 flex flex-col items-center gap-4 text-center">
+          <CTA to="/book" size="lg" arrow onClick={() => trackEvent("book_call_click", { location: "engagements" })}>
+            Book a free call
           </CTA>
-          <p className="mono-tiny text-subtle">
-            Scope and price are agreed after the call, not before it
+          <p className="max-w-md font-inter text-sm text-subtle">
+            Pricing is a starting reference. Scope and price are agreed after the call, not before it.
           </p>
         </div>
-      </Reveal>
-
-      <Reveal>
-        <p className="mono-tiny mt-7 text-subtle">
-          Pricing is a starting reference. Final scope is shaped together on the call.
-        </p>
       </Reveal>
     </div>
   </section>

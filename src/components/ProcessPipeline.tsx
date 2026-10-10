@@ -1,160 +1,113 @@
-import type { CSSProperties } from "react";
-import { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { Fragment } from "react";
 import SectionHeader from "@/components/system/SectionHeader";
 import Reveal from "@/components/system/Reveal";
-import { usePrefersReducedMotion } from "@/hooks/usePointerField";
+import ProcessVisual from "@/components/ProcessVisual";
 
+/**
+ * The lede of each stage. `**…**` marks the phrase set in full white, the way
+ * a reader skims: the highlighted words alone summarise the stage.
+ */
 const STAGES = [
   {
     n: "01",
     name: "Discovery",
     when: "Day 1",
-    what: "A 30-minute call on goals, constraints, and what is already breaking.",
-    deliver: "An honest read on whether this is worth building, including when it isn't.",
-    decide: "Scope boundaries. What is in v1 and what is deliberately deferred.",
+    lede: "A 30-minute call on **goals, constraints, and what is already breaking.** You leave with an honest read on whether it is worth building, including when it isn't.",
   },
   {
     n: "02",
     name: "Architecture",
     when: "Day 2–3",
-    what: "A written technical proposal: stack, data model, integration points, milestones.",
-    deliver: "The proposal, a fixed quote, and a timeline you can hold me to.",
-    decide: "Monolith or services. Where state lives. Which failures must be survivable.",
+    lede: "A **written technical proposal**: stack, data model, integration points and milestones, with **a fixed quote and a timeline** you can hold me to.",
   },
   {
     n: "03",
     name: "Implementation",
     when: "Week 1+",
-    what: "Weekly demos against a visible board. Code lands in your repository from day one.",
-    deliver: "Working software each week, not a status report about working software.",
-    decide: "Trade-offs as they surface, in writing, before they become expensive.",
+    lede: "**Weekly demos** against a visible board, and code that lands **in your repository from day one.** Working software each week, not a status report about it.",
   },
   {
     n: "04",
     name: "Hardening",
     when: "Pre-launch",
-    what: "Tests on the paths that matter, load behaviour, idempotency, and failure handling.",
-    deliver: "A test suite, a slow-query pass, and a list of known limits.",
-    decide: "What gets fixed now versus what is documented and scheduled.",
+    lede: "Tests on **the paths that matter**, load behaviour, idempotency and failure handling, then a slow-query pass and **a written list of known limits.**",
   },
   {
     n: "05",
     name: "Deployment",
     when: "Launch",
-    what: "CI/CD, environment config, migrations that run forward cleanly, zero-downtime release.",
-    deliver: "A pipeline, a rollback path, and handover documentation.",
-    decide: "Release strategy and what triggers a rollback.",
+    lede: "CI/CD, migrations that run forward cleanly and a **zero-downtime release**, with **a rollback path** and handover documentation.",
   },
   {
     n: "06",
     name: "Observability",
     when: "Post-launch",
-    what: "Structured logs, error tracking, health checks, and runbooks written while it's calm.",
-    deliver: "Dashboards you can read, and an optional retainer for what comes next.",
-    decide: "What to alert on, and more importantly what not to.",
+    lede: "Structured logs, error tracking and health checks, with **dashboards you can read** and runbooks written while things are calm.",
   },
 ];
 
+const Lede = ({ text }: { text: string }) => (
+  <>
+    {text.split("**").map((part, i) =>
+      i % 2 ? (
+        <strong key={i} className="font-medium text-foreground">
+          {part}
+        </strong>
+      ) : (
+        <Fragment key={i}>{part}</Fragment>
+      )
+    )}
+  </>
+);
+
 /**
- * PROCESS as a pipeline.
- *
- * The rail fills with scroll position, so reading the section physically moves
- * through the engagement. Under reduced motion the rail is simply drawn full —
- * the information is in the text either way.
+ * PROCESS: six stages as a bento of large cards, alternating wide and narrow
+ * so the grid reads as a sequence rather than a table. Each card carries the
+ * artefact that stage produces, sitting on a lit horizon.
  */
-const ProcessPipeline = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = usePrefersReducedMotion();
+const ProcessPipeline = () => (
+  <section id="process" className="fx-glow-bottom relative scroll-mt-24 py-24 lg:py-32">
+    <div className="container mx-auto">
+      <SectionHeader
+        eyebrow="Process"
+        title={
+          <>
+            A predictable path from problem to <em>production.</em>
+          </>
+        }
+        lead="Six stages, each with a stated deliverable. No scope creep, no surprise invoices, and no phase where you have to ask what's happening."
+      />
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 75%", "end 45%"],
-  });
-  const raw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const progress = useSpring(raw, { stiffness: 90, damping: 24, mass: 0.4 });
-
-  return (
-    <section
-      id="process"
-      className="wash band band-edge relative scroll-mt-24 py-24 lg:py-32"
-      style={{
-        "--hue": "var(--hue-realtime)",
-        "--hue-2": "var(--hue-backend)",
-        "--wash-x": "82%",
-        "--wash-y": "10%",
-      } as CSSProperties}
-    >
-      <div className="container mx-auto">
-        <SectionHeader
-          index="06"
-          eyebrow="Process"
-          title="A predictable path from problem to production."
-          lead="Six stages, each with a stated deliverable. No scope creep, no surprise invoices, and no phase where you have to ask what's happening."
-        />
-
-        <div ref={ref} className="relative mt-14 lg:mt-20">
-          {/* rail, vertical on mobile, horizontal on desktop */}
-          <div
-            aria-hidden="true"
-            className="absolute left-[15px] top-0 h-full w-px bg-hairline/[0.09] lg:left-0 lg:top-[15px] lg:h-px lg:w-full"
-          >
-            {/* stacked layout fills downward, row layout fills rightward —
-                separate elements so one transform axis can't collapse the other */}
-            <motion.span
-              className="block h-full w-full origin-top bg-hue lg:hidden"
-              style={reduced ? { transform: "scaleY(1)" } : { scaleY: progress }}
-            />
-            <motion.span
-              className="hidden h-full w-full origin-left bg-hue lg:block"
-              style={reduced ? { transform: "scaleX(1)" } : { scaleX: progress }}
-            />
-          </div>
-
-          <ol className="grid gap-10 lg:grid-cols-6 lg:gap-5">
-            {STAGES.map((s, i) => (
-              <Reveal as="li" key={s.n} index={i} className="relative pl-11 lg:pl-0 lg:pt-11">
-                {/* node */}
-                <span
-                  aria-hidden="true"
-                  className="absolute left-0 top-1.5 flex h-8 w-8 items-center justify-center rounded-full border border-hairline/[0.12] bg-background lg:left-0 lg:top-0"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-hue" />
-                </span>
-
-                <div className="flex items-baseline gap-2.5">
-                  <span className="mono-tiny text-subtle">{s.when}</span>
+      <ol className="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-5 lg:gap-5">
+        {STAGES.map((s, i) => {
+          // Rows alternate wide|narrow, narrow|wide, wide|narrow.
+          const wide = (Math.floor(i / 2) % 2 === 0) === (i % 2 === 0);
+          return (
+            <Reveal as="li" key={s.n} index={i % 2} className={wide ? "lg:col-span-3" : "lg:col-span-2"}>
+              <article className="fx-border relative flex h-full flex-col overflow-hidden rounded-3xl border border-hairline/[0.1] bg-surface-1">
+                <div className="p-7 sm:p-9 lg:p-10">
+                  <div className="flex items-center gap-3 font-inter text-sm">
+                    <span className="tabular-nums text-primary">{s.n}</span>
+                    <span className="h-px w-6 bg-hairline/[0.2]" aria-hidden="true" />
+                    <span className="text-subtle">{s.when}</span>
+                  </div>
+                  <h3 className="mt-4 font-inter text-[1.75rem] font-semibold leading-tight tracking-[-0.03em] text-foreground lg:text-[2.125rem]">
+                    {s.name}
+                  </h3>
+                  <p className="mt-4 max-w-xl font-inter text-base leading-relaxed text-muted-foreground lg:text-[17px]">
+                    <Lede text={s.lede} />
+                  </p>
                 </div>
-
-                <h3 className="mt-3 font-inter text-lg font-medium tracking-tight text-foreground">
-                  {s.name}
-                </h3>
-
-                <p className="mt-3 font-inter text-[13px] leading-relaxed text-muted-foreground">
-                  {s.what}
-                </p>
-
-                <dl className="mt-5 space-y-3 border-t border-hairline/[0.07] pt-4">
-                  <div>
-                    <dt className="mono-tiny text-hue">You get</dt>
-                    <dd className="mt-1.5 font-inter text-[12.5px] leading-relaxed text-muted-foreground">
-                      {s.deliver}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="mono-tiny text-subtle">Decided here</dt>
-                    <dd className="mt-1.5 font-inter text-[12.5px] leading-relaxed text-subtle">
-                      {s.decide}
-                    </dd>
-                  </div>
-                </dl>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </div>
-    </section>
-  );
-};
+                <div className="mt-auto">
+                  <ProcessVisual n={s.n} />
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+);
 
 export default ProcessPipeline;

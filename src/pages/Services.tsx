@@ -1,67 +1,29 @@
-import type { CSSProperties } from "react";
-import { lazy, Suspense } from "react";
-import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { Suspense, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
-import { CAPABILITIES, RUNTIME_LABEL } from "@/data/capabilities";
+import SectionHeader from "@/components/system/SectionHeader";
+import SilkBackground from "@/components/fx/SilkBackground";
+import ServiceVisual from "@/components/ServiceVisual";
+import { CAPABILITIES } from "@/data/capabilities";
 import { AUDIENCES } from "@/data/audiences";
 import { servicesData } from "@/data/services";
 import { SITE_URL } from "@/data/site";
-import { trackEvent } from "@/lib/analytics";
+import { scrollToId } from "@/lib/scrollToId";
+import { useEnter } from "@/lib/boot";
+import { FinalCTA, Footer, TechMatrix } from "@/components/lazyParts";
 
-const Footer = lazy(() => import("@/components/Footer"));
+// The interactive stack matrix moved here from the home page, where it was
+// the eighth section of twelve. On the capabilities page it answers the
+// question the reader came with.
 
 /* ---------------------------------------------------------------------------
-   /services — a capability page, not a wall of service cards.
-
-   Same system as the landing page: left-aligned indexed headers, hairline
-   rules, mono labels, domain hues, Reveal entrances. No new motion, no new
-   effects, no shadcn Card.
-
-   The page opens by naming which runtime owns which layer, because that is the
-   distinction the whole site is arguing and a grid of equal-weight cards
-   actively destroys it. Capability copy is imported from the same source the
-   landing page reads, so the two can no longer drift.
+   /services: ten kinds of work as cards, each with a sketch of what it
+   produces, over the light streaks. Capability copy comes from the same
+   source the home page reads, so the two cannot drift.
 --------------------------------------------------------------------------- */
-
-/** One product, four layers — TypeScript runs through all of them. */
-const RUNTIMES = [
-  {
-    id: "react",
-    name: "React · TypeScript",
-    role: "The product surface",
-    body: "Typed React applications: routing, data fetching, state, accessible components, and a bundle small enough to load on a phone. This is where the product is actually used.",
-    hue: "var(--hue-interface)",
-    primary: true,
-  },
-  {
-    id: "react-native",
-    name: "React Native · Expo",
-    role: "The mobile app",
-    body: "iOS and Android from the same TypeScript codebase: offline-first data, push notifications, native modules where they earn their place, and store releases over the air.",
-    hue: "var(--hue-interface)",
-    primary: true,
-  },
-  {
-    id: "node",
-    name: "Node.js · TypeScript",
-    role: "The service layer",
-    body: "Typed APIs, event-driven workers, WebSockets and live state, and integrations that have to stay connected — sharing types end to end with the client.",
-    hue: "var(--hue-realtime)",
-    primary: false,
-  },
-  {
-    id: "laravel",
-    name: "Laravel · PHP",
-    role: "The application core",
-    body: "Domain logic, queues, billing, permissions and audit trails, with MySQL or PostgreSQL behind them. The part that holds the business rules and has to be right.",
-    hue: "var(--hue-backend)",
-    primary: false,
-  },
-];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -76,222 +38,140 @@ const jsonLd = {
         url: `${SITE_URL}/services/${s.slug}`,
       })),
     },
-    {
-      "@type": "FAQPage",
-      mainEntity: servicesData.flatMap((s) =>
-        s.faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        }))
-      ),
-    },
   ],
 };
 
-const Services = () => (
-  <div className="min-h-screen bg-background">
-    <SEOHead
-      title="Full-Stack Capabilities | React, React Native, Node.js, Laravel, TypeScript"
-      description="React and TypeScript on the front end, React Native for mobile, Node.js for typed services and real-time, Laravel and PHP for the application core. One engineer across the whole stack."
-      canonical={`${SITE_URL}/services`}
-      jsonLd={jsonLd}
-    />
-    <Navbar />
+const Services = () => {
+  const enter = useEnter();
+  const { hash } = useLocation();
 
-    <main
-      id="main"
-      className="wash pb-24 pt-32 lg:pt-40"
-      style={{
-        "--hue": "var(--hue-backend)",
-        "--hue-2": "var(--hue-ai)",
-        "--wash-x": "20%",
-        "--wash-y": "0%",
-      } as CSSProperties}
-    >
-      <div className="container mx-auto">
-        {/* ---- header ---- */}
-        <Reveal>
-          <span className="mono-label text-hue">Capabilities</span>
-          <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
-            React, React Native, Node.js and Laravel — one engineer across the stack.
-          </h1>
-          <p className="type-lead measure mt-7 text-muted-foreground">
-            TypeScript runs from the interface to the service layer, and Laravel carries
-            the application core. Each of these owns a specific part of a production
-            system, and the reason for using it is the shape of the problem.
-          </p>
-        </Reveal>
+  // Home page tiles link to /services#<id>; scroll there once the page lays out.
+  useEffect(() => {
+    if (!hash) return;
+    return scrollToId(hash.slice(1), { smooth: false });
+  }, [hash]);
 
-        {/* ---- the runtimes: the distinction the site is arguing ---- */}
-        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-hairline/[0.09] bg-hairline/[0.06] sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
-          {RUNTIMES.map((r, i) => (
-            <Reveal key={r.id} index={Math.min(i + 1, 4)}>
-              <div
-                className="h-full bg-surface-1 px-6 py-7"
-                style={{ "--hue": r.hue } as CSSProperties}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-hue" aria-hidden="true" />
-                  <span className="mono-tiny text-hue">{r.role}</span>
-                </div>
-                {/* Laravel is set larger on purpose: it is the specialisation,
-                    and three identically-sized cards would say otherwise. */}
-                <h2
-                  className={`mt-4 font-inter font-semibold tracking-tight text-foreground ${
-                    r.primary ? "text-[1.5rem] sm:text-[1.75rem]" : "text-[1.25rem]"
-                  }`}
-                >
-                  {r.name}
-                </h2>
-                <p className="type-body mt-3.5 text-muted-foreground">{r.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+  return (
+    <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Full-Stack Capabilities | React, React Native, Node.js, Laravel, TypeScript"
+        description="React and TypeScript on the front end, React Native for mobile, Node.js for typed services and real-time, Laravel and PHP for the application core. One engineer across the whole stack."
+        canonical={`${SITE_URL}/services`}
+        jsonLd={jsonLd}
+      />
+      <Navbar />
 
-        {/* ---- capabilities ---- */}
-        <div className="mt-20 lg:mt-28">
-          <Reveal>
-            <div className="flex items-center gap-3">
-              <span className="mono-label text-hue">What I take on</span>
+      <main id="main">
+        <section className="relative isolate overflow-hidden pb-24 pt-36 lg:pb-32 lg:pt-44">
+          <SilkBackground
+            seed={1}
+            lift={0.04}
+            resolution={0.7}
+            className="-z-10 bottom-auto h-[1150px] [mask-image:linear-gradient(180deg,#000_55%,transparent)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px]"
+            style={{ background: "radial-gradient(60% 70% at 50% 30%, hsl(var(--background)) 35%, transparent 80%)" }}
+          />
+
+          <div className="container mx-auto">
+            {/* The h1 is this page's LCP element: painted on the first frame, never
+                faded in by a JS observer. */}
+            <div className="text-center">
+              <h1 className="type-hero text-foreground">
+                Full-stack development <em>services</em>
+              </h1>
+              <p className="enter-lift type-lead mx-auto mt-6 max-w-2xl text-muted-foreground" {...enter()}>
+                React, React Native, Node.js and Laravel: one engineer across the stack. Every engagement
+                draws on whichever of these the work actually needs, and nothing it does not.
+              </p>
             </div>
-            <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
-              Ten domains, each with the stack that runs it.
-            </h2>
-          </Reveal>
 
-          <ul className="mt-10 border-t border-hairline/[0.08]">
-            {CAPABILITIES.map((c, i) => (
-              <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
-                <div
-                  className="group border-b border-hairline/[0.08] py-8"
-                  style={{ "--hue": c.hue } as CSSProperties}
-                >
-                  <div className="grid gap-5 lg:grid-cols-12 lg:gap-10">
-                    <div className="lg:col-span-4">
-                      <div className="flex items-baseline gap-3">
-                        <h3 className="font-inter text-[17px] font-medium tracking-tight text-foreground">
-                          {c.title}
-                        </h3>
+            <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-5">
+              {CAPABILITIES.map((c, i) => (
+                <Reveal as="li" key={c.id} index={Math.min(i % 3, 3)}>
+                  <article
+                    id={c.id}
+                    className="fx-border group flex h-full scroll-mt-28 flex-col rounded-2xl border border-hairline/[0.1] bg-surface-1 p-2.5"
+                  >
+                    <ServiceVisual id={c.id} />
+                    <div className="flex flex-1 items-end justify-between gap-4 px-2 pb-1.5 pt-4">
+                      <div className="min-w-0">
+                        <h2 className="font-inter text-lg font-semibold tracking-tight text-foreground">{c.title}</h2>
+                        <p className="mt-1 font-inter text-sm leading-relaxed text-muted-foreground">
+                          {c.summary}
+                        </p>
                       </div>
-                      <p className="mono-tiny mt-2.5 text-subtle">
-                        {RUNTIME_LABEL[c.runtime]}
-                      </p>
+                      {/* Four domains have a full page; the rest go to a call. */}
+                      <CTA to={c.href ?? "/book"} tone="ghost" size="sm" className="shrink-0" aria-label={`${c.href ? "Explore" : "Discuss"} ${c.title}`}>
+                        {c.href ? "Explore" : "Discuss"}
+                      </CTA>
                     </div>
+                  </article>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-                    <div className="lg:col-span-8">
-                      <p className="type-body measure text-muted-foreground">{c.summary}</p>
-
-                      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-                        {c.stack.map((t) => (
-                          <span key={t} className="mono-tiny text-subtle">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Only the four domains with a real page link out. */}
-                      {c.href && (
-                        <Link
-                          to={c.href}
-                          className="mt-6 inline-flex min-h-[24px] items-center gap-1.5 py-1 font-inter text-sm font-medium text-hue"
-                        >
-                          <span className="hover-underline">Read the detail</span>
-                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
+        <Suspense fallback={<div className="py-24" />}>
+          <div className="border-t border-hairline/[0.08]">
+            <TechMatrix />
+          </div>
+        </Suspense>
 
         {/* ---- who these are for ----
+            Moved here from the home page: "is this you?" is the question this
+            page exists to answer. */}
+        <section className="fx-glow-top relative border-t border-hairline/[0.08] py-24 lg:py-32">
+          <div className="container mx-auto">
+            <SectionHeader
+              align="center"
+              eyebrow="Who these are for"
+              title={
+                <>
+                  Four situations behind most of the <em>work.</em>
+                </>
+              }
+              lead="If one of these is uncomfortably familiar, that is the conversation worth having."
+            />
 
-            Moved here from the home page. The question "is this you?" is the
-            same question this page exists to answer, and on the home page it
-            sat between the process section and pricing as a long read that
-            /book already summarises. */}
-        <div className="mt-20 lg:mt-28">
-          <Reveal>
-            <div className="flex items-center gap-3">
-              <span className="chip-hue">
-                <span className="mono-label">Who these are for</span>
-              </span>
-            </div>
-            <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
-              Four situations that account for most of the work.
-            </h2>
-            <p className="type-lead measure mt-5 text-muted-foreground">
-              If one of these is uncomfortably familiar, that is the conversation
-              worth having.
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-hairline/[0.08] bg-hairline/[0.06] lg:grid-cols-2">
-            {AUDIENCES.map((a, i) => (
-              <Reveal key={a.n} index={Math.min(i + 1, 4)} variant="fade">
-                <div className="h-full bg-surface-1 p-7 lg:p-9">
-                  <div className="flex items-center gap-3">
+            <div className="mt-12 grid gap-4 lg:grid-cols-2">
+              {AUDIENCES.map((a, i) => (
+                <Reveal key={a.n} index={Math.min(i, 3)} variant="fade">
+                  <div className="fx-border h-full rounded-2xl border border-hairline/[0.1] bg-surface-1 p-7 lg:p-9">
                     <span className="mono-tiny text-subtle">{a.who}</span>
+                    <p className="mt-5 font-display text-2xl italic leading-[1.25] text-foreground lg:text-[1.75rem]">
+                      “{a.ask}”
+                    </p>
+                    <dl className="mt-7 space-y-5 border-t border-hairline/[0.08] pt-6">
+                      <div>
+                        <dt className="mono-tiny text-subtle">The problem</dt>
+                        <dd className="mt-2 font-inter text-sm leading-relaxed text-muted-foreground">{a.problem}</dd>
+                      </div>
+                      <div>
+                        <dt className="mono-tiny text-primary">What I do about it</dt>
+                        <dd className="mt-2 font-inter text-sm leading-relaxed text-muted-foreground">{a.solve}</dd>
+                      </div>
+                    </dl>
                   </div>
-
-                  <p className="mt-5 font-display text-2xl italic leading-[1.25] text-foreground lg:text-[1.65rem]">
-                    “{a.ask}”
-                  </p>
-
-                  <dl className="mt-7 space-y-5 border-t border-hairline/[0.07] pt-6">
-                    <div>
-                      <dt className="mono-tiny text-subtle">The problem</dt>
-                      <dd className="mt-2 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
-                        {a.problem}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="mono-tiny text-hue">What I do about it</dt>
-                      <dd className="mt-2 font-inter text-[13.5px] leading-relaxed text-muted-foreground">
-                        {a.solve}
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* ---- close: one action ---- */}
-        <Reveal>
-          <div className="mt-20 border-t border-hairline/[0.08] pt-14 lg:mt-24">
-            <h2 className="type-h3 max-w-xl text-foreground">
-              Not sure which of these your problem is?
-            </h2>
-            <p className="type-lead mt-5 max-w-xl text-muted-foreground">
-              That is a normal reason to book. Describe the symptom and I will tell you
-              which layer it lives in.
-            </p>
-            <div className="mt-9">
-              <CTA
-                to="/book"
-                size="lg"
-                arrow
-                onClick={() => trackEvent("book_call_click", { location: "services" })}
-              >
-                Book an Architecture Call
-              </CTA>
+                </Reveal>
+              ))}
             </div>
           </div>
-        </Reveal>
-      </div>
-    </main>
+        </section>
 
-    <Suspense fallback={<div className="py-20" />}>
-      <Footer />
-    </Suspense>
-  </div>
-);
+        <Suspense fallback={<div className="py-24" />}>
+          <FinalCTA location="services" />
+        </Suspense>
+      </main>
+
+      <Suspense fallback={<div className="py-20" />}>
+        <Footer />
+      </Suspense>
+    </div>
+  );
+};
 
 export default Services;

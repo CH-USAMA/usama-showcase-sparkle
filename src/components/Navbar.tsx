@@ -1,11 +1,13 @@
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { scrollToId } from "@/lib/scrollToId";
+import { MOUNT_ALL_EVENT } from "@/lib/scrollPositions";
+import { loadCommandMenu } from "@/lib/commandMenu";
 import { Menu, X } from "lucide-react";
 import CTA from "@/components/system/CTA";
 import ThemeSwitch from "@/components/system/ThemeSwitch";
 import { trackEvent } from "@/lib/analytics";
-import logoUsama from "@/assets/logo-usama.webp";
 
 /**
  * Five items, in the order the page argues.
@@ -31,6 +33,10 @@ const LINKS: NavLink[] = [
   { id: "process", label: "Process", hash: "#process" },
   { id: "blog", label: "Insights", to: "/blog" },
 ];
+
+/** A left click with no modifier: anything else (new tab, new window) is the browser's. */
+const isPlainClick = (e: React.MouseEvent) =>
+  e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -202,11 +208,10 @@ const Navbar = () => {
         navigate(`/${hash}`);
         return;
       }
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, "", hash);
-      }
+      // Sections mount progressively; make sure the target exists, then go.
+      window.dispatchEvent(new Event(MOUNT_ALL_EVENT));
+      scrollToId(id, { smooth: true });
+      history.replaceState(null, "", hash);
     },
     [onHome, navigate]
   );
@@ -221,30 +226,34 @@ const Navbar = () => {
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color,border-color] duration-large ease-out-expo ${
-          scrolled
-            ? "border-b border-hairline/[0.08] bg-background/80 py-2.5 backdrop-blur-md"
-            : "border-b border-transparent py-4 lg:py-6"
+        className={`fixed inset-x-0 top-0 z-50 px-3 transition-[padding] duration-large ease-out-expo sm:px-5 ${
+          scrolled ? "pt-3" : "pt-4 lg:pt-6"
         }`}
       >
-        <nav className="container mx-auto flex items-center justify-between gap-6" aria-label="Primary">
+        {/* At the top of the page the bar is full-width and transparent. Once
+            the page scrolls it condenses into a floating pill: a bordered,
+            blurred capsule that sits over the content instead of a strip
+            glued to the viewport edge. */}
+        <nav
+          className={`mx-auto flex items-center justify-between gap-6 transition-[max-width,background-color,border-color,padding,box-shadow] duration-large ease-out-expo ${
+            scrolled
+              ? "max-w-5xl rounded-2xl border border-hairline/[0.1] bg-background/90 py-2 pl-5 pr-2 shadow-elegant backdrop-blur-xl"
+              : "container border border-transparent py-1"
+          }`}
+          aria-label="Primary"
+        >
           <Link
             to="/"
             aria-label="Usama Munawar, home page"
             className="flex shrink-0 items-center gap-2.5"
           >
-            <img
-              src={logoUsama}
-              alt=""
-              width={1280}
-              height={512}
-              /* The mark is white on transparent, so it disappears against the
-                 light palette. Inverting it there keeps one asset instead of
-                 shipping and maintaining a second, light-mode logo file. */
-              className={`w-auto transition-[height] duration-large ease-out-expo [html.light_&]:invert ${
-                scrolled ? "h-7" : "h-8 sm:h-9"
-              }`}
-            />
+            {/* Live-text wordmark. The old logo was a 1280x512 bitmap with a
+                tagline too small to read at nav size, colour-inverted for the
+                light theme (which turned its gold dot blue). Text is crisp at
+                every size and follows the theme. */}
+            <span aria-hidden="true" className="font-display text-[26px] leading-none tracking-[-0.01em] text-foreground">
+              Usama<span className="text-primary">.</span>
+            </span>
           </Link>
 
           {/* desktop links */}
@@ -279,9 +288,10 @@ const Navbar = () => {
               return (
                 <li key={l.id}>
                   <a
-                    href={l.hash}
+                    href={onHome ? l.hash : `/${l.hash}`}
                     data-nav={l.id}
                     onClick={(e) => {
+                      if (!isPlainClick(e)) return;
                       e.preventDefault();
                       goTo(l.hash!);
                     }}
@@ -301,7 +311,9 @@ const Navbar = () => {
               onClick={() =>
                 window.dispatchEvent(new CustomEvent("open-command-menu"))
               }
-              className="hidden items-center gap-2 rounded-full border border-hairline/[0.1] px-3 py-1.5 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
+              onPointerEnter={() => void loadCommandMenu()}
+              onFocus={() => void loadCommandMenu()}
+              className="hidden h-9 items-center gap-2 rounded-full border border-hairline/[0.1] px-3 font-mono text-[11px] text-subtle transition-colors duration-standard hover:border-hairline/[0.2] hover:text-muted-foreground lg:inline-flex"
               aria-label="Open command menu (⌘K)"
             >
               <span>⌘K</span>
@@ -312,11 +324,10 @@ const Navbar = () => {
             <CTA
               to="/book"
               size="sm"
-              arrow
               className="hidden sm:inline-flex"
               onClick={() => trackEvent("book_call_click", { location: "navbar" })}
             >
-              Architecture Call
+              Book a call
             </CTA>
 
             <button
@@ -366,8 +377,9 @@ const Navbar = () => {
                       </Link>
                     ) : (
                       <a
-                        href={l.hash}
+                        href={onHome ? l.hash : `/${l.hash}`}
                         onClick={(e) => {
+                          if (!isPlainClick(e)) return;
                           e.preventDefault();
                           goTo(l.hash!);
                         }}
@@ -384,7 +396,7 @@ const Navbar = () => {
 
               <div className="mt-8 space-y-3">
                 <CTA to="/book" size="lg" arrow className="w-full" onClick={() => setOpen(false)}>
-                  Book an Architecture Call
+                  Book a free call
                 </CTA>
                 <CTA to="/projects" tone="ghost" size="lg" className="w-full" onClick={() => setOpen(false)}>
                   View all projects

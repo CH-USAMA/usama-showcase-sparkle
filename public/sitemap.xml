@@ -51,12 +51,12 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/1</loc>
+    <loc>https://www.chaudharyusama.com/project/4</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/2</loc>
+    <loc>https://www.chaudharyusama.com/project/14</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -66,7 +66,17 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/4</loc>
+    <loc>https://www.chaudharyusama.com/project/2</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/1</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/15</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -77,6 +87,21 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/project/6</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/18</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/19</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/20</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -116,16 +141,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/14</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/project/15</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.chaudharyusama.com/project/16</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -136,19 +151,22 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/18</loc>
+    <loc>https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/19</loc>
+    <loc>https://www.chaudharyusama.com/blog/asterisk-vs-twilio-cost-breakdown</loc>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/project/20</loc>
+    <loc>https://www.chaudharyusama.com/blog/n8n-vs-custom-code-automation</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-vs-django-for-saas</loc>
@@ -175,20 +193,26 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://www.chaudharyusama.com/blog/stripe-laravel-subscription-billing</loc>
+    <lastmod>2025-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/blog/asterisk-vs-twilio-cost-breakdown</loc>
-    <lastmod>2026-07-21</lastmod>
+    <loc>https://www.chaudharyusama.com/blog/lovable-ai-gateway-production-guide</loc>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.chaudharyusama.com/blog/n8n-vs-custom-code-automation</loc>
-    <lastmod>2026-07-14</lastmod>
+    <loc>https://www.chaudharyusama.com/blog/supabase-edge-functions-vs-laravel-apis</loc>
+    <lastmod>2025-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/asterisk-laravel-voip-call-center</loc>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -217,6 +241,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/blog/php-2025-best-choice-web-development</loc>
+    <lastmod>2025-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/blog/automating-everything-n8n-ai</loc>
     <lastmod>2025-07-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -231,36 +261,6 @@
   <url>
     <loc>https://www.chaudharyusama.com/blog/production-rag-systems-lessons</loc>
     <lastmod>2025-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/blog/php-2025-best-choice-web-development</loc>
-    <lastmod>2025-07-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/blog/asterisk-laravel-voip-call-center</loc>
-    <lastmod>2025-08-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/blog/supabase-edge-functions-vs-laravel-apis</loc>
-    <lastmod>2025-09-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/blog/lovable-ai-gateway-production-guide</loc>
-    <lastmod>2025-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.chaudharyusama.com/blog/stripe-laravel-subscription-billing</loc>
-    <lastmod>2025-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

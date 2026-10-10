@@ -1,198 +1,200 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { blogsData } from '@/data/blogs';
-import { useTrendingBlogs } from '@/hooks/useTrendingBlogs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { ArrowLeft, Calendar, User, Search, BookOpen, TrendingUp, Rss } from 'lucide-react';
-import { lazy, Suspense } from 'react';
-import SEOHead from '@/components/SEOHead';
+import { Suspense, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, Search } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import SEOHead from "@/components/SEOHead";
+import Reveal from "@/components/system/Reveal";
+import CTA from "@/components/system/CTA";
+import PostCard from "@/components/PostCard";
+import { formatDate } from "@/lib/postFormat";
+import { usePosts } from "@/lib/content/posts";
+import { useTrendingBlogs } from "@/hooks/useTrendingBlogs";
+import { safeHref } from "@/lib/url";
+import { FORMSPREE_URL, SITE_URL } from "@/data/site";
+import { useEnter } from "@/lib/boot";
+import { Footer, TrendingRepos } from "@/components/lazyParts";
 
-const TrendingRepos = lazy(() => import('@/components/TrendingRepos'));
 
+const host = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+
+/**
+ * /blog. Written articles lead: the newest as a wide card, the rest in the
+ * work-card grid. Links curated from the news feed sit in their own clearly
+ * labelled list, credited to their source and never to the site's author.
+ */
 const Blog = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { data: trendingPosts = [] } = useTrendingBlogs();
+  const enter = useEnter();
+  const [term, setTerm] = useState("");
+  const written = usePosts();
+  const { data: trending = [] } = useTrendingBlogs();
 
-  const allPosts = useMemo(() => {
-    const combined = [...blogsData, ...trendingPosts];
-    combined.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
-    return combined;
-  }, [trendingPosts]);
+  const q = term.trim().toLowerCase();
+  const match = (t: string, ex: string, tags: string[]) =>
+    !q || t.toLowerCase().includes(q) || ex.toLowerCase().includes(q) || tags.some((x) => x.toLowerCase().includes(q));
 
-  const filteredPosts = useMemo(() => {
-    if (!searchTerm) return allPosts;
-    const term = searchTerm.toLowerCase();
-    return allPosts.filter(post =>
-      post.title.toLowerCase().includes(term) ||
-      post.excerpt.toLowerCase().includes(term) ||
-      post.tags.some(tag => tag.toLowerCase().includes(term))
-    );
-  }, [searchTerm, allPosts]);
+  const posts = useMemo(
+    () =>
+      written
+        .filter((p) => !p.is_auto && match(p.title, p.excerpt, p.tags))
+        .sort((a, b) => b.published_at.localeCompare(a.published_at)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [written, q]
+  );
+  const links = useMemo(
+    () => trending.filter((p) => safeHref(p.source_url) && match(p.title, "", p.tags)).slice(0, 8),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [trending, q]
+  );
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  };
+  const [lead, ...rest] = posts;
 
   return (
-    <>
-    <SEOHead
-      title="Blog | React, Node.js, Laravel & AI | Usama Munawar"
-      description="Articles on React, React Native, Node.js, TypeScript, Laravel/PHP, product architecture, AI, automation, and VoIP."
-      canonical="https://www.chaudharyusama.com/blog"
-      ogType="website"
-    />
     <div className="min-h-screen bg-background">
-      <header className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
-        <div className="container mx-auto px-4 py-20 relative">
-          <div className="flex justify-between items-start mb-12">
-            <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors group">
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Back to Home
-            </Link>
-            <ThemeToggle />
-          </div>
+      <SEOHead
+        title="Blog | React, Node.js, Laravel & AI | Usama Munawar"
+        description="Articles on React, React Native, Node.js, TypeScript, Laravel/PHP, product architecture, AI, automation, and VoIP."
+        canonical={`${SITE_URL}/blog`}
+        ogType="website"
+      />
+      <Navbar />
 
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
-                <BookOpen className="h-8 w-8 text-primary" />
-              </div>
-              <Badge variant="secondary" className="px-3 py-1">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                Latest Articles
-              </Badge>
-              {trendingPosts.length > 0 && (
-                <Badge variant="outline" className="px-3 py-1">
-                  <Rss className="h-3 w-3 mr-1" />
-                  +{trendingPosts.length} Trending
-                </Badge>
-              )}
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
-              The Engineering Log: Full-Stack Product Insights
+      <main id="main" className="fx-glow-top relative pb-24 pt-36 lg:pt-44">
+        <div className="container mx-auto">
+          {/* The h1 is this page's LCP element: painted on the first frame, never
+                faded in by a JS observer. */}
+            <div className="text-center">
+            <h1 className="type-hero text-foreground">
+              Engineering <em>notes</em>
             </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8 leading-relaxed">
-              Deep dives into React, React Native, Node.js, TypeScript, Laravel, AI, and automation.
-              <span className="text-primary font-medium"> Updated daily with trending topics.</span>
+            <p className="enter-lift type-lead mx-auto mt-6 max-w-2xl text-muted-foreground" {...enter()}>
+              Deep dives into React, React Native, Node.js, TypeScript, Laravel, AI and automation, written from
+              systems running in production.
             </p>
-          </div>
-        </div>
-      </header>
-
-      <main className="py-16">
-        <div className="container mx-auto px-4">
-          {/* Newsletter capture */}
-          <div className="max-w-2xl mx-auto mb-12 rounded-2xl border border-primary/20 bg-primary/5 p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div>
-                <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1">Get one deep-dive per month</h2>
-                <p className="text-sm text-muted-foreground">Web, mobile, backend, and AI engineering write-ups. No spam. Unsubscribe anytime.</p>
-              </div>
-              <form
-                action="https://formspree.io/f/mkgzjlde"
-                method="POST"
-                className="flex gap-2 w-full md:w-auto"
-              >
-                <input type="hidden" name="_subject" value="New newsletter subscriber" />
-                <input type="hidden" name="source" value="blog-newsletter" />
-                <Input
-                  type="email"
-                  name="email"
-                  required
-                  aria-label="Email address"
-                  placeholder="you@example.com"
-                  className="rounded-xl md:w-64"
-                />
-                <Button type="submit" className="rounded-xl">Subscribe</Button>
-              </form>
-            </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              Prefer something actionable right now?{" "}
-              <Link to="/laravel-scaling-checklist" className="text-primary underline underline-offset-4">
-                Read the free Laravel Scaling Checklist
-              </Link>
-              .
-            </p>
-          </div>
-
-
-          <div className="max-w-lg mx-auto mb-16">
-            <div className="relative group">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 group-focus-within:text-primary transition-colors" />
-              <Input
+            <div className="relative mx-auto mt-9 max-w-md">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-subtle" aria-hidden="true" />
+              <input
+                type="search"
+                value={term}
+                onChange={(e) => setTerm(e.target.value)}
+                placeholder="Search articles"
                 aria-label="Search articles"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-12 text-base border-2 focus:border-primary/50 rounded-xl bg-card/50 backdrop-blur-sm"
+                className="h-11 w-full rounded-full border border-hairline/[0.14] bg-surface-1 pl-11 pr-4 font-inter text-sm text-foreground placeholder:text-subtle focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
               />
             </div>
           </div>
 
-          {filteredPosts.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="p-4 rounded-full bg-muted/50 w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                <Search className="h-8 w-8 text-muted-foreground" />
-              </div>
-              <h2 className="text-2xl font-semibold mb-4">No matching articles found</h2>
-            </div>
-          ) : (
-            <div className="grid gap-8 md:gap-12 max-w-4xl mx-auto">
-              <h2 className="sr-only">Recent Articles</h2>
-              {filteredPosts.map((post, index) => (
-                <Card key={post.id} className={`group overflow-hidden hover:shadow-xl transition-all duration-500 border-0 bg-gradient-to-br from-card/80 to-card backdrop-blur-sm ${index === 0 ? 'md:grid md:grid-cols-5 md:gap-8' : ''}`}>
-                  {post.featured_image && (
-                    <div className={`overflow-hidden ${index === 0 ? 'md:col-span-2' : ''}`}>
-                      <img src={post.featured_image} alt={post.title} loading="lazy" decoding="async" width={800} height={450} className={`w-full object-cover group-hover:scale-105 transition-transform duration-700 ${index === 0 ? 'h-64 md:h-full' : 'h-48'}`} />
-                    </div>
-                  )}
-                  <div className={`${post.featured_image && index === 0 ? "md:col-span-3" : ""} p-8`}>
-                    <CardHeader className="p-0 mb-6">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="h-4 w-4" />
-                          <span>{formatDate(post.published_at)}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <User className="h-4 w-4" />
-                          <span>{post.author}</span>
-                        </div>
-                        {post.is_auto && <Badge variant="outline" className="text-xs">Trending</Badge>}
-                      </div>
-                      <CardTitle className={`${index === 0 ? 'text-3xl md:text-4xl' : 'text-2xl'} mb-4 leading-tight`}>
-                        <Link to={post.source_url || `/blog/${post.slug}`} target={post.source_url ? "_blank" : undefined} className="group-hover:text-primary transition-colors duration-300">
-                          {post.title}
-                        </Link>
-                      </CardTitle>
-                      <CardDescription className={`${index === 0 ? 'text-lg' : 'text-base'} leading-relaxed text-muted-foreground`}>
-                        {post.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                      <Button asChild variant="ghost" className="p-0 h-auto text-primary font-medium hover:text-primary/80">
-                        <Link to={post.source_url || `/blog/${post.slug}`} target={post.source_url ? "_blank" : undefined}>
-                          Read Article →
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </div>
-                </Card>
-              ))}
-            </div>
+          {posts.length === 0 && links.length === 0 && (
+            <p className="mt-16 text-center font-inter text-muted-foreground">No articles match “{term}”.</p>
           )}
+
+          {lead && (
+            <Reveal className="mt-14">
+              <h2 className="sr-only">Latest article</h2>
+              <PostCard post={lead} size="lead" eager />
+            </Reveal>
+          )}
+
+          {rest.length > 0 && (
+            <>
+              <h2 className="sr-only">More articles</h2>
+              <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+                {rest.map((p, i) => (
+                  <Reveal as="li" key={p.id} index={i % 3}>
+                    <PostCard post={p} />
+                  </Reveal>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {links.length > 0 && (
+            <section aria-labelledby="from-the-web" className="mt-24">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="chip-hue">
+                    <span className="mono-label">Reading list</span>
+                  </span>
+                  <h2 id="from-the-web" className="type-h3 mt-4 text-foreground">
+                    Worth reading <em>elsewhere</em>
+                  </h2>
+                </div>
+                <p className="max-w-sm font-inter text-sm text-subtle">Links I am following this week, from other authors.</p>
+              </div>
+              <ul className="mt-8 divide-y divide-hairline/[0.08] rounded-2xl border border-hairline/[0.1] bg-surface-1">
+                {links.map((p) => (
+                  <li key={p.id}>
+                    <a
+                      href={safeHref(p.source_url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-6 px-5 py-4"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate font-inter text-[15px] font-medium text-foreground group-hover:text-primary">{p.title}</span>
+                        <span className="mt-0.5 block font-inter text-xs text-subtle">
+                          {host(p.source_url ?? "")} · {formatDate(p.published_at)}
+                        </span>
+                      </span>
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-subtle transition-transform duration-standard group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Newsletter */}
+          <section aria-labelledby="newsletter" className="mt-24">
+            <div className="fx-border relative isolate overflow-hidden rounded-3xl border border-hairline/[0.1] bg-surface-1 px-7 py-12 text-center lg:px-14">
+              <div className="fx-horizon !top-[62%] opacity-70" aria-hidden="true" />
+              <h2 id="newsletter" className="type-h3 relative text-foreground">
+                One deep-dive <em>a month</em>
+              </h2>
+              <p className="relative mx-auto mt-3 max-w-md font-inter text-sm text-muted-foreground">
+                Web, mobile, backend and AI engineering write-ups. No spam, unsubscribe any time.
+              </p>
+              <form action={FORMSPREE_URL} method="POST" className="relative mx-auto mt-7 flex max-w-md flex-col gap-2.5 sm:flex-row">
+                <input type="hidden" name="_subject" value="New newsletter subscriber" />
+                <input type="hidden" name="source" value="blog-newsletter" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  aria-label="Email address"
+                  placeholder="you@example.com"
+                  className="h-10 flex-1 rounded-full border border-hairline/[0.14] bg-background px-4 font-inter text-sm text-foreground placeholder:text-subtle focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                />
+                <CTA type="submit" size="lg">
+                  Subscribe
+                </CTA>
+              </form>
+              <p className="relative mt-5 font-inter text-sm text-subtle">
+                Or start with the free{" "}
+                <Link to="/laravel-scaling-checklist" className="text-foreground underline underline-offset-4">
+                  Laravel scaling checklist
+                </Link>
+                .
+              </p>
+            </div>
+          </section>
         </div>
+
+        <Suspense fallback={<div className="py-16" />}>
+          <TrendingRepos />
+        </Suspense>
       </main>
-      <Suspense fallback={<div className="py-16" />}>
-        <TrendingRepos />
+
+      <Suspense fallback={<div className="py-20" />}>
+        <Footer />
       </Suspense>
     </div>
-    </>
   );
 };
 

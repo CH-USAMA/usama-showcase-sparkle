@@ -4,9 +4,12 @@ import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/system/Reveal";
+import CTA from "@/components/system/CTA";
 import { SITE_URL } from "@/data/site";
+import { useEnter } from "@/lib/boot";
 
 const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
+const calendarSpace = <div className="h-[720px] w-full bg-surface-1/50" aria-hidden="true" />;
 
 /* ---------------------------------------------------------------------------
    /book — the destination of the site's one primary action.
@@ -16,7 +19,7 @@ const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
    new effects — every primitive here already existed.
 
    The page answers the four questions a reader has between clicking "Book an
-   Architecture Call" and picking a slot, and every answer is drawn from copy
+   Free call" and picking a slot, and every answer is drawn from copy
    the site already publishes: the audience panels, the process section, and
    the engagement tiers. Nothing here is a new claim.
 --------------------------------------------------------------------------- */
@@ -101,9 +104,9 @@ const bookJsonLd = {
   "@type": "WebPage",
   "@id": `${SITE_URL}/book#webpage`,
   url: `${SITE_URL}/book`,
-  name: "Book an Architecture Call | Usama Munawar",
+  name: "Book a free call | Usama Munawar",
   description:
-    "Book a free 30-minute architecture call with Usama Munawar, a full-stack product engineer working in React, React Native, Node.js, TypeScript, Laravel and PHP.",
+    "Book a free 30-minute call with Usama Munawar, a full-stack product engineer working in React, React Native, Node.js, TypeScript, Laravel and PHP.",
   inLanguage: "en",
   primaryImageOfPage: `${SITE_URL}/og-image.png`,
 };
@@ -129,11 +132,12 @@ const Head = ({ index: _index, eyebrow, title }: { index: string; eyebrow: strin
 );
 
 const Book = () => {
+  const enter = useEnter();
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Book an Architecture Call | Usama Munawar"
-        description="A free 30-minute architecture call for React, React Native, Node.js, TypeScript, Laravel/PHP, automation, or AI product work."
+        title="Book a free call | Usama Munawar"
+        description="A free 30-minute call for React, React Native, Node.js, TypeScript, Laravel/PHP, automation, or AI product work."
         canonical={`${SITE_URL}/book`}
         jsonLd={[bookJsonLd, faqJsonLd]}
       />
@@ -150,20 +154,26 @@ const Book = () => {
         } as CSSProperties}
       >
         <div className="container mx-auto">
-          {/* ---- header ---- */}
-          <Reveal>
-            <div className="flex items-center gap-3">
-              <span className="mono-label text-hue">Architecture call</span>
-            </div>
+          {/* ---- header ---- (h1 is the LCP element: never faded in) */}
+          <div>
+            <span className="chip-hue">
+              <span className="mono-label">Book a call</span>
+            </span>
             <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
-              Bring the problem. Leave with the next step.
+              Bring the problem. Leave with the <em>next step.</em>
             </h1>
-            <p className="type-lead measure mt-7 text-muted-foreground">
+            <p className="enter-lift type-lead measure mt-7 text-muted-foreground" {...enter()}>
               Thirty minutes on your architecture. What is breaking, what it will cost to
               fix, and whether it is worth fixing yet. No pitch, and no obligation to
               hire me at the end of it.
             </p>
-          </Reveal>
+            {/* On a phone the calendar is several screens down; go straight there. */}
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              <CTA href="#pick-a-time" size="lg" arrow>
+                Pick a time
+              </CTA>
+            </div>
+          </div>
 
           <Reveal index={1}>
             <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4 border-y border-hairline/[0.08] py-5">
@@ -204,7 +214,7 @@ const Book = () => {
               </ul>
 
               <Reveal>
-                <p className="mono-tiny measure-sm mt-7 leading-[1.7] text-subtle">
+                <p className="measure-sm mt-7 font-inter text-sm leading-[1.7] text-subtle">
                   If your problem is not on this list, it is still worth asking.
                   The worst outcome is a short answer pointing you somewhere better.
                 </p>
@@ -246,14 +256,17 @@ const Book = () => {
           </div>
 
           {/* ---- booking ---- */}
-          <div className="mt-20 lg:mt-24">
+          <div id="pick-a-time" className="mt-20 scroll-mt-28 lg:mt-24">
             <Head index="04" eyebrow="Pick a time" title="Choose a slot that suits you." />
             <div className="mt-9 overflow-hidden rounded-xl border border-hairline/[0.09]">
-              <Suspense
-                fallback={<div className="h-[720px] w-full bg-surface-1/50" aria-hidden="true" />}
-              >
-                <CalendlyEmbed height={720} lazy={false} />
-              </Suspense>
+              {/* Calendly is a third-party script: never part of the build-time HTML. */}
+              {import.meta.env.SSR ? (
+                calendarSpace
+              ) : (
+                <Suspense fallback={calendarSpace}>
+                  <CalendlyEmbed height={720} lazy={false} />
+                </Suspense>
+              )}
             </div>
           </div>
 

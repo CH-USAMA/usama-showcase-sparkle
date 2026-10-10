@@ -1,6 +1,7 @@
 import { createElement, useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePointerField";
+import { isBootRender, useBeforePaint } from "@/lib/boot";
 
 interface RevealProps {
   children: ReactNode;
@@ -41,11 +42,21 @@ const Reveal = ({
 }: RevealProps) => {
   const ref = useRef<HTMLElement | null>(null);
   const reduced = usePrefersReducedMotion();
-  const [shown, setShown] = useState(false);
+  // "static": already on screen when React took over the prerendered page.
+  const [shown, setShown] = useState<boolean | "static">(false);
+
+  // Prerendered HTML paints every Reveal visible (see `anim`). When the first
+  // render replaces it, a block the reader can see, or has already scrolled
+  // past, stays as it is, decided before paint, instead of blinking out and
+  // fading back in.
+  useBeforePaint(() => {
+    if (!isBootRender() || !ref.current) return;
+    if (ref.current.getBoundingClientRect().top < window.innerHeight) setShown("static");
+  }, []);
 
   useEffect(() => {
     if (reduced) {
-      setShown(true);
+      setShown((s) => s || true);
       return;
     }
     const el = ref.current;
@@ -54,7 +65,7 @@ const Reveal = ({
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-        setShown(true);
+        setShown((s) => s || true);
         io.disconnect();
       },
       // Matches the old framer-motion viewport margin.
@@ -64,7 +75,18 @@ const Reveal = ({
     return () => io.disconnect();
   }, [reduced]);
 
-  const anim = shown ? (variant === "up" ? "enter" : "enter-soft") : "reveal-idle";
+  const anim =
+    shown === "static"
+      ? ""
+      : shown
+        ? variant === "up"
+          ? "enter"
+          : "enter-soft"
+        : // Build-time HTML is painted before any script runs, and on a slow
+          // phone it is all the reader has for a while: nothing starts hidden.
+          import.meta.env.SSR
+          ? ""
+          : "reveal-idle";
 
   return createElement(
     as,

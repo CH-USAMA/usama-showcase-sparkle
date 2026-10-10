@@ -27,13 +27,17 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    // No storage when prerendering at build time.
+    () => (typeof window !== "undefined" && (localStorage.getItem(storageKey) as Theme)) || defaultTheme
   )
 
   useEffect(() => {
     const root = window.document.documentElement
 
     root.classList.remove("light", "dark")
+    // Browser UI colour (mobile address bar) follows the applied theme.
+    const paint = (t: "light" | "dark") =>
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", t === "dark" ? "#040404" : "#f9f8f5")
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -42,10 +46,12 @@ export function ThemeProvider({
         : "light"
 
       root.classList.add(systemTheme)
+      paint(systemTheme)
       return
     }
 
     root.classList.add(theme)
+    paint(theme)
   }, [theme])
 
   const value = {

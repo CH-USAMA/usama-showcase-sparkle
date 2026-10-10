@@ -3,44 +3,28 @@
 // so the two can no longer drift apart (rss.xml used to be hand-maintained and
 // was missing the seven newest posts).
 
-import { writeFileSync, readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { projectsData } from "../src/data/projects";
 import { servicesData } from "../src/data/services";
+import type { BlogPost, ProjectEntry } from "../src/data/types";
 
-// blogs.ts imports image assets, which Node cannot resolve outside Vite,
-// so post fields are parsed from the source file instead of imported.
-const blogSource = readFileSync(resolve("src/data/blogs.ts"), "utf8");
+// Content comes from the snapshot that scripts/sync-content.ts writes from the
+// database just before this runs, so posts published in /admin are indexed on
+// the next build.
+const { posts: blogsData } = JSON.parse(readFileSync("src/data/snapshot.posts.json", "utf8")) as {
+  posts: BlogPost[];
+};
+const { projects } = JSON.parse(readFileSync("src/data/snapshot.projects.json", "utf8")) as {
+  projects: ProjectEntry[];
+};
+const projectIds = projects.filter((e) => e.project).map((e) => e.id);
 
-// Two passes rather than one big pattern: title/slug/excerpt are contiguous
-// fields, but `content` (a template literal that can itself contain the text
-// "published_at:") sits between excerpt and published_at. Matching the date
-// from the slug separately keeps a code sample inside a post from capturing it.
-const meta = new Map(
-  Array.from(
-    blogSource.matchAll(
-      /title:\s*"((?:[^"\\]|\\.)*)"\s*,\s*slug:\s*"([^"]+)"\s*,\s*excerpt:\s*"((?:[^"\\]|\\.)*)"/g
-    )
-  ).map((m) => [m[2], { title: m[1], excerpt: m[3] }])
-);
-
-const blogsData = Array.from(
-  blogSource.matchAll(/slug:\s*"([^"]+)"[\s\S]*?published_at:\s*"([^"]+)"/g)
-).map((m) => ({
-  slug: m[1],
-  published_at: m[2],
-  title: meta.get(m[1])?.title ?? m[1],
-  excerpt: meta.get(m[1])?.excerpt ?? "",
-}));
-
-if (blogsData.length === 0) throw new Error("parsed 0 blog posts from src/data/blogs.ts");
-const missing = blogsData.filter((p) => !meta.has(p.slug)).map((p) => p.slug);
-if (missing.length) throw new Error(`no title/excerpt parsed for: ${missing.join(", ")}`);
+if (blogsData.length === 0) throw new Error("snapshot has 0 blog posts; run `npm run content:sync`");
 
 const BASE_URL = "https://www.chaudharyusama.com";
 
-// JS string escapes survive the regex verbatim; unescape the two that occur.
-const unescapeJs = (s: string) => s.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+// Values come from JSON now, so there are no source-level escapes to undo.
+const unescapeJs = (s: string) => s;
 const xml = (s: string) =>
   unescapeJs(s)
     .replace(/&/g, "&amp;")
@@ -70,7 +54,7 @@ const serviceEntries: SitemapEntry[] = servicesData.map((s) => ({
   priority: "0.85",
 }));
 
-const projectEntries: SitemapEntry[] = Object.keys(projectsData).map((id) => ({
+const projectEntries: SitemapEntry[] = projectIds.map((id) => ({
   path: `/project/${id}`,
   changefreq: "monthly",
   priority: "0.7",
@@ -78,8 +62,9 @@ const projectEntries: SitemapEntry[] = Object.keys(projectsData).map((id) => ({
 
 const blogEntries: SitemapEntry[] = blogsData.map((post) => ({
   path: `/blog/${post.slug}`,
-  // Publication is the last known page-specific content date. Never use a build-day fallback.
-  lastmod: post.published_at ? post.published_at.slice(0, 10) : undefined,
+  // Last real edit (updated_at only moves when a post is edited in /admin),
+  // else publication. Never a build-day fallback.
+  lastmod: (post.updated_at ?? post.published_at)?.slice(0, 10),
   changefreq: "monthly",
   priority: "0.8",
 }));
@@ -158,3 +143,46 @@ console.log(`sitemap.xml written (${entries.length} entries)`);
 
 writeFileSync(resolve("public/rss.xml"), generateRss());
 console.log(`rss.xml written (${blogsData.length} posts)`);
+
+// llms.txt: the hand-written intro and facts (scripts/llms.template.md) with
+// the page, project and post lists generated from the same snapshot, so its
+// links can no longer point at the wrong pages.
+function generateLlms() {
+  // Git may check the template out with CRLF endings on Windows.
+  const tpl = readFileSync(resolve("scripts/llms.template.md"), "utf8").replace(/\r\n/g, "\n");
+  const line = (title: string, path: string, note?: string) =>
+    `- [${title}](${BASE_URL}${path})${note ? `: ${note}` : ""}`;
+  const projectLines = projects
+    .filter((e) => e.project)
+    .map((e) => line(e.caseStudy?.title ?? e.project!.title, `/project/${e.id}`, e.project!.description));
+  const postLines = [...blogsData]
+    .sort((a, b) => b.published_at.localeCompare(a.published_at))
+    .map((p) => line(p.title, `/blog/${p.slug}`));
+  const serviceLines = servicesData.map((sv) => line(sv.name, `/services/${sv.slug}`, sv.metaDescription));
+  const pages = [
+    "## Pages",
+    "",
+    line("Home", "/", "Overview, selected work, services, process, pricing, contact"),
+    line("Work", "/projects", `${projects.length} shipped projects: websites, platforms, AI and automation`),
+    line("Services", "/services", "Full-stack capabilities and who they are for"),
+    line("Blog", "/blog", "Engineering articles"),
+    line("Book a free call", "/book", "Free 30-minute call"),
+    "",
+    "## Services",
+    "",
+    ...serviceLines,
+    "",
+    "## Projects",
+    "",
+    ...projectLines,
+    "",
+    "## Articles",
+    "",
+    ...postLines,
+    "",
+  ].join("\n");
+  // A function, not a string: replace() would expand "$&" or "$'" in CMS text.
+  return tpl.replace("<!-- GENERATED: pages, projects and posts from the content snapshot -->\n", () => pages);
+}
+writeFileSync(resolve("public/llms.txt"), generateLlms());
+console.log("llms.txt written");

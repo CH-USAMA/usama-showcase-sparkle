@@ -41,20 +41,23 @@ interface ButtonProps extends BaseProps {
 type CTAProps = LinkProps | AnchorProps | ButtonProps;
 
 const tones: Record<Tone, string> = {
+  // Filled with the text colour: black on paper, white on black. The accent
+  // is kept for small signals, so the main action never competes with it.
   primary:
-    "bg-primary text-primary-foreground font-semibold hover:bg-primary-glow " +
-    "shadow-[0_8px_28px_-12px_hsl(var(--primary)/0.6)] hover:shadow-[0_12px_36px_-12px_hsl(var(--primary)/0.75)]",
+    "bg-foreground text-background font-medium hover:bg-foreground/85 " +
+    "shadow-[0_1px_2px_hsl(var(--hairline)/0.16)]",
+  // A quiet filled pill: dark grey on black, light grey on paper.
   ghost:
-    "text-foreground border border-hairline/[0.14] bg-surface-1/60 " +
-    "hover:border-primary/40 hover:bg-surface-2/70",
+    "text-foreground font-medium border border-hairline/[0.08] bg-surface-2 " +
+    "hover:bg-surface-3 hover:border-hairline/[0.16]",
   quiet:
     "text-muted-foreground hover:text-foreground",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-[13px] gap-1.5",
-  md: "h-11 px-5 text-sm gap-2",
-  lg: "h-[52px] px-7 text-[15px] gap-2.5",
+  sm: "h-9 px-3.5 text-[13px] gap-1.5",
+  md: "h-9 px-4 text-sm gap-1.5",
+  lg: "h-10 px-5 text-sm gap-2",
 };
 
 /**
@@ -117,7 +120,7 @@ const CTA = forwardRef<HTMLElement, CTAProps>((props, _ref) => {
       <span>{children}</span>
       {arrow && (
         <ArrowRight
-          className="h-4 w-4 shrink-0 transition-transform duration-standard ease-out-expo group-hover:translate-x-1"
+          className="h-3.5 w-3.5 shrink-0 transition-transform duration-standard ease-out-expo group-hover:translate-x-0.5"
           aria-hidden="true"
         />
       )}

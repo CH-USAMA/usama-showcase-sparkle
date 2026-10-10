@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePointerField";
+import { isBootRender } from "@/lib/boot";
 
 interface CountUpProps {
   /** Full display value, e.g. "5+" or "17". Non-digits are preserved. */
@@ -12,7 +13,13 @@ interface CountUpProps {
 function parse(value: string) {
   const match = value.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
   if (!match) return null;
-  return { prefix: match[1], target: parseFloat(match[2]), suffix: match[3] };
+  return {
+    prefix: match[1],
+    target: parseFloat(match[2]),
+    suffix: match[3],
+    // From the string, not the number: parseFloat("5.0") is 5, which printed "5".
+    decimals: match[2].split(".")[1]?.length ?? 0,
+  };
 }
 
 /**
@@ -37,7 +44,9 @@ const CountUp = ({ value, className = "", duration = 1200 }: CountUpProps) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const below = rect.top > window.innerHeight * 0.9;
+    // Replacing prerendered HTML: a figure the reader may already be looking
+    // at keeps its value; only ones wholly below the screen count up later.
+    const below = rect.top > window.innerHeight * (isBootRender() ? 1 : 0.9);
     if (below) {
       armed.current = true;
       setDisplay(`${parsed.prefix}0${parsed.suffix}`);
@@ -59,7 +68,7 @@ const CountUp = ({ value, className = "", duration = 1200 }: CountUpProps) => {
         io.disconnect();
 
         const start = performance.now();
-        const decimals = String(parsed.target).includes(".") ? 1 : 0;
+        const decimals = parsed.decimals;
         const tick = (now: number) => {
           const t = Math.min(1, (now - start) / duration);
           // easeOutExpo — fast, then settles. Matches the rest of the motion system.

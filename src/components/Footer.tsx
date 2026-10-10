@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Github, Linkedin, Mail, Rss, Twitter } from "lucide-react";
-import { OWNER, SOCIALS } from "@/data/site";
+import { ArrowRight, Github, Linkedin, Mail, MessageCircle, Rss, Twitter } from "lucide-react";
+import { OWNER, SOCIALS, WHATSAPP_URL } from "@/data/site";
 
 const SITEMAP = [
   { label: "Work", to: "/projects" },
   { label: "Services", to: "/services" },
   { label: "Blog", to: "/blog" },
-  { label: "Architecture call", to: "/book" },
+  { label: "Book a call", to: "/book" },
   { label: "Laravel scaling checklist", to: "/laravel-scaling-checklist" },
 ];
 
@@ -20,91 +20,126 @@ const SERVICES = [
 const SOCIAL_LINKS = [
   { href: SOCIALS.github, icon: Github, label: "GitHub" },
   { href: SOCIALS.linkedin, icon: Linkedin, label: "LinkedIn" },
-  { href: SOCIALS.x, icon: Twitter, label: "X" },
-  { href: `mailto:${OWNER.email}`, icon: Mail, label: "Email" },
+  { href: SOCIALS.x, icon: Twitter, label: "X / Twitter" },
+  { href: WHATSAPP_URL, icon: MessageCircle, label: "WhatsApp" },
 ];
 
+const linkCls =
+  "inline-flex min-h-[24px] items-center font-inter text-sm text-foreground/85 transition-colors duration-standard hover:text-primary";
+
+/**
+ * Footer: an oversized wordmark sinks behind a blurred row of social links,
+ * then four plain columns. The blur is the row's own backdrop-filter, so the
+ * wordmark softens exactly where the footer begins.
+ */
 const Footer = () => (
-  <footer className="relative border-t border-hairline/[0.08] bg-surface-1/30">
-    <div className="container mx-auto py-14 lg:py-16">
-      <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
-          <div className="font-inter text-lg font-medium tracking-tight text-foreground">
-            {OWNER.name}
-          </div>
-          <p className="mt-3 max-w-sm font-inter text-[13.5px] leading-relaxed text-muted-foreground">
-            Full-stack product engineer. React, React Native, Node.js, TypeScript,
-            and Laravel products, built to run in production.
-          </p>
-          <div className="mt-6 flex items-center gap-2">
-            {SOCIAL_LINKS.map((s) => {
-              const Icon = s.icon;
-              const external = s.href.startsWith("http");
-              return (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-hairline/[0.1] text-muted-foreground transition-colors duration-standard hover:border-primary/40 hover:text-primary"
-                >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                </a>
-              );
-            })}
-          </div>
-        </div>
+  <footer className="relative overflow-hidden">
+    <div aria-hidden="true" className="fx-wordmark pointer-events-none -mb-[0.1em] select-none text-center">
+      Usama<span className="text-primary">.</span>
+    </div>
 
-        <nav className="lg:col-span-3" aria-label="Site">
-          <h2 className="mono-tiny text-subtle">Site</h2>
-          <ul className="mt-5 space-y-2.5">
-            {SITEMAP.map((l) => (
-              <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className="inline-flex min-h-[24px] items-center font-inter text-[13.5px] text-muted-foreground transition-colors duration-standard hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    <div className="relative border-y border-hairline/[0.08] bg-background/40 backdrop-blur-2xl">
+      <ul className="container mx-auto grid grid-cols-2 lg:grid-cols-4">
+        {SOCIAL_LINKS.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <li
+              key={s.label}
+              className={`border-hairline/[0.08] ${i % 2 ? "border-l" : ""} ${i === 2 ? "lg:border-l" : ""} ${
+                i > 1 ? "border-t lg:border-t-0" : ""
+              }`}
+            >
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-16 items-center justify-between gap-3 px-4 font-inter text-sm text-foreground sm:px-6"
+              >
+                <span className="inline-flex items-center gap-2.5">
+                  <Icon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  {s.label}
+                </span>
+                <ArrowRight
+                  className="h-4 w-4 text-subtle transition-transform duration-standard group-hover:translate-x-1 group-hover:text-foreground"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
 
-        <nav className="lg:col-span-4" aria-label="Services">
-          <h2 className="mono-tiny text-subtle">Services</h2>
-          <ul className="mt-5 space-y-2.5">
-            {SERVICES.map((l) => (
-              <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className="inline-flex min-h-[24px] items-center font-inter text-[13.5px] text-muted-foreground transition-colors duration-standard hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+    {/* Same grid and cell padding as the social row, so the columns line up under it. */}
+    <div className="container mx-auto grid gap-y-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:py-16 [&>*]:px-4 sm:[&>*]:px-6">
+      <div>
+        <p className="font-inter text-sm text-subtle">About</p>
+        <p className="mt-4 max-w-xs font-inter text-sm leading-relaxed text-foreground/85">
+          {OWNER.name}. Full-stack product engineer building React, React Native, Node.js and Laravel
+          products that run in production.
+        </p>
       </div>
 
-      <div className="mt-12 flex flex-col-reverse items-start justify-between gap-4 border-t border-hairline/[0.07] pt-6 sm:flex-row sm:items-center">
-        <p className="mono-tiny text-subtle">
-          © {new Date().getFullYear()} {OWNER.name} · {OWNER.location}
+      <nav aria-label="Site">
+        <p className="font-inter text-sm text-subtle">Site</p>
+        <ul className="mt-4 space-y-2">
+          {SITEMAP.map((l) => (
+            <li key={l.to}>
+              <Link to={l.to} className={linkCls}>
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav aria-label="Services">
+        <p className="font-inter text-sm text-subtle">Services</p>
+        <ul className="mt-4 space-y-2">
+          {SERVICES.map((l) => (
+            <li key={l.to}>
+              <Link to={l.to} className={linkCls}>
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div>
+        <p className="font-inter text-sm text-subtle">Contact</p>
+        <ul className="mt-4 space-y-2 font-inter text-sm text-foreground/85">
+          <li>
+            <a href={`mailto:${OWNER.email}`} className={linkCls}>
+              <Mail className="mr-2 h-3.5 w-3.5 text-subtle" aria-hidden="true" />
+              {OWNER.email}
+            </a>
+          </li>
+          <li>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={linkCls}>
+              <MessageCircle className="mr-2 h-3.5 w-3.5 text-subtle" aria-hidden="true" />
+              {OWNER.phone}
+            </a>
+          </li>
+          <li>Based in {OWNER.location}</li>
+          <li className="text-muted-foreground">Working with clients worldwide</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="border-t border-hairline/[0.08]">
+      {/* Bottom padding (and right padding on wide screens) keeps these links
+          clear of the fixed "Ask my AI" launcher. */}
+      <div className="container mx-auto flex flex-col items-center justify-between gap-3 pb-24 pt-6 sm:flex-row sm:pb-6 sm:pr-56">
+        <p className="font-inter text-[13px] text-subtle">
+          © {new Date().getFullYear()} {OWNER.name}. All rights reserved.
         </p>
-        <div className="flex items-center gap-5">
-          <a
-            href="/rss.xml"
-            className="mono-tiny inline-flex min-h-[24px] items-center gap-1.5 text-subtle transition-colors duration-standard hover:text-muted-foreground"
-          >
-            <Rss className="h-3 w-3" aria-hidden="true" />
+        <div className="flex items-center gap-5 font-inter text-[13px] text-subtle">
+          <a href="/rss.xml" className="inline-flex min-h-[24px] items-center gap-1.5 hover:text-foreground">
+            <Rss className="h-3.5 w-3.5" aria-hidden="true" />
             RSS
           </a>
-          <a
-            href="/sitemap.xml"
-            className="mono-tiny inline-flex min-h-[24px] items-center text-subtle transition-colors duration-standard hover:text-muted-foreground"
-          >
+          <a href="/sitemap.xml" className="inline-flex min-h-[24px] items-center hover:text-foreground">
             Sitemap
           </a>
         </div>

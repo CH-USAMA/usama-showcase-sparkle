@@ -1,175 +1,139 @@
 import { lazy, Suspense } from "react";
 import { Download } from "lucide-react";
 import CTA from "@/components/system/CTA";
-import Telemetry from "@/components/system/Telemetry";
-import { useSpotlight } from "@/hooks/usePointerField";
+import SilkBackground from "@/components/fx/SilkBackground";
 import { trackEvent } from "@/lib/analytics";
+import { usePauseOffscreen } from "@/hooks/usePauseOffscreen";
+import { useEnter } from "@/lib/boot";
 import { CV_URL, CV_FILENAME } from "@/data/site";
 
 const SystemGraph = lazy(() => import("@/components/system/SystemGraph"));
+const diagramSpace = <div className="aspect-[380/560] w-full sm:aspect-[720/680]" aria-hidden="true" />;
 
-const READOUTS = [
-  { label: "Status", value: "Available for work", status: "on" as const },
-  { label: "Core stack", value: "React · Node · Laravel" },
-  { label: "Response", value: "Within 4 hours" },
-  { label: "Based in", value: "Lahore · UTC+5" },
-];
-
-/** Stagger helper — reads as a delay token rather than a magic number inline. */
-const delay = (ms: number) => ({ "--enter-delay": `${ms}ms` }) as React.CSSProperties;
+/** Left panel of the window: the stack, as an editor's layer list. */
+const LAYERS = ["Laravel", "Node.js", "React", "React Native", "Redis", "Asterisk", "LLMs · RAG", "n8n · MCP", "Docker"];
 
 /**
  * Hero.
  *
- * Two deliberate decisions here:
+ * Centred statement over moving light, then the work itself in a framed
+ * window that peeks above the fold: the system diagram beside a stack list,
+ * like an editor with its layers panel open.
  *
- * 1. The h1 is painted at full opacity on the first frame — no entrance fade.
- *    An opacity-0 element is not counted for LCP, so animating the headline in
- *    would mean hand-delaying the site's own largest paint.
- *
- * 2. Everything else enters via CSS animation rather than JS. Above-the-fold
- *    content that starts invisible and waits for a JS animation loop is blank
- *    if that loop is throttled — a background tab, a restored session. CSS
- *    entrance is compositor-driven and the browser guarantees its end state.
+ * The h1 is painted at full opacity on the first frame (it is the LCP
+ * element) and everything else enters by CSS, so a throttled JS loop can never
+ * leave the hero blank. The light streaks initialise in idle time.
  */
 const Hero = () => {
-  const spotlight = useSpotlight<HTMLElement>();
-
+  // The diagram runs ~24 infinite SVG animations; stop them once scrolled
+  // past, and after 12s on screen untouched (they wake on pointer or focus).
+  const windowRef = usePauseOffscreen<HTMLDivElement>(12_000);
+  // Stagger delays; on the first render over prerendered HTML they pick up
+  // where the prerendered hero's entrance had got to instead of replaying it.
+  const enter = useEnter();
   return (
-    <section
-      ref={spotlight}
-      className="relative isolate flex min-h-[min(100svh,850px)] items-center overflow-hidden bg-hero-gradient pb-20 pt-28 lg:pb-24 lg:pt-28"
-    >
-      {/* blueprint field, faded toward the edges so it never reads as tiling */}
-      <div className="grid-field mask-radial pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+  <section className="relative isolate overflow-hidden pb-16 pt-32 sm:pt-36 lg:pb-24 lg:pt-44">
+    <SilkBackground className="-z-10 h-[min(100svh,1000px)] [mask-image:linear-gradient(180deg,#000_70%,transparent)]" />
+    {/* keeps the headline on clean black while the strands run below it */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[min(100svh,1000px)]"
+      style={{ background: "radial-gradient(62% 52% at 50% 30%, hsl(var(--background)) 38%, transparent 80%)" }}
+    />
 
-      {/* cursor spotlight, writes CSS vars only, no React re-render */}
+    <div className="container relative mx-auto text-center">
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-0 [@media(pointer:fine)]:opacity-100"
-        style={{
-          background:
-            "radial-gradient(420px circle at var(--mx, 72%) var(--my, 28%), hsl(var(--primary) / 0.07), transparent 70%)",
-        }}
-      />
-
-      <div className="container relative mx-auto">
-        {/* minmax(0, ...) rather than bare fr. A bare `1fr` is `minmax(auto, 1fr)`,
-            so the columns respect their content's min-content width: when the
-            web fonts landed and the headline reflowed, the split moved, the
-            diagram column changed width, and because the diagram is a fixed
-            aspect ratio the whole row changed height. That was 0.13 of
-            cumulative layout shift. The visual ratio is unchanged. */}
-        <div className="hero-grid grid items-center gap-12 lg:gap-8 xl:gap-14">
-          {/* ---------------- left: the argument ---------------- */}
-          <div className="max-w-[36rem]">
-            <div className="enter flex flex-wrap items-center gap-x-3 gap-y-2" style={delay(40)}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-hairline/[0.1] bg-surface-1/70 px-3 py-1.5 backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary anim-status" aria-hidden="true" />
-                <span className="mono-tiny text-muted-foreground">
-                  <span className="sm:hidden">React · Node · Laravel</span>
-                  <span className="hidden sm:inline">
-                    React · React Native · Node.js · Laravel · TypeScript
-                  </span>
-                </span>
-              </span>
-            </div>
-
-            {/* LCP element: painted immediately, never faded in */}
-            <h1 className="type-display mt-7 text-foreground">
-              I ship websites &amp; apps,{" "}
-              <span className="relative whitespace-nowrap">
-                <span className="font-display italic text-gradient">built to last.</span>
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-0.5 left-0 h-px w-full bg-gradient-to-r from-primary/50 via-primary/15 to-transparent"
-                />
-              </span>
-            </h1>
-
-            <p
-              className="enter-lift type-lead mt-7 max-w-xl text-muted-foreground"
-              style={delay(140)}
-            >
-              I'm Usama Munawar. I build websites and digital products end to end:
-              React frontends, React Native apps, Node.js services, and Laravel backends
-              that work together in production.
-            </p>
-
-            <div
-              className="enter mt-9 flex flex-wrap items-center gap-3"
-              style={delay(220)}
-            >
-              <CTA
-                to="/book"
-                size="lg"
-                arrow
-                onClick={() => trackEvent("book_call_click", { location: "hero" })}
-              >
-                Book an Architecture Call
-              </CTA>
-              <CTA to="/projects" tone="ghost" size="lg">
-                View Selected Work
-              </CTA>
-              <a
-                href={CV_URL}
-                download={CV_FILENAME}
-                onClick={() => trackEvent("cv_download", { location: "hero" })}
-                className="group inline-flex items-center gap-2 px-1 py-2 font-inter text-sm text-muted-foreground transition-colors duration-standard hover:text-foreground"
-              >
-                <Download
-                  className="h-4 w-4 transition-transform duration-standard group-hover:translate-y-0.5"
-                  aria-hidden="true"
-                />
-                <span className="hover-underline">CV</span>
-              </a>
-            </div>
-
-            <div /* Stays on `enter`, not `enter-lift`. This block is not the LCP
-                 element, and its mono figures reflow when the webfont swaps in;
-                 the opacity fade covers that swap, which is worth 0.13 of CLS. */
-              className="enter mt-10 max-w-lg"
-              style={delay(320)}>
-              <Telemetry items={READOUTS} columns={2} />
-            </div>
-          </div>
-
-          {/* ---------------- right: the system ---------------- */}
-          <div
-            className="enter-soft relative mx-auto w-full max-w-[30rem] lg:max-w-none"
-            style={delay(160)}
-          >
-            {/* The reserved box must match SystemGraph's own 720/680 viewBox ratio.
-                It was aspect-square, so when the real diagram replaced it the
-                grid row lost ~40px, and because the hero is vertically centred
-                every element in the left column moved: 0.13 of cumulative
-                layout shift, attributed to the last block in that column. */}
-            <Suspense
-              fallback={<div className="aspect-[720/680] w-full" aria-hidden="true" />}
-            >
-              <SystemGraph />
-            </Suspense>
-          </div>
-        </div>
+        className="enter inline-flex items-center gap-2 rounded-full border border-hairline/[0.12] bg-surface-1/60 px-3.5 py-1.5 backdrop-blur-md"
+        {...enter(40)}
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_0_3px_hsl(152_60%_50%/0.2)]" aria-hidden="true" />
+        <span className="font-inter text-[13px] font-medium text-foreground">Available for new projects</span>
       </div>
 
-      {/* scroll cue */}
-      <div
-        className="enter pointer-events-none absolute inset-x-0 bottom-6 hidden justify-center lg:flex"
-        style={delay(900)}
-        aria-hidden="true"
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="mono-tiny text-subtle">Scroll</span>
-          <span className="block h-10 w-px overflow-hidden bg-hairline/[0.12]">
-            <span
-              className="block h-4 w-px bg-primary/80"
-              style={{ animation: "sweep-y 2.6s cubic-bezier(0.65,0,0.35,1) infinite" }}
-            />
+      {/* LCP element: painted immediately, never faded in */}
+      <h1 className="type-hero mx-auto mt-7 max-w-5xl text-foreground">
+        I ship websites &amp; apps <br className="hidden sm:block" />
+        <em>built to last.</em>
+      </h1>
+
+      <p className="enter-lift type-lead mx-auto mt-6 max-w-2xl text-muted-foreground" {...enter(140)}>
+        I'm Usama Munawar. I build websites and digital products end to end: React frontends, React
+        Native apps, Node.js services, and Laravel backends that work together in production.
+      </p>
+
+      <div className="enter mt-9 flex flex-wrap items-center justify-center gap-2.5" {...enter(220)}>
+        <CTA to="/book" size="lg" arrow onClick={() => trackEvent("book_call_click", { location: "hero" })}>
+          Book a free call
+        </CTA>
+        <CTA to="/projects" tone="ghost" size="lg">
+          See my work
+        </CTA>
+        <a
+          href={CV_URL}
+          download={CV_FILENAME}
+          onClick={() => trackEvent("cv_download", { location: "hero" })}
+          className="group inline-flex h-10 items-center gap-2 px-3 font-inter text-sm font-medium text-foreground/80 transition-colors duration-standard hover:text-foreground"
+        >
+          <Download className="h-4 w-4 transition-transform duration-standard group-hover:translate-y-0.5" aria-hidden="true" />
+          CV
+        </a>
+      </div>
+    </div>
+
+    {/* ---- the window ---- */}
+    <div ref={windowRef} className="enter-soft container relative mx-auto mt-16 lg:mt-20" {...enter(260)}>
+      <div className="fx-rim mx-auto max-w-6xl overflow-hidden rounded-2xl border border-hairline/[0.12] bg-surface-1/85 backdrop-blur-xl">
+        <div className="flex h-11 items-center justify-between gap-4 border-b border-hairline/[0.08] px-4">
+          <div className="flex gap-1.5" aria-hidden="true">
+            <span className="h-2.5 w-2.5 rounded-full bg-hairline/[0.16]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-hairline/[0.16]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-hairline/[0.16]" />
+          </div>
+          <span className="truncate font-mono text-[11.5px] text-subtle">usama / system.architecture</span>
+          <span className="inline-flex items-center gap-1.5 font-inter text-xs text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+            Live
           </span>
         </div>
+
+        <div className="grid lg:grid-cols-[12rem_minmax(0,1fr)]">
+          <aside className="hidden border-r border-hairline/[0.08] p-4 text-left lg:block" aria-label="Stack">
+            <p className="mono-tiny text-subtle">Stack</p>
+            <ul className="mt-3 space-y-0.5">
+              {LAYERS.map((l, i) => (
+                <li
+                  key={l}
+                  className={`flex items-center gap-2 rounded-md px-2 py-1.5 font-inter text-[13px] ${
+                    i === 0 ? "bg-surface-2 text-foreground" : "text-muted-foreground"
+                  }`}
+                >
+                  <span className={`h-1.5 w-1.5 rounded-sm ${i === 0 ? "bg-primary" : "bg-hairline/[0.25]"}`} aria-hidden="true" />
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </aside>
+
+          <div className="relative px-3 py-6 sm:px-8 lg:py-8">
+            <div className="mx-auto max-w-[46rem]">
+              {/* Reserve the diagram's own aspect ratio (it switches layouts at
+                  640px) so mounting the lazy chunk never shifts the page. The
+                  build-time render leaves it out: which layout fits is only
+                  known in the browser. */}
+              {import.meta.env.SSR ? (
+                diagramSpace
+              ) : (
+                <Suspense fallback={diagramSpace}>
+                  <SystemGraph />
+                </Suspense>
+              )}
+            </div>
+          </div>
+
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 

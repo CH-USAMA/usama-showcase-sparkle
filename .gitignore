@@ -27,8 +27,9 @@ dist-ssr
 .refact/
 .claude/
 
-# Env files. NOTE: .env itself is still tracked — see docs/audit-2026-09.md #15.
-# Untracking it requires the VITE_SUPABASE_* vars to exist in Vercel first,
-# or AIChatbot.tsx's CHAT_URL resolves to "undefined/functions/v1/chat".
+# Env files. .env is untracked — its VITE_SUPABASE_* values live in the Vercel
+# project settings (and are public client-side keys). Copy .env.example to .env
+# for local development.
 .env*
 !.env.example
+.vercel

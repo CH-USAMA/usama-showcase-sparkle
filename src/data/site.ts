@@ -1,4 +1,4 @@
-import { projectsData } from "@/data/projects";
+import contentMeta from "@/data/snapshot.meta.json";
 /**
  * Single source of truth for site-wide constants.
  *
@@ -54,14 +54,15 @@ export const SOCIALS = {
 export const METRICS = [
   {
     /**
-     * Derived from projects.ts rather than typed in. This tile used to read
+     * Derived from the published projects (cards and pages, the same set
+     * /projects lists) rather than typed in. This tile used to read
      * "180+ projects shipped", which nothing in the repository or on the
      * linked profiles substantiated: Upwork and Fiverr together publish 136
      * reviews, reviews are not projects, and there was no source for the
      * remainder. A number a reader can verify by counting the index is worth
      * more than a larger one they cannot.
      */
-    value: `${Object.keys(projectsData).length}`,
+    value: `${contentMeta.projectCount}`,
     label: "Systems documented",
     note: "Case studies and archive",
   },

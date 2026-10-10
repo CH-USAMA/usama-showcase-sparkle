@@ -3,9 +3,6 @@
 // SPA-aware tracking across the app.
 
 export const GA_MEASUREMENT_ID = "G-6JEYSR3YVV";
-export const GA_MEASUREMENT_ID_2 = "G-2ZHRMH3HLK";
-
-const GA_IDS = [GA_MEASUREMENT_ID, GA_MEASUREMENT_ID_2];
 
 type GtagFn = (...args: unknown[]) => void;
 
@@ -34,14 +31,11 @@ export const trackPageView = (path: string, title?: string) => {
   const page_location = window.location.origin + path + window.location.search;
   const page_title = title ?? document.title;
 
-  // Send page_view to both GA properties
-  GA_IDS.forEach((id) => {
-    window.gtag!("event", "page_view", {
-      page_path: path,
-      page_location,
-      page_title,
-      send_to: id,
-    });
+  window.gtag("event", "page_view", {
+    page_path: path,
+    page_location,
+    page_title,
+    send_to: GA_MEASUREMENT_ID,
   });
 };
 

@@ -1,41 +1,25 @@
-import type { CSSProperties } from "react";
-import { lazy, Suspense } from "react";
-import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { Suspense, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
-import CTA from "@/components/system/CTA";
-import { caseStudies } from "@/data/caseStudies";
-import { ProjectCard } from "@/components/CaseStudies";
-import { projectsData } from "@/data/projects";
+import WorkCard from "@/components/WorkCard";
+import { fromCaseStudy, fromProject } from "@/lib/content/workItems";
+import type { WorkItem } from "@/lib/content/workItems";
+import { snapshotCaseStudies, useProjects } from "@/lib/content/projects";
 import { SITE_URL } from "@/data/site";
-import { trackEvent } from "@/lib/analytics";
+import { useEnter } from "@/lib/boot";
+import { FinalCTA, Footer, TrackRecord } from "@/components/lazyParts";
 
-const Footer = lazy(() => import("@/components/Footer"));
+// The year-by-year log moved here from the home page: it is a record of the
+// work, so it belongs next to the work rather than in the sales path.
 
 /* ---------------------------------------------------------------------------
-   /projects — the case-study index.
+   /projects: every piece of work as one uniform grid, filterable by kind.
 
-   This page used to carry its own hard-coded project array with Unsplash stock
-   photography and its own id sequence, which did not match projects.ts. Cards
-   linked to /project/{id} using the local ids, so eight of them opened a
-   different project's detail page. Both problems disappear by reading the same
-   two canonical sources the rest of the site reads.
-
-   All written case studies share the homepage's visual card; the rest use the
-   existing project entries. Metrics appear only where caseStudies.ts has one.
+   Cards come from the projects table (see lib/content/projects): projects with
+   a card first, in their admin order, then projects that only have a page.
 --------------------------------------------------------------------------- */
-
-/** Detail pages already owned by a case study — not repeated in the archive. */
-const COVERED = new Set(
-  caseStudies
-    .map((c) => c.detailPath?.replace("/project/", ""))
-    .filter(Boolean)
-    .map(Number)
-);
-
-const archive = Object.values(projectsData).filter((p) => !COVERED.has(p.id));
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -48,7 +32,7 @@ const jsonLd = {
   inLanguage: "en",
   mainEntity: {
     "@type": "ItemList",
-    itemListElement: caseStudies.map((c, i) => ({
+    itemListElement: snapshotCaseStudies.map((c, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: c.title,
@@ -57,113 +41,121 @@ const jsonLd = {
   },
 };
 
-const Projects = () => (
-  <div className="min-h-screen bg-background">
-    <SEOHead
-      title="Websites, Apps & Systems I've Built | Usama Munawar"
-      description="Explore websites, apps and production systems shipped by Usama Munawar across React, React Native, Node.js, TypeScript, Laravel, AI and automation."
-      canonical={`${SITE_URL}/projects`}
-      jsonLd={jsonLd}
-    />
-    <Navbar />
+type Group = "all" | "web" | "platform" | "ai";
 
-    <main
-      id="main"
-      className="wash pb-24 pt-32 lg:pt-40"
-      style={{
-        "--hue": "var(--hue-ai)",
-        "--hue-2": "var(--hue-automation)",
-        "--wash-x": "78%",
-        "--wash-y": "0%",
-      } as CSSProperties}
-    >
-      <div className="container mx-auto">
-        {/* ---- header ---- */}
-        <Reveal>
-          <span className="mono-label text-hue">Selected systems</span>
-          <h1 className="type-h2 mt-6 max-w-3xl text-foreground">
-            Websites, apps &amp; systems I've shipped.
-          </h1>
-          <p className="type-lead measure mt-7 text-muted-foreground">
-            Real projects, from customer-facing websites to the infrastructure behind them.
-            Open a case study for the challenge, build and outcome.
-          </p>
-        </Reveal>
+const GROUPS: { id: Group; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "web", label: "Websites & commerce" },
+  { id: "platform", label: "Platforms & SaaS" },
+  { id: "ai", label: "AI & automation" },
+];
 
-        {/* ---- case studies ---- */}
-        <ul className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3 lg:mt-20 lg:gap-7">
-          {caseStudies.map((c, i) => (
-            <Reveal as="li" key={c.id} index={Math.min(i + 1, 4)}>
-              <ProjectCard study={c} />
-            </Reveal>
-          ))}
-        </ul>
+/** Grouped by the free-text category, so projects added in /admin sort themselves. */
+const groupOf = (category: string): Exclude<Group, "all"> =>
+  /\bai\b|automation|learning|agent|retrieval/i.test(category)
+    ? "ai"
+    : /enterprise|security|product|fintech|saas|voip|healthcare|platform/i.test(category)
+      ? "platform"
+      : "web";
 
-        {/* ---- archive ---- */}
-        {archive.length > 0 && (
-          <div className="mt-20 lg:mt-24">
-            <Reveal>
-              <div className="flex items-center gap-3">
-                <span className="mono-label text-hue">Archive</span>
+const Projects = () => {
+  const enter = useEnter();
+  const { caseStudies, archive } = useProjects();
+  const [params, setParams] = useSearchParams();
+  const raw = params.get("type");
+  const group: Group = GROUPS.find((g) => g.id === raw)?.id ?? "all";
+
+  const items = useMemo<(WorkItem & { group: Exclude<Group, "all"> })[]>(
+    () => [
+      ...caseStudies.map((c) => ({ ...fromCaseStudy(c), group: groupOf(c.category) })),
+      ...archive.map((p) => ({ ...fromProject(p), group: groupOf(p.category) })),
+    ],
+    [caseStudies, archive]
+  );
+
+  const shown = group === "all" ? items : items.filter((i) => i.group === group);
+  const count = (g: Group) => (g === "all" ? items.length : items.filter((i) => i.group === g).length);
+
+  const choose = (g: Group) => {
+    const next = new URLSearchParams(params);
+    if (g === "all") next.delete("type");
+    else next.set("type", g);
+    setParams(next, { replace: true, preventScrollReset: true });
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Websites, Apps & Systems I've Built | Usama Munawar"
+        description="Explore websites, apps and production systems shipped by Usama Munawar across React, React Native, Node.js, TypeScript, Laravel, AI and automation."
+        canonical={`${SITE_URL}/projects`}
+        jsonLd={jsonLd}
+      />
+      <Navbar />
+
+      <main id="main">
+        <section className="fx-glow-top relative pb-20 pt-36 lg:pt-44">
+          <div className="container mx-auto">
+            {/* The h1 is this page's LCP element: painted on the first frame, never
+                faded in by a JS observer. */}
+            <div className="text-center">
+              <h1 className="type-hero text-foreground">
+                Websites &amp; apps I&apos;ve <em>shipped</em>
+              </h1>
+              <p className="enter-lift type-lead mx-auto mt-6 max-w-2xl text-muted-foreground" {...enter()}>
+                Websites, apps and production systems I&apos;ve shipped, from customer-facing sites to
+                the infrastructure behind them. Open any one for the challenge, the build and the outcome.
+              </p>
+            </div>
+
+            <Reveal index={1}>
+              <div className="mt-10 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter projects">
+                {GROUPS.map((g) => {
+                  const on = g.id === group;
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => choose(g.id)}
+                      className={`inline-flex h-9 items-center gap-2 rounded-full border px-4 font-inter text-sm font-medium transition-colors duration-standard ${
+                        on
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-hairline/[0.12] text-muted-foreground hover:border-hairline/[0.3] hover:text-foreground"
+                      }`}
+                    >
+                      {g.label}
+                      <span className={`tabular-nums ${on ? "text-background/60" : "text-subtle"}`}>{count(g.id)}</span>
+                    </button>
+                  );
+                })}
               </div>
-              <h2 className="type-h3 mt-5 max-w-2xl text-foreground">
-                Shipped, without a written case study.
-              </h2>
             </Reveal>
 
-            <ul className="mt-9 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {archive.map((p, i) => (
-                <Reveal as="li" key={p.id} index={Math.min(i + 1, 4)}>
-                  <Link
-                    to={`/project/${p.id}`}
-                    className="project-card group flex h-full flex-col overflow-hidden rounded-lg border border-hairline/[0.12] bg-surface-1"
-                  >
-                    <span className="block overflow-hidden bg-surface-2"><img src={p.image} alt={`${p.title} project preview`} width={800} height={500} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover transition-transform duration-large group-hover:scale-[1.045]" /></span>
-                    <span className="flex flex-1 flex-col p-5">
-                      <span className="mono-tiny text-hue">{p.category}</span>
-                      <span className="mt-3 font-inter text-lg font-medium text-foreground">
-                        {p.title}
-                      </span>
-                      <span className="mt-2 line-clamp-3 font-inter text-sm leading-relaxed text-muted-foreground">
-                        {p.description}
-                      </span>
-                      <span className="mt-auto flex items-center gap-2 pt-5 font-inter text-sm text-hue">Explore project <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" /></span>
-                    </span>
-                  </Link>
+            <h2 className="sr-only">All projects</h2>
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+              {shown.map((item, i) => (
+                <Reveal as="li" key={item.key} index={Math.min(i % 3, 3)}>
+                  <WorkCard item={item} eager={i < 3} />
                 </Reveal>
               ))}
             </ul>
           </div>
-        )}
+        </section>
 
-        {/* ---- close: one action ---- */}
-        <Reveal>
-          <div className="mt-20 border-t border-hairline/[0.08] pt-14 lg:mt-24">
-            <h2 className="type-h3 max-w-xl text-foreground">
-              Recognise your system in one of these?
-            </h2>
-            <p className="type-lead mt-5 max-w-xl text-muted-foreground">
-              Bring the problem to a call and we will work out which layer it lives in.
-            </p>
-            <div className="mt-9">
-              <CTA
-                to="/book"
-                size="lg"
-                arrow
-                onClick={() => trackEvent("book_call_click", { location: "projects" })}
-              >
-                Book an Architecture Call
-              </CTA>
-            </div>
+        <Suspense fallback={<div className="py-24" />}>
+          <div className="border-t border-hairline/[0.08]">
+            <TrackRecord />
           </div>
-        </Reveal>
-      </div>
-    </main>
+          <FinalCTA location="projects" secondary={{ to: "/services", label: "Explore services" }} />
+        </Suspense>
+      </main>
 
-    <Suspense fallback={<div className="py-20" />}>
-      <Footer />
-    </Suspense>
-  </div>
-);
+      <Suspense fallback={<div className="py-20" />}>
+        <Footer />
+      </Suspense>
+    </div>
+  );
+};
 
 export default Projects;

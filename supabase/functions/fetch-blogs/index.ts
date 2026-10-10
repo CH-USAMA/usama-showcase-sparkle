@@ -76,11 +76,13 @@ function parseRSSItems(xml: string, category: string) {
         id: `auto-${slug}`,
         title: cleanTitle,
         slug,
-        excerpt: cleanExcerpt || `Explore the latest insights on ${cleanTitle.split(' ').slice(0, 5).join(' ')}, covering trends, practical applications, and what it means for developers and businesses.`,
+        // No invented excerpt: an empty one is better than template filler.
+        excerpt: cleanExcerpt,
         rawDescription: description,
         featured_image: images[imageIndex],
         published_at: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
-        author: 'Usama Munawar',
+        // Third-party content: credit the source, never the site owner.
+        author: (() => { try { return new URL(link).hostname.replace(/^www\./, ''); } catch { return 'External source'; } })(),
         tags: [category],
         source_url: link,
         is_auto: true,
