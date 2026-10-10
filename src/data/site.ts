@@ -22,6 +22,13 @@ export const WHATSAPP_URL =
 
 export const CALENDLY_URL = "https://calendly.com/usamaresume30/30min";
 
+/**
+ * Height of the booking card (CalendlyEmbed and its placeholder). At the
+ * card's 720 px width Calendly's page is about 698 px tall, and about 705 px
+ * in months with six week rows; a shorter frame shows a scrollbar in the card.
+ */
+export const CALENDLY_HEIGHT = 720;
+
 /** Served from /public — a real file, not a build-time asset reference. */
 export const CV_URL = "/usama-munawar-cv.pdf";
 export const CV_FILENAME = "Usama-Munawar-CV.pdf";

@@ -1,14 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import type { BlogPost } from "@/data/types";
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/supabasePublic";
-import snapshot from "@/data/snapshot.trending.json";
 
 const CACHE_KEY = "trending-blogs-cache";
-const CACHE_TTL = 1000 * 60 * 60; // 1 hour
+export const CACHE_TTL = 1000 * 60 * 60; // 1 hour
+/**
+ * Only complete answers are cached; a partial one (one of the function's two
+ * feeds failed) is used but not cached, so the next view asks again. The
+ * function says so with `partial`; the deployed version may predate that
+ * flag, and a complete answer from it had 10 posts.
+ */
+const FULL_ANSWER = 10;
 
 interface CachedData {
   posts: BlogPost[];
   timestamp: number;
+  /** Set on complete answers; older caches have no flag. */
+  complete?: boolean;
 }
 
 function getCached(): BlogPost[] | null {
@@ -16,14 +24,16 @@ function getCached(): BlogPost[] | null {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const cached: CachedData = JSON.parse(raw);
-    if (Date.now() - cached.timestamp < CACHE_TTL) return normalise(cached.posts);
+    const complete = cached.complete ?? cached.posts?.length >= FULL_ANSWER;
+    if (Date.now() - cached.timestamp < CACHE_TTL && complete) return normalise(cached.posts);
   } catch {
     /* Corrupt or unreadable cache: fall through and refetch. */
   }
   return null;
 }
 
-const fix = (v: string) => v.replace(/\s—\s/g, ", ").replace(/—/g, ", ");
+/** The site's copy carries no em dashes; text from the feed is cleaned to match. */
+export const cleanText = (v: string) => v.replace(/\s—\s/g, ", ").replace(/—/g, ", ");
 
 /**
  * Remote content is normalised before it renders. The site's own copy carries
@@ -33,15 +43,15 @@ const fix = (v: string) => v.replace(/\s—\s/g, ", ").replace(/—/g, ", ");
 function normalise(posts: BlogPost[]): BlogPost[] {
   return posts.map((p) => ({
     ...p,
-    title: typeof p.title === "string" ? fix(p.title) : p.title,
-    excerpt: typeof p.excerpt === "string" ? fix(p.excerpt) : p.excerpt,
-    content: typeof p.content === "string" ? fix(p.content) : p.content,
+    title: typeof p.title === "string" ? cleanText(p.title) : p.title,
+    excerpt: typeof p.excerpt === "string" ? cleanText(p.excerpt) : p.excerpt,
+    content: typeof p.content === "string" ? cleanText(p.content) : p.content,
   }));
 }
 
 function setCache(posts: BlogPost[]) {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, timestamp: Date.now() }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ posts, timestamp: Date.now(), complete: true }));
   } catch {
     /* Caching is an optimisation; failing to write it must not break the page. */
   }
@@ -52,7 +62,7 @@ function setCache(posts: BlogPost[]) {
  * supabase.functions.invoke, which made the whole supabase-js client (~60 kB
  * gzipped) a static dependency of both blog routes for one GET.
  */
-async function invokeFetchBlogs(): Promise<{ success?: boolean; posts?: BlogPost[] } | null> {
+async function invokeFetchBlogs(): Promise<{ success?: boolean; partial?: boolean; posts?: BlogPost[] } | null> {
   const res = await fetch(`${SUPABASE_URL}/functions/v1/fetch-blogs`, {
     method: "POST",
     headers: { "content-type": "application/json", apikey: SUPABASE_ANON_KEY, authorization: `Bearer ${SUPABASE_ANON_KEY}` },
@@ -63,7 +73,7 @@ async function invokeFetchBlogs(): Promise<{ success?: boolean; posts?: BlogPost
 }
 
 /** This browser's cached copy, else the edge function; null when neither has posts. */
-async function loadTrending(): Promise<BlogPost[] | null> {
+export async function loadTrending(): Promise<BlogPost[] | null> {
   const cached = getCached();
   if (cached) return cached;
 
@@ -71,7 +81,8 @@ async function loadTrending(): Promise<BlogPost[] | null> {
     const data = await invokeFetchBlogs();
     if (!data?.success || !data.posts?.length) return null;
     const posts = normalise(data.posts);
-    setCache(posts);
+    const complete = data.partial === false || (data.partial === undefined && posts.length >= FULL_ANSWER);
+    if (complete) setCache(posts);
     return posts;
   } catch {
     return null;
@@ -88,38 +99,3 @@ export const useTrendingBlogs = () => {
   });
 };
 
-/** What the /blog reading list shows of each curated link. */
-export type TrendingLink = Pick<BlogPost, "id" | "slug" | "title" | "source_url" | "published_at" | "tags">;
-
-const toLink = ({ id, slug, title, source_url, published_at, tags }: BlogPost): TrendingLink => ({
-  id,
-  slug,
-  title,
-  source_url,
-  published_at,
-  tags: Array.isArray(tags) ? tags : [],
-});
-
-// Typed here so an empty copy (links: []) still type-checks.
-const built: { generatedAt: string; links: TrendingLink[] } = snapshot;
-
-/**
- * The /blog reading list. It starts from the copy taken at build time
- * (scripts/sync-content.ts), so it renders with the page instead of arriving
- * seconds later and pushing the newsletter block down. Once that copy is an
- * hour old the browser refreshes it; a failed or empty refresh keeps the list.
- */
-export const useTrendingLinks = () => {
-  return useQuery<TrendingLink[]>({
-    queryKey: ["trending-links"],
-    queryFn: async () => {
-      const posts = await loadTrending();
-      if (!posts) throw new Error("reading list unavailable");
-      return posts.map(toLink);
-    },
-    initialData: () => built.links.map((l) => ({ ...l, title: fix(l.title) })),
-    initialDataUpdatedAt: Date.parse(built.generatedAt) || 0,
-    staleTime: CACHE_TTL,
-    retry: 1,
-  });
-};

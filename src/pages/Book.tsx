@@ -5,12 +5,12 @@ import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
+import CalendarPlaceholder from "@/components/CalendarPlaceholder";
 import { SITE_URL } from "@/data/site";
 import { useEnter } from "@/lib/boot";
 
 const CalendlyEmbed = lazy(() => import("@/components/CalendlyEmbed"));
-// Same box as CalendlyEmbed's card, so nothing moves when the calendar loads.
-const calendarSpace = <div className="mx-auto h-[720px] w-full max-w-[720px] rounded-xl bg-white" aria-hidden="true" />;
+const calendarSpace = <CalendarPlaceholder />;
 
 /* ---------------------------------------------------------------------------
    /book — the destination of the site's one primary action.
@@ -266,7 +266,7 @@ const Book = () => {
                 calendarSpace
               ) : (
                 <Suspense fallback={calendarSpace}>
-                  <CalendlyEmbed height={720} lazy={false} />
+                  <CalendlyEmbed lazy={false} />
                 </Suspense>
               )}
             </div>

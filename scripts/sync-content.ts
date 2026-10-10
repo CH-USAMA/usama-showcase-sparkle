@@ -21,6 +21,7 @@ import { db } from "../api/_lib/db";
 import { toPost, toProject } from "../api/_lib/rows";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
 import { DEFAULT_SUPABASE_ANON_KEY, DEFAULT_SUPABASE_URL } from "../src/lib/supabaseDefaults";
+import { READING_LIST_SIZE, usableLinks } from "../src/lib/readingList";
 
 loadEnv();
 
@@ -34,6 +35,16 @@ const TRENDING_FILE = "src/data/snapshot.trending.json";
  * starting the dev server does not change the working tree. A slow or failed
  * fetch keeps the previous copy too.
  */
+/** Links in the current copy (0 when there is none). */
+function previousLinkCount(): number {
+  try {
+    const prev = JSON.parse(readFileSync(TRENDING_FILE, "utf8")) as { links?: unknown[] };
+    return Array.isArray(prev.links) ? prev.links.length : 0;
+  } catch {
+    return 0;
+  }
+}
+
 async function syncTrending(): Promise<string> {
   const refresh = Boolean(process.env.VERCEL) || process.argv.includes("--trending") || !existsSync(TRENDING_FILE);
   if (!refresh) return "kept the committed copy";
@@ -48,19 +59,29 @@ async function syncTrending(): Promise<string> {
       signal: AbortSignal.timeout(20_000),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = (await res.json()) as { success?: boolean; posts?: BlogPost[] };
-    const links = (data.posts ?? [])
-      .filter((p) => typeof p.title === "string" && typeof p.source_url === "string")
-      .map(({ id, slug, title, source_url, published_at, tags }) => ({
+    const data = (await res.json()) as { success?: boolean; partial?: boolean; posts?: BlogPost[] };
+    const links = usableLinks(
+      (data.posts ?? []).map(({ id, slug, title, source_url, published_at, tags }) => ({
         id,
         slug,
         title,
         source_url,
         published_at,
         tags: Array.isArray(tags) ? tags : [],
-      }));
+      }))
+    );
     if (!data.success || links.length === 0) throw new Error("the feed returned no links");
-    write(TRENDING_FILE, { generatedAt: new Date().toISOString(), links });
+    // An answer that would show fewer rows than the current copy (one of the
+    // function's two feeds failed) does not replace it: /blog would ship short
+    // and grow under readers once browsers refresh it. The same rule as
+    // useTrendingLinks; the kept copy's old stamp makes browsers refresh soon.
+    const rows = (n: number) => Math.min(READING_LIST_SIZE, n);
+    if (rows(links.length) < rows(previousLinkCount())) {
+      throw new Error(`${data.partial ? "a partial answer" : "an answer"} with ${links.length} links`);
+    }
+    // Always the fetch time (not write()'s "unchanged keeps the old stamp"):
+    // browsers refresh the list once this copy is an hour old.
+    writeFileSync(TRENDING_FILE, JSON.stringify({ generatedAt: new Date().toISOString(), links }, null, 1));
     return `${links.length} links from the feed`;
   } catch (e) {
     if (!existsSync(TRENDING_FILE)) write(TRENDING_FILE, { generatedAt: new Date(0).toISOString(), links: [] });
@@ -69,6 +90,12 @@ async function syncTrending(): Promise<string> {
 }
 // Runs alongside the database queries.
 const trending = syncTrending();
+
+/** Exits once the reading list is settled, so an early exit cannot cut it short. */
+async function exit(code: number): Promise<never> {
+  console.log(`content: reading list: ${await trending}`);
+  process.exit(code);
+}
 
 const strip = <T extends { status?: unknown }>({ status: _s, ...rest }: T) => rest;
 
@@ -95,11 +122,11 @@ if (process.env.TURSO_DATABASE_URL) {
   } catch (e) {
     if (!process.env.CONTENT_ALLOW_STALE) {
       console.error("content: could not read the database:", (e as Error).message);
-      process.exit(1);
+      await exit(1);
     }
     // Keep the last good snapshot rather than regressing to the seed files.
     console.warn("content: database unreachable, CONTENT_ALLOW_STALE set; keeping the existing snapshot");
-    if (existsSync("src/data/snapshot.posts.json") && existsSync("src/data/snapshot.projects.json")) process.exit(0);
+    if (existsSync("src/data/snapshot.posts.json") && existsSync("src/data/snapshot.projects.json")) await exit(0);
     posts = seedPosts().map(strip);
     projects = seedProjects();
     source = "seed";
