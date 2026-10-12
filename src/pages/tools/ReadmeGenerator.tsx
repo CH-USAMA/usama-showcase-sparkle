@@ -3,15 +3,15 @@ import { Download } from "lucide-react";
 import ToolPage from "@/components/tools/ToolPage";
 import CopyButton from "@/components/CopyButton";
 import { Check, Choices, Field, fieldCls } from "@/components/tools/fields";
-import { getTool } from "@/data/tools";
+import { useToolsText } from "@/i18n/tools";
 import {
   LICENSES,
   PROFILE_DEFAULTS,
-  PROJECT_DEFAULTS,
   SKILLS,
   STATS_THEMES,
   buildProfile,
   buildProject,
+  projectDefaults,
   type ProfileForm,
   type ProjectForm,
 } from "@/data/tools/readmeGenerator";
@@ -20,13 +20,11 @@ import { trackEvent } from "@/lib/analytics";
 // Only loaded when the reader opens the Preview tab, never in the first render.
 const Markdown = lazy(() => import("@/components/Markdown"));
 
-const tool = getTool("readme-generator")!;
-
 type Mode = "profile" | "project";
 type View = "markdown" | "preview";
 
-const SkillPicker = ({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) => (
-  <div role="group" aria-label="Skills" className="flex flex-wrap gap-1.5">
+const SkillPicker = ({ value, onChange, label }: { value: string[]; onChange: (v: string[]) => void; label: string }) => (
+  <div role="group" aria-label={label} className="flex flex-wrap gap-1.5" dir="ltr">
     {SKILLS.map((s) => {
       const on = value.includes(s.id);
       return (
@@ -49,14 +47,16 @@ const SkillPicker = ({ value, onChange }: { value: string[]; onChange: (v: strin
 const Row = ({ children }: { children: ReactNode }) => <div className="grid gap-5 sm:grid-cols-2">{children}</div>;
 
 const ReadmeGenerator = () => {
+  const { locale, t: all } = useToolsText();
+  const t = all.readme;
   const [mode, setMode] = useState<Mode>("profile");
   const [view, setView] = useState<View>("markdown");
   const [profile, setProfile] = useState<ProfileForm>(PROFILE_DEFAULTS);
-  const [project, setProject] = useState<ProjectForm>(PROJECT_DEFAULTS);
+  const [project, setProject] = useState<ProjectForm>(() => projectDefaults(t));
   const p = <K extends keyof ProfileForm>(k: K) => (v: ProfileForm[K]) => setProfile((f) => ({ ...f, [k]: v }));
   const j = <K extends keyof ProjectForm>(k: K) => (v: ProjectForm[K]) => setProject((f) => ({ ...f, [k]: v }));
 
-  const markdown = useMemo(() => (mode === "profile" ? buildProfile(profile) : buildProject(project)), [mode, profile, project]);
+  const markdown = useMemo(() => (mode === "profile" ? buildProfile(profile, t.out) : buildProject(project, t.out)), [mode, profile, project, t]);
 
   const download = () => {
     const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
@@ -65,35 +65,38 @@ const ReadmeGenerator = () => {
     a.download = "README.md";
     a.click();
     window.setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    trackEvent("readme_download", { mode });
+    trackEvent("readme_download", { mode, locale });
   };
 
-  const text = (id: string, label: string, value: string, onChange: (v: string) => void, placeholder: string, hint?: string) => (
+  /** A text field from a [label, placeholder] pair. Links, handles and code stay left to right. */
+  const text = (id: string, [label, placeholder]: string[], value: string, onChange: (v: string) => void, hint?: string, ltr = false) => (
     <Field id={id} label={label} hint={hint}>
-      <input id={id} className={fieldCls} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />
+      <input id={id} dir={ltr ? "ltr" : undefined} className={fieldCls} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />
     </Field>
   );
-  const area = (id: string, label: string, value: string, onChange: (v: string) => void, placeholder: string, hint?: string, rows = 3) => (
+  const area = (id: string, [label, placeholder]: string[], value: string, onChange: (v: string) => void, hint?: string, rows = 3, ltr = false) => (
     <Field id={id} label={label} hint={hint}>
-      <textarea id={id} rows={rows} className={`${fieldCls} font-mono text-[13px]`} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />
+      <textarea
+        id={id}
+        rows={rows}
+        dir={ltr ? "ltr" : undefined}
+        className={`${fieldCls} font-mono text-[13px]`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+      />
     </Field>
   );
+  const pf = t.profile;
+  const pj = t.project;
 
   return (
-    <ToolPage
-      tool={tool}
-      next={{
-        title: "Need the project behind the README?",
-        text: "I build web and mobile products from idea to launch, with clean code and documentation you can hand to the next developer.",
-        to: "/services/mvp-development",
-        label: "Idea to launch",
-      }}
-    >
+    <ToolPage slug="readme-generator">
       <Choices<Mode>
-        label="README type"
+        label={t.modeGroup}
         options={[
-          { value: "profile", label: "Profile README" },
-          { value: "project", label: "Project README" },
+          { value: "profile", label: t.modes.profile },
+          { value: "project", label: t.modes.project },
         ]}
         value={mode}
         onChange={setMode}
@@ -105,28 +108,28 @@ const ReadmeGenerator = () => {
           {mode === "profile" ? (
             <>
               <Row>
-                {text("rg-name", "Your name", profile.name, p("name"), "e.g. Sara Khan")}
-                {text("rg-user", "GitHub username", profile.username, p("username"), "e.g. sarakhan", "Needed for the stats cards.")}
+                {text("rg-name", pf.name, profile.name, p("name"))}
+                {text("rg-user", pf.username, profile.username, p("username"), pf.usernameHint, true)}
               </Row>
-              {text("rg-headline", "Headline", profile.headline, p("headline"), "e.g. Full-stack developer building tools for small businesses")}
-              {area("rg-about", "About you", profile.about, p("about"), "Two or three sentences: what you do and what you care about.")}
+              {text("rg-headline", pf.headline, profile.headline, p("headline"))}
+              {area("rg-about", pf.about, profile.about, p("about"))}
               <Row>
-                {text("rg-working", "Currently working on", profile.working, p("working"), "e.g. an open-source invoicing app")}
-                {text("rg-learning", "Learning", profile.learning, p("learning"), "e.g. Rust and system design")}
-                {text("rg-ask", "Ask me about", profile.askMe, p("askMe"), "e.g. React, APIs, freelancing")}
-                {text("rg-location", "Location", profile.location, p("location"), "e.g. Lahore, Pakistan")}
+                {text("rg-working", pf.working, profile.working, p("working"))}
+                {text("rg-learning", pf.learning, profile.learning, p("learning"))}
+                {text("rg-ask", pf.askMe, profile.askMe, p("askMe"))}
+                {text("rg-location", pf.location, profile.location, p("location"))}
               </Row>
               <div>
-                <p className="font-inter text-sm font-medium text-foreground">Tech stack</p>
+                <p className="font-inter text-sm font-medium text-foreground">{pf.stackLabel}</p>
                 <div className="mt-2">
-                  <SkillPicker value={profile.skills} onChange={p("skills")} />
+                  <SkillPicker value={profile.skills} onChange={p("skills")} label={pf.skillsGroup} />
                 </div>
                 <div className="mt-3">
                   <Choices<"dark" | "light">
-                    label="Icon style"
+                    label={pf.iconGroup}
                     options={[
-                      { value: "dark", label: "Dark icons" },
-                      { value: "light", label: "Light icons" },
+                      { value: "dark", label: pf.iconDark },
+                      { value: "light", label: pf.iconLight },
                     ]}
                     value={profile.iconTheme}
                     onChange={p("iconTheme")}
@@ -134,75 +137,75 @@ const ReadmeGenerator = () => {
                 </div>
               </div>
               <fieldset>
-                <legend className="font-inter text-sm font-medium text-foreground">GitHub cards</legend>
+                <legend className="font-inter text-sm font-medium text-foreground">{pf.cardsLegend}</legend>
                 <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-                  <Check id="rg-stats" checked={profile.stats} onChange={p("stats")}>Stats card</Check>
-                  <Check id="rg-langs" checked={profile.topLangs} onChange={p("topLangs")}>Top languages</Check>
-                  <Check id="rg-views" checked={profile.views} onChange={p("views")}>Profile views counter</Check>
+                  <Check id="rg-stats" checked={profile.stats} onChange={p("stats")}>{pf.stats}</Check>
+                  <Check id="rg-langs" checked={profile.topLangs} onChange={p("topLangs")}>{pf.topLangs}</Check>
+                  <Check id="rg-views" checked={profile.views} onChange={p("views")}>{pf.views}</Check>
                 </div>
                 <div className="mt-3 max-w-xs">
-                  <label htmlFor="rg-theme" className="sr-only">Card theme</label>
+                  <label htmlFor="rg-theme" className="sr-only">{pf.cardThemeLabel}</label>
                   <select id="rg-theme" className={fieldCls} value={profile.statsTheme} onChange={(e) => p("statsTheme")(e.target.value)}>
-                    {STATS_THEMES.map((t) => (
-                      <option key={t.value} value={t.value}>
-                        Card theme: {t.label}
+                    {STATS_THEMES.map((id) => (
+                      <option key={id} value={id}>
+                        {pf.cardTheme(pf.themes[id])}
                       </option>
                     ))}
                   </select>
                 </div>
               </fieldset>
               <Row>
-                {text("rg-linkedin", "LinkedIn", profile.linkedin, p("linkedin"), "linkedin.com/in/…")}
-                {text("rg-x", "X / Twitter", profile.x, p("x"), "x.com/…")}
-                {text("rg-site", "Website", profile.website, p("website"), "yoursite.com")}
-                {text("rg-email", "Email", profile.email, p("email"), "you@example.com")}
+                {text("rg-linkedin", pf.linkedin, profile.linkedin, p("linkedin"), undefined, true)}
+                {text("rg-x", pf.x, profile.x, p("x"), undefined, true)}
+                {text("rg-site", pf.website, profile.website, p("website"), undefined, true)}
+                {text("rg-email", pf.email, profile.email, p("email"), undefined, true)}
               </Row>
               <Check id="rg-credit" checked={profile.credit} onChange={p("credit")}>
-                Add a small “made with” link at the end
+                {t.credit}
               </Check>
             </>
           ) : (
             <>
               <Row>
-                {text("rj-name", "Project name", project.name, j("name"), "e.g. Invoicely")}
-                {text("rj-tagline", "One-line description", project.tagline, j("tagline"), "e.g. Simple invoicing for freelancers")}
+                {text("rj-name", pj.name, project.name, j("name"))}
+                {text("rj-tagline", pj.tagline, project.tagline, j("tagline"))}
               </Row>
-              {area("rj-desc", "What it does", project.description, j("description"), "A short paragraph: the problem it solves and who it is for.")}
+              {area("rj-desc", pj.description, project.description, j("description"))}
               <Row>
-                {text("rj-demo", "Live demo URL", project.demo, j("demo"), "https://…")}
-                {text("rj-shot", "Screenshot URL", project.screenshot, j("screenshot"), "https://… or docs/screenshot.png")}
+                {text("rj-demo", pj.demo, project.demo, j("demo"), undefined, true)}
+                {text("rj-shot", pj.screenshot, project.screenshot, j("screenshot"), undefined, true)}
               </Row>
-              {area("rj-features", "Features", project.features, j("features"), "One per line", "One feature per line.", 4)}
+              {area("rj-features", pj.features, project.features, j("features"), pj.featuresHint, 4)}
               <div>
-                <p className="font-inter text-sm font-medium text-foreground">Tech stack</p>
+                <p className="font-inter text-sm font-medium text-foreground">{pj.stackLabel}</p>
                 <div className="mt-2">
-                  <SkillPicker value={project.skills} onChange={j("skills")} />
+                  <SkillPicker value={project.skills} onChange={j("skills")} label={pf.skillsGroup} />
                 </div>
               </div>
-              {area("rj-prereq", "Prerequisites", project.prerequisites, j("prerequisites"), "One per line")}
-              {area("rj-install", "Installation commands", project.install, j("install"), "git clone …", undefined, 5)}
-              {area("rj-usage", "Usage", project.usage, j("usage"), "How to use it once it runs. Markdown is fine.")}
-              {area("rj-env", "Environment variables", project.env, j("env"), "KEY=What it is for", "One per line, as KEY=description.")}
+              {area("rj-prereq", pj.prerequisites, project.prerequisites, j("prerequisites"))}
+              {area("rj-install", pj.install, project.install, j("install"), undefined, 5, true)}
+              {area("rj-usage", pj.usage, project.usage, j("usage"))}
+              {area("rj-env", pj.env, project.env, j("env"), pj.envHint)}
               <Row>
-                <Field id="rj-license" label="License">
+                <Field id="rj-license" label={pj.license}>
                   <select id="rj-license" className={fieldCls} value={project.license} onChange={(e) => j("license")(e.target.value)}>
                     {LICENSES.map((l) => (
                       <option key={l} value={l}>
                         {l}
                       </option>
                     ))}
-                    <option value="">No license section</option>
+                    <option value="">{pj.noLicense}</option>
                   </select>
                 </Field>
                 <div className="space-y-2.5 sm:pt-7">
-                  <Check id="rj-toc" checked={project.toc} onChange={j("toc")}>Table of contents</Check>
-                  <Check id="rj-contrib" checked={project.contributing} onChange={j("contributing")}>Contributing section</Check>
+                  <Check id="rj-toc" checked={project.toc} onChange={j("toc")}>{pj.toc}</Check>
+                  <Check id="rj-contrib" checked={project.contributing} onChange={j("contributing")}>{pj.contributing}</Check>
                 </div>
-                {text("rj-author", "Author", project.author, j("author"), "e.g. Sara Khan")}
-                {text("rj-author-user", "Author's GitHub username", project.authorUsername, j("authorUsername"), "e.g. sarakhan")}
+                {text("rj-author", pj.author, project.author, j("author"))}
+                {text("rj-author-user", pj.authorUsername, project.authorUsername, j("authorUsername"), undefined, true)}
               </Row>
               <Check id="rj-credit" checked={project.credit} onChange={j("credit")}>
-                Add a small “made with” link at the end
+                {t.credit}
               </Check>
             </>
           )}
@@ -212,10 +215,10 @@ const ReadmeGenerator = () => {
         <div className="card-surface min-w-0 p-5 sm:p-6 lg:sticky lg:top-28">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Choices<View>
-              label="Output view"
+              label={t.viewGroup}
               options={[
-                { value: "markdown", label: "Markdown" },
-                { value: "preview", label: "Preview" },
+                { value: "markdown", label: t.views.markdown },
+                { value: "preview", label: t.views.preview },
               ]}
               value={view}
               onChange={setView}
@@ -229,29 +232,28 @@ const ReadmeGenerator = () => {
                 <Download className="h-3.5 w-3.5" aria-hidden="true" />
                 README.md
               </button>
-              <CopyButton text={markdown} label="Copy the Markdown" event="readme_copy">
-                Copy
+              <CopyButton text={markdown} label={t.copyLabel} event="readme_copy" copiedText={all.common.copied}>
+                {all.common.copy}
               </CopyButton>
             </div>
           </div>
 
           {view === "markdown" ? (
-            <pre className="mt-4 max-h-[36rem] overflow-auto whitespace-pre-wrap break-words rounded-lg bg-surface-2 p-4 font-mono text-[12.5px] leading-relaxed text-foreground">
+            <pre
+              dir="auto"
+              className="mt-4 max-h-[36rem] overflow-auto whitespace-pre-wrap break-words rounded-lg bg-surface-2 p-4 font-mono text-[12.5px] leading-relaxed text-foreground"
+            >
               {markdown}
             </pre>
           ) : (
             <div className="mt-4 max-h-[36rem] overflow-auto rounded-lg border border-hairline/[0.1] bg-background p-5 [&_img]:my-1 [&_img]:inline-block [&_img]:rounded-none [&_img]:border-0">
-              <Suspense fallback={<p className="font-inter text-sm text-subtle">Loading preview…</p>}>
+              <Suspense fallback={<p className="font-inter text-sm text-subtle">{t.loadingPreview}</p>}>
                 <Markdown className="!prose-base">{markdown}</Markdown>
               </Suspense>
             </div>
           )}
 
-          <p className="mt-4 font-inter text-xs leading-relaxed text-subtle">
-            {mode === "profile"
-              ? "To show it on your profile: create a public repository named exactly like your username, add a README.md, and paste this in."
-              : "Save it as README.md in the root of your repository. GitHub shows it on the repository's front page."}
-          </p>
+          <p className="mt-4 font-inter text-xs leading-relaxed text-subtle">{mode === "profile" ? t.howToProfile : t.howToProject}</p>
         </div>
       </div>
     </ToolPage>

@@ -2,7 +2,8 @@
  * Standard pay-as-you-go text prices, USD per 1M tokens, read from each
  * provider's official pricing page on PRICES_CHECKED. Update the date with
  * the numbers. Cache-write charges, fast/priority tiers and tool fees are
- * left out on purpose; the page says so.
+ * left out on purpose; the page says so. Notes about a model (preview,
+ * announced price changes) are in each language's text, under cost.notes.
  */
 
 export const PRICES_CHECKED = "2026-10-12";
@@ -21,7 +22,6 @@ export interface ModelPrice extends Rate {
   provider: Provider;
   /** Higher rates for every token once a request's prompt is longer than `above` tokens. */
   long?: Rate & { above: number };
-  note?: string;
 }
 
 /** All three providers price batch jobs at half the standard rate. */
@@ -81,7 +81,6 @@ export const MODELS: ModelPrice[] = [
     cached: 0.2,
     output: 12,
     long: { above: 200_000, input: 4, cached: 0.4, output: 18 },
-    note: "Preview model; context caching also charges for storage time.",
   },
   {
     id: "gemini-3.8-flash",
@@ -90,7 +89,6 @@ export const MODELS: ModelPrice[] = [
     input: 0.75,
     cached: 0.075,
     output: 3.75,
-    note: "Google lists double these prices from 1 January 2027.",
   },
   { id: "gemini-3.5-flash-lite", name: "Gemini 3.5 Flash-Lite", provider: "Google", input: 0.3, cached: 0.03, output: 2.5 },
   { id: "gemini-3.1-flash-lite", name: "Gemini 3.1 Flash-Lite", provider: "Google", input: 0.25, cached: 0.025, output: 1.5 },

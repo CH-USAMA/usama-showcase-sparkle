@@ -1190,3 +1190,23 @@ main:focus {
   50% { transform: translateY(-5px); }
 }
 .mascot-float { animation: mascot-float 4.5s ease-in-out infinite; }
+
+/* ============================================================================
+   ARABIC (/ar/tools): Arabic letters join, so the site's negative tracking
+   would break words apart; it is reset here, with a little more line height
+   for the taller script. Inter has no Arabic glyphs, so the system's Arabic
+   font draws them.
+   ========================================================================= */
+[lang="ar"],
+[lang="ar"] * {
+  letter-spacing: normal !important;
+}
+[lang="ar"] .type-display { line-height: 1.25; }
+[lang="ar"] .type-lead,
+[lang="ar"] .type-body { line-height: 1.8; }
+/* The code font has no Arabic letters: Arabic text set in it (the generated
+   prompt, plan and README) uses the system font instead. Fields marked
+   dir="ltr" (commands, usernames, links) keep the code font. */
+[lang="ar"] .font-mono:not([dir="ltr"]) {
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+}

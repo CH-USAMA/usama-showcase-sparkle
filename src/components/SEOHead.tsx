@@ -12,6 +12,8 @@ interface SEOHeadProps {
   ogType?: string;
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** The same page in other languages, for hreflang (include this page's own language too). */
+  alternates?: { hrefLang: string; href: string }[];
 }
 
 const BASE_URL = "https://www.chaudharyusama.com";
@@ -26,6 +28,7 @@ const SEOHead = ({
   ogType = "website",
   noindex = false,
   jsonLd,
+  alternates = [],
 }: SEOHeadProps) => {
   // Whole sentences or words, never cut mid-word in a result snippet.
   const description = fitDescription(rawDescription);
@@ -44,6 +47,9 @@ const SEOHead = ({
       <meta name="description" content={description} />
       <meta name="robots" content={robots} />
       {canonical !== null && <link rel="canonical" href={url} />}
+      {alternates.map((a) => (
+        <link key={a.hrefLang} rel="alternate" hrefLang={a.hrefLang} href={a.href} />
+      ))}
 
       <meta property="og:title" content={shareTitle || title} />
       <meta property="og:description" content={description} />

@@ -1,29 +1,23 @@
 import { useMemo, useState } from "react";
 import ToolPage from "@/components/tools/ToolPage";
 import { Check, Choices, Field, fieldCls, inlineFieldCls } from "@/components/tools/fields";
-import { getTool } from "@/data/tools";
+import { useToolsText } from "@/i18n/tools";
 import { MODELS, PRICES_CHECKED, SOURCES, costOf, type Provider } from "@/data/tools/aiPricing";
-
-const tool = getTool("ai-cost-calculator")!;
 
 type Period = "day" | "month";
 type PresetId = "chatbot" | "summaries" | "writing" | "classify";
 
-const PRESETS: { id: PresetId; label: string; requests: number; period: Period; input: number; output: number; cached: number }[] = [
-  { id: "chatbot", label: "Support chatbot", requests: 1000, period: "day", input: 2000, output: 300, cached: 50 },
-  { id: "summaries", label: "Document summaries", requests: 200, period: "day", input: 8000, output: 600, cached: 0 },
-  { id: "writing", label: "Content writing", requests: 100, period: "day", input: 500, output: 1200, cached: 0 },
-  { id: "classify", label: "Classification", requests: 10000, period: "day", input: 800, output: 50, cached: 70 },
+const PRESETS: { id: PresetId; requests: number; period: Period; input: number; output: number; cached: number }[] = [
+  { id: "chatbot", requests: 1000, period: "day", input: 2000, output: 300, cached: 50 },
+  { id: "summaries", requests: 200, period: "day", input: 8000, output: 600, cached: 0 },
+  { id: "writing", requests: 100, period: "day", input: 500, output: 1200, cached: 0 },
+  { id: "classify", requests: 10000, period: "day", input: 800, output: 50, cached: 70 },
 ];
 
-const PROVIDERS: { value: "all" | Provider; label: string }[] = [
-  { value: "all", label: "All providers" },
-  { value: "OpenAI", label: "OpenAI" },
-  { value: "Anthropic", label: "Anthropic" },
-  { value: "Google", label: "Google" },
-];
+const PROVIDERS: Provider[] = ["OpenAI", "Anthropic", "Google"];
 
-/** Fixed locale, so the server-rendered page and the browser print the same numbers. */
+/* Numbers use one fixed locale, so the server-rendered page and the browser
+   print the same digits in every language. */
 const usd = (v: number) => {
   if (v === 0) return "$0";
   if (v < 0.0001) return "<$0.0001";
@@ -35,14 +29,10 @@ const price = (v: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 3 }).format(v);
 const num = (v: number) => new Intl.NumberFormat("en-US").format(Math.round(v));
 const toInt = (s: string) => Math.max(0, Math.min(1e9, Math.round(Number(s) || 0)));
-const checkedOn = new Date(`${PRICES_CHECKED}T00:00:00Z`).toLocaleDateString("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
 
 const AiCostCalculator = () => {
+  const { t: all } = useToolsText();
+  const t = all.cost;
   const [preset, setPreset] = useState<PresetId | "">("chatbot");
   const [requests, setRequests] = useState(1000);
   const [period, setPeriod] = useState<Period>("day");
@@ -74,64 +64,58 @@ const AiCostCalculator = () => {
       .map((m) => ({ m, ...costOf(m, usage) }))
       .sort((a, b) => a.perMonth - b.perMonth);
   }, [monthly, input, output, cached, batch, provider]);
-  const notes = rows.filter((r) => r.m.note);
+  const notes = rows.filter((r) => t.notes[r.m.id]);
+  const checkedOn = new Date(`${PRICES_CHECKED}T00:00:00Z`).toLocaleDateString(t.dateLocale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
   return (
-    <ToolPage
-      tool={tool}
-      next={{
-        title: "Want the bill lower, not just estimated?",
-        text: "Model routing, caching and batch jobs usually cut an AI bill by half or more. I build AI features with cost controls and per-customer budgets from day one.",
-        to: "/services/ai-integration",
-        label: "AI integration",
-      }}
-    >
+    <ToolPage slug="ai-cost-calculator">
       <div className="grid items-start gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
         {/* ---- inputs ---- */}
         <div className="card-surface space-y-6 p-5 sm:p-6">
           <div>
-            <p className="font-inter text-sm font-medium text-foreground">Start from an example</p>
+            <p className="font-inter text-sm font-medium text-foreground">{t.examples}</p>
             <div className="mt-2">
-              <Choices
-                label="Example workloads"
-                options={PRESETS.map((p) => ({ value: p.id, label: p.label }))}
+              <Choices<PresetId>
+                label={t.examplesGroup}
+                options={PRESETS.map((p) => ({ value: p.id, label: t.presets[p.id] }))}
                 value={preset as PresetId}
                 onChange={applyPreset}
               />
             </div>
           </div>
 
-          <Field id="calc-requests" label="Requests">
+          <Field id="calc-requests" label={t.requests}>
             <div className="flex gap-2">
               <input
                 id="calc-requests"
                 type="number"
                 min={0}
+                dir="ltr"
                 className={`${inlineFieldCls} min-w-0 flex-1`}
                 value={requests}
                 onChange={(e) => edit(setRequests)(toInt(e.target.value))}
               />
-              <select
-                aria-label="Per"
-                className={`${inlineFieldCls} w-32 shrink-0`}
-                value={period}
-                onChange={(e) => edit(setPeriod)(e.target.value as Period)}
-              >
-                <option value="day">per day</option>
-                <option value="month">per month</option>
+              <select aria-label={t.per} className={`${inlineFieldCls} w-32 shrink-0`} value={period} onChange={(e) => edit(setPeriod)(e.target.value as Period)}>
+                <option value="day">{t.perDay}</option>
+                <option value="month">{t.perMonth}</option>
               </select>
             </div>
           </Field>
 
-          <Field id="calc-input" label="Input tokens per request" hint={`Prompt, instructions and documents: about ${num(input * 0.75)} words.`}>
-            <input id="calc-input" type="number" min={0} className={fieldCls} value={input} onChange={(e) => edit(setInput)(toInt(e.target.value))} />
+          <Field id="calc-input" label={t.inputLabel} hint={t.inputHint(num(input * 0.75))}>
+            <input id="calc-input" type="number" min={0} dir="ltr" className={fieldCls} value={input} onChange={(e) => edit(setInput)(toInt(e.target.value))} />
           </Field>
 
-          <Field id="calc-output" label="Output tokens per request" hint={`The model's answer: about ${num(output * 0.75)} words.`}>
-            <input id="calc-output" type="number" min={0} className={fieldCls} value={output} onChange={(e) => edit(setOutput)(toInt(e.target.value))} />
+          <Field id="calc-output" label={t.outputLabel} hint={t.outputHint(num(output * 0.75))}>
+            <input id="calc-output" type="number" min={0} dir="ltr" className={fieldCls} value={output} onChange={(e) => edit(setOutput)(toInt(e.target.value))} />
           </Field>
 
-          <Field id="calc-cached" label={`Cached share of input: ${cached}%`} hint="Instructions or documents repeated across requests.">
+          <Field id="calc-cached" label={t.cachedLabel(cached)} hint={t.cachedHint}>
             <input
               id="calc-cached"
               type="range"
@@ -145,7 +129,7 @@ const AiCostCalculator = () => {
           </Field>
 
           <Check id="calc-batch" checked={batch} onChange={setBatch}>
-            Batch processing (results within 24 hours, half price)
+            {t.batch}
           </Check>
         </div>
 
@@ -153,40 +137,49 @@ const AiCostCalculator = () => {
         <div className="card-surface min-w-0 p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="font-inter text-sm text-muted-foreground" aria-live="polite">
-              {num(monthly)} requests a month · {num(monthly * (input + output))} tokens
+              {t.summary(num(monthly), num(monthly * (input + output)))}
             </p>
-            <Choices<"all" | Provider> label="Provider" options={PROVIDERS} value={provider} onChange={setProvider} />
+            <Choices<"all" | Provider>
+              label={t.providerGroup}
+              options={[{ value: "all", label: t.allProviders }, ...PROVIDERS.map((p) => ({ value: p, label: p }))]}
+              value={provider}
+              onChange={setProvider}
+            />
           </div>
 
           <div className="mt-5 overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse font-inter text-sm">
-              <caption className="sr-only">Estimated cost per model, cheapest first</caption>
+              <caption className="sr-only">{t.caption}</caption>
               <thead>
-                <tr className="border-b border-hairline/[0.12] text-left text-xs text-subtle">
-                  <th scope="col" className="py-2.5 pr-3 font-medium">Model</th>
-                  <th scope="col" className="py-2.5 pr-3 text-right font-medium">Input / output per 1M</th>
-                  <th scope="col" className="py-2.5 pr-3 text-right font-medium">Per request</th>
-                  <th scope="col" className="py-2.5 text-right font-medium">Per month</th>
+                <tr className="border-b border-hairline/[0.12] text-start text-xs text-subtle">
+                  <th scope="col" className="py-2.5 pe-3 text-start font-medium">{t.colModel}</th>
+                  <th scope="col" className="py-2.5 pe-3 text-end font-medium">{t.colPrices}</th>
+                  <th scope="col" className="py-2.5 pe-3 text-end font-medium">{t.colRequest}</th>
+                  <th scope="col" className="py-2.5 text-end font-medium">{t.colMonth}</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map(({ m, perRequest, perMonth, rate }, i) => (
                   <tr key={m.id} className={`border-b border-hairline/[0.08] ${i === 0 ? "bg-primary/[0.06]" : ""}`}>
-                    <th scope="row" className="py-3 pr-3 text-left font-normal">
-                      <span className="block font-medium text-foreground">
+                    <th scope="row" className="py-3 pe-3 text-start font-normal">
+                      <span className="block font-medium text-foreground" dir="ltr">
                         {m.name}
-                        {m.note && <span className="text-primary" aria-hidden="true"> *</span>}
+                        {t.notes[m.id] && <span className="text-primary" aria-hidden="true"> *</span>}
                       </span>
                       <span className="block text-xs text-subtle">
                         {m.provider}
-                        {i === 0 && " · cheapest for this workload"}
+                        {i === 0 && ` · ${t.cheapest}`}
                       </span>
                     </th>
-                    <td className="py-3 pr-3 text-right tabular-nums text-muted-foreground">
+                    <td className="py-3 pe-3 text-end tabular-nums text-muted-foreground" dir="ltr">
                       {price(rate.input)} / {price(rate.output)}
                     </td>
-                    <td className="py-3 pr-3 text-right tabular-nums text-muted-foreground">{usd(perRequest)}</td>
-                    <td className="py-3 text-right font-medium tabular-nums text-foreground">{usd(perMonth)}</td>
+                    <td className="py-3 pe-3 text-end tabular-nums text-muted-foreground" dir="ltr">
+                      {usd(perRequest)}
+                    </td>
+                    <td className="py-3 text-end font-medium tabular-nums text-foreground" dir="ltr">
+                      {usd(perMonth)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -196,21 +189,20 @@ const AiCostCalculator = () => {
           <div className="mt-5 space-y-2 font-inter text-xs leading-relaxed text-subtle">
             {notes.map(({ m }) => (
               <p key={m.id}>
-                <span className="text-primary">*</span> {m.name}: {m.note}
+                <span className="text-primary">*</span> {m.name}: {t.notes[m.id]}
               </p>
             ))}
             <p>
-              Standard prices from the official pricing pages of{" "}
-              {(Object.keys(SOURCES) as Provider[]).map((p, i, all) => (
+              {t.sourcesBefore}{" "}
+              {PROVIDERS.map((p, i) => (
                 <span key={p}>
                   <a href={SOURCES[p]} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">
                     {p}
                   </a>
-                  {i < all.length - 2 ? ", " : i === all.length - 2 ? " and " : ""}
+                  {i < PROVIDERS.length - 2 ? t.comma : i === PROVIDERS.length - 2 ? t.and : ""}
                 </span>
               ))}
-              , checked on {checkedOn}. Long prompts switch to the providers' higher long-context rates where they have them.
-              Cache-write charges, priority tiers and tool fees are not included. A month is 30 days.
+              {t.checkedOn(checkedOn)} {t.sourcesAfter}
             </p>
           </div>
         </div>

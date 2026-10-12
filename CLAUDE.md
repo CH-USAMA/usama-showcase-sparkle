@@ -47,6 +47,8 @@ src/data/snapshot.*.json       Build-time content snapshot (generated; committed
 src/data/blogs.ts, projects.ts, caseStudies.ts   Seed content (used when no database is configured)
 src/data/services.ts           5 service pages, plus the /virtual-assistant side offer (static, in code)
 src/data/learnAI.ts            /learn-ai guide content (prompts, safety rules), shared with prerender
+src/data/tools.ts, tools/*.ts   Free tools (/tools): slugs, option ids, prices (tools/aiPricing.ts), builders
+src/i18n/tools/{en,ar,fr}.ts   Every word of /tools in English, Arabic, French (same shape, checked by tsc)
 api/                           Vercel functions: /api/posts, /api/projects, /api/admin/* (Turso via @libsql/client/web)
 scripts/sync-content.ts        DB → snapshot (falls back to seed files without credentials)
 scripts/generate-sitemap.ts    sitemap.xml, rss.xml, llms.txt (from the snapshot + scripts/llms.template.md)
@@ -58,7 +60,7 @@ vercel.json                    Old-URL redirects, rewrites for dynamic routes to
 
 ## Prerendering — read this before adding pages or components
 
-`npm run build` runs `vite build` (client), `vite build --ssr src/entry-server.tsx` (→ `dist-ssr/`), then `scripts/prerender.ts`, which renders every public route with the app (`/`, `/projects`, `/services`, `/blog`, `/book`, `/laravel-scaling-checklist`, `/learn-ai`, `/virtual-assistant`, every project, service and post in the snapshot) and writes `dist/<route>/index.html` with that route's own `<head>` and `<div id="root" data-prerendered>`. If a route fails to render, it gets a plain HTML body instead and the build log says `used plain HTML` — check for that line.
+`npm run build` runs `vite build` (client), `vite build --ssr src/entry-server.tsx` (→ `dist-ssr/`), then `scripts/prerender.ts`, which renders every public route with the app (`/`, `/projects`, `/services`, `/blog`, `/book`, `/laravel-scaling-checklist`, `/learn-ai`, `/virtual-assistant`, `/tools` and its four tools in English, Arabic and French, every project, service and post in the snapshot) and writes `dist/<route>/index.html` with that route's own `<head>` and `<div id="root" data-prerendered>`. If a route fails to render, it gets a plain HTML body instead and the build log says `used plain HTML` — check for that line.
 
 In the browser, `main.tsx` waits for the page's chunks and its first paint, then renders over the prerendered markup. To keep that seamless:
 
@@ -106,6 +108,7 @@ The `/auth` page is sign-in only (the Sign Up tab was removed once the admin acc
 - Scroll entrances use `Reveal` (CSS, IntersectionObserver). framer-motion is only in the on-demand chat panel; keep it off page routes.
 - Every page renders a `<SEOHead>` with an explicit `canonical` (`null` on error pages).
 - Images: explicit `width`/`height`; `loading="lazy" decoding="async"` below the fold; content images through `responsiveImage()` (`src/lib/img.ts`: Unsplash resizing, 720px project thumbnails); a page's LCP image gets `fetchPriority="high"` and `PRIORITY_TIMING`.
+- **Free tools** (`/tools`, `/ar/tools`, `/fr/tools`): prompt builder, MVP planner, AI API cost calculator, README generator. All text, including what the tools generate, is in `src/i18n/tools/<locale>.ts`; `ar.ts` and `fr.ts` are typed against `en.ts`, so a new key in English fails the build until both translations have it. Translated pages set `lang`/`dir` on `<main>` (the header and footer stay English), link each other with hreflang (`toolAlternates`), and links to English-only pages are labelled "(in English)". A new tool needs: its slug in `TOOL_SLUGS`, text in all three dictionaries, a page in `src/pages/tools/`, a route per language prefix in `App.tsx`, `preloadRoute`, and `toolModule` in `scripts/prerender.ts`. API prices in `tools/aiPricing.ts` carry a `PRICES_CHECKED` date: re-check them against the providers' pages and update the date together.
 - `/virtual-assistant` reuses `ServiceDetail` (`<ServiceDetail side="virtual-assistant" />`) but its data, `assistantService`, stays out of `servicesData`, so it is not listed among the engineering services. Keep it that way: it is a side offer for a different reader.
 - Absolute URLs are hardcoded as `https://www.chaudharyusama.com` in several files. If the domain changes, grep for it.
 

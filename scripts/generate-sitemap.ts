@@ -6,7 +6,9 @@
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { assistantService, servicesData } from "../src/data/services";
-import { TOOLS } from "../src/data/tools";
+import { TOOL_SLUGS, toolsIn } from "../src/data/tools";
+import toolsEn from "../src/i18n/tools/en";
+import { LOCALES, toolsPath } from "../src/lib/locale";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
 
 // Content comes from the snapshot that scripts/sync-content.ts writes from the
@@ -49,8 +51,11 @@ const staticEntries: SitemapEntry[] = [
   { path: "/laravel-scaling-checklist", changefreq: "monthly", priority: "0.8" },
   { path: "/learn-ai", changefreq: "monthly", priority: "0.8" },
   { path: "/virtual-assistant", changefreq: "monthly", priority: "0.7" },
-  { path: "/tools", changefreq: "monthly", priority: "0.8" },
-  ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
+  // /tools in every language; the pages link to each other with hreflang.
+  ...LOCALES.flatMap((l) => [
+    { path: toolsPath(l), changefreq: "monthly" as const, priority: l === "en" ? "0.8" : "0.7" },
+    ...TOOL_SLUGS.map((s) => ({ path: toolsPath(l, s), changefreq: "monthly" as const, priority: l === "en" ? "0.8" : "0.7" })),
+  ]),
 ];
 
 const serviceEntries: SitemapEntry[] = servicesData.map((s) => ({
@@ -175,7 +180,9 @@ function generateLlms() {
     line("How to use AI in daily life", "/learn-ai", "Free guide with copy-paste prompts for everyday tasks"),
     line(assistantService.name, "/virtual-assistant", assistantService.metaDescription),
     line("Free tools", "/tools", "Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator, GitHub README generator"),
-    ...TOOLS.map((t) => line(t.name, `/tools/${t.slug}`, t.summary)),
+    ...toolsIn(toolsEn).map((t) => line(t.name, `/tools/${t.slug}`, t.summary)),
+    line("Free tools in Arabic", "/ar/tools", "The same four tools, in Arabic"),
+    line("Free tools in French", "/fr/tools", "The same four tools, in French"),
     "",
     "## Services",
     "",

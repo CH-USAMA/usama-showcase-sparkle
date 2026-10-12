@@ -11,10 +11,12 @@ interface CopyButtonProps {
   /** Analytics event name. */
   event?: string;
   className?: string;
+  /** Shown after copying; translated pages pass their own word. */
+  copiedText?: string;
 }
 
 /** Copies `text`; "Copied" is announced to screen readers. */
-const CopyButton = ({ text, label, children = "Copy", event = "prompt_copy", className = "" }: CopyButtonProps) => {
+const CopyButton = ({ text, label, children = "Copy", event = "prompt_copy", className = "", copiedText = "Copied" }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -34,7 +36,7 @@ const CopyButton = ({ text, label, children = "Copy", event = "prompt_copy", cla
       className={`inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-md border border-hairline/[0.12] px-2.5 font-inter text-xs font-medium text-muted-foreground transition-colors duration-standard hover:border-hairline/[0.24] hover:text-foreground ${className}`}
     >
       {copied ? <Check className="h-3.5 w-3.5 text-primary" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
-      <span aria-live="polite">{copied ? "Copied" : children}</span>
+      <span aria-live="polite">{copied ? copiedText : children}</span>
     </button>
   );
 };

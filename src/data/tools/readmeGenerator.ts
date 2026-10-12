@@ -1,9 +1,15 @@
 /**
  * Options for /tools/readme-generator and the functions that build the
- * Markdown. Plain Markdown only (no HTML), so it renders the same on GitHub
- * and in the site's own preview. Skill ids and stats themes were checked
+ * Markdown, with headings and sentences in the page's language
+ * (src/i18n/tools/<locale>.ts, readme.out). Plain Markdown only (no HTML), so
+ * it renders the same on GitHub and in the site's own preview. Skill ids and stats themes were checked
  * against skillicons.dev and github-readme-stats on 2026-10-12.
  */
+
+import type { ToolsText } from "../../i18n/tools/en";
+
+type ReadmeText = ToolsText["readme"];
+type Out = ReadmeText["out"];
 
 export const SKILLS: { id: string; label: string }[] = [
   { id: "js", label: "JavaScript" },
@@ -60,13 +66,7 @@ export const SKILLS: { id: string; label: string }[] = [
   { id: "figma", label: "Figma" },
 ];
 
-export const STATS_THEMES: { value: string; label: string }[] = [
-  { value: "default", label: "Light" },
-  { value: "dark", label: "Dark" },
-  { value: "github_dark", label: "GitHub dark" },
-  { value: "tokyonight", label: "Tokyo Night" },
-  { value: "dracula", label: "Dracula" },
-];
+export const STATS_THEMES = ["default", "dark", "github_dark", "tokyonight", "dracula"];
 
 export const LICENSES = ["MIT", "Apache-2.0", "GPL-3.0", "BSD-3-Clause"];
 
@@ -136,7 +136,7 @@ export const PROFILE_DEFAULTS: ProfileForm = {
   credit: true,
 };
 
-export const PROJECT_DEFAULTS: ProjectForm = {
+export const projectDefaults = (t: ReadmeText): ProjectForm => ({
   name: "",
   tagline: "",
   description: "",
@@ -144,72 +144,73 @@ export const PROJECT_DEFAULTS: ProjectForm = {
   screenshot: "",
   features: "",
   skills: ["ts", "react", "nodejs", "postgres"],
-  prerequisites: "Node.js 20 or newer\nA PostgreSQL database",
+  prerequisites: t.defaults.prerequisites,
   install: "git clone https://github.com/your-username/your-project.git\ncd your-project\nnpm install\ncp .env.example .env\nnpm run dev",
   usage: "",
-  env: "DATABASE_URL=Connection string for PostgreSQL\nAPI_KEY=Key for the external API",
+  env: t.defaults.env,
   license: "MIT",
   toc: false,
   contributing: true,
   author: "",
   authorUsername: "",
   credit: true,
-};
+});
 
 const lines = (s: string) => s.split("\n").map((l) => l.trim()).filter(Boolean);
 const url = (s: string) => (/^https?:\/\//i.test(s.trim()) ? s.trim() : s.trim() ? `https://${s.trim()}` : "");
 const skillLabel = (id: string) => SKILLS.find((s) => s.id === id)?.label ?? id;
 const icons = (skills: string[], theme: string) =>
   `![${skills.map(skillLabel).join(", ")}](https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=12)`;
-const creditLine = "_Made with the free [GitHub README generator](" + TOOL_URL + ")._";
+/** Heading anchors as GitHub makes them: lower case, punctuation dropped, spaces to hyphens. Letters in any script stay. */
+const anchor = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, "").trim().replace(/\s+/g, "-");
 
-export function buildProfile(f: ProfileForm): string {
-  const name = f.name.trim() || "Your Name";
+export function buildProfile(f: ProfileForm, o: Out): string {
+  const name = f.name.trim() || o.defaultName;
   const user = f.username.trim().replace(/^@/, "");
-  const out: string[] = [`# Hi, I'm ${name} 👋`];
+  const out: string[] = [o.hi(name)];
   if (f.headline.trim()) out.push(`**${f.headline.trim()}**`);
   if (f.about.trim()) out.push(f.about.trim());
 
   const facts = [
-    f.working.trim() && `- 🔭 Currently working on ${f.working.trim()}`,
-    f.learning.trim() && `- 🌱 Learning ${f.learning.trim()}`,
-    f.askMe.trim() && `- 💬 Ask me about ${f.askMe.trim()}`,
-    f.location.trim() && `- 📍 Based in ${f.location.trim()}`,
+    f.working.trim() && o.working(f.working.trim()),
+    f.learning.trim() && o.learning(f.learning.trim()),
+    f.askMe.trim() && o.askMe(f.askMe.trim()),
+    f.location.trim() && o.location(f.location.trim()),
   ].filter(Boolean);
   if (facts.length) out.push(facts.join("\n"));
 
-  if (f.skills.length) out.push("## Tech stack", icons(f.skills, f.iconTheme));
+  if (f.skills.length) out.push(`## ${o.techStack}`, icons(f.skills, f.iconTheme));
 
   if (user && (f.stats || f.topLangs)) {
     const theme = f.statsTheme === "default" ? "" : `&theme=${f.statsTheme}`;
     const cards = [
-      f.stats && `![GitHub stats](https://github-readme-stats.vercel.app/api?username=${user}&show_icons=true&hide_border=true${theme})`,
-      f.topLangs && `![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=${user}&layout=compact&hide_border=true${theme})`,
+      f.stats && `![${o.statsAlt}](https://github-readme-stats.vercel.app/api?username=${user}&show_icons=true&hide_border=true${theme})`,
+      f.topLangs && `![${o.topLangsAlt}](https://github-readme-stats.vercel.app/api/top-langs/?username=${user}&layout=compact&hide_border=true${theme})`,
     ].filter(Boolean);
-    out.push("## GitHub stats", cards.join("\n"));
+    out.push(`## ${o.githubStats}`, cards.join("\n"));
   }
 
   const links = [
     f.linkedin.trim() && `[LinkedIn](${url(f.linkedin)})`,
     f.x.trim() && `[X](${url(f.x)})`,
-    f.website.trim() && `[Website](${url(f.website)})`,
-    f.email.trim() && `[Email](mailto:${f.email.trim()})`,
+    f.website.trim() && `[${o.website}](${url(f.website)})`,
+    f.email.trim() && `[${o.email}](mailto:${f.email.trim()})`,
   ].filter(Boolean);
-  if (links.length) out.push("## Connect", links.join(" · "));
+  if (links.length) out.push(`## ${o.connect}`, links.join(" · "));
 
-  if (user && f.views) out.push(`![Profile views](https://komarev.com/ghpvc/?username=${user})`);
-  if (f.credit) out.push(creditLine);
+  if (user && f.views) out.push(`![${o.profileViews}](https://komarev.com/ghpvc/?username=${user})`);
+  if (f.credit) out.push(o.credit(TOOL_URL));
   return out.join("\n\n") + "\n";
 }
 
-export function buildProject(f: ProjectForm): string {
-  const name = f.name.trim() || "Project Name";
+export function buildProject(f: ProjectForm, o: Out): string {
+  const name = f.name.trim() || o.projectName;
   const out: string[] = [`# ${name}`];
   if (f.tagline.trim()) out.push(`**${f.tagline.trim()}**`);
-  if (f.license) out.push(`![License: ${f.license}](https://img.shields.io/badge/license-${f.license.replace(/-/g, "--")}-blue)`);
+  if (f.license) out.push(`![${o.licenseAlt(f.license)}](https://img.shields.io/badge/license-${f.license.replace(/-/g, "--")}-blue)`);
   if (f.description.trim()) out.push(f.description.trim());
-  if (f.demo.trim()) out.push(`**Live demo:** ${url(f.demo)}`);
-  if (f.screenshot.trim()) out.push(`![${name} screenshot](${url(f.screenshot)})`);
+  if (f.demo.trim()) out.push(`**${o.liveDemo}:** ${url(f.demo)}`);
+  if (f.screenshot.trim()) out.push(`![${o.screenshotAlt(name)}](${url(f.screenshot)})`);
 
   const features = lines(f.features);
   const prereqs = lines(f.prerequisites);
@@ -219,44 +220,37 @@ export function buildProject(f: ProjectForm): string {
     return i > 0 ? [l.slice(0, i).trim(), l.slice(i + 1).trim()] : [l, ""];
   });
   const sections = [
-    features.length && "Features",
-    f.skills.length && "Tech stack",
-    (prereqs.length || install) && "Getting started",
-    f.usage.trim() && "Usage",
-    env.length && "Environment variables",
-    f.contributing && "Contributing",
-    f.license && "License",
+    features.length && o.features,
+    f.skills.length && o.techStack,
+    (prereqs.length || install) && o.gettingStarted,
+    f.usage.trim() && o.usage,
+    env.length && o.envVars,
+    f.contributing && o.contributing,
+    f.license && o.license,
   ].filter(Boolean) as string[];
 
-  if (f.toc && sections.length > 2) {
-    out.push("## Contents", sections.map((s) => `- [${s}](#${s.toLowerCase().replace(/\s+/g, "-")})`).join("\n"));
-  }
-  if (features.length) out.push("## Features", features.map((x) => `- ${x}`).join("\n"));
-  if (f.skills.length) out.push("## Tech stack", icons(f.skills, "dark"), f.skills.map(skillLabel).join(" · "));
+  if (f.toc && sections.length > 2) out.push(`## ${o.contents}`, sections.map((s) => `- [${s}](#${anchor(s)})`).join("\n"));
+  if (features.length) out.push(`## ${o.features}`, features.map((x) => `- ${x}`).join("\n"));
+  if (f.skills.length) out.push(`## ${o.techStack}`, icons(f.skills, "dark"), f.skills.map(skillLabel).join(" · "));
   if (prereqs.length || install) {
-    out.push("## Getting started");
-    if (prereqs.length) out.push("### Prerequisites", prereqs.map((x) => `- ${x}`).join("\n"));
-    if (install) out.push("### Installation", "```bash\n" + install + "\n```");
+    out.push(`## ${o.gettingStarted}`);
+    if (prereqs.length) out.push(`### ${o.prerequisites}`, prereqs.map((x) => `- ${x}`).join("\n"));
+    if (install) out.push(`### ${o.installation}`, "```bash\n" + install + "\n```");
   }
-  if (f.usage.trim()) out.push("## Usage", f.usage.trim());
+  if (f.usage.trim()) out.push(`## ${o.usage}`, f.usage.trim());
   if (env.length) {
     out.push(
-      "## Environment variables",
-      ["| Variable | Description |", "|---|---|", ...env.map(([k, d]) => `| \`${k}\` | ${d.replace(/\|/g, "\\|")} |`)].join("\n")
+      `## ${o.envVars}`,
+      [`| ${o.variable} | ${o.description} |`, "|---|---|", ...env.map(([k, d]) => `| \`${k}\` | ${d.replace(/\|/g, "\\|")} |`)].join("\n")
     );
   }
-  if (f.contributing) {
-    out.push(
-      "## Contributing",
-      "Contributions are welcome. Open an issue to discuss what you would like to change, then send a pull request. Please add or update tests where it makes sense."
-    );
-  }
-  if (f.license) out.push("## License", `Released under the ${f.license} license. See [LICENSE](LICENSE) for details.`);
+  if (f.contributing) out.push(`## ${o.contributing}`, o.contributingText);
+  if (f.license) out.push(`## ${o.license}`, o.licenseText(f.license));
   const author = f.author.trim();
   const authorUser = f.authorUsername.trim().replace(/^@/, "");
   if (author || authorUser) {
-    out.push("## Author", authorUser ? `${author || authorUser}: [@${authorUser}](https://github.com/${authorUser})` : author);
+    out.push(`## ${o.author}`, authorUser ? `${author || authorUser}: [@${authorUser}](https://github.com/${authorUser})` : author);
   }
-  if (f.credit) out.push(creditLine);
+  if (f.credit) out.push(o.credit(TOOL_URL));
   return out.join("\n\n") + "\n";
 }

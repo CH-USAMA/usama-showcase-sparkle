@@ -4,6 +4,8 @@ interface MascotProps {
   /** What it says when poked, in turn. */
   lines: string[];
   className?: string;
+  /** Accessible name of the poke button. */
+  label?: string;
 }
 
 const MAX_LOOK = 4.5; // how far the pupils travel, in viewBox units
@@ -17,7 +19,7 @@ const MAX_LOOK = 4.5; // how far the pupils travel, in viewBox units
  * motion is allowed; the global reduced-motion rule stops the float and the
  * squish.
  */
-const Mascot = ({ lines, className = "" }: MascotProps) => {
+const Mascot = ({ lines, className = "", label = "Poke the robot" }: MascotProps) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [look, setLook] = useState({ x: 0, y: 0 });
   const [blink, setBlink] = useState(false);
@@ -86,7 +88,7 @@ const Mascot = ({ lines, className = "" }: MascotProps) => {
     <div className={`relative inline-flex flex-col items-center ${className}`}>
       <span
         aria-live="polite"
-        className={`pointer-events-none absolute -top-9 right-0 whitespace-nowrap rounded-full border border-primary/40 bg-surface-1 px-3 py-1 font-inter text-xs text-foreground shadow-sm transition-opacity duration-standard ${
+        className={`pointer-events-none absolute -top-9 end-0 whitespace-nowrap rounded-full border border-primary/40 bg-surface-1 px-3 py-1 font-inter text-xs text-foreground shadow-sm transition-opacity duration-standard ${
           line ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -96,7 +98,7 @@ const Mascot = ({ lines, className = "" }: MascotProps) => {
         ref={ref}
         type="button"
         onClick={poke}
-        aria-label="Poke the robot"
+        aria-label={label}
         className="mascot-float rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
       >
         <svg
