@@ -34,6 +34,8 @@
 - [Services](https://www.chaudharyusama.com/services): Full-stack capabilities and who they are for
 - [Blog](https://www.chaudharyusama.com/blog): Engineering articles
 - [Book a free call](https://www.chaudharyusama.com/book): Free 30-minute call
+- [How to use AI in daily life](https://www.chaudharyusama.com/learn-ai): Free guide with copy-paste prompts for everyday tasks
+- [Virtual Assistant & Peer Developer](https://www.chaudharyusama.com/virtual-assistant): Remote help for founders and small teams: customer support, content and social media, website updates, and a fellow developer to pair with, sped up by AI.
 
 ## Services
 
@@ -41,6 +43,7 @@
 - [VoIP & Asterisk](https://www.chaudharyusama.com/services/voip-asterisk): Asterisk and FreePBX call platforms: predictive dialers, IVR trees, SIP trunk failover, call recording, and CRM integration built on Laravel backends.
 - [Automation Infrastructure](https://www.chaudharyusama.com/services/automation-n8n): n8n workflows and custom pipelines that replace manual back-office work, with reliable integrations, retries, monitoring and Laravel-backed business logic.
 - [AI Integration](https://www.chaudharyusama.com/services/ai-integration): Practical AI integration: RAG over your data, LLM support and agent workflows, streaming APIs, cost control and evaluation, wired into Laravel backends.
+- [Idea to Launch (MVP)](https://www.chaudharyusama.com/services/mvp-development): Turn an idea into a working web or mobile app in weeks. AI-assisted MVP development with real auth, payments and deployment, reviewed by a senior engineer.
 
 ## Projects
 

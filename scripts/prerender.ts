@@ -32,8 +32,9 @@ import remarkGfm from "remark-gfm";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
 import { projectShareImage } from "../src/lib/content/shareImage";
 import { safeHref } from "../src/lib/url";
-import { servicesData } from "../src/data/services";
+import { assistantService, servicePath, servicesData } from "../src/data/services";
 import { CAPABILITIES } from "../src/data/capabilities";
+import { LEARN_AI_DESCRIPTION, LEARN_AI_TITLE } from "../src/data/learnAI";
 import { caseStudyTitle, fitDescription } from "../src/lib/seo";
 
 const BASE_URL = "https://www.chaudharyusama.com";
@@ -218,6 +219,16 @@ const staticRoutes: Route[] = [
       `<h1>Laravel scaling checklist</h1><p>A free 26-point checklist for scaling Laravel apps in production: indexing, Redis caching, queues, API resilience, observability, backups and zero-downtime deploys.</p>`
     ),
   },
+  {
+    path: "/learn-ai",
+    title: LEARN_AI_TITLE,
+    description: LEARN_AI_DESCRIPTION,
+    ogType: "article",
+    module: "src/pages/LearnAI.tsx",
+    body: page(
+      `<h1>How to use AI in daily life</h1><p>${esc(LEARN_AI_DESCRIPTION)}</p><p><a href="/virtual-assistant">Virtual assistant</a> · <a href="/services/mvp-development">Idea to launch</a> · <a href="/book">Book a free call</a></p>`
+    ),
+  },
 ];
 
 const projectRoutes: Route[] = projects
@@ -266,8 +277,8 @@ const projectRoutes: Route[] = projects
     };
   });
 
-const serviceRoutes: Route[] = servicesData.map((s) => ({
-  path: `/services/${s.slug}`,
+const serviceRoutes: Route[] = [...servicesData, assistantService].map((s) => ({
+  path: servicePath(s),
   title: s.metaTitle,
   description: s.metaDescription,
   ogType: "website",

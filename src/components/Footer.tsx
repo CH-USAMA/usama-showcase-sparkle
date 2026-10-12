@@ -8,6 +8,7 @@ const SITEMAP = [
   { label: "Blog", to: "/blog" },
   { label: "Book a call", to: "/book" },
   { label: "Laravel scaling checklist", to: "/laravel-scaling-checklist" },
+  { label: "Learn AI: free guide", to: "/learn-ai" },
 ];
 
 const SERVICES = [
@@ -15,6 +16,8 @@ const SERVICES = [
   { label: "VoIP & Asterisk", to: "/services/voip-asterisk" },
   { label: "Automation infrastructure", to: "/services/automation-n8n" },
   { label: "AI integration", to: "/services/ai-integration" },
+  { label: "Idea to launch (MVP)", to: "/services/mvp-development" },
+  { label: "Virtual assistant", to: "/virtual-assistant" },
 ];
 
 const SOCIAL_LINKS = [

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import CTA from "@/components/system/CTA";
 import Reveal from "@/components/system/Reveal";
 import SilkBackground from "@/components/fx/SilkBackground";
@@ -13,11 +14,16 @@ interface FinalCTAProps {
   location?: string;
   /** The quieter second action; defaults to the work index. */
   secondary?: { to: string; label: string };
+  /** Pages for a different reader (side offers) replace the engineering pitch. */
+  heading?: ReactNode;
+  lead?: string;
 }
 
 const FinalCTA = ({
   location = "final_cta",
   secondary = { to: "/projects", label: "See my work" },
+  heading,
+  lead,
 }: FinalCTAProps) => (
   <section className="relative isolate overflow-hidden py-28 lg:py-40">
     <SilkBackground
@@ -43,13 +49,17 @@ const FinalCTA = ({
       </Reveal>
       <Reveal index={1}>
         <h2 className="type-hero mx-auto mt-7 max-w-4xl text-foreground">
-          Have a system that needs to <em>scale?</em>
+          {heading ?? (
+            <>
+              Have a system that needs to <em>scale?</em>
+            </>
+          )}
         </h2>
       </Reveal>
       <Reveal index={2}>
         <p className="type-lead mx-auto mt-6 max-w-xl text-muted-foreground">
-          Bring your architecture problem, automation bottleneck, or product idea. We will work out the
-          right engineering path before you spend more time or money.
+          {lead ??
+            "Bring your architecture problem, automation bottleneck, or product idea. We will work out the right engineering path before you spend more time or money."}
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-2.5">
           <CTA to="/book" size="lg" arrow onClick={() => trackEvent("book_call_click", { location })}>
