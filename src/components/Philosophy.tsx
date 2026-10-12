@@ -118,8 +118,11 @@ const Philosophy = () => {
                   className="h-11 w-11 rounded-full object-cover ring-1 ring-hairline/[0.16]"
                 />
               </picture>
-              <span className="mono-tiny text-subtle">Usama Munawar</span>
-              <span className="h-px w-6 bg-hairline/[0.18]" aria-hidden="true" />
+              {/* The spaces keep the text apart for search snippets and screen
+                  readers (Google showed "Usama MunawarFull-Stack..."); the flex
+                  layout does not render them. */}
+              <span className="mono-tiny text-subtle">Usama Munawar</span>{" "}
+              <span className="h-px w-6 bg-hairline/[0.18]" aria-hidden="true" />{" "}
               <span className="font-inter text-[13px] text-muted-foreground">
                 Full-Stack Product Engineer in Lahore. 5+ years shipping web, mobile,
                 and backend products, with verified profiles on Upwork and Fiverr.
