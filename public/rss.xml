@@ -6,8 +6,29 @@
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jul 2026 09:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 11:00:00 GMT</lastBuildDate>
 
+    <item>
+      <title>AI Voice Agents on Asterisk: Connecting a Phone Line to a Realtime Model</title>
+      <link>https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk</guid>
+      <pubDate>Mon, 12 Oct 2026 11:00:00 GMT</pubDate>
+      <description>Three ways to put an AI voice agent on an Asterisk line in 2026: SIP straight to the model, AudioSocket, or ARI External Media, plus interruptions, tools and a production checklist.</description>
+    </item>
+    <item>
+      <title>Give Your Laravel App an MCP Server: Let AI Assistants Use Your Product Safely</title>
+      <link>https://www.chaudharyusama.com/blog/laravel-mcp-server</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/laravel-mcp-server</guid>
+      <pubDate>Mon, 12 Oct 2026 10:00:00 GMT</pubDate>
+      <description>How to expose a Laravel product to Claude, ChatGPT and Cursor with the official laravel/mcp package: servers, tools, OAuth, testing, and the security rules that keep customer data safe.</description>
+    </item>
+    <item>
+      <title>React Native in 2026: What Changed, and When I Still Recommend Native or Flutter</title>
+      <link>https://www.chaudharyusama.com/blog/react-native-2026</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/react-native-2026</guid>
+      <pubDate>Mon, 12 Oct 2026 09:00:00 GMT</pubDate>
+      <description>A founder's guide to building a mobile app in 2026: what the New Architecture and Expo changed, how React Native compares with native and Flutter, and the store rules to plan for.</description>
+    </item>
     <item>
       <title>Laravel vs Node.js for Backend Systems: How I Choose in 2026</title>
       <link>https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems</link>

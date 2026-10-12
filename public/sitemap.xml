@@ -41,6 +41,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/tools</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/prompt-builder</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/mvp-planner</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/ai-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/services/laravel-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -164,6 +184,24 @@
     <loc>https://www.chaudharyusama.com/project/17</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/laravel-mcp-server</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/react-native-2026</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems</loc>

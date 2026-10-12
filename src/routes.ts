@@ -21,6 +21,10 @@ export const Services = lazyPreload(() => import("./pages/Services"));
 export const ServiceDetail = lazyPreload(() => import("./pages/ServiceDetail"));
 export const Checklist = lazyPreload(() => import("./pages/Checklist"));
 export const LearnAI = lazyPreload(() => import("./pages/LearnAI"));
+export const Tools = lazyPreload(() => import("./pages/tools/Tools"));
+export const PromptBuilder = lazyPreload(() => import("./pages/tools/PromptBuilder"));
+export const MvpPlanner = lazyPreload(() => import("./pages/tools/MvpPlanner"));
+export const AiCostCalculator = lazyPreload(() => import("./pages/tools/AiCostCalculator"));
 
 type Preloadable = { preload: () => Promise<unknown> };
 const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.preload()));
@@ -41,6 +45,10 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/book") return load(Book);
   if (p === "/laravel-scaling-checklist") return load(Checklist);
   if (p === "/learn-ai") return load(LearnAI);
+  if (p === "/tools") return load(Tools);
+  if (p === "/tools/prompt-builder") return load(PromptBuilder);
+  if (p === "/tools/mvp-planner") return load(MvpPlanner);
+  if (p === "/tools/ai-cost-calculator") return load(AiCostCalculator);
   if (/^\/github\/[^/]+$/.test(p)) return load(GitHubReadme, Footer);
   if (p === "/auth" || p.startsWith("/admin")) return Promise.resolve();
   return load(NotFound);

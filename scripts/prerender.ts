@@ -35,6 +35,7 @@ import { safeHref } from "../src/lib/url";
 import { assistantService, servicePath, servicesData } from "../src/data/services";
 import { CAPABILITIES } from "../src/data/capabilities";
 import { LEARN_AI_DESCRIPTION, LEARN_AI_TITLE } from "../src/data/learnAI";
+import { TOOLS, TOOLS_INDEX } from "../src/data/tools";
 import { caseStudyTitle, fitDescription } from "../src/lib/seo";
 
 const BASE_URL = "https://www.chaudharyusama.com";
@@ -231,6 +232,40 @@ const staticRoutes: Route[] = [
   },
 ];
 
+const toolModule: Record<string, string> = {
+  "prompt-builder": "src/pages/tools/PromptBuilder.tsx",
+  "mvp-planner": "src/pages/tools/MvpPlanner.tsx",
+  "ai-cost-calculator": "src/pages/tools/AiCostCalculator.tsx",
+};
+
+const toolRoutes: Route[] = [
+  {
+    path: "/tools",
+    title: TOOLS_INDEX.metaTitle,
+    description: TOOLS_INDEX.metaDescription,
+    ogType: "website",
+    module: "src/pages/tools/Tools.tsx",
+    body: page(
+      `<h1>Free tools for building with AI</h1>` +
+        TOOLS.map((t) => `<h2><a href="/tools/${t.slug}">${esc(t.name)}</a></h2><p>${esc(t.summary)}</p>`).join("")
+    ),
+  },
+  ...TOOLS.map((t) => ({
+    path: `/tools/${t.slug}`,
+    title: t.metaTitle,
+    description: t.metaDescription,
+    ogType: "website",
+    module: toolModule[t.slug],
+    body: page(
+      `<article><p><a href="/tools">All free tools</a></p><h1>${esc(t.name)}</h1><p>${esc(t.lead)}</p>` +
+        t.guide.map((s) => `<h2>${esc(s.heading)}</h2><p>${esc(s.body)}</p>`).join("") +
+        `<h2>Frequently asked</h2>` +
+        t.faqs.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("") +
+        `</article>`
+    ),
+  })),
+];
+
 const projectRoutes: Route[] = projects
   .filter((e) => e.project)
   .map((e) => {
@@ -356,7 +391,7 @@ const homeRoute: Route = {
   ),
 };
 
-const routes = [homeRoute, ...staticRoutes, ...projectRoutes, ...serviceRoutes, ...blogRoutes];
+const routes = [homeRoute, ...staticRoutes, ...toolRoutes, ...projectRoutes, ...serviceRoutes, ...blogRoutes];
 
 // ---------------------------------------------------------------------------
 // Rewrite

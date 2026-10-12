@@ -23,6 +23,7 @@ const AuthGate = lazy(() => import("@/components/system/AuthGate"));
 // Route pages live in src/routes.ts, each with a preload() (see main.tsx).
 import {
   AdminDashboard,
+  AiCostCalculator,
   AdminScraper,
   Auth,
   Blog,
@@ -31,13 +32,16 @@ import {
   Checklist,
   GitHubReadme,
   LearnAI,
+  MvpPlanner,
   NotFound,
   PostEditor,
   ProjectDetail,
   ProjectEditor,
   Projects,
+  PromptBuilder,
   ServiceDetail,
   Services,
+  Tools,
 } from "./routes";
 
 const queryClient = new QueryClient();
@@ -142,6 +146,10 @@ const App = () => {
         <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/laravel-scaling-checklist" element={<Checklist />} />
         <Route path="/learn-ai" element={<LearnAI />} />
+        <Route path="/tools" element={<Tools />} />
+        <Route path="/tools/prompt-builder" element={<PromptBuilder />} />
+        <Route path="/tools/mvp-planner" element={<MvpPlanner />} />
+        <Route path="/tools/ai-cost-calculator" element={<AiCostCalculator />} />
         <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
