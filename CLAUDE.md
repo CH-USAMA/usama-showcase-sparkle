@@ -45,11 +45,12 @@ src/components/lazyParts.ts    Footer, FinalCTA, TrackRecord, TechMatrix, BlogRe
 src/components/SEOHead.tsx     Per-route title/description/robots/canonical/OG/JSON-LD via Helmet
 src/data/snapshot.*.json       Build-time content snapshot (generated; committed so a DB-less build works)
 src/data/blogs.ts, projects.ts, caseStudies.ts   Seed content (used when no database is configured)
-src/data/services.ts           4 service pages (static, in code)
+src/data/services.ts           5 service pages, plus the /virtual-assistant side offer (static, in code)
+src/data/learnAI.ts            /learn-ai guide content (prompts, safety rules), shared with prerender
 api/                           Vercel functions: /api/posts, /api/projects, /api/admin/* (Turso via @libsql/client/web)
 scripts/sync-content.ts        DB → snapshot (falls back to seed files without credentials)
 scripts/generate-sitemap.ts    sitemap.xml, rss.xml, llms.txt (from the snapshot + scripts/llms.template.md)
-scripts/prerender.ts           Writes dist/<route>/index.html for 49 routes, dist/app.html and dist/404.html
+scripts/prerender.ts           Writes dist/<route>/index.html for every public route, dist/app.html and dist/404.html
 supabase/functions/            chat (LLM proxy), fetch-blogs (HN RSS), scrape-github-trending
 supabase/migrations/           STALE, do not reflect the live project (see below)
 vercel.json                    Old-URL redirects, rewrites for dynamic routes to /app.html, security + cache headers
@@ -57,7 +58,7 @@ vercel.json                    Old-URL redirects, rewrites for dynamic routes to
 
 ## Prerendering — read this before adding pages or components
 
-`npm run build` runs `vite build` (client), `vite build --ssr src/entry-server.tsx` (→ `dist-ssr/`), then `scripts/prerender.ts`, which renders every public route with the app (`/`, `/projects`, `/services`, `/blog`, `/book`, `/laravel-scaling-checklist`, every project, service and post in the snapshot) and writes `dist/<route>/index.html` with that route's own `<head>` and `<div id="root" data-prerendered>`. If a route fails to render, it gets a plain HTML body instead and the build log says `used plain HTML` — check for that line.
+`npm run build` runs `vite build` (client), `vite build --ssr src/entry-server.tsx` (→ `dist-ssr/`), then `scripts/prerender.ts`, which renders every public route with the app (`/`, `/projects`, `/services`, `/blog`, `/book`, `/laravel-scaling-checklist`, `/learn-ai`, `/virtual-assistant`, every project, service and post in the snapshot) and writes `dist/<route>/index.html` with that route's own `<head>` and `<div id="root" data-prerendered>`. If a route fails to render, it gets a plain HTML body instead and the build log says `used plain HTML` — check for that line.
 
 In the browser, `main.tsx` waits for the page's chunks and its first paint, then renders over the prerendered markup. To keep that seamless:
 
@@ -105,6 +106,7 @@ The `/auth` page is sign-in only (the Sign Up tab was removed once the admin acc
 - Scroll entrances use `Reveal` (CSS, IntersectionObserver). framer-motion is only in the on-demand chat panel; keep it off page routes.
 - Every page renders a `<SEOHead>` with an explicit `canonical` (`null` on error pages).
 - Images: explicit `width`/`height`; `loading="lazy" decoding="async"` below the fold; content images through `responsiveImage()` (`src/lib/img.ts`: Unsplash resizing, 720px project thumbnails); a page's LCP image gets `fetchPriority="high"` and `PRIORITY_TIMING`.
+- `/virtual-assistant` reuses `ServiceDetail` (`<ServiceDetail side="virtual-assistant" />`) but its data, `assistantService`, stays out of `servicesData`, so it is not listed among the engineering services. Keep it that way: it is a side offer for a different reader.
 - Absolute URLs are hardcoded as `https://www.chaudharyusama.com` in several files. If the domain changes, grep for it.
 
 ## Known traps
