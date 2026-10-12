@@ -14,6 +14,7 @@ import {
   Terminal,
   User,
   Workflow,
+  Wrench,
 } from "lucide-react";
 import {
   CommandDialog,
@@ -117,6 +118,7 @@ const CommandMenu = ({ initialOpen = false }: { initialOpen?: boolean }) => {
     { id: "book", label: "Book a free call", icon: CalendarCheck, run: () => navigate("/book") },
     { id: "projects", label: "All projects", icon: FolderKanban, run: () => navigate("/projects") },
     { id: "blog", label: "Engineering blog", icon: Newspaper, run: () => navigate("/blog") },
+    { id: "tools", label: "Free tools", icon: Wrench, run: () => navigate("/tools") },
     { id: "services-page", label: "Service detail pages", icon: Workflow, run: () => navigate("/services") },
   ];
 
