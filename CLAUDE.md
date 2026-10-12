@@ -88,7 +88,7 @@ Environment (Vercel + `.env.local`, never committed): `TURSO_DATABASE_URL`, `TUR
 - `profiles` UPDATE policy has no `WITH CHECK` and no column guard → any signed-in user could set their own `role = 'admin'`.
 - `blog_comments` has `SELECT USING (true)` over a table holding `guest_email` → public PII read.
 
-The `/auth` page still has an open **Sign Up** tab; admin access is gated by `ADMIN_EMAILS` on the server, not by sign-up.
+The `/auth` page is sign-in only (the Sign Up tab was removed once the admin accounts existed). New admin accounts are created in the Supabase dashboard (Authentication → Users → Add user, "Auto Confirm User"); admin access is gated by `ADMIN_EMAILS` on the server, not by sign-up.
 
 ## Third-party wiring
 
