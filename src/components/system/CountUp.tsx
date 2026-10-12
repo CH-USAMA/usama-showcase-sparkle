@@ -29,6 +29,12 @@ function parse(value: string) {
  * effect, and only when the element is confirmed to be below the fold — so a
  * metric is never left reading "0+" because an observer didn't fire, JS was
  * slow, or the value had an unexpected format.
+ *
+ * Even then the zero is only painted: the counting digits go in data-count and
+ * CSS draws them over the real value (`.countup` in index.css), so the page's
+ * text always holds the real figure. Before, a crawler or AI agent reading the
+ * page at a phone-sized viewport got "0 Systems documented" and a "0" rating
+ * for Upwork and Fiverr, while the prerendered HTML said 21, 5.0 and 4.9.
  */
 const CountUp = ({ value, className = "", duration = 1200 }: CountUpProps) => {
   const parsed = parse(value);
@@ -49,7 +55,7 @@ const CountUp = ({ value, className = "", duration = 1200 }: CountUpProps) => {
     const below = rect.top > window.innerHeight * (isBootRender() ? 1 : 0.9);
     if (below) {
       armed.current = true;
-      setDisplay(`${parsed.prefix}0${parsed.suffix}`);
+      setDisplay(`${parsed.prefix}${(0).toFixed(parsed.decimals)}${parsed.suffix}`);
     } else {
       done.current = true;
     }
@@ -100,8 +106,8 @@ const CountUp = ({ value, className = "", duration = 1200 }: CountUpProps) => {
   }, [value, reduced, duration]);
 
   return (
-    <span ref={ref} className={`tabular-nums ${className}`}>
-      {display}
+    <span ref={ref} className={`countup tabular-nums ${className}`} data-count={display === value ? undefined : display}>
+      {value}
     </span>
   );
 };

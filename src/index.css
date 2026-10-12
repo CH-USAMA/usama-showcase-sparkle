@@ -1210,3 +1210,25 @@ main:focus {
 [lang="ar"] .font-mono:not([dir="ltr"]) {
   font-family: ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
 }
+
+/* ============================================================================
+   COUNT-UP (src/components/system/CountUp.tsx): while a figure counts, its
+   real value stays in the DOM, invisible, and the counting digits are painted
+   over it from data-count. Crawlers, AI agents, screen readers and copy/paste
+   read "21" and "5.0", never the "0" the animation starts from, and the
+   figure's width is fixed from the first frame. The "/ ''" alt text keeps the
+   painted digits out of the accessibility tree (browsers without it use the
+   line before).
+   ========================================================================= */
+.countup[data-count] {
+  position: relative;
+  -webkit-text-fill-color: transparent;
+}
+.countup[data-count]::after {
+  content: attr(data-count);
+  content: attr(data-count) / "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-text-fill-color: currentColor;
+}

@@ -6,7 +6,7 @@ import { useProjectEntries } from "@/lib/content/projects";
 
 const CREDENTIALS = [
   "Top Rated Plus on Upwork",
-  "Level 2 Seller on Fiverr with 89+ reviews",
+  "Level 2 Seller on Fiverr with 89 reviews",
   "Enterprise SaaS products serving 10K+ users",
   "Production Asterisk deployments for 40+ agent call centres",
   "Zero-downtime Laravel deploys with CI/CD on AWS and Vercel",
