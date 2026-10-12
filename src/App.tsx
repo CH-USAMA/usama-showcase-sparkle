@@ -39,6 +39,7 @@ import {
   ProjectEditor,
   Projects,
   PromptBuilder,
+  ReadmeGenerator,
   ServiceDetail,
   Services,
   Tools,
@@ -150,6 +151,7 @@ const App = () => {
         <Route path="/tools/prompt-builder" element={<PromptBuilder />} />
         <Route path="/tools/mvp-planner" element={<MvpPlanner />} />
         <Route path="/tools/ai-cost-calculator" element={<AiCostCalculator />} />
+        <Route path="/tools/readme-generator" element={<ReadmeGenerator />} />
         <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

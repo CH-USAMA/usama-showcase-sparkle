@@ -25,7 +25,7 @@ export interface ToolMeta {
 export const TOOLS_INDEX = {
   metaTitle: "Free AI and Product Tools | Usama Munawar",
   metaDescription:
-    "Free browser tools for founders and teams: an AI prompt builder, an MVP scope planner and an AI API cost calculator. No sign-up, nothing stored.",
+    "Free browser tools for founders and developers: an AI prompt builder, an MVP scope planner, an AI API cost calculator and a GitHub README generator.",
 };
 
 export const TOOLS: ToolMeta[] = [
@@ -149,6 +149,47 @@ export const TOOLS: ToolMeta[] = [
       {
         q: "What does cached input mean?",
         a: "When the start of your prompt repeats across requests, such as the same instructions or document, providers can bill those tokens at a lower cached rate. It applies to the repeated part only.",
+      },
+    ],
+  },
+  {
+    slug: "readme-generator",
+    name: "GitHub README Generator",
+    metaTitle: "GitHub README Generator: Profile and Project READMEs",
+    metaDescription:
+      "Create a GitHub profile README or a project README in minutes: skill icons, stats cards, setup steps and license, with a live preview. Free, no sign-up.",
+    summary: "Write a GitHub profile or project README with a live preview, skill icons and stats cards.",
+    lead: "Fill in a few fields and get a clean README for your GitHub profile or your project, with skill icons, stats cards and setup steps. Copy it or download README.md. Free, no sign-up.",
+    guide: [
+      {
+        heading: "Profile README or project README?",
+        body: "A profile README appears at the top of your GitHub profile once you create a public repository with the same name as your username and add a README.md to it. A project README is the front page of a repository: what the project does, how to install and run it, and how to contribute. This generator writes both.",
+      },
+      {
+        heading: "What makes a good README",
+        body: "Say what it is in the first line. Show it, with a screenshot or a demo link. Then answer the next three questions every visitor has: how do I run it, how do I use it, and who do I ask. Badges and stats are decoration; the setup steps are what people come for.",
+      },
+      {
+        heading: "About the images in your README",
+        body: "Skill icons come from skillicons.dev and stats cards from the community github-readme-stats service, and GitHub loads them each time your page is viewed. Both are popular and free. If a card ever fails to load, the rest of your README still works, and for an important profile you can host the stats service yourself.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I add a README to my GitHub profile?",
+        a: "Create a new public repository named exactly like your GitHub username, tick \"Add a README file\", then paste the generated Markdown into README.md and commit. It appears at the top of your profile straight away.",
+      },
+      {
+        q: "Is the README generator free?",
+        a: "Yes. There is no sign-up and no limit, and everything runs in your browser. Nothing you type is stored.",
+      },
+      {
+        q: "Can I edit the README afterwards?",
+        a: "Yes. It is plain Markdown, so you can change anything in GitHub's editor or any text editor.",
+      },
+      {
+        q: "Why does the preview look slightly different on GitHub?",
+        a: "The preview follows standard GitHub Markdown, but GitHub applies its own styles and themes. Headings, lists, links, tables, code and images all carry over.",
       },
     ],
   },

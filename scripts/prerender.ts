@@ -236,6 +236,7 @@ const toolModule: Record<string, string> = {
   "prompt-builder": "src/pages/tools/PromptBuilder.tsx",
   "mvp-planner": "src/pages/tools/MvpPlanner.tsx",
   "ai-cost-calculator": "src/pages/tools/AiCostCalculator.tsx",
+  "readme-generator": "src/pages/tools/ReadmeGenerator.tsx",
 };
 
 const toolRoutes: Route[] = [
