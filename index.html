@@ -74,7 +74,14 @@
          parsing and executing while the browser was still trying to paint the
          hero. dataLayer is created synchronously below, so every gtag() call
          made before the script arrives is queued and replayed on load: no
-         events are lost, they are only sent slightly later. -->
+         events are lost, they are only sent slightly later.
+
+         "After load + idle" still landed inside the app's takeover of the
+         prerendered page: on a phone profile gtag.js was two of the longest
+         tasks left (about 0.9 s of blocking time), at the moment a reader
+         might first tap. It now loads on the reader's first interaction, or
+         6 s after `load` for someone who only reads, so every visit that lasts
+         6 s is still counted. -->
     <script>
       window.__loadGA = function () {
         if (window.__gaLoaded) return;
@@ -84,17 +91,18 @@
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-6JEYSR3YVV';
         document.head.appendChild(s);
       };
-      if (document.readyState === 'complete') {
-        setTimeout(window.__loadGA, 0);
-      } else {
-        window.addEventListener('load', function () {
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(window.__loadGA, { timeout: 3000 });
-          } else {
-            setTimeout(window.__loadGA, 1200);
-          }
-        });
-      }
+      (function () {
+        var events = ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'];
+        var opts = { passive: true, capture: true };
+        var fire = function () {
+          events.forEach(function (e) { window.removeEventListener(e, fire, opts); });
+          window.__loadGA();
+        };
+        events.forEach(function (e) { window.addEventListener(e, fire, opts); });
+        var later = function () { setTimeout(fire, 6000); };
+        if (document.readyState === 'complete') later();
+        else window.addEventListener('load', later);
+      })();
     </script>
     <script>
       window.dataLayer = window.dataLayer || [];
