@@ -6,6 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
 import CopyButton from "@/components/CopyButton";
+import Mascot from "@/components/Mascot";
 import { Input } from "@/components/ui/input";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -88,6 +89,7 @@ const LearnAI = () => {
       <main id="main" className="fx-glow-top relative pb-24 pt-32 lg:pt-40">
         <div className="container mx-auto">
           {/* ---- header ---- (h1 is the LCP element: painted, never faded in) */}
+          <div className="flex items-start justify-between gap-8">
           <div className="max-w-3xl">
             <span className="chip-hue">
               <span className="mono-label">Free guide</span>
@@ -101,6 +103,11 @@ const LearnAI = () => {
             <p className="enter-lift mt-5 font-inter text-sm text-subtle" {...enter(80)}>
               By Usama Munawar, full-stack engineer and daily AI user
             </p>
+          </div>
+          <Mascot
+            className="mt-12 hidden shrink-0 sm:inline-flex lg:mr-12"
+            lines={["Hi! Ready to learn AI? 👋", "Tip: give me context first.", "Never paste passwords!", "Then say: make it shorter."]}
+          />
           </div>
 
           <Reveal index={1}>

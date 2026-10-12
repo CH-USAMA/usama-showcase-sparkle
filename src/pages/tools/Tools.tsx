@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
+import Mascot from "@/components/Mascot";
 import { SITE_URL } from "@/data/site";
 import { TOOLS, TOOLS_INDEX } from "@/data/tools";
 import { useEnter } from "@/lib/boot";
@@ -42,18 +43,25 @@ const Tools = () => {
 
       <main id="main" className="fx-glow-top relative pb-24 pt-32 lg:pt-40">
         <div className="container mx-auto">
+          <div className="flex items-start justify-between gap-8">
           <div className="max-w-3xl">
             <span className="chip-hue">
               <span className="mono-label">Free tools</span>
             </span>
             <h1 className="type-display mt-5 text-foreground">Free tools for building with AI</h1>
             <p className="enter-lift type-lead mt-6 text-muted-foreground" {...enter()}>
-              Small, honest tools for founders and teams: write better prompts, plan the first version of your app, and
-              estimate what AI will cost you. No sign-up, and everything runs in your browser.
+              Small, honest tools for founders and developers: write better prompts, plan the first version of your app,
+              estimate what AI will cost you, and write a README people actually read. No sign-up, and everything runs in
+              your browser.
             </p>
           </div>
+          <Mascot
+            className="mt-12 hidden shrink-0 sm:inline-flex lg:mr-12"
+            lines={["Hi! Pick a tool 👋", "No sign-up needed.", "Everything runs in your browser.", "Try the prompt builder!"]}
+          />
+          </div>
 
-          <ul className="mt-14 grid gap-4 md:grid-cols-3">
+          <ul className="mt-14 grid gap-4 md:grid-cols-2">
             {TOOLS.map((t, i) => (
               <Reveal as="li" key={t.slug} index={i}>
                 <Link to={`/tools/${t.slug}`} className="card-surface card-surface-hover group flex h-full flex-col p-6">

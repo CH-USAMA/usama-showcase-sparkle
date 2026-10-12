@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
+import Mascot from "@/components/Mascot";
 import { SITE_URL } from "@/data/site";
 import { TOOLS, type ToolMeta } from "@/data/tools";
 import { trackEvent } from "@/lib/analytics";
@@ -82,14 +83,20 @@ const ToolPage = ({ tool, children, next }: ToolPageProps) => {
           </nav>
 
           {/* h1 is the LCP element: painted, never faded in */}
-          <div className="mt-10 max-w-3xl">
-            <span className="chip-hue">
-              <span className="mono-label">Free tool</span>
-            </span>
-            <h1 className="type-display mt-5 text-foreground">{tool.name}</h1>
-            <p className="enter-lift type-lead mt-6 text-muted-foreground" {...enter()}>
-              {tool.lead}
-            </p>
+          <div className="mt-10 flex items-start justify-between gap-8">
+            <div className="max-w-3xl">
+              <span className="chip-hue">
+                <span className="mono-label">Free tool</span>
+              </span>
+              <h1 className="type-display mt-5 text-foreground">{tool.name}</h1>
+              <p className="enter-lift type-lead mt-6 text-muted-foreground" {...enter()}>
+                {tool.lead}
+              </p>
+            </div>
+            <Mascot
+              className="mt-12 hidden shrink-0 sm:inline-flex lg:mr-12"
+              lines={["Hi! Happy to help 👋", "Nothing you type leaves your browser.", "More free tools below!", "Stuck? Book a free call."]}
+            />
           </div>
 
           <div className="mt-12">{children}</div>

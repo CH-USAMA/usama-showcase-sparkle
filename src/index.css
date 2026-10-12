@@ -1180,3 +1180,13 @@ main:focus {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
   }
 }
+
+/* ============================================================================
+   MASCOT (src/components/Mascot.tsx): a slow float. The reduced-motion block
+   above stops it along with every other animation.
+   ========================================================================= */
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.mascot-float { animation: mascot-float 4.5s ease-in-out infinite; }

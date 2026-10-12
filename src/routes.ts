@@ -25,6 +25,7 @@ export const Tools = lazyPreload(() => import("./pages/tools/Tools"));
 export const PromptBuilder = lazyPreload(() => import("./pages/tools/PromptBuilder"));
 export const MvpPlanner = lazyPreload(() => import("./pages/tools/MvpPlanner"));
 export const AiCostCalculator = lazyPreload(() => import("./pages/tools/AiCostCalculator"));
+export const ReadmeGenerator = lazyPreload(() => import("./pages/tools/ReadmeGenerator"));
 
 type Preloadable = { preload: () => Promise<unknown> };
 const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.preload()));
@@ -49,6 +50,7 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/tools/prompt-builder") return load(PromptBuilder);
   if (p === "/tools/mvp-planner") return load(MvpPlanner);
   if (p === "/tools/ai-cost-calculator") return load(AiCostCalculator);
+  if (p === "/tools/readme-generator") return load(ReadmeGenerator);
   if (/^\/github\/[^/]+$/.test(p)) return load(GitHubReadme, Footer);
   if (p === "/auth" || p.startsWith("/admin")) return Promise.resolve();
   return load(NotFound);

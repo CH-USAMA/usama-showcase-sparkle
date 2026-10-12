@@ -174,7 +174,7 @@ function generateLlms() {
     line("Book a free call", "/book", "Free 30-minute call"),
     line("How to use AI in daily life", "/learn-ai", "Free guide with copy-paste prompts for everyday tasks"),
     line(assistantService.name, "/virtual-assistant", assistantService.metaDescription),
-    line("Free tools", "/tools", "Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator"),
+    line("Free tools", "/tools", "Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator, GitHub README generator"),
     ...TOOLS.map((t) => line(t.name, `/tools/${t.slug}`, t.summary)),
     "",
     "## Services",
