@@ -11,12 +11,13 @@ import ThemeSwitch from "@/components/system/ThemeSwitch";
 import { trackEvent } from "@/lib/analytics";
 
 /**
- * Five items, in the order the page argues.
+ * Six items: five in the order the page argues, then Tools.
  *
  * Experience, Pricing and Contact came off: all three are passed on the way
  * down the page, and eight items made the bar compete with the one action it
  * exists to carry. Insights is a route rather than an anchor, because the blog
- * teaser no longer sits on the home page.
+ * teaser no longer sits on the home page. Tools (the free tools) is a route
+ * too: readers could not find them from the footer alone.
  *
  * `hash` entries scroll within the home page; `to` entries are routes.
  */
@@ -33,6 +34,7 @@ const LINKS: NavLink[] = [
   { id: "services", label: "Services", hash: "#services" },
   { id: "process", label: "Process", hash: "#process" },
   { id: "blog", label: "Insights", to: "/blog" },
+  { id: "tools", label: "Tools", to: "/tools" },
 ];
 
 /** A left click with no modifier: anything else (new tab, new window) is the browser's. */
