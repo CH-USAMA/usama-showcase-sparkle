@@ -37,6 +37,7 @@ const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.p
 export function preloadRoute(pathname: string): Promise<unknown> {
   const p = pathname.replace(/\/+$/, "") || "/";
   if (p === "/") return Promise.resolve();
+  if (/^\/(ar|fr)\/tools(\/|$)/.test(p)) return preloadRoute(p.slice(3));
   if (p === "/projects") return load(Projects, TrackRecord, FinalCTA, Footer);
   if (/^\/project\/[^/]+$/.test(p)) return load(ProjectDetail, FinalCTA, Footer);
   if (p === "/blog") return load(Blog, TrendingRepos, Footer);

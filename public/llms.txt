@@ -41,6 +41,8 @@
 - [MVP Scope Planner](https://www.chaudharyusama.com/tools/mvp-planner): Decide what goes in your app's first version and get a one-page plan with complexity and a timeline range.
 - [AI API Cost Calculator](https://www.chaudharyusama.com/tools/ai-cost-calculator): Estimate your monthly AI API bill and compare OpenAI, Claude and Gemini models side by side.
 - [GitHub README Generator](https://www.chaudharyusama.com/tools/readme-generator): Write a GitHub profile or project README with a live preview, skill icons and stats cards.
+- [Free tools in Arabic](https://www.chaudharyusama.com/ar/tools): The same four tools, in Arabic
+- [Free tools in French](https://www.chaudharyusama.com/fr/tools): The same four tools, in French
 
 ## Services
 

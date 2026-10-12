@@ -147,11 +147,15 @@ const App = () => {
         <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/laravel-scaling-checklist" element={<Checklist />} />
         <Route path="/learn-ai" element={<LearnAI />} />
-        <Route path="/tools" element={<Tools />} />
-        <Route path="/tools/prompt-builder" element={<PromptBuilder />} />
-        <Route path="/tools/mvp-planner" element={<MvpPlanner />} />
-        <Route path="/tools/ai-cost-calculator" element={<AiCostCalculator />} />
-        <Route path="/tools/readme-generator" element={<ReadmeGenerator />} />
+        {/* /tools in English, Arabic and French. Keyed by language, so following
+            the language switch starts the page fresh in the new language. */}
+        {["", "/ar", "/fr"].flatMap((prefix) => [
+          <Route key={`${prefix}/tools`} path={`${prefix}/tools`} element={<Tools key={prefix} />} />,
+          <Route key={`${prefix}/pb`} path={`${prefix}/tools/prompt-builder`} element={<PromptBuilder key={prefix} />} />,
+          <Route key={`${prefix}/mvp`} path={`${prefix}/tools/mvp-planner`} element={<MvpPlanner key={prefix} />} />,
+          <Route key={`${prefix}/cost`} path={`${prefix}/tools/ai-cost-calculator`} element={<AiCostCalculator key={prefix} />} />,
+          <Route key={`${prefix}/readme`} path={`${prefix}/tools/readme-generator`} element={<ReadmeGenerator key={prefix} />} />,
+        ])}
         <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

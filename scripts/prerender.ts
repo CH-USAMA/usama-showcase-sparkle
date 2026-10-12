@@ -35,7 +35,11 @@ import { safeHref } from "../src/lib/url";
 import { assistantService, servicePath, servicesData } from "../src/data/services";
 import { CAPABILITIES } from "../src/data/capabilities";
 import { LEARN_AI_DESCRIPTION, LEARN_AI_TITLE } from "../src/data/learnAI";
-import { TOOLS, TOOLS_INDEX } from "../src/data/tools";
+import { toolsIn } from "../src/data/tools";
+import en from "../src/i18n/tools/en";
+import ar from "../src/i18n/tools/ar";
+import fr from "../src/i18n/tools/fr";
+import { LOCALES, toolsPath } from "../src/lib/locale";
 import { caseStudyTitle, fitDescription } from "../src/lib/seo";
 
 const BASE_URL = "https://www.chaudharyusama.com";
@@ -239,33 +243,40 @@ const toolModule: Record<string, string> = {
   "readme-generator": "src/pages/tools/ReadmeGenerator.tsx",
 };
 
-const toolRoutes: Route[] = [
-  {
-    path: "/tools",
-    title: TOOLS_INDEX.metaTitle,
-    description: TOOLS_INDEX.metaDescription,
-    ogType: "website",
-    module: "src/pages/tools/Tools.tsx",
-    body: page(
-      `<h1>Free tools for building with AI</h1>` +
-        TOOLS.map((t) => `<h2><a href="/tools/${t.slug}">${esc(t.name)}</a></h2><p>${esc(t.summary)}</p>`).join("")
-    ),
-  },
-  ...TOOLS.map((t) => ({
-    path: `/tools/${t.slug}`,
-    title: t.metaTitle,
-    description: t.metaDescription,
-    ogType: "website",
-    module: toolModule[t.slug],
-    body: page(
-      `<article><p><a href="/tools">All free tools</a></p><h1>${esc(t.name)}</h1><p>${esc(t.lead)}</p>` +
-        t.guide.map((s) => `<h2>${esc(s.heading)}</h2><p>${esc(s.body)}</p>`).join("") +
-        `<h2>Frequently asked</h2>` +
-        t.faqs.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("") +
-        `</article>`
-    ),
-  })),
-];
+// /tools in each language (the words live in src/i18n/tools/<locale>.ts).
+const TOOLS_TEXT = { en, ar, fr };
+const toolRoutes: Route[] = LOCALES.flatMap((locale) => {
+  const t = TOOLS_TEXT[locale];
+  const attrs = locale === "en" ? "" : ` lang="${locale}" dir="${locale === "ar" ? "rtl" : "ltr"}"`;
+  return [
+    {
+      path: toolsPath(locale),
+      title: t.index.metaTitle,
+      description: t.index.metaDescription,
+      ogType: "website",
+      module: "src/pages/tools/Tools.tsx",
+      body: page(
+        `<div${attrs}><h1>${esc(t.index.h1)}</h1><p>${esc(t.index.lead)}</p>` +
+          toolsIn(t).map((x) => `<h2><a href="${toolsPath(locale, x.slug)}">${esc(x.name)}</a></h2><p>${esc(x.summary)}</p>`).join("") +
+          `</div>`
+      ),
+    },
+    ...toolsIn(t).map((x) => ({
+      path: toolsPath(locale, x.slug),
+      title: x.metaTitle,
+      description: x.metaDescription,
+      ogType: "website",
+      module: toolModule[x.slug],
+      body: page(
+        `<article${attrs}><p><a href="${toolsPath(locale)}">${esc(t.common.allTools)}</a></p><h1>${esc(x.name)}</h1><p>${esc(x.lead)}</p>` +
+          x.guide.map((s) => `<h2>${esc(s.heading)}</h2><p>${esc(s.body)}</p>`).join("") +
+          `<h2>${esc(t.common.faq)}</h2>` +
+          x.faqs.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("") +
+          `</article>`
+      ),
+    })),
+  ];
+});
 
 const projectRoutes: Route[] = projects
   .filter((e) => e.project)
