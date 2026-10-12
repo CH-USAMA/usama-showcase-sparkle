@@ -30,6 +30,7 @@ import {
   Book,
   Checklist,
   GitHubReadme,
+  LearnAI,
   NotFound,
   PostEditor,
   ProjectDetail,
@@ -140,6 +141,8 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/laravel-scaling-checklist" element={<Checklist />} />
+        <Route path="/learn-ai" element={<LearnAI />} />
+        <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
@@ -114,6 +114,18 @@ const Services = () => {
                 </Reveal>
               ))}
             </ul>
+
+            <Reveal>
+              <p className="mt-10 text-center font-inter text-sm text-muted-foreground">
+                Starting from an idea rather than an existing system?{" "}
+                <Link
+                  to="/services/mvp-development"
+                  className="text-foreground underline underline-offset-4 transition-colors duration-standard hover:text-primary"
+                >
+                  See idea to launch
+                </Link>
+              </p>
+            </Reveal>
           </div>
         </section>
 

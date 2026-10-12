@@ -11,6 +11,8 @@ export interface ServiceSection {
 
 export interface Service {
   slug: string;
+  /** Where the page lives when it is not under /services (side offers). */
+  path?: string;
   name: string;
   eyebrow: string;
   title: string;
@@ -23,6 +25,8 @@ export interface Service {
   stack: string[];
   sections: ServiceSection[];
   faqs: ServiceFaq[];
+  /** Side card and closing section copy, where the engineering defaults do not fit the reader. */
+  pitch?: { title: string; text: string; heading: string; accent: string; lead: string };
 }
 
 export const servicesData: Service[] = [
@@ -250,6 +254,167 @@ export const servicesData: Service[] = [
       },
     ],
   },
+  {
+    slug: "mvp-development",
+    hue: "var(--hue-interface)",
+    name: "Idea to Launch (MVP)",
+    eyebrow: "MVP development",
+    title: "Idea to Launch: MVP Development, Shipped Fast",
+    metaTitle: "MVP Development: From Idea to Launch | Usama Munawar",
+    metaDescription:
+      "Turn an idea into a working web or mobile app in weeks. AI-assisted MVP development with real auth, payments and deployment, reviewed by a senior engineer.",
+    intro:
+      "You have an idea and want to see it working, with real users, before spending months on it. I use AI tools to move fast and senior engineering to make sure what ships is secure, maintainable and yours.",
+    outcomes: [
+      { value: "Weeks", label: "To a first version real users can try" },
+      { value: "AI-fast", label: "Built with Claude and Cursor, every line reviewed" },
+      { value: "Yours", label: "Code, accounts and data in your name" },
+    ],
+    stack: ["React", "Next.js", "React Native", "Expo", "Laravel", "Node.js", "Supabase", "Stripe", "Vercel", "Claude / Cursor"],
+    pitch: {
+      title: "Have an idea to test?",
+      text: "Bring it to a free 30-minute call and leave with a one-page scope and a realistic timeline, whether or not we work together.",
+      heading: "Have an idea worth",
+      accent: "testing?",
+      lead: "Bring it however rough it is. We will cut it down to the first version worth building, and you will know what it takes before anything starts.",
+    },
+    sections: [
+      {
+        heading: "Who this is for",
+        body: "Most people who come with an idea are in one of these places. All of them can have something real in front of users quickly.",
+        bullets: [
+          "Founders with an idea and no technical co-founder or team yet",
+          "Businesses testing a new product or internal tool before committing a budget to it",
+          "Teams running a process on spreadsheets and email that should be an app",
+          "Anyone who started in Lovable, Bolt or v0 and now needs it to work in production",
+        ],
+      },
+      {
+        heading: "How it works",
+        body: "The fastest projects are the ones with the smallest honest scope. We agree on the one workflow that proves the idea, ship that properly, and grow from there.",
+        bullets: [
+          "Free call: we turn the idea into a one-page scope, with what is in the first version and what waits",
+          "A clickable prototype within days, so you can show it to users and change direction cheaply",
+          "The real build: sign-in, database, payments, emails and an admin view, deployed on your accounts",
+          "Launch and handover, then improvements based on what real users actually do",
+        ],
+      },
+      {
+        heading: "Fast, and still built to last",
+        body: "AI tools now write much of the repetitive code, which is why a first version takes weeks rather than months. Speed is no longer the hard part; judgement is. I review everything the tools produce, set up sign-in, data access rules and payments the way a mature product would have them, and add tests on the paths that handle money or user data. The result is an MVP you can keep building on instead of one you have to rewrite.",
+      },
+      {
+        heading: "Already have a prototype?",
+        body: "AI app builders are good at a convincing first screen and weak at the parts that matter once real people sign up: security rules, secrets exposed in the browser, payments, emails, SEO and deployment. I take prototypes from Lovable, Bolt, v0 and similar tools and make them production ready, keeping what works and fixing what would break. This portfolio started in Lovable and runs in production today.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How fast can you build my MVP?",
+        a: "It depends on scope. A focused first version with one core workflow is usually a matter of weeks. After the first call you get a written scope with a timeline, so you know before any work starts.",
+      },
+      {
+        q: "How much does it cost?",
+        a: "Each project is quoted as a fixed price for an agreed scope, so you are not paying for open-ended hours. The first call and the scope are free.",
+      },
+      {
+        q: "Web app or mobile app?",
+        a: "Either, or both. Web apps are built with React or Next.js, and iOS and Android apps with React Native and Expo from one codebase. For most ideas a web app is the quickest way to learn whether people want it.",
+      },
+      {
+        q: "Do I own the code?",
+        a: "Yes. The code lives in your repository and the app runs on accounts in your name, from hosting to payments, so you can continue with me, with another developer, or with your own team.",
+      },
+      {
+        q: "What happens after launch?",
+        a: "Most products keep improving in short cycles based on user feedback. If you would rather take it in-house, you get documentation and a handover call.",
+      },
+    ],
+  },
 ];
 
+/**
+ * A side offer with its own page at /virtual-assistant. It stays out of
+ * servicesData on purpose, so it is not listed among the engineering services
+ * (their "Other services" rail, the /services ItemList), while the page
+ * itself reuses the service layout.
+ */
+export const assistantService: Service = {
+  slug: "virtual-assistant",
+  path: "/virtual-assistant",
+  hue: "var(--hue-automation)",
+  name: "Virtual Assistant & Peer Developer",
+  eyebrow: "Remote support",
+  title: "Virtual Assistant and Peer Developer for Busy Founders",
+  metaTitle: "Virtual Assistant & Peer Developer | Usama Munawar",
+  metaDescription:
+    "Remote help for founders and small teams: customer support, content and social media, website updates, and a fellow developer to pair with, sped up by AI.",
+  intro:
+    "An extra pair of hands that understands both the business and the code. I answer your customers, keep your content and website moving, and work alongside your developers as a peer, using AI tools to get more done in each hour.",
+  outcomes: [
+    { value: "Support", label: "Customer replies handled in your tone" },
+    { value: "Content", label: "Posts, pages and updates published on time" },
+    { value: "Peer dev", label: "A second developer for fixes, reviews and pairing" },
+  ],
+  stack: ["Email & live chat", "Social media", "WordPress", "WooCommerce", "Shopify", "GitHub", "n8n", "Claude / ChatGPT"],
+  pitch: {
+    title: "Want a hand with this?",
+    text: "Tell me what keeps taking up your week on a free 30-minute call, and leave knowing what you could hand over.",
+    heading: "Need an extra pair of",
+    accent: "hands?",
+    lead: "Tell me what keeps pulling you away from the work only you can do. We will work out what I can take over and how we would start.",
+  },
+  sections: [
+    {
+      heading: "What I can take off your plate",
+      body: "Pick the work that keeps pulling you away from the parts of the business only you can do.",
+      bullets: [
+        "Customer support: replying to emails, chats and messages in your voice, and passing on what needs you",
+        "Content and social media: drafting and scheduling posts, writing product descriptions, keeping pages current",
+        "Website updates: new pages, product changes and fixes on WordPress, WooCommerce or Shopify",
+        "Peer programming: bug fixes, small features, code reviews and pairing sessions with your developers",
+      ],
+    },
+    {
+      heading: "An assistant who can also read the code",
+      body: "When a support message is really a bug, I can find it, reproduce it and often fix it, instead of forwarding it and waiting. When the same task comes up every week, I can automate it with n8n or a small script, so your hours go further each month. It is the difference between delegating tasks and delegating problems.",
+    },
+    {
+      heading: "Working as your fellow developer",
+      body: "For teams that need another developer rather than an assistant, I join your repository, follow your conventions and review process, and take tickets like any other team member. It also works for solo founders who code: a second pair of eyes on pull requests, someone to pair with on a tricky feature, and a person to ask before an architecture decision becomes expensive.",
+    },
+    {
+      heading: "How we work together",
+      body: "We start with a short call and a list of what you want handled. You give me my own logins with only the access the work needs, never your personal password. Early on, anything that goes out in your name gets your approval first; once the tone is right, you decide what I can send on my own. You get regular written updates at whatever rhythm suits you.",
+    },
+    {
+      heading: "AI that speeds things up, with a human check",
+      body: "AI tools draft replies, summarise long threads and write first versions, which is how more fits into each hour. I read and edit everything before it reaches a customer or goes live, and your customers' personal data is not pasted into tools that train on it.",
+    },
+  ],
+  faqs: [
+    {
+      q: "What time zone do you work in?",
+      a: "I am based in Lahore, Pakistan (UTC+5). Working hours are agreed up front so they overlap with yours, whether you are in Europe, the US or elsewhere.",
+    },
+    {
+      q: "Hourly or monthly?",
+      a: "Either: a set number of hours per week, or a monthly arrangement for ongoing work. We agree on it after the first call, once the tasks are clear.",
+    },
+    {
+      q: "Can you mix assistant work and development?",
+      a: "Yes, that is where this works best. A week might be customer replies and social posts on most days, plus a bug fix or a pull request review when your team needs one.",
+    },
+    {
+      q: "Can I start small?",
+      a: "Yes. Start with one area, such as your support inbox or your social media, and add more once you are comfortable with how I work.",
+    },
+  ],
+};
+
+export const servicePath = (s: Service) => s.path ?? `/services/${s.slug}`;
+
 export const getService = (slug?: string) => servicesData.find((s) => s.slug === slug);
+
+/** Side offers, each on its own route rather than /services/:slug. */
+export const getSideService = (slug: string) => [assistantService].find((s) => s.slug === slug);

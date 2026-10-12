@@ -20,6 +20,7 @@ export const Book = lazyPreload(() => import("./pages/Book"));
 export const Services = lazyPreload(() => import("./pages/Services"));
 export const ServiceDetail = lazyPreload(() => import("./pages/ServiceDetail"));
 export const Checklist = lazyPreload(() => import("./pages/Checklist"));
+export const LearnAI = lazyPreload(() => import("./pages/LearnAI"));
 
 type Preloadable = { preload: () => Promise<unknown> };
 const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.preload()));
@@ -36,9 +37,10 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/blog") return load(Blog, TrendingRepos, Footer);
   if (/^\/blog\/[^/]+$/.test(p)) return load(BlogPost, BlogRecommendations, FinalCTA, Footer);
   if (p === "/services") return load(Services, TechMatrix, FinalCTA, Footer);
-  if (/^\/services\/[^/]+$/.test(p)) return load(ServiceDetail, FinalCTA, Footer);
+  if (/^\/services\/[^/]+$/.test(p) || p === "/virtual-assistant") return load(ServiceDetail, FinalCTA, Footer);
   if (p === "/book") return load(Book);
   if (p === "/laravel-scaling-checklist") return load(Checklist);
+  if (p === "/learn-ai") return load(LearnAI);
   if (/^\/github\/[^/]+$/.test(p)) return load(GitHubReadme, Footer);
   if (p === "/auth" || p.startsWith("/admin")) return Promise.resolve();
   return load(NotFound);

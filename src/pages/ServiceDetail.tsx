@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
-import { getService, servicesData } from "@/data/services";
+import { getService, getSideService, servicePath, servicesData } from "@/data/services";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
 import NotFound from "@/pages/NotFound";
@@ -29,16 +29,18 @@ const WORK_FILTER: Record<string, string> = {
   "voip-asterisk": "platform",
   "automation-n8n": "ai",
   "ai-integration": "ai",
+  "mvp-development": "platform",
 };
 
-const ServiceDetail = () => {
+/** `side` names a side offer with its own route (/virtual-assistant). */
+const ServiceDetail = ({ side }: { side?: string }) => {
   const enter = useEnter();
   const { slug } = useParams<{ slug: string }>();
-  const service = getService(slug);
+  const service = side ? getSideService(side) : getService(slug);
 
   if (!service) return <NotFound />;
 
-  const url = `${SITE_URL}/services/${service.slug}`;
+  const url = `${SITE_URL}${servicePath(service)}`;
   const others = servicesData.filter((s) => s.slug !== service.slug);
 
   const jsonLd = [
@@ -66,8 +68,12 @@ const ServiceDetail = () => {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
-        { "@type": "ListItem", position: 3, name: service.name, item: url },
+        ...(service.path
+          ? [{ "@type": "ListItem", position: 2, name: service.name, item: url }]
+          : [
+              { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+              { "@type": "ListItem", position: 3, name: service.name, item: url },
+            ]),
       ],
     },
   ];
@@ -197,11 +203,11 @@ const ServiceDetail = () => {
               <Reveal variant="fade">
                 <div className="card-surface p-6">
                   <h2 className="font-inter text-[15px] font-medium text-foreground">
-                    Have a system like this?
+                    {service.pitch?.title ?? "Have a system like this?"}
                   </h2>
                   <p className="type-body mt-3 text-muted-foreground">
-                    Bring the problem to a free 30-minute call and leave with a clear
-                    technical next step, whether or not we work together.
+                    {service.pitch?.text ??
+                      "Bring the problem to a free 30-minute call and leave with a clear technical next step, whether or not we work together."}
                   </p>
                   <div className="mt-6">
                     <CTA
@@ -247,7 +253,16 @@ const ServiceDetail = () => {
           </div>
         </div>
         <Suspense fallback={<div className="py-24" />}>
-          <FinalCTA location={`service_${service.slug}`} secondary={{ to: "/services", label: "All services" }} />
+          <FinalCTA
+            location={`service_${service.slug}`}
+            secondary={{ to: "/services", label: "All services" }}
+            heading={service.pitch && (
+              <>
+                {service.pitch.heading} <em>{service.pitch.accent}</em>
+              </>
+            )}
+            lead={service.pitch?.lead}
+          />
         </Suspense>
       </main>
 
