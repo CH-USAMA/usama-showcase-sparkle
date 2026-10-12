@@ -16,6 +16,7 @@ import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import markup from "react-syntax-highlighter/dist/esm/languages/prism/markup";
 import nginx from "react-syntax-highlighter/dist/esm/languages/prism/nginx";
 import php from "react-syntax-highlighter/dist/esm/languages/prism/php";
+import phpExtras from "react-syntax-highlighter/dist/esm/languages/prism/php-extras";
 import python from "react-syntax-highlighter/dist/esm/languages/prism/python";
 import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
 import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";
@@ -23,8 +24,9 @@ import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typesc
 import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
 
 // Each grammar also registers its own aliases: ts, js, shell, py, yml, html,
-// xml, dockerfile.
-const LANGUAGES = { bash, css, docker, ini, javascript, json, jsx, markup, nginx, php, python, sql, tsx, typescript, yaml };
+// xml, dockerfile. php-extras extends php (Class:: scopes, $this) as the
+// full build did, so it comes after php.
+const LANGUAGES = { bash, css, docker, ini, javascript, json, jsx, markup, nginx, php, phpExtras, python, sql, tsx, typescript, yaml };
 for (const [name, grammar] of Object.entries(LANGUAGES)) SyntaxHighlighter.registerLanguage(name, grammar);
 
 interface CodeBlockProps {
