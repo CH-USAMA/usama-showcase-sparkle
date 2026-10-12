@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { assistantService, servicesData } from "../src/data/services";
+import { TOOLS } from "../src/data/tools";
 import type { BlogPost, ProjectEntry } from "../src/data/types";
 
 // Content comes from the snapshot that scripts/sync-content.ts writes from the
@@ -48,6 +49,8 @@ const staticEntries: SitemapEntry[] = [
   { path: "/laravel-scaling-checklist", changefreq: "monthly", priority: "0.8" },
   { path: "/learn-ai", changefreq: "monthly", priority: "0.8" },
   { path: "/virtual-assistant", changefreq: "monthly", priority: "0.7" },
+  { path: "/tools", changefreq: "monthly", priority: "0.8" },
+  ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
 ];
 
 const serviceEntries: SitemapEntry[] = servicesData.map((s) => ({
@@ -171,6 +174,8 @@ function generateLlms() {
     line("Book a free call", "/book", "Free 30-minute call"),
     line("How to use AI in daily life", "/learn-ai", "Free guide with copy-paste prompts for everyday tasks"),
     line(assistantService.name, "/virtual-assistant", assistantService.metaDescription),
+    line("Free tools", "/tools", "Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator"),
+    ...TOOLS.map((t) => line(t.name, `/tools/${t.slug}`, t.summary)),
     "",
     "## Services",
     "",

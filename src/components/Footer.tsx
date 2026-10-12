@@ -9,6 +9,7 @@ const SITEMAP = [
   { label: "Book a call", to: "/book" },
   { label: "Laravel scaling checklist", to: "/laravel-scaling-checklist" },
   { label: "Learn AI: free guide", to: "/learn-ai" },
+  { label: "Free tools", to: "/tools" },
 ];
 
 const SERVICES = [

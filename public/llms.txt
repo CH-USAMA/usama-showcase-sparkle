@@ -36,6 +36,10 @@
 - [Book a free call](https://www.chaudharyusama.com/book): Free 30-minute call
 - [How to use AI in daily life](https://www.chaudharyusama.com/learn-ai): Free guide with copy-paste prompts for everyday tasks
 - [Virtual Assistant & Peer Developer](https://www.chaudharyusama.com/virtual-assistant): Remote help for founders and small teams: customer support, content and social media, website updates, and a fellow developer to pair with, sped up by AI.
+- [Free tools](https://www.chaudharyusama.com/tools): Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator
+- [AI Prompt Builder](https://www.chaudharyusama.com/tools/prompt-builder): Turn a rough request into a clear prompt for ChatGPT, Claude or Gemini, in any answer language.
+- [MVP Scope Planner](https://www.chaudharyusama.com/tools/mvp-planner): Decide what goes in your app's first version and get a one-page plan with complexity and a timeline range.
+- [AI API Cost Calculator](https://www.chaudharyusama.com/tools/ai-cost-calculator): Estimate your monthly AI API bill and compare OpenAI, Claude and Gemini models side by side.
 
 ## Services
 
@@ -70,6 +74,9 @@
 
 ## Articles
 
+- [AI Voice Agents on Asterisk: Connecting a Phone Line to a Realtime Model](https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk)
+- [Give Your Laravel App an MCP Server: Let AI Assistants Use Your Product Safely](https://www.chaudharyusama.com/blog/laravel-mcp-server)
+- [React Native in 2026: What Changed, and When I Still Recommend Native or Flutter](https://www.chaudharyusama.com/blog/react-native-2026)
 - [Laravel vs Node.js for Backend Systems: How I Choose in 2026](https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems)
 - [Asterisk vs Twilio: Real Cost Breakdown for Call Center Backends](https://www.chaudharyusama.com/blog/asterisk-vs-twilio-cost-breakdown)
 - [n8n vs Custom Code: Where Automation Platforms Stop Paying Off](https://www.chaudharyusama.com/blog/n8n-vs-custom-code-automation)

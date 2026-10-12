@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Check, Copy, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Check, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import CTA from "@/components/system/CTA";
+import CopyButton from "@/components/CopyButton";
 import { Input } from "@/components/ui/input";
 import { SITE_URL } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -70,32 +70,6 @@ const NEXT_STEPS = [
     text: "Support assistants, document search and automations built on your own data, with costs you can predict.",
   },
 ];
-
-/** Copies a prompt; "Copied" is announced to screen readers. */
-const CopyButton = ({ text, label }: { text: string; label: string }) => {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      trackEvent("prompt_copy", { prompt: label });
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked (permissions, old browser): the prompt is still selectable.
-    }
-  };
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      aria-label={`Copy prompt: ${label}`}
-      className="inline-flex min-h-9 items-center gap-1.5 rounded-md border border-hairline/[0.12] px-2.5 font-inter text-xs font-medium text-muted-foreground transition-colors duration-standard hover:border-hairline/[0.24] hover:text-foreground"
-    >
-      {copied ? <Check className="h-3.5 w-3.5 text-primary" aria-hidden="true" /> : <Copy className="h-3.5 w-3.5" aria-hidden="true" />}
-      <span aria-live="polite">{copied ? "Copied" : "Copy"}</span>
-    </button>
-  );
-};
 
 const LearnAI = () => {
   const enter = useEnter();
@@ -192,7 +166,7 @@ const LearnAI = () => {
                   <div className="card-surface p-5">
                     <div className="flex items-center justify-between gap-3">
                       <p className="mono-tiny text-primary">Clear</p>
-                      <CopyButton text={STRONG_PROMPT} label="Email to my landlord" />
+                      <CopyButton text={STRONG_PROMPT} label="Copy prompt: Email to my landlord" />
                     </div>
                     <p className="mt-3 font-inter text-sm leading-relaxed text-foreground">“{STRONG_PROMPT}”</p>
                   </div>
@@ -200,6 +174,13 @@ const LearnAI = () => {
                 <p className="type-body measure mt-6 text-muted-foreground">
                   Then keep going: “make it friendlier”, “shorter”, “add a subject line”. The first answer is a draft,
                   not the result.
+                </p>
+                <p className="type-body measure mt-4 text-muted-foreground">
+                  Want help putting the four parts together? The free{" "}
+                  <Link to="/tools/prompt-builder" className="text-foreground underline underline-offset-4 hover:text-primary">
+                    AI prompt builder
+                  </Link>{" "}
+                  does it as you type, and can ask for the answer in another language.
                 </p>
               </section>
             </Reveal>
@@ -218,7 +199,7 @@ const LearnAI = () => {
                     <li key={p.title} className="card-surface flex flex-col p-5">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-inter text-[15px] font-medium text-foreground">{p.title}</h3>
-                        <CopyButton text={p.prompt} label={p.title} />
+                        <CopyButton text={p.prompt} label={`Copy prompt: ${p.title}`} />
                       </div>
                       <p className="mt-3 font-mono text-[13px] leading-relaxed text-muted-foreground">{p.prompt}</p>
                       {p.note && <p className="mt-4 border-t border-hairline/[0.08] pt-3 font-inter text-xs leading-relaxed text-subtle">{p.note}</p>}
