@@ -4,6 +4,8 @@
 // the page while it registered them. A fence in any other language renders
 // as plain text (refractor throws, the highlighter falls back). To highlight
 // a new language, import it here and register it.
+// First import, on purpose: see the file.
+import "@/lib/prismManual";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism-light";
 import vscDarkPlus from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
 import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
