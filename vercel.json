@@ -14,7 +14,6 @@
   "rewrites": [
     { "source": "/blog/:slug", "destination": "/app.html" },
     { "source": "/project/:id", "destination": "/app.html" },
-    { "source": "/services/:slug", "destination": "/app.html" },
     { "source": "/github/:repoId", "destination": "/app.html" },
     { "source": "/auth", "destination": "/app.html" },
     { "source": "/admin", "destination": "/app.html" },
