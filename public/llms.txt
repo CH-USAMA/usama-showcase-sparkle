@@ -79,6 +79,7 @@
 
 ## Articles
 
+- [Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech](https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app)
 - [MCP's 2026-07-28 Spec: What Stateless Means for Your Server](https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration)
 - [Laravel AI SDK: Build an Agent with Tools and Semantic Search](https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search)
 - [Laravel 13: What's New and Whether to Upgrade from Laravel 12](https://www.chaudharyusama.com/blog/laravel-13-whats-new-upgrade-from-12)
