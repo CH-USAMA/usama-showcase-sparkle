@@ -97,6 +97,8 @@ Measurement is manual on purpose: record impressions, reactions, comments, repos
 
 ## Try it
 
+The project page has the short version: [LinkedIn Post Agent Skill](/project/24). The code is on [GitHub](https://github.com/CH-USAMA/linkedin-post-skill), MIT licensed.
+
 \`\`\`bash
 git clone https://github.com/CH-USAMA/linkedin-post-skill.git
 cd linkedin-post-skill
