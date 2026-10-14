@@ -972,4 +972,56 @@ export const projectsData: Record<number, Project> = {
     "completionDate": "October 2026",
     "duration": "1 month"
   },
+  24: {
+    "id": 24,
+    "title": "LinkedIn Post Agent Skill",
+    "description": "An open-source agent skill that drafts one research-backed LinkedIn post at a time (image, video or PDF carousel), lints it for AI-sounding writing and leaves publishing to a human",
+    "fullDescription": "THE PROBLEM: Most LinkedIn automation optimises for volume, which produces generic, AI-sounding posts and puts the account at risk. I wanted an agent that does the slow parts well (research, layout, first draft, consistency) while a person keeps control of what is published under their name.\n\nTHE APPROACH: I built an open-source agent skill that drafts one post at a time and then stops. It works as a SKILL.md skill for Claude, or with any agent that can read a markdown playbook and run Python. It never posts on a schedule: scheduled runs only draft and notify, and a human reads each draft and presses Post.\n\nLANES AND MEMORY: Each posting day has a lane (a verified news take on Monday, a first-person story on Wednesday, a skimmable checklist or comparison on Friday) so the feed does not repeat itself. A history file with one JSON line per draft treats every past topic as used, and a voice file holds the author's tone, forbidden words and sample posts.\n\nINTEGRITY RULES: No invented numbers, clients, quotes or anecdotes. Sources are ranked, with official documentation and release notes first, and every fact is verified or labelled. The agent never reacts, reposts, deletes or comments on other people's posts unattended, and the repository keeps personal data, analytics and generated media out of version control.\n\nASSETS: A Python canvas renders 1080x1350 phone-first images with cards, pills, icon tiles and gradient text. A carousel tool turns a small JSON file (cover, point, compare and cta slides) into a PDF plus a cover image, and short reveal videos are rendered from the same canvas. Icons are Lucide SVGs fetched by the setup script rather than bundled.\n\nTHE LINTER: slop_lint.py checks a caption for AI-sounding words, structural tells such as 'not just X, it's Y', rocket and sparkle emoji, em and en dashes, links before the first-comment marker, hashtag count, the length of line one and total word count, and exits non-zero until the caption is clean.\n\nBUILT WITH: Python (Pillow, CairoSVG, NumPy, imageio and ffmpeg), a shell setup script, Lucide icons and a markdown playbook. MIT licensed, with documentation for usage, the weekly workflow, customising lanes and colours, and safety. Built in October 2026.",
+    "image": "/projects/linkedin-post-skill.jpg",
+    "gallery": [
+      "/projects/linkedin-post-skill.jpg"
+    ],
+    "technologies": [
+      "Python",
+      "Pillow · CairoSVG",
+      "imageio + ffmpeg",
+      "Agent Skills (SKILL.md)",
+      "Lucide Icons",
+      "MIT Open Source"
+    ],
+    "category": "Open source / AI agents",
+    "completionDate": "October 2026",
+    "liveUrl": "https://github.com/CH-USAMA/linkedin-post-skill",
+    "githubUrl": "https://github.com/CH-USAMA/linkedin-post-skill",
+    "features": [
+      "Weekday Lanes Without Repeats",
+      "Image, Video and PDF Carousel Output",
+      "Carousels from a JSON File",
+      "Slop Linter for AI-sounding Writing",
+      "Ranked Sources and No Invented Facts",
+      "History and Voice State Files",
+      "Draft and Notify Only, Never Auto-post",
+      "Works with Claude or Any Agent"
+    ],
+    "challenges": [
+      {
+        "title": "Credibility over volume",
+        "description": "Designing the workflow around integrity rules (verified facts, ranked sources, no invented anecdotes) instead of posting frequency"
+      },
+      {
+        "title": "Catching AI-sounding writing",
+        "description": "Turning the recognisable tells of model-written copy into a deterministic linter that an agent can run until the caption is clean"
+      },
+      {
+        "title": "Staying inside platform rules",
+        "description": "Keeping publishing manual, because automating a personal profile can break the platform's terms, while still removing most of the work"
+      }
+    ],
+    "results": [
+      "One command turns a JSON file into a phone-ready PDF carousel",
+      "A caption linter with exit codes an agent can loop on",
+      "Published as an MIT-licensed repository with usage, workflow and safety docs",
+      "Draft, lint, approve pattern reusable beyond LinkedIn"
+    ]
+  },
 };

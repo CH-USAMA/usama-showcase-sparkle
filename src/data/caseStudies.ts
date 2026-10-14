@@ -397,4 +397,43 @@ export const caseStudies: CaseStudy[] = [
     "liveUrl": "https://complaint-docs-admin.vercel.app/",
     "detailPath": "/project/23"
   },
+  {
+    "id": "linkedin-post-agent-skill",
+    "n": "15",
+    "category": "Open source",
+    "hue": "var(--hue-cloud)",
+    "title": "LinkedIn Post Agent Skill",
+    "image": "/projects/linkedin-post-skill.jpg",
+    "year": "2026",
+    "role": "Agent design · Python tooling · Open source",
+    "problem": "LinkedIn automation optimises for volume, which gives generic, AI-sounding posts and risks the account. A person needs to stay in charge of what goes out under their name.",
+    "approach": "An agent skill that drafts one researched post at a time as an image, video or PDF carousel, lints the caption for AI-sounding writing and leaves publishing to a human. Lanes by weekday, ranked sources and no invented facts.",
+    "result": "Phone-ready carousels from a JSON file, a caption linter an agent can loop on, and a public MIT repository with usage and safety docs.",
+    "flow": [
+      {
+        "label": "Research",
+        "note": "Ranked sources"
+      },
+      {
+        "label": "Design",
+        "note": "Image · carousel"
+      },
+      {
+        "label": "Lint",
+        "note": "Slop checks"
+      },
+      {
+        "label": "Approve",
+        "note": "Human posts"
+      }
+    ],
+    "stack": [
+      "Python",
+      "Pillow",
+      "Agent Skills",
+      "MIT"
+    ],
+    "liveUrl": "https://github.com/CH-USAMA/linkedin-post-skill",
+    "detailPath": "/project/24"
+  },
 ];
