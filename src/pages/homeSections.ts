@@ -10,6 +10,7 @@ import { FinalCTA, Footer } from "@/components/lazyParts";
 export const CaseStudies = lazyPreload(() => import("@/components/CaseStudies"));
 export const Audience = lazyPreload(() => import("@/components/Audience"));
 export const ServiceExplorer = lazyPreload(() => import("@/components/ServiceExplorer"));
+export const Industries = lazyPreload(() => import("@/components/Industries"));
 export const ProcessPipeline = lazyPreload(() => import("@/components/ProcessPipeline"));
 export const Philosophy = lazyPreload(() => import("@/components/Philosophy"));
 export const Engagements = lazyPreload(() => import("@/components/Engagements"));
@@ -20,6 +21,7 @@ export const SECTIONS = [
   CaseStudies,
   Audience,
   ServiceExplorer,
+  Industries,
   ProcessPipeline,
   Philosophy,
   Engagements,
