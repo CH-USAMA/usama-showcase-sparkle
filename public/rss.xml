@@ -6,8 +6,43 @@
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Oct 2026 11:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 09:40:00 GMT</lastBuildDate>
 
+    <item>
+      <title>MCP's 2026-07-28 Spec: What Stateless Means for Your Server</title>
+      <link>https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration</guid>
+      <pubDate>Thu, 15 Oct 2026 09:40:00 GMT</pubDate>
+      <description>The biggest Model Context Protocol update since launch removes sessions and the initialize handshake. What changed, what is deprecated, and a migration checklist.</description>
+    </item>
+    <item>
+      <title>Laravel AI SDK: Build an Agent with Tools and Semantic Search</title>
+      <link>https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search</guid>
+      <pubDate>Thu, 15 Oct 2026 09:30:00 GMT</pubDate>
+      <description>A hands-on guide to the Laravel AI SDK: install it, write an agent with structured output and tools, add pgvector semantic search, and fail over between providers.</description>
+    </item>
+    <item>
+      <title>Laravel 13: What's New and Whether to Upgrade from Laravel 12</title>
+      <link>https://www.chaudharyusama.com/blog/laravel-13-whats-new-upgrade-from-12</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/laravel-13-whats-new-upgrade-from-12</guid>
+      <pubDate>Thu, 15 Oct 2026 09:20:00 GMT</pubDate>
+      <description>Laravel 13 shipped on March 17, 2026 with a first-party AI SDK and vector search. The support timeline, what changed, an upgrade checklist, and who should move now.</description>
+    </item>
+    <item>
+      <title>AI Lead Follow-Up Automation: Reply to Every Enquiry in Minutes</title>
+      <link>https://www.chaudharyusama.com/blog/ai-lead-follow-up-automation-n8n</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/ai-lead-follow-up-automation-n8n</guid>
+      <pubDate>Thu, 15 Oct 2026 09:10:00 GMT</pubDate>
+      <description>How to capture, qualify and answer every lead within minutes using n8n and AI, what to keep human, the guardrails that matter, and the numbers to track.</description>
+    </item>
+    <item>
+      <title>How to Rank on Google and Get Cited by ChatGPT and AI Overviews in 2026</title>
+      <link>https://www.chaudharyusama.com/blog/seo-ai-search-rank-google-chatgpt-2026</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/seo-ai-search-rank-google-chatgpt-2026</guid>
+      <pubDate>Thu, 15 Oct 2026 09:00:00 GMT</pubDate>
+      <description>A practical 2026 guide to ranking on the first page of Google and being cited in AI answers: what Google says, what studies show, and ten steps that actually work.</description>
+    </item>
     <item>
       <title>AI Voice Agents on Asterisk: Connecting a Phone Line to a Realtime Model</title>
       <link>https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk</link>

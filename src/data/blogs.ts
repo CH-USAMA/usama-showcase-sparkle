@@ -7,6 +7,468 @@ export type { BlogPost };
 
 export const blogsData: BlogPost[] = [
   {
+    id: "30",
+    title: "How to Rank on Google and Get Cited by ChatGPT and AI Overviews in 2026",
+    seo_title: "How to Rank on Google and in AI Search (2026 Guide)",
+    slug: "seo-ai-search-rank-google-chatgpt-2026",
+    excerpt: "A practical 2026 guide to ranking on the first page of Google and being cited in AI answers: what Google says, what studies show, and ten steps that actually work.",
+    content: `## The short version
+
+Search in 2026 has two front doors: the classic ranked results, and AI answers (Google's AI Overviews and AI Mode, ChatGPT search, Perplexity and others) that quote a handful of sources. The good news is that you do not need two strategies. Google's own guidance on its generative AI search features says optimizing for them is optimizing for the search experience, and so it is still SEO. There is no special markup, no AI-only file and no rewrite that unlocks them.
+
+What changes is how much your pages need to be easy to quote.
+
+## What the evidence says (and does not say)
+
+- **Google's position.** Its Search Central guidance on generative AI features says the same foundations apply: meet the technical requirements, follow the spam policies, write helpful content, and keep important information in text. It also warns against trying to manufacture mentions.
+- **ChatGPT search leans on Bing's index.** Industry studies report that most ChatGPT citations come from pages that rank well in Bing, which is one more reason to be in Bing Webmaster Tools, not only Google Search Console.
+- **Schema is not a magic switch.** One large study of pages that added structured data found no measurable lift in citations. Keep schema for accuracy and rich results, not as an AI hack.
+- **\`llms.txt\` is optional.** Treat it as harmless documentation, not a ranking tactic.
+- **Treat third-party citation studies as hypotheses.** Samples, prompts and dates vary widely, and overlap between platforms is low.
+
+## Ten things that actually move the needle
+
+### 1. Pick one clear search intent per page
+
+A page that tries to rank for everything ranks for nothing. For each page, write down the question it answers and who is asking. "Laravel developer for a SaaS rebuild" is a page. "Web development services" is a vague category.
+
+### 2. Put the answer first
+
+Lead each section with a direct answer in plain sentences, then the detail. Humans skim; AI systems quote passages. A clear two-sentence answer under a descriptive heading is the unit that gets lifted into a snippet or an AI response.
+
+### 3. Show real experience
+
+Google's quality guidance rewards first-hand experience. Case studies with specific constraints, decisions and outcomes beat generic advice. Name the stack, the problem and what changed. This is where a portfolio has an advantage over a template agency site.
+
+### 4. Get the technical basics right
+
+Fast pages, mobile layout, a sitemap, working canonical tags, one H1 per page, descriptive titles under about 60 characters and meta descriptions that read like a promise. Pages must be crawlable without needing clicks or logins; server-rendered or prerendered HTML is the safest.
+
+### 5. Submit to both search engines
+
+Verify the site in Google Search Console and Bing Webmaster Tools, submit the sitemap in both, and use IndexNow so Bing (and other participating engines) hear about new pages quickly. Google does not use IndexNow, so use URL Inspection to request indexing for important new pages.
+
+### 6. Build topical depth, then link it together
+
+Five good articles on one theme, linked to each other and to the service page they support, beat fifty unrelated posts. Link from every article to the relevant service page and back, with descriptive anchor text.
+
+### 7. Use current, specific facts
+
+Cite versions, dates and numbers, and name the primary source. Posts that say "Laravel 13, released March 2026" or quote a spec revision are both more useful and more quotable than evergreen fluff. Update posts when facts change and show the date.
+
+### 8. Be consistent about who you are
+
+Use the same name, bio, location and links everywhere: site, GitHub, LinkedIn, Google Business Profile if you have one, directories and guest posts. Search and AI systems resolve entities, and inconsistent details weaken the match.
+
+### 9. Earn mentions off your own site
+
+Reviews, client testimonials with names, podcast or guest posts, open-source contributions and mentions in communities your clients read. A few relevant, real mentions are worth more than a pile of low-quality directory links, and buying them risks a penalty.
+
+### 10. Measure and iterate
+
+Check Search Console for queries, impressions and the pages that nearly rank (positions 8 to 20), then improve those first: sharpen the title, add the missing section, add internal links. Search Console now reports on generative AI features too, so watch that report as it matures.
+
+## A realistic timeline
+
+New pages are usually crawled within days, but rankings for competitive phrases take months. Start with specific, lower-competition queries where you can be the best answer: a named technology plus a named use case, a comparison you have real experience with, or a city plus a service. Those win first and build the authority for broader terms.
+
+## A simple monthly routine
+
+1. Publish two useful articles tied to services you sell.
+2. Update one older article with fresh facts.
+3. Add internal links from new pages to old ones and back.
+4. Review Search Console and Bing Webmaster Tools, and fix anything flagged.
+5. Ask one happy client for a named testimonial or a mention.
+
+## Want help with this?
+
+I build sites that render fully for search and AI crawlers, and I help teams plan content around what they actually sell. See [Laravel development](/services/laravel-development), [AI integration](/services/ai-integration) and [MVP development](/services/mvp-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: null,
+    published_at: "2026-10-15T09:00:00Z",
+    author: "Usama Munawar",
+    tags: ["SEO", "AI Search", "GEO", "Digital Marketing", "Google"],
+  },
+  {
+    id: "31",
+    title: "AI Lead Follow-Up Automation: Reply to Every Enquiry in Minutes",
+    seo_title: "AI Lead Follow-Up Automation with n8n: A Practical Guide",
+    slug: "ai-lead-follow-up-automation-n8n",
+    excerpt: "How to capture, qualify and answer every lead within minutes using n8n and AI, what to keep human, the guardrails that matter, and the numbers to track.",
+    content: `## Why speed decides who wins the lead
+
+Most businesses lose leads without ever knowing it. An enquiry arrives at 9 pm, gets seen the next afternoon, and by then the prospect has talked to two competitors. The widely cited lead response research from MIT and InsideSales found that contacting a lead within five minutes made a conversation dramatically more likely than waiting half an hour. Treat the exact multiples with caution, since they come from an older study and vendors quote them freely, but the direction is consistent across sales research: the first quick, relevant reply has a large advantage.
+
+Automation fixes the part humans are bad at, which is being instantly available at any hour. It should not replace the human conversation. It should make sure the conversation starts.
+
+## What an AI lead follow-up system does
+
+1. **Captures every enquiry** from your website form, chat, email and WhatsApp in one place.
+2. **Replies in minutes** with something specific, not a generic "thanks for your interest".
+3. **Qualifies the lead** by asking two or three questions and scoring the answers.
+4. **Routes it**: hot leads go straight to a calendar link and a phone alert, medium leads to a nurture sequence, poor fits get a polite answer and a useful link.
+5. **Logs everything** to your CRM so nothing depends on someone remembering.
+
+## A workable architecture
+
+A typical build with n8n looks like this:
+
+- A **webhook** receives the lead from your form, chat or ad platform.
+- An **AI agent step** reads the message, scores the lead against your criteria, and drafts a reply.
+- A **switch** routes the lead into one of a few branches (book now, nurture, decline).
+- Branches send the email or message, create or update the CRM record, and alert you on Slack, email or WhatsApp for hot leads.
+- A **scheduled follow-up** nudges anyone who has not replied after a day or two.
+
+n8n is a good fit when you want to move fast and keep control of the workflow. When the logic gets heavy (pricing rules, per-client permissions, audit trails), the same flow is better as code in your own backend; I compare the two in [n8n vs custom code](/blog/n8n-vs-custom-code-automation). If your product is on Laravel, queues and the new first-party AI tooling make this natural to build in-house; see [Laravel AI SDK](/blog/laravel-ai-sdk-agents-tools-semantic-search).
+
+## Rules that keep it from going wrong
+
+- **Say it is automated when it matters.** Be honest if a reply was drafted by software, especially in regulated fields.
+- **Keep a human in the loop for money and exceptions.** Pricing, contracts, complaints and anything unusual go to a person. Companies that over-automated complex support cases have reversed course.
+- **Ground replies in your real content.** Give the agent your services, price ranges, availability and FAQs, and tell it to say "I will check and come back to you" instead of guessing.
+- **Do not send what you cannot back up.** Review a sample of replies every week for the first month.
+- **Respect consent and privacy.** Store only what you need, honour unsubscribes, and follow the rules for your market (GDPR, TCPA and similar).
+- **Have a fallback.** If the AI provider is down, the lead should still reach your inbox and phone.
+
+## How to measure it
+
+Track a few numbers before and after launch, and ignore vanity metrics:
+
+| Metric | Why it matters |
+|---|---|
+| Median time to first reply | The thing you are fixing |
+| Enquiry to booked call rate | The business outcome |
+| Qualified meetings per month | Quality, not just volume |
+| Hours of manual follow-up saved | The cost side |
+| Error or escalation rate | Whether the AI is safe to keep running |
+
+Be sceptical of headline claims from tool vendors, such as "300% more leads". Your own before and after numbers over 60 to 90 days are the only figures that count.
+
+## What to automate first
+
+If you only do one thing this month, do this: an instant, personal acknowledgement for every web enquiry, with a link to book a call and an alert to your phone. It takes days, not weeks, and it removes the biggest leak. Qualification scoring, nurture sequences and chat come next.
+
+## Want this set up for your business?
+
+I build lead capture, AI qualification and CRM automation with n8n and custom Laravel or Node.js backends. See [AI integration](/services/ai-integration) and [automation with n8n](/services/automation-n8n), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: null,
+    published_at: "2026-10-15T09:10:00Z",
+    author: "Usama Munawar",
+    tags: ["AI Automation", "n8n", "Lead Generation", "Digital Marketing", "CRM"],
+  },
+  {
+    id: "32",
+    title: "Laravel 13: What's New and Whether to Upgrade from Laravel 12",
+    seo_title: "Laravel 13: What's New and How to Upgrade from 12",
+    slug: "laravel-13-whats-new-upgrade-from-12",
+    excerpt: "Laravel 13 shipped on March 17, 2026 with a first-party AI SDK and vector search. The support timeline, what changed, an upgrade checklist, and who should move now.",
+    content: `## The short answer
+
+Laravel 13 was released on March 17, 2026 and requires PHP 8.3 or newer. If you are on Laravel 12, the upgrade is usually small and worth doing this quarter, mostly because of the support calendar. If you are still on Laravel 11, you are already out of security support and the upgrade is no longer optional.
+
+## Support timeline
+
+The dates below come from the official Laravel support policy: bug fixes for 18 months, security fixes for two years.
+
+| Version | PHP | Released | Bug fixes until | Security fixes until |
+|---|---|---|---|---|
+| 11 | 8.2 to 8.4 | March 12, 2024 | September 3, 2025 | March 12, 2026 |
+| 12 | 8.2 to 8.5 | February 24, 2025 | August 13, 2026 | February 24, 2027 |
+| 13 | 8.3 to 8.5 | March 17, 2026 | Q3 2027 | Q1 2028 |
+
+Two things follow from this. Laravel 11 is end of life. Laravel 12 stopped getting bug fixes in August and is now security only, which is fine for a while but means a non-security bug you hit will not be patched upstream.
+
+## What is new in Laravel 13
+
+### A first-party AI SDK
+
+The headline change is the Laravel AI SDK (\`laravel/ai\`): one API for text generation, agents, embeddings, images, audio, transcription and vector stores, with providers including OpenAI, Anthropic and Gemini behind it. If you have been wiring AI features with hand-rolled HTTP clients or a third-party wrapper, this is the part that changes your architecture. I cover it with working code in [Laravel AI SDK: build an agent with tools and semantic search](/blog/laravel-ai-sdk-agents-tools-semantic-search).
+
+### Vector search in the query builder
+
+Eloquent can now query vector columns directly with \`whereVectorSimilarTo()\`, backed by PostgreSQL and the pgvector extension. That makes semantic search a normal query instead of a separate service. If you are choosing a database for a new product, this tips the balance toward PostgreSQL for AI-heavy features; the trade-offs are in [MySQL vs PostgreSQL for Laravel SaaS](/blog/mysql-vs-postgresql-laravel-saas).
+
+### Smaller changes worth knowing
+
+- **PHP attributes** are available as an optional alternative to class properties in many places in the framework. Nothing forces you to migrate existing code.
+- **JSON:API resources** for APIs that follow the JSON:API specification.
+- **Queue routing** to send jobs to the right connection and queue centrally.
+- **\`Cache::touch()\`** to extend a cached item's lifetime without rewriting it.
+- **Stricter request forgery protection** (CSRF), which is the change most likely to need a look in apps with unusual form or API setups.
+
+Check the official release notes and upgrade guide for the exact list before you start; point releases keep adding to it.
+
+## Upgrade checklist
+
+1. **Check your PHP version.** Laravel 13 needs 8.3 or newer. Moving PHP is often the bigger job, so do it first and ship it on its own.
+2. **Read the upgrade guide** top to bottom and note anything that touches code you actually use.
+3. **Check your packages.** Every first-party and third-party package needs a release that allows Laravel 13. Billing, admin panels and permissions packages are the usual blockers.
+4. **Bump the constraint** to \`^13.0\`, run \`composer update\`, and fix what breaks.
+5. **Run the test suite**, then exercise the paths tests rarely cover: queues, scheduled commands, webhooks, mail, file uploads and anything that posts a form from another origin.
+6. **Deploy to staging**, run it for a few days, then production, with the previous release one command away.
+
+Most Laravel 12 applications upgrade with limited code changes. The time goes into PHP, packages and verification, not framework code.
+
+## Should you upgrade now?
+
+- **Yes, now:** you are on Laravel 11, or you want to build AI features and would rather use the first-party SDK than maintain your own client.
+- **Soon:** you are on Laravel 12 with a healthy test suite. Plan it into the next quiet sprint, and do it before the February 2027 security cut-off puts it under time pressure.
+- **Not yet:** a key package has no Laravel 13 release, or the app has no tests and no staging. Fix that first; the upgrade will be easier afterwards.
+
+## Need a hand?
+
+Upgrading a production Laravel app, or adding AI features to one? See [Laravel development](/services/laravel-development) and [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: null,
+    published_at: "2026-10-15T09:20:00Z",
+    author: "Usama Munawar",
+    tags: ["Laravel", "Laravel 13", "PHP 8.5", "Upgrade", "AI SDK"],
+  },
+  {
+    id: "33",
+    title: "Laravel AI SDK: Build an Agent with Tools and Semantic Search",
+    seo_title: "Laravel AI SDK: Agents, Tools and Semantic Search",
+    slug: "laravel-ai-sdk-agents-tools-semantic-search",
+    excerpt: "A hands-on guide to the Laravel AI SDK: install it, write an agent with structured output and tools, add pgvector semantic search, and fail over between providers.",
+    content: `## What the Laravel AI SDK is
+
+The Laravel AI SDK (\`laravel/ai\`) is the first-party package for AI features in Laravel 13. It gives you one API for text and agents, embeddings, reranking, images, audio, transcription, files and vector stores, and it sits on top of several providers, so the model is a configuration choice and not a rewrite.
+
+Provider support, as listed in the documentation:
+
+| Feature | Providers |
+|---|---|
+| Text | OpenAI, Anthropic, Gemini, Azure, Groq, xAI, DeepSeek, Mistral, Ollama |
+| Images | OpenAI, Gemini, xAI |
+| Speech (TTS and STT) | OpenAI, ElevenLabs, Mistral (STT only) |
+| Embeddings | OpenAI, Gemini, Azure, Cohere, Mistral, Jina, VoyageAI |
+| Reranking | Cohere, Jina |
+
+The documentation for this package was still marked as covering an upcoming version when I wrote this, so treat the examples below as the shape of the API and check the current docs before you copy them into production.
+
+## Install it
+
+\`\`\`shell
+composer require laravel/ai
+php artisan vendor:publish --provider="Laravel\\Ai\\AiServiceProvider"
+php artisan migrate
+\`\`\`
+
+The migration creates the tables the SDK uses to store conversations. Add your provider keys to \`.env\` (for example \`ANTHROPIC_API_KEY\` or \`OPENAI_API_KEY\`) and set default models in \`config/ai.php\`.
+
+## An agent is a class
+
+The core idea is that an agent is a dedicated PHP class holding the instructions, context, tools and output schema for one job. Generate one with Artisan:
+
+\`\`\`shell
+php artisan make:agent SalesCoach --structured
+\`\`\`
+
+Then fill it in:
+
+\`\`\`php
+class SalesCoach implements Agent, HasStructuredOutput
+{
+    use Promptable;
+
+    public function instructions(): Stringable|string
+    {
+        return 'You are a sales coach, analyzing transcripts and providing feedback and an overall sales strength score.';
+    }
+
+    public function schema(JsonSchema $schema): array
+    {
+        return [
+            'feedback' => $schema->string()->required(),
+            'score' => $schema->integer()->min(1)->max(10)->required(),
+        ];
+    }
+}
+\`\`\`
+
+Prompting it returns a structured response you read like an array:
+
+\`\`\`php
+$response = (new SalesCoach)->prompt('Analyze this sales transcript...');
+
+return $response['score'];
+\`\`\`
+
+Structured output is the feature I would reach for first. A score, a category or a list of extracted fields that your code can rely on is far more useful in a product than a paragraph of prose.
+
+## Give the agent tools
+
+Tools let the agent call your code while it answers. Generate one with \`php artisan make:tool\`, which creates a class in \`app/Ai/Tools\`:
+
+\`\`\`php
+class RandomNumberGenerator implements Tool
+{
+    public function description(): Stringable|string
+    {
+        return 'This tool may be used to generate cryptographically secure random numbers.';
+    }
+
+    public function handle(Request $request): Stringable|string
+    {
+        return (string) random_int($request['min'], $request['max']);
+    }
+
+    public function schema(JsonSchema $schema): array
+    {
+        return [
+            'min' => $schema->integer()->min(0)->required(),
+            'max' => $schema->integer()->required(),
+        ];
+    }
+}
+\`\`\`
+
+Return it from the agent's \`tools()\` method and the model can decide when to call it. The same rule applies as for any tool a model can call: validate the arguments, scope every query to the signed-in user, and never expose an operation you would not expose to a form. I go deeper on that for MCP in [Laravel MCP server](/blog/laravel-mcp-server).
+
+## Semantic search with pgvector
+
+For "search by meaning" you store an embedding next to each record and query by similarity. On PostgreSQL with pgvector, the migration is:
+
+\`\`\`php
+Schema::ensureVectorExtensionExists();
+
+Schema::create('documents', function (Blueprint $table) {
+    $table->id();
+    $table->string('title');
+    $table->text('content');
+    $table->vector('embedding', dimensions: 1536);
+    $table->timestamps();
+});
+\`\`\`
+
+Adding \`->index()\` to the vector column creates an HNSW index with cosine distance, and the model casts the column to \`array\`. Querying is one method:
+
+\`\`\`php
+$documents = Document::query()
+    ->whereVectorSimilarTo('embedding', 'best wineries in Napa Valley')
+    ->limit(10)
+    ->get();
+\`\`\`
+
+\`whereVectorSimilarTo\` filters by a minimum cosine similarity between 0.0 and 1.0 (you can pass \`minSimilarity: 0.4\`) and orders by similarity. Given a plain string, Laravel generates the embedding for you. If you need more control there are lower-level methods: \`whereVectorDistanceLessThan\`, \`selectVectorDistance\` and \`orderByVectorDistance\`.
+
+This is a good fit for retrieval in a support assistant or a knowledge base without running a separate vector database, as long as you are on PostgreSQL. If you are choosing between databases, see [MySQL vs PostgreSQL for Laravel SaaS](/blog/mysql-vs-postgresql-laravel-saas). For the wider design questions around chunking, evaluation and failure modes, see [production RAG systems: lessons learned](/blog/production-rag-systems-lessons).
+
+## Failover between providers
+
+Provider outages and rate limits are routine. The SDK lets you pass a list of providers and falls back to the next one on a service interruption or rate limit:
+
+\`\`\`php
+$response = (new SalesCoach)->prompt(
+    'Analyze this sales transcript...',
+    provider: [Lab::OpenAI, Lab::Anthropic],
+);
+\`\`\`
+
+That one argument is a cheap resilience win for any feature that must keep working.
+
+## Production notes
+
+- **Queue long calls.** Agents can be queued, so slow model calls never block a web request.
+- **Test with fakes.** The SDK provides fakes for agents, images, audio, embeddings and more, so your tests never hit a paid API.
+- **Budget and log.** Cap output length, record token usage per user or tenant, and rate-limit expensive endpoints from day one.
+- **Keep prompts in code review.** Instructions live in a class, so changes show up in pull requests like any other behaviour change.
+
+## Need this built?
+
+Adding AI features to a Laravel product? See [AI integration](/services/ai-integration) and [Laravel development](/services/laravel-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: null,
+    published_at: "2026-10-15T09:30:00Z",
+    author: "Usama Munawar",
+    tags: ["Laravel", "AI SDK", "Agents", "pgvector", "AI Integration"],
+  },
+  {
+    id: "34",
+    title: "MCP's 2026-07-28 Spec: What Stateless Means for Your Server",
+    seo_title: "MCP 2026-07-28 Spec: Stateless Servers Explained",
+    slug: "mcp-2026-07-28-stateless-spec-migration",
+    excerpt: "The biggest Model Context Protocol update since launch removes sessions and the initialize handshake. What changed, what is deprecated, and a migration checklist.",
+    content: `## What changed
+
+The 2026-07-28 revision of the Model Context Protocol is the largest since the protocol launched. The headline: MCP is now stateless. There is no session handshake and no session id, so an MCP server behaves much more like an ordinary HTTP API and scales like one.
+
+It replaces the 2025-11-25 revision. The four Tier-1 SDKs (TypeScript, Python, Go and C#) already support it. If you run an MCP server, or connect agents to one, this is what changes.
+
+## The big changes, in plain terms
+
+### 1. No sessions
+
+Protocol-level sessions and the \`Mcp-Session-Id\` header are gone from the Streamable HTTP transport. The list endpoints (\`tools/list\`, \`resources/list\`, \`prompts/list\`) no longer vary per connection. If your server needs state across calls, it now hands out explicit, server-minted handles that the client passes back as ordinary tool arguments. State becomes something you design on purpose, not something hidden in the connection.
+
+### 2. No initialize handshake
+
+The \`initialize\` and \`notifications/initialized\` exchange is removed. Every request carries its protocol version and client capabilities in \`_meta\`:
+
+- \`io.modelcontextprotocol/protocolVersion\`
+- \`io.modelcontextprotocol/clientCapabilities\`
+
+Clients should also send \`clientInfo\`, and servers should identify themselves in each result's \`_meta\`. A version mismatch returns \`UnsupportedProtocolVersionError\`.
+
+Servers must implement a new \`server/discover\` call that advertises supported protocol versions, capabilities and identity. Clients can call it first to pick a version.
+
+### 3. Multi Round-Trip Requests
+
+Servers used to send their own requests mid-call (\`roots/list\`, \`sampling/createMessage\`, \`elicitation/create\`). That needed a live bidirectional connection, which is exactly what stateless servers do not have. The replacement is Multi Round-Trip Requests: the server returns an \`InputRequiredResult\` (\`resultType: "input_required"\`) describing what it needs, and the client retries the original request with \`inputResponses\`. Every result now carries a required \`resultType\` field, \`"complete"\` for ordinary results.
+
+### 4. Subscriptions and streams
+
+\`resources/subscribe\` and the HTTP GET endpoint are replaced by a single \`subscriptions/listen\` stream, where clients opt in to specific change notifications. SSE stream resumability (\`Last-Event-ID\`) is removed: if a response stream breaks, the client re-issues the request with a new request id.
+
+### 5. Caching and routing
+
+- Results from the list and read calls must now include \`ttlMs\` (a freshness hint) and \`cacheScope\` (\`public\` or \`private\`), so clients can cache instead of polling.
+- Servers should return tools in a deterministic order, which also helps LLM prompt caching.
+- Streamable HTTP POST requests must carry \`Mcp-Method\` and \`Mcp-Name\` headers, so gateways and load balancers can route without parsing bodies.
+
+### 6. Auth and schema
+
+- Authorization servers should include the \`iss\` parameter (RFC 9207), and clients must validate it before redeeming a code.
+- Client credentials are bound to the issuer that created them.
+- Dynamic Client Registration (RFC 7591) is deprecated in favour of Client ID Metadata Documents.
+- Tool \`inputSchema\` and \`outputSchema\` now accept any JSON Schema 2020-12 keywords.
+
+### 7. Extensions and deprecations
+
+Tasks (long-running work) moved out of the core into an official extension, \`io.modelcontextprotocol/tasks\`. Roots, Sampling and Logging are deprecated, along with the old HTTP+SSE transport. Deprecated features stay for at least twelve months under the new lifecycle policy. Suggested replacements: pass paths through tool parameters instead of Roots, call your LLM provider directly instead of Sampling, and log to stderr or OpenTelemetry instead of the Logging feature.
+
+## Old and new at a glance
+
+| Before (2025-11-25) | Now (2026-07-28) |
+|---|---|
+| Session id header, per-connection state | No sessions; explicit handles in tool arguments |
+| \`initialize\` handshake | Version and capabilities in \`_meta\` on every request |
+| Server-initiated requests | Multi Round-Trip Requests (\`input_required\`) |
+| \`resources/subscribe\`, GET stream | \`subscriptions/listen\` |
+| Experimental tasks in core | Tasks extension |
+| Sampling, Roots, Logging | Deprecated |
+
+## Migration checklist for server authors
+
+1. **Upgrade your SDK** to a release that supports 2026-07-28, and keep answering older clients while they catch up.
+2. **Remove session assumptions.** Anything stored per connection (a cursor, a cart, an open file) needs an explicit handle that you issue and the client returns.
+3. **Implement \`server/discover\`.**
+4. **Replace server-initiated requests** with the multi round-trip pattern.
+5. **Add \`ttlMs\` and \`cacheScope\`** to list and read results, and make tool order deterministic.
+6. **Re-check authorization**: issuer validation, the issuer-bound client credentials, and a Client ID Metadata Document if you register clients.
+7. **Stop using Sampling, Roots and Logging** in new code.
+8. **Test with a real client**, then with an old one.
+
+## What this means in practice
+
+Stateless servers are easier to run: any instance can answer any request, so you can put them behind a normal load balancer, scale them horizontally and deploy without draining sessions. The cost is that state is now your job. For a Laravel server, \`laravel/mcp\` already speaks this revision; I walk through building one in [Laravel MCP server](/blog/laravel-mcp-server). For agents that also use phone lines, see [AI voice agents on Asterisk](/blog/ai-voice-agents-asterisk).
+
+## Need an MCP server built or migrated?
+
+See [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: null,
+    published_at: "2026-10-15T09:40:00Z",
+    author: "Usama Munawar",
+    tags: ["MCP", "AI Integration", "Claude", "Architecture", "Agents"],
+  },
+  {
     id: "26",
     title: "Laravel vs Django for SaaS: Choosing the Right Backend in 2026",
     seo_title: "Laravel vs Django for SaaS: Choosing a Backend in 2026",
