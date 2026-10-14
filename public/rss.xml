@@ -6,8 +6,15 @@
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 11:00:00 GMT</lastBuildDate>
 
+    <item>
+      <title>I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me</title>
+      <link>https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source</guid>
+      <pubDate>Thu, 15 Oct 2026 11:00:00 GMT</pubDate>
+      <description>An open-source agent skill that drafts one research-backed LinkedIn post at a time, lints it for AI-sounding writing and never posts for you. How it works and why.</description>
+    </item>
     <item>
       <title>Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech</title>
       <link>https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app</link>
