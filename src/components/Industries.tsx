@@ -72,7 +72,7 @@ const Industries = () => (
               <h3 className="font-inter text-[15px] font-semibold leading-snug text-foreground [text-wrap:balance]">
                 {name}
               </h3>
-              <p className="ind-line max-w-[13rem] font-inter text-[13px] leading-snug text-muted-foreground">
+              <p className="ind-line min-h-[2.25rem] max-w-[13rem] font-inter text-[13px] leading-snug text-muted-foreground">
                 {line}
               </p>
               <ul className="ind-points mt-1 space-y-1 text-left font-inter text-[12.5px] leading-snug text-muted-foreground">
