@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-14T20:43:25.659Z",
+ "generatedAt": "2026-10-14T20:49:41.435Z",
  "source": "database",
  "projects": [
   {
@@ -1258,17 +1258,19 @@
    "project": {
     "id": 22,
     "title": "Syed Zain Kazmi: Devotional Living Album",
-    "description": "A bilingual devotional website and living photo album for Astana Alia Khanoharni Sharif's gatherings, with a live Rabi ul Awal countdown, a Hijri calendar and an interactive Durood counter",
-    "fullDescription": "THE BUSINESS NEED: Syed Zain Kazmi serves at Astana Alia Khanoharni Sharif in Lahore and wanted one calm, dignified place that introduces the Astana and its values, keeps its gatherings (Mehfil-e-Milad, Urs Mubarak, the Mela and more) preserved as a living album, and reminds visitors of the blessed days ahead. It is a devotional site, not a product, so the work was in tone: respectful, unhurried and readable in Urdu, Arabic and English.\n\nTHE APPROACH: I designed the site around a single visual language of deep green and gold, hand-drawn SVG artwork (lanterns, a crescent moon, a mihrab arch and a mosque skyline) and Arabic calligraphy. The home page opens with the Bismillah, a live countdown to 12 Rabi ul Awal and rotating blessings in Arabic and English, so the page feels alive without any heavy media.\n\nCONTENT STRUCTURE: Seven gathering pages (Shab-e-Milad, 12 Rabi ul Awal, Mehfil-e-Naat and Sama, Urs Mubarak, the Mela, Langar and Khidmat, and Ziyarat and Journeys) each tell what happens and why. A gallery holds dated photo albums with image counts. A Hijri calendar lists the nine upcoming blessed days, from Ashura to Eid ul Adha, with the Astana's own events marked. Core values appear as four cards: Ishq-e-Rasool, Khidmat-e-Khalq, Adab and Zikr, alongside quotations from the Quran and hadith.\n\nINTERACTION: A Send Durood counter lets visitors tap to send blessings, with the phrase shown in Arabic and English. The countdown, calendar and counter run in the browser; the site has no accounts, payments or ads, which keeps it quiet and fast.\n\nBUILT WITH: Next.js, SVG illustration and right-to-left aware typography, deployed on Vercel.",
+    "description": "A themed devotional website and living photo album for Astana Alia Khanoharni Sharif's gatherings, with a live Rabi ul Awal countdown, a Hijri calendar, a durood counter and an admin panel for adding albums",
+    "fullDescription": "THE BUSINESS NEED: Syed Zain Kazmi serves at Astana Alia Khanoharni Sharif in Lahore and wanted one calm, dignified place that introduces the Astana and its values, keeps its gatherings (Shab-e-Milad, 12 Rabi ul Awal, Mehfil-e-Naat, Urs Mubarak, the Mela, Langar and Ziyarat) preserved as a living album, and reminds visitors of the blessed days ahead. It is a devotional site, not a product, so the work was in tone: respectful, unhurried and readable in Urdu, Arabic and English.\n\nTHE APPROACH: I designed the site around one visual language of deep green and gold, hand-drawn SVG artwork (lanterns, a crescent moon, a mihrab arch and a mosque skyline) and Arabic calligraphy. The home page opens with a door-opening intro and a hero arch you scroll through, then moves through a salawat marquee, a scroll-lit Qur'an verse, a pinned horizontal rail of gatherings, a live countdown to 12 Rabi ul Awal, the latest albums, a hadith carousel, a live Hijri calendar and a durood counter.\n\nCONTENT STRUCTURE: Seven gathering pages each explain the meaning, flow and scripture of the gathering and show its albums. The gallery has filterable albums, masonry photo layouts and a shared-element lightbox that works with keyboard and swipe. A Noor section collects Qur'an, hadith, durood, the 99 Names of Allah, Sufi kalam and Tasbih-e-Fatima, and an Astana page covers the annual gatherings and the adab of ziyarat. Everything editable (the gatherings, verses, calendar and site details) lives in plain content files.\n\nADMIN AND ALBUMS: A password-protected admin panel lets the owner create, edit and delete albums without touching code. Album records are stored in Turso (libSQL) and photo files in Vercel Blob; photos are resized in the browser to a maximum of 2400px and uploaded directly, so large phone photos work, and pages refresh as soon as an album is saved.\n\nBUILT WITH: Next.js 16 (App Router) with React 19, Tailwind CSS 4, Motion for animation and Lenis for smooth scrolling, Cormorant Garamond for the display type, Turso and Vercel Blob for content, deployed on Vercel. Built in October 2026.",
     "image": "/projects/zain-kazmi.jpg",
     "gallery": [
      "/projects/zain-kazmi.jpg"
     ],
     "technologies": [
-     "Next.js",
-     "Bilingual UX (Urdu · Arabic · English)",
-     "SVG Illustration",
-     "Hijri Calendar",
+     "Next.js 16",
+     "React 19",
+     "Tailwind CSS 4",
+     "Motion",
+     "Turso (libSQL)",
+     "Vercel Blob",
      "Vercel"
     ],
     "category": "Religious / Community",
@@ -1276,14 +1278,14 @@
     "liveUrl": "https://zain-kazmi.vercel.app/",
     "githubUrl": "#",
     "features": [
+     "Door-opening Intro and Scroll-through Hero",
      "Live 12 Rabi ul Awal Countdown",
-     "Hijri Calendar of Blessed Days",
+     "Live Hijri Calendar",
      "Seven Gathering Pages",
-     "Photo Gallery Albums",
-     "Send Durood Tap Counter",
-     "Rotating Arabic and English Blessings",
-     "Core Values and Quranic Quotations",
-     "Hand-drawn SVG Artwork"
+     "Filterable Gallery with Lightbox",
+     "Noor: Qur'an, Hadith, Durood and 99 Names",
+     "Send Durood Counter",
+     "Admin Panel for Albums"
     ],
     "challenges": [
      {
@@ -1291,20 +1293,22 @@
       "description": "Setting Urdu, Arabic calligraphy and English together so each reads naturally without any language feeling like a translation of another"
      },
      {
-      "title": "Reverent tone",
-      "description": "Keeping the design ornate enough to feel devotional while staying calm, readable and free of anything that distracts from the content"
+      "title": "Reverent but alive",
+      "description": "Using scroll-driven motion, a countdown and live calendar to keep the site engaging while staying calm and free of anything that distracts from the content"
      },
      {
-      "title": "Lightweight but alive",
-      "description": "Using vector artwork, a live countdown and a counter instead of heavy video so the site stays fast on ordinary phones"
+      "title": "Albums without a developer",
+      "description": "Letting the owner add photo albums from a phone: in-browser resizing, direct upload to Vercel Blob and pages that refresh the moment an album is saved"
      }
     ],
     "results": [
-     "Seven dedicated gathering pages with their own story",
-     "A living gallery of dated photo albums",
-     "Hijri calendar covering the nine upcoming blessed days",
-     "No accounts, payments or ads: a quiet, fast, devotional experience"
-    ]
+     "Seven gathering pages with their own meaning, flow and albums",
+     "Owner can publish albums from the admin panel with no code changes",
+     "Large phone photos upload smoothly, resized in the browser",
+     "Live countdown, Hijri calendar and durood counter on the home page"
+    ],
+    "completionDate": "October 2026",
+    "duration": "1 month"
    },
    "caseStudy": {
     "id": "zain-kazmi-devotional",
@@ -1315,14 +1319,14 @@
     "image": "/projects/zain-kazmi.jpg",
     "client": "Syed Zain Kazmi",
     "year": "2026",
-    "role": "Design · Bilingual content · Front end",
+    "role": "Design · Bilingual content · Full stack",
     "problem": "A devotional community needed one dignified place to introduce its Astana, keep its gatherings as a living album and mark the blessed days ahead, in Urdu, Arabic and English.",
-    "approach": "A green-and-gold visual language built from SVG artwork and calligraphy, seven gathering pages, a dated photo gallery, a Hijri calendar, a live Rabi ul Awal countdown and a Send Durood counter, all without heavy media.",
-    "result": "A calm, fast, bilingual site where visitors can read about each gathering, browse the albums, see the blessed days ahead and send Durood.",
+    "approach": "A green-and-gold visual language of SVG artwork and calligraphy, seven gathering pages, a filterable gallery, a Noor section, a live Rabi ul Awal countdown, Hijri calendar and durood counter, plus an admin panel for albums backed by Turso and Vercel Blob.",
+    "result": "A calm, fast, bilingual site where visitors read about each gathering and browse the albums, and the owner adds new albums from the admin panel.",
     "flow": [
      {
       "label": "Arrive",
-      "note": "Bismillah · countdown"
+      "note": "Intro · countdown"
      },
      {
       "label": "Gatherings",
@@ -1330,23 +1334,23 @@
      },
      {
       "label": "Gallery",
-      "note": "Dated albums"
+      "note": "Albums · lightbox"
      },
      {
-      "label": "Calendar",
-      "note": "Hijri days"
+      "label": "Admin",
+      "note": "Turso · Blob"
      }
     ],
     "stack": [
-     "Next.js",
-     "SVG Art",
-     "Urdu · Arabic · English",
-     "Hijri Calendar"
+     "Next.js 16",
+     "Tailwind 4",
+     "Turso",
+     "Vercel Blob"
     ],
     "liveUrl": "https://zain-kazmi.vercel.app/",
     "detailPath": "/project/22"
    },
-   "updatedAt": "2026-10-14T20:43:23.073Z"
+   "updatedAt": "2026-10-14T20:49:25.534Z"
   },
   {
    "id": 23,
@@ -1357,33 +1361,34 @@
    "project": {
     "id": 23,
     "title": "Complaint Documents",
-    "description": "A Windows desktop app that produces findings documents for Wafaqi Mohtasib (Federal Ombudsman) regional offices in each office's own Word format, typed or spoken, with offline speech recognition",
-    "fullDescription": "THE PROBLEM: Regional offices of the Wafaqi Mohtasib (Federal Ombudsman) write findings documents all day, and most of each document is the same wording with a few details changed: names, dates, amounts and case numbers. Staff were retyping the same findings, making small mistakes in formats and amounts, and losing time searching for old files.\n\nTHE APPROACH: I built Complaint Documents, a Windows desktop application that generates each office's findings in its own Word format. The user picks the finding, fills in only the details that change, or simply speaks them, and the exact document is ready to print.\n\nFINDINGS FORMATS: The app ships with 72 findings formats, including LESCO, Passport Office and Postal Life Insurance, each made from real findings and checked word for word against the original. Dates, amounts and case numbers come out in the correct form automatically (for example 07.01.2026, Rs.105,200/- and WMS-LHR/3276/2026), and before the file is created the app points out empty boxes and likely typing mistakes.\n\nVOICE INPUT: Staff can speak instead of typing. Saying 'checking date fifteenth December' fills the box. Speech recognition runs on the PC itself, so it works without internet.\n\nDAILY WORKFLOW: When the same consumer comes back, typing the reference number brings up the earlier details, and 'Already Decided' formats are available. Every file is saved by date, case number and format in a searchable list, and can be opened, printed, read aloud or regenerated.\n\nSAFETY AND LICENSING: Case details are backed up automatically in encrypted form when the PC is online, and can be restored on a new PC if one breaks or is replaced. Each PC needs a licence key, entered on the download page before the setup can be downloaded; after online activation the app works offline. Updates and new formats arrive automatically.\n\nBUILT WITH: A Windows 10/11 (64-bit) installer that works with Microsoft Word, and a Next.js site on Vercel that handles the landing page, licensed downloads and owner sign-in.",
+    "description": "An offline Windows desktop app that fills Wafaqi Mohtasib (Federal Ombudsman) offices' own Word formats with case details: typed or spoken, with batch generation from Excel and encrypted backup",
+    "fullDescription": "THE PROBLEM: Regional offices of the Wafaqi Mohtasib (Federal Ombudsman) write findings and decisions all day, and most of each document is the same wording with a few details changed: names, dates, amounts and case numbers. Staff were retyping the same findings, making small mistakes in formats and amounts, and losing time searching for old files.\n\nTHE APPROACH: I built Complaint Documents, an offline Windows desktop application that fills each office's own Word formats and changes only the words that vary. Fonts, justified paragraphs, spacing, Legal page size and margins stay exactly as in the original document. The user finds the template by typing part of its name (small spelling mistakes are fine), fills in the boxes, which follow the order of the document, and presses Create File; the Word file is saved, named by case number, and opened.\n\nFINDINGS FORMATS: The app ships with 72 findings formats, including LESCO, Passport Office and Postal Life Insurance, each made from real findings and checked word for word against the original. Case numbers, dates, months, periods and amounts are typed in short form and come out as the office writes them (for example CCI-217-26 becomes WMS-CCI/217/2026, 205293 becomes Rs.205,293/-, and a six-month period is counted automatically). Sentences adapt to the details, such as he or she for the complainant and whether one or several hearings were held, and the app points out empty boxes and likely typing mistakes before the file is made.\n\nDAILY WORKFLOW: Typing a case number that is already saved fills in its details. When a reference number has been seen in an earlier case, the app notes it, fills in the consumer's details and offers the Already Decided formats in one click. A Cases screen lists every saved case and can generate the same document for many cases at once; a Batch screen loads cases from an Excel sheet and generates a document per row after a preview. A Documents screen lists every generated file, filterable by date, with preview, open in Word, print, read aloud, show in folder and export to ZIP.\n\nVOICE AND SAFETY: Staff can speak instead of typing, and speech recognition runs on the PC itself (Vosk), so it works without internet. Case details are backed up in encrypted form and can be restored on a new PC. Each PC needs a licence key, and the app works offline after activation; office PCs get a single Setup installer, and updates and new formats arrive automatically.\n\nBUILT WITH: Python with PySide6 (Qt) for the interface, docxtpl and python-docx to fill the Word templates, openpyxl for Excel batches, pywin32 for Word, the cryptography library for backups, Vosk and sounddevice for offline speech, and PyInstaller for the Windows installer. A Next.js site on Vercel handles the landing page, licensed downloads and owner sign-in. Built in October 2026.",
     "image": "/projects/complaint-docs.jpg",
     "gallery": [
      "/projects/complaint-docs.jpg"
     ],
     "technologies": [
-     "Windows Desktop App",
-     "Microsoft Word Output",
-     "Offline Speech-to-Text",
-     "Licence Activation",
-     "Encrypted Backup",
+     "Python",
+     "PySide6 (Qt)",
+     "docxtpl · python-docx",
+     "Vosk offline speech",
+     "openpyxl (Excel batch)",
+     "PyInstaller",
      "Next.js"
     ],
     "category": "Desktop software",
     "liveUrl": "https://complaint-docs-admin.vercel.app/",
     "githubUrl": "#",
     "features": [
-     "72 Findings Formats",
+     "72 Findings Formats in Each Office's Own Layout",
      "Typed or Spoken Entry",
      "Offline Speech Recognition",
-     "Automatic Date, Amount and Case Number Formatting",
+     "Automatic Case No., Date and Amount Formatting",
      "Empty-Box and Typo Warnings",
-     "Previous Consumer Lookup",
-     "Searchable Saved Files",
+     "Earlier Case and Consumer Lookup",
+     "Batch Generation from Excel",
+     "Preview, Print, Read Aloud and ZIP Export",
      "Encrypted Backup and Restore",
-     "Automatic Updates and New Formats",
      "Per-PC Licence Keys"
     ],
     "challenges": [
@@ -1409,7 +1414,9 @@
      "Findings ready in minutes, typed or spoken",
      "Works offline after one-time activation",
      "Case details restorable on a new PC from an encrypted backup"
-    ]
+    ],
+    "completionDate": "October 2026",
+    "duration": "1 month"
    },
    "caseStudy": {
     "id": "complaint-documents",
@@ -1421,7 +1428,7 @@
     "year": "2026",
     "role": "Product design · Desktop app · Licensing site",
     "problem": "Ombudsman regional offices retyped near-identical findings every day, with small mistakes in dates, amounts and case numbers and slow searching for old files.",
-    "approach": "A Windows app with 72 findings formats in each office's own Word layout, typed or spoken entry with offline speech recognition, automatic formatting and typo warnings, a searchable file list and encrypted backup, licensed per PC from a Next.js site.",
+    "approach": "A Python and Qt desktop app with 72 findings formats filled into each office's own Word layout, typed or spoken entry with offline speech recognition, automatic formatting and typo warnings, Excel batch generation and encrypted backup, licensed per PC from a Next.js site.",
     "result": "Findings are ready to print in minutes, work continues without internet after activation, and case details survive a broken PC.",
     "flow": [
      {
@@ -1442,15 +1449,15 @@
      }
     ],
     "stack": [
-     "Windows Desktop",
-     "Word Output",
-     "Offline Speech-to-Text",
+     "Python",
+     "PySide6 (Qt)",
+     "Offline Speech (Vosk)",
      "Next.js"
     ],
     "liveUrl": "https://complaint-docs-admin.vercel.app/",
     "detailPath": "/project/23"
    },
-   "updatedAt": "2026-10-14T20:43:23.073Z"
+   "updatedAt": "2026-10-14T20:49:25.821Z"
   },
   {
    "id": 7,

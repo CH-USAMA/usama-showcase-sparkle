@@ -327,14 +327,14 @@ export const caseStudies: CaseStudy[] = [
     "image": "/projects/zain-kazmi.jpg",
     "client": "Syed Zain Kazmi",
     "year": "2026",
-    "role": "Design · Bilingual content · Front end",
+    "role": "Design · Bilingual content · Full stack",
     "problem": "A devotional community needed one dignified place to introduce its Astana, keep its gatherings as a living album and mark the blessed days ahead, in Urdu, Arabic and English.",
-    "approach": "A green-and-gold visual language built from SVG artwork and calligraphy, seven gathering pages, a dated photo gallery, a Hijri calendar, a live Rabi ul Awal countdown and a Send Durood counter, all without heavy media.",
-    "result": "A calm, fast, bilingual site where visitors can read about each gathering, browse the albums, see the blessed days ahead and send Durood.",
+    "approach": "A green-and-gold visual language of SVG artwork and calligraphy, seven gathering pages, a filterable gallery, a Noor section, a live Rabi ul Awal countdown, Hijri calendar and durood counter, plus an admin panel for albums backed by Turso and Vercel Blob.",
+    "result": "A calm, fast, bilingual site where visitors read about each gathering and browse the albums, and the owner adds new albums from the admin panel.",
     "flow": [
       {
         "label": "Arrive",
-        "note": "Bismillah · countdown"
+        "note": "Intro · countdown"
       },
       {
         "label": "Gatherings",
@@ -342,18 +342,18 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         "label": "Gallery",
-        "note": "Dated albums"
+        "note": "Albums · lightbox"
       },
       {
-        "label": "Calendar",
-        "note": "Hijri days"
+        "label": "Admin",
+        "note": "Turso · Blob"
       }
     ],
     "stack": [
-      "Next.js",
-      "SVG Art",
-      "Urdu · Arabic · English",
-      "Hijri Calendar"
+      "Next.js 16",
+      "Tailwind 4",
+      "Turso",
+      "Vercel Blob"
     ],
     "liveUrl": "https://zain-kazmi.vercel.app/",
     "detailPath": "/project/22"
@@ -368,7 +368,7 @@ export const caseStudies: CaseStudy[] = [
     "year": "2026",
     "role": "Product design · Desktop app · Licensing site",
     "problem": "Ombudsman regional offices retyped near-identical findings every day, with small mistakes in dates, amounts and case numbers and slow searching for old files.",
-    "approach": "A Windows app with 72 findings formats in each office's own Word layout, typed or spoken entry with offline speech recognition, automatic formatting and typo warnings, a searchable file list and encrypted backup, licensed per PC from a Next.js site.",
+    "approach": "A Python and Qt desktop app with 72 findings formats filled into each office's own Word layout, typed or spoken entry with offline speech recognition, automatic formatting and typo warnings, Excel batch generation and encrypted backup, licensed per PC from a Next.js site.",
     "result": "Findings are ready to print in minutes, work continues without internet after activation, and case details survive a broken PC.",
     "flow": [
       {
@@ -389,9 +389,9 @@ export const caseStudies: CaseStudy[] = [
       }
     ],
     "stack": [
-      "Windows Desktop",
-      "Word Output",
-      "Offline Speech-to-Text",
+      "Python",
+      "PySide6 (Qt)",
+      "Offline Speech (Vosk)",
       "Next.js"
     ],
     "liveUrl": "https://complaint-docs-admin.vercel.app/",
