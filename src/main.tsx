@@ -7,6 +7,7 @@ import { preloadRoute } from './routes'
 import { captureReaderState, startBoot } from './lib/boot'
 import { stashHomeSections } from './lib/homeStash'
 import './index.css'
+import { initSpotlight } from './lib/spotlight'
 import { ThemeProvider } from "@/components/ThemeProvider"
 
 // Canonical domain guard: send the published Lovable mirror to the canonical Vercel domain
@@ -23,6 +24,8 @@ if (typeof window !== "undefined" && MIRROR_HOSTS.includes(window.location.hostn
   )
 }
 
+
+initSpotlight()
 
 const container = document.getElementById('root')!
 // Set by scripts/prerender.ts on routes rendered at build time.
