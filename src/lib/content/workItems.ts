@@ -38,3 +38,9 @@ export const fromProject = (p: Project): WorkItem => ({
   diagram: isStock(p.image) ? p.technologies.slice(0, 5).map((label) => ({ label })) : undefined,
   href: `/project/${p.id}`,
 });
+
+/** Real screenshots before diagrams and stock photos; stable, so the existing order holds within each group. */
+export const realImagesFirst = <T extends WorkItem>(items: T[]): T[] => {
+  const real = (i: WorkItem) => !i.diagram && !isStock(i.image);
+  return [...items.filter(real), ...items.filter((i) => !real(i))];
+};
