@@ -77,6 +77,11 @@
 
 ## Articles
 
+- [MCP's 2026-07-28 Spec: What Stateless Means for Your Server](https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration)
+- [Laravel AI SDK: Build an Agent with Tools and Semantic Search](https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search)
+- [Laravel 13: What's New and Whether to Upgrade from Laravel 12](https://www.chaudharyusama.com/blog/laravel-13-whats-new-upgrade-from-12)
+- [AI Lead Follow-Up Automation: Reply to Every Enquiry in Minutes](https://www.chaudharyusama.com/blog/ai-lead-follow-up-automation-n8n)
+- [How to Rank on Google and Get Cited by ChatGPT and AI Overviews in 2026](https://www.chaudharyusama.com/blog/seo-ai-search-rank-google-chatgpt-2026)
 - [AI Voice Agents on Asterisk: Connecting a Phone Line to a Realtime Model](https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk)
 - [Give Your Laravel App an MCP Server: Let AI Assistants Use Your Product Safely](https://www.chaudharyusama.com/blog/laravel-mcp-server)
 - [React Native in 2026: What Changed, and When I Still Recommend Native or Flutter](https://www.chaudharyusama.com/blog/react-native-2026)
