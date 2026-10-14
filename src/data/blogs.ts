@@ -83,7 +83,7 @@ New pages are usually crawled within days, but rankings for competitive phrases 
 ## Want help with this?
 
 I build sites that render fully for search and AI crawlers, and I help teams plan content around what they actually sell. See [Laravel development](/services/laravel-development), [AI integration](/services/ai-integration) and [MVP development](/services/mvp-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
-    featured_image: null,
+    featured_image: "/blog/blog-seo-ai-search.webp",
     published_at: "2026-10-15T09:00:00Z",
     author: "Usama Munawar",
     tags: ["SEO", "AI Search", "GEO", "Digital Marketing", "Google"],
@@ -150,7 +150,7 @@ If you only do one thing this month, do this: an instant, personal acknowledgeme
 ## Want this set up for your business?
 
 I build lead capture, AI qualification and CRM automation with n8n and custom Laravel or Node.js backends. See [AI integration](/services/ai-integration) and [automation with n8n](/services/automation-n8n), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
-    featured_image: null,
+    featured_image: "/blog/blog-ai-lead-follow-up.webp",
     published_at: "2026-10-15T09:10:00Z",
     author: "Usama Munawar",
     tags: ["AI Automation", "n8n", "Lead Generation", "Digital Marketing", "CRM"],
@@ -217,7 +217,7 @@ Most Laravel 12 applications upgrade with limited code changes. The time goes in
 ## Need a hand?
 
 Upgrading a production Laravel app, or adding AI features to one? See [Laravel development](/services/laravel-development) and [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
-    featured_image: null,
+    featured_image: "/blog/blog-laravel-13.webp",
     published_at: "2026-10-15T09:20:00Z",
     author: "Usama Munawar",
     tags: ["Laravel", "Laravel 13", "PHP 8.5", "Upgrade", "AI SDK"],
@@ -375,7 +375,7 @@ That one argument is a cheap resilience win for any feature that must keep worki
 ## Need this built?
 
 Adding AI features to a Laravel product? See [AI integration](/services/ai-integration) and [Laravel development](/services/laravel-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
-    featured_image: null,
+    featured_image: "/blog/blog-laravel-ai-sdk.webp",
     published_at: "2026-10-15T09:30:00Z",
     author: "Usama Munawar",
     tags: ["Laravel", "AI SDK", "Agents", "pgvector", "AI Integration"],
@@ -463,7 +463,7 @@ Stateless servers are easier to run: any instance can answer any request, so you
 ## Need an MCP server built or migrated?
 
 See [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
-    featured_image: null,
+    featured_image: "/blog/blog-mcp-2026.webp",
     published_at: "2026-10-15T09:40:00Z",
     author: "Usama Munawar",
     tags: ["MCP", "AI Integration", "Claude", "Architecture", "Agents"],
