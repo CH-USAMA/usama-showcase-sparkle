@@ -803,6 +803,16 @@
     opacity: 1;
     animation: fx-beam 3.2s linear infinite;
   }
+  /* Cursor spotlight (src/lib/spotlight.ts sets --mx/--my). */
+  @media (hover: hover) {
+    .fx-border:hover {
+      background-image: radial-gradient(
+        280px circle at var(--mx, 50%) var(--my, 50%),
+        hsl(var(--primary) / 0.1),
+        transparent 70%
+      );
+    }
+  }
   .fx-border:hover,
   .fx-border:focus-visible {
     border-color: hsl(var(--primary) / 0.28);
