@@ -318,4 +318,83 @@ export const caseStudies: CaseStudy[] = [
     liveUrl: "https://www.syedstarengineering.com/",
     detailPath: "/project/20",
   },
+  {
+    "id": "zain-kazmi-devotional",
+    "n": "13",
+    "category": "Religious site",
+    "hue": "var(--hue-cloud)",
+    "title": "Syed Zain Kazmi",
+    "image": "/projects/zain-kazmi.jpg",
+    "client": "Syed Zain Kazmi",
+    "year": "2026",
+    "role": "Design · Bilingual content · Front end",
+    "problem": "A devotional community needed one dignified place to introduce its Astana, keep its gatherings as a living album and mark the blessed days ahead, in Urdu, Arabic and English.",
+    "approach": "A green-and-gold visual language built from SVG artwork and calligraphy, seven gathering pages, a dated photo gallery, a Hijri calendar, a live Rabi ul Awal countdown and a Send Durood counter, all without heavy media.",
+    "result": "A calm, fast, bilingual site where visitors can read about each gathering, browse the albums, see the blessed days ahead and send Durood.",
+    "flow": [
+      {
+        "label": "Arrive",
+        "note": "Bismillah · countdown"
+      },
+      {
+        "label": "Gatherings",
+        "note": "Seven pages"
+      },
+      {
+        "label": "Gallery",
+        "note": "Dated albums"
+      },
+      {
+        "label": "Calendar",
+        "note": "Hijri days"
+      }
+    ],
+    "stack": [
+      "Next.js",
+      "SVG Art",
+      "Urdu · Arabic · English",
+      "Hijri Calendar"
+    ],
+    "liveUrl": "https://zain-kazmi.vercel.app/",
+    "detailPath": "/project/22"
+  },
+  {
+    "id": "complaint-documents",
+    "n": "14",
+    "category": "Desktop software",
+    "hue": "var(--hue-cloud)",
+    "title": "Complaint Documents",
+    "image": "/projects/complaint-docs.jpg",
+    "year": "2026",
+    "role": "Product design · Desktop app · Licensing site",
+    "problem": "Ombudsman regional offices retyped near-identical findings every day, with small mistakes in dates, amounts and case numbers and slow searching for old files.",
+    "approach": "A Windows app with 72 findings formats in each office's own Word layout, typed or spoken entry with offline speech recognition, automatic formatting and typo warnings, a searchable file list and encrypted backup, licensed per PC from a Next.js site.",
+    "result": "Findings are ready to print in minutes, work continues without internet after activation, and case details survive a broken PC.",
+    "flow": [
+      {
+        "label": "Pick finding",
+        "note": "72 formats"
+      },
+      {
+        "label": "Type or speak",
+        "note": "Offline voice"
+      },
+      {
+        "label": "Check",
+        "note": "Typos · formats"
+      },
+      {
+        "label": "Word file",
+        "note": "Ready to print"
+      }
+    ],
+    "stack": [
+      "Windows Desktop",
+      "Word Output",
+      "Offline Speech-to-Text",
+      "Next.js"
+    ],
+    "liveUrl": "https://complaint-docs-admin.vercel.app/",
+    "detailPath": "/project/23"
+  },
 ];

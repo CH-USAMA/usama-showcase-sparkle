@@ -44,6 +44,18 @@ const cardOf = (e: ProjectEntry): CaseStudy | null =>
       }
     : null;
 
+/**
+ * Entries shown with a real screenshot come before those drawn as a diagram
+ * or shown with a stock photo, wherever work is listed. Stable, so the admin
+ * order still decides within each group.
+ */
+const hasRealImage = (e: ProjectEntry): boolean =>
+  e.caseStudy
+    ? e.caseStudy.cover !== "diagram" && !e.caseStudy.image.includes("images.unsplash.com")
+    : Boolean(e.project && !e.project.image.includes("images.unsplash.com"));
+
+const realFirst = (a: ProjectEntry, b: ProjectEntry) => Number(hasRealImage(b)) - Number(hasRealImage(a));
+
 export function useProjects() {
   const q = useProjectQuery();
   const entries = q.data;
@@ -51,7 +63,7 @@ export function useProjects() {
   // after this build is not in the snapshot yet, and must not 404 meanwhile.
   const settling = !q.isFetchedAfterMount && !q.isError;
   const derived = useMemo(() => {
-    const ordered = [...entries].sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id);
+    const ordered = [...entries].sort((a, b) => realFirst(a, b) || a.sortOrder - b.sortOrder || a.id - b.id);
 
     const projectsById: Record<number, Project> = {};
     for (const e of ordered) if (e.project) projectsById[e.id] = { ...e.project, id: e.id };
@@ -60,7 +72,7 @@ export function useProjects() {
 
     const featured = ordered
       .filter((e) => e.featured > 0)
-      .sort((a, b) => a.featured - b.featured)
+      .sort((a, b) => realFirst(a, b) || a.featured - b.featured)
       .map(cardOf)
       .filter((c): c is CaseStudy => c !== null);
 

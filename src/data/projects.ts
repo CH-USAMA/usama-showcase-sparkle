@@ -856,5 +856,113 @@ export const projectsData: Record<number, Project> = {
       { title: "Proving manufacturing depth", description: "Balancing polished presentation with workshop, installation and after-sales evidence that industrial buyers expect" }
     ],
     results: ["Eight industry-specific discovery paths", "Direct quote journey from every featured equipment type", "Technical guides supporting early-stage buyer research", "Call, WhatsApp, email and quotation actions available throughout"]
-  }
+  },
+  22: {
+    "id": 22,
+    "title": "Syed Zain Kazmi: Devotional Living Album",
+    "description": "A bilingual devotional website and living photo album for Astana Alia Khanoharni Sharif's gatherings, with a live Rabi ul Awal countdown, a Hijri calendar and an interactive Durood counter",
+    "fullDescription": "THE BUSINESS NEED: Syed Zain Kazmi serves at Astana Alia Khanoharni Sharif in Lahore and wanted one calm, dignified place that introduces the Astana and its values, keeps its gatherings (Mehfil-e-Milad, Urs Mubarak, the Mela and more) preserved as a living album, and reminds visitors of the blessed days ahead. It is a devotional site, not a product, so the work was in tone: respectful, unhurried and readable in Urdu, Arabic and English.\n\nTHE APPROACH: I designed the site around a single visual language of deep green and gold, hand-drawn SVG artwork (lanterns, a crescent moon, a mihrab arch and a mosque skyline) and Arabic calligraphy. The home page opens with the Bismillah, a live countdown to 12 Rabi ul Awal and rotating blessings in Arabic and English, so the page feels alive without any heavy media.\n\nCONTENT STRUCTURE: Seven gathering pages (Shab-e-Milad, 12 Rabi ul Awal, Mehfil-e-Naat and Sama, Urs Mubarak, the Mela, Langar and Khidmat, and Ziyarat and Journeys) each tell what happens and why. A gallery holds dated photo albums with image counts. A Hijri calendar lists the nine upcoming blessed days, from Ashura to Eid ul Adha, with the Astana's own events marked. Core values appear as four cards: Ishq-e-Rasool, Khidmat-e-Khalq, Adab and Zikr, alongside quotations from the Quran and hadith.\n\nINTERACTION: A Send Durood counter lets visitors tap to send blessings, with the phrase shown in Arabic and English. The countdown, calendar and counter run in the browser; the site has no accounts, payments or ads, which keeps it quiet and fast.\n\nBUILT WITH: Next.js, SVG illustration and right-to-left aware typography, deployed on Vercel.",
+    "image": "/projects/zain-kazmi.jpg",
+    "gallery": [
+      "/projects/zain-kazmi.jpg"
+    ],
+    "technologies": [
+      "Next.js",
+      "Bilingual UX (Urdu · Arabic · English)",
+      "SVG Illustration",
+      "Hijri Calendar",
+      "Vercel"
+    ],
+    "category": "Religious / Community",
+    "client": "Syed Zain Kazmi (Pakistan)",
+    "liveUrl": "https://zain-kazmi.vercel.app/",
+    "githubUrl": "#",
+    "features": [
+      "Live 12 Rabi ul Awal Countdown",
+      "Hijri Calendar of Blessed Days",
+      "Seven Gathering Pages",
+      "Photo Gallery Albums",
+      "Send Durood Tap Counter",
+      "Rotating Arabic and English Blessings",
+      "Core Values and Quranic Quotations",
+      "Hand-drawn SVG Artwork"
+    ],
+    "challenges": [
+      {
+        "title": "Three scripts, one page",
+        "description": "Setting Urdu, Arabic calligraphy and English together so each reads naturally without any language feeling like a translation of another"
+      },
+      {
+        "title": "Reverent tone",
+        "description": "Keeping the design ornate enough to feel devotional while staying calm, readable and free of anything that distracts from the content"
+      },
+      {
+        "title": "Lightweight but alive",
+        "description": "Using vector artwork, a live countdown and a counter instead of heavy video so the site stays fast on ordinary phones"
+      }
+    ],
+    "results": [
+      "Seven dedicated gathering pages with their own story",
+      "A living gallery of dated photo albums",
+      "Hijri calendar covering the nine upcoming blessed days",
+      "No accounts, payments or ads: a quiet, fast, devotional experience"
+    ]
+  },
+  23: {
+    "id": 23,
+    "title": "Complaint Documents",
+    "description": "A Windows desktop app that produces findings documents for Wafaqi Mohtasib (Federal Ombudsman) regional offices in each office's own Word format, typed or spoken, with offline speech recognition",
+    "fullDescription": "THE PROBLEM: Regional offices of the Wafaqi Mohtasib (Federal Ombudsman) write findings documents all day, and most of each document is the same wording with a few details changed: names, dates, amounts and case numbers. Staff were retyping the same findings, making small mistakes in formats and amounts, and losing time searching for old files.\n\nTHE APPROACH: I built Complaint Documents, a Windows desktop application that generates each office's findings in its own Word format. The user picks the finding, fills in only the details that change, or simply speaks them, and the exact document is ready to print.\n\nFINDINGS FORMATS: The app ships with 72 findings formats, including LESCO, Passport Office and Postal Life Insurance, each made from real findings and checked word for word against the original. Dates, amounts and case numbers come out in the correct form automatically (for example 07.01.2026, Rs.105,200/- and WMS-LHR/3276/2026), and before the file is created the app points out empty boxes and likely typing mistakes.\n\nVOICE INPUT: Staff can speak instead of typing. Saying 'checking date fifteenth December' fills the box. Speech recognition runs on the PC itself, so it works without internet.\n\nDAILY WORKFLOW: When the same consumer comes back, typing the reference number brings up the earlier details, and 'Already Decided' formats are available. Every file is saved by date, case number and format in a searchable list, and can be opened, printed, read aloud or regenerated.\n\nSAFETY AND LICENSING: Case details are backed up automatically in encrypted form when the PC is online, and can be restored on a new PC if one breaks or is replaced. Each PC needs a licence key, entered on the download page before the setup can be downloaded; after online activation the app works offline. Updates and new formats arrive automatically.\n\nBUILT WITH: A Windows 10/11 (64-bit) installer that works with Microsoft Word, and a Next.js site on Vercel that handles the landing page, licensed downloads and owner sign-in.",
+    "image": "/projects/complaint-docs.jpg",
+    "gallery": [
+      "/projects/complaint-docs.jpg"
+    ],
+    "technologies": [
+      "Windows Desktop App",
+      "Microsoft Word Output",
+      "Offline Speech-to-Text",
+      "Licence Activation",
+      "Encrypted Backup",
+      "Next.js"
+    ],
+    "category": "Desktop software",
+    "liveUrl": "https://complaint-docs-admin.vercel.app/",
+    "githubUrl": "#",
+    "features": [
+      "72 Findings Formats",
+      "Typed or Spoken Entry",
+      "Offline Speech Recognition",
+      "Automatic Date, Amount and Case Number Formatting",
+      "Empty-Box and Typo Warnings",
+      "Previous Consumer Lookup",
+      "Searchable Saved Files",
+      "Encrypted Backup and Restore",
+      "Automatic Updates and New Formats",
+      "Per-PC Licence Keys"
+    ],
+    "challenges": [
+      {
+        "title": "Typing the same findings again and again",
+        "description": "Turning 72 real findings into exact templates where only the case details change, checked word for word against each office's original"
+      },
+      {
+        "title": "Mistakes in dates, amounts and case numbers",
+        "description": "Formatting every value the way the office writes it and flagging empty boxes and likely typos before the document is created"
+      },
+      {
+        "title": "Slow data entry",
+        "description": "Adding voice entry that is understood on the PC itself, so it keeps working in offices with poor or no internet"
+      },
+      {
+        "title": "A broken or replaced PC",
+        "description": "Backing up case details in encrypted form automatically so work can be restored on a new machine"
+      }
+    ],
+    "results": [
+      "72 findings formats in each office's own Word layout",
+      "Findings ready in minutes, typed or spoken",
+      "Works offline after one-time activation",
+      "Case details restorable on a new PC from an encrypted backup"
+    ]
+  },
 };

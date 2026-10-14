@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/system/Reveal";
 import WorkCard from "@/components/WorkCard";
-import { fromCaseStudy, fromProject } from "@/lib/content/workItems";
+import { fromCaseStudy, fromProject, realImagesFirst } from "@/lib/content/workItems";
 import type { WorkItem } from "@/lib/content/workItems";
 import { snapshotCaseStudies, useProjects } from "@/lib/content/projects";
 import { SITE_URL } from "@/data/site";
@@ -66,10 +66,11 @@ const Projects = () => {
   const group: Group = GROUPS.find((g) => g.id === raw)?.id ?? "all";
 
   const items = useMemo<(WorkItem & { group: Exclude<Group, "all"> })[]>(
-    () => [
-      ...caseStudies.map((c) => ({ ...fromCaseStudy(c), group: groupOf(c.category) })),
-      ...archive.map((p) => ({ ...fromProject(p), group: groupOf(p.category) })),
-    ],
+    () =>
+      realImagesFirst([
+        ...caseStudies.map((c) => ({ ...fromCaseStudy(c), group: groupOf(c.category) })),
+        ...archive.map((p) => ({ ...fromProject(p), group: groupOf(p.category) })),
+      ]),
     [caseStudies, archive]
   );
 
