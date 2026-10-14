@@ -6,8 +6,15 @@
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2026 09:40:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 10:00:00 GMT</lastBuildDate>
 
+    <item>
+      <title>Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech</title>
+      <link>https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app</guid>
+      <pubDate>Thu, 15 Oct 2026 10:00:00 GMT</pubDate>
+      <description>How an offline Windows app fills an office's own Word formats from short typed or spoken input: docxtpl, formatters, Vosk speech, encrypted backup and licensing.</description>
+    </item>
     <item>
       <title>MCP's 2026-07-28 Spec: What Stateless Means for Your Server</title>
       <link>https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration</link>
