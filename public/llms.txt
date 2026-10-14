@@ -79,6 +79,7 @@
 
 ## Articles
 
+- [I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me](https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source)
 - [Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech](https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app)
 - [MCP's 2026-07-28 Spec: What Stateless Means for Your Server](https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration)
 - [Laravel AI SDK: Build an Agent with Tools and Semantic Search](https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search)

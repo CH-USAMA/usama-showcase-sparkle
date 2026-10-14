@@ -7,6 +7,125 @@ export type { BlogPost };
 
 export const blogsData: BlogPost[] = [
   {
+    id: "36",
+    title: "I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me",
+    seo_title: "LinkedIn Post Agent Skill: Draft, Lint, Approve",
+    slug: "linkedin-post-agent-skill-open-source",
+    excerpt: "An open-source agent skill that drafts one research-backed LinkedIn post at a time, lints it for AI-sounding writing and never posts for you. How it works and why.",
+    content: `## The idea in one paragraph
+
+Most LinkedIn automation optimises for volume: schedule thirty posts, let a bot publish them, hope for reach. I wanted the opposite. I built an open-source agent skill, [linkedin-post-skill](https://github.com/CH-USAMA/linkedin-post-skill), that drafts one research-backed post at a time, checks the caption for AI-sounding writing, and then stops and hands the result to me. It never posts on a schedule. A human reads the draft and presses Post.
+
+It is MIT licensed, works as a \`SKILL.md\` skill for Claude, and works with any agent that can read a markdown playbook and run Python.
+
+## What it produces
+
+The skill drafts three kinds of asset, all sized for a phone:
+
+- **A single image** (1080x1350) with one idea, big text and icon-led layout.
+- **A short video** of about 12 to 15 seconds, rendered from the same canvas, with elements revealed over time.
+- **A PDF carousel** of 6 to 10 slides, generated from a small JSON file, plus a cover image.
+
+Alongside the asset, it writes the caption, a first comment that carries any links, and alt text, and presents them as a ready-to-post block with numbered steps.
+
+## Lanes by weekday, so you do not repeat yourself
+
+Instead of "post something every day", the skill assigns each posting day a lane:
+
+| Day | Lane | Default asset |
+|---|---|---|
+| Monday | News take on your stack, verified from the last 7 days | Image plus a short reveal video |
+| Wednesday | First-person story from your real work | Image (before and after, or a timeline) |
+| Friday | Skimmable practical: a checklist or X vs Y | PDF carousel |
+
+It keeps a history file with one JSON line per draft, and every topic in that file counts as used, whatever its status. That is what stops it from drafting the same idea twice.
+
+## Integrity rules instead of engagement tricks
+
+The part I care most about is what the skill refuses to do:
+
+- **No invented numbers, clients, quotes or anecdotes.** Where a fact is missing, it uses a placeholder and asks.
+- **Ranked sources.** Official documentation and release notes come first. Every fact is verified or labelled as unverified.
+- **No unattended actions.** It never reacts, reposts, deletes or comments on other people's posts by itself. It can draft two comments for me to review and paste.
+- **No personal data in the repo.** Voice notes, history and analytics live in a private state folder that is git-ignored.
+
+LinkedIn has no official API for posting to a personal profile, and automating the browser or using third-party posting tools can break its User Agreement and get an account restricted. So scheduled runs only draft and notify. Publishing stays manual, one post at a time.
+
+## A linter for AI-sounding writing
+
+Agents write in a recognisable voice: "leverage", "seamless", "it's not just X, it's Y", a rocket emoji, a wall of hashtags. A small Python script, \`slop_lint.py\`, checks a caption against a list of these tells and exits non-zero when it finds any:
+
+\`\`\`bash
+python3 skill/daily-linkedin-post/tools/slop_lint.py caption.txt
+\`\`\`
+
+It checks:
+
+- AI-sounding words such as "delve", "leverage", "robust" and "game-changing"
+- Structural tells such as "not just X, it's Y" and "not only X but also Y"
+- One-word rhetorical question lines and "Here's what I learned" announcements
+- Em and en dashes and double hyphens
+- Links before the \`First comment:\` marker
+- Hashtag count (three to five), the length of line 1 (140 characters or fewer) and total word count (120 to 220 words)
+
+The loop is simple: write the caption, lint it, fix what it flags, lint again until it is clean. The lists sit at the top of the script, so you can edit them to match your own voice.
+
+## Carousels from a JSON file
+
+A carousel is a JSON file, and one command turns it into a 1080x1350 PDF with a cover PNG:
+
+\`\`\`bash
+python3 skill/daily-linkedin-post/tools/carousel.py examples/slides.json out.pdf
+\`\`\`
+
+There are four slide types: \`cover\`, \`point\`, \`compare\` and \`cta\`. A \`point\` slide takes a number, a title, a few lines, optional code lines, an icon and a colour. Colours carry meaning (coral for a mistake, emerald for the fix, amber for an insight), and icons are Lucide names such as \`database\`, \`timer\` or \`shield-check\`, downloaded by the setup script rather than bundled.
+
+Because the format is just data, an agent can write it reliably, and you can edit a slide by hand without touching any layout code.
+
+## How a run works
+
+1. **Read state:** the history, the idea backlog and a voice file with your tone and sample posts.
+2. **Choose today's lane** and a topic that has not been used.
+3. **Research** with ranked sources and note the URL for the first comment.
+4. **Design** the asset: one idea per image or slide.
+5. **Write and lint** the caption.
+6. **Save the files** and log a draft in the history.
+7. **Present** the ready-to-post block.
+8. **You approve and post**, then mark it as posted and, a day later, add the numbers.
+
+Measurement is manual on purpose: record impressions, reactions, comments, reposts and saves, and review monthly by engagement rate and by reach relative to followers, not by raw impressions.
+
+## Try it
+
+\`\`\`bash
+git clone https://github.com/CH-USAMA/linkedin-post-skill.git
+cd linkedin-post-skill
+bash setup.sh
+python3 skill/daily-linkedin-post/tools/slop_lint.py examples/caption.txt
+\`\`\`
+
+You need Python 3.9 or newer, \`pip\`, and \`npm\` (only to fetch the icons). On macOS or Windows you may need to adjust the font paths at the top of \`style.py\`. Then copy the skill folder into your agent's skills directory, copy the starter state folder somewhere private, and fill in your voice file. The repository has guides for usage, the weekly workflow, customising lanes and colours, and the safety notes.
+
+## Why this matters beyond LinkedIn
+
+The pattern is useful for any task where an agent can do 90 percent of the work and a person must own the last step:
+
+- A **draft, lint, approve** loop beats full automation wherever your name is on the output.
+- **State files** (history, ideas, voice) give an agent memory without a database.
+- **Deterministic checks** like a linter catch the failures a model will not notice in its own writing.
+- **Small tools with a JSON interface** are easier for agents to use than a big framework.
+
+I use the same thinking when I build automation for clients: let software handle the instant first step and the repetitive formatting, and keep a person in control of anything that carries a reputation, a payment or a promise. For a related example see [AI lead follow-up automation](/blog/ai-lead-follow-up-automation-n8n), and for choosing between a workflow tool and custom code see [n8n vs custom code](/blog/n8n-vs-custom-code-automation). If you want search visibility to work alongside your social content, [how to rank on Google and in AI search](/blog/seo-ai-search-rank-google-chatgpt-2026) covers it.
+
+## Want an agent workflow built for your team?
+
+I build agent skills, automations and AI features with guardrails: drafting and review loops, document pipelines, lead handling and internal tools. See [AI integration](/services/ai-integration) and [automation with n8n](/services/automation-n8n), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: "/blog/blog-linkedin-post-skill.webp",
+    published_at: "2026-10-15T11:00:00Z",
+    author: "Usama Munawar",
+    tags: ["AI Agents", "Claude", "LinkedIn", "Open Source", "Automation"],
+  },
+  {
     id: "35",
     title: "Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech",
     seo_title: "Word Document Automation in Python: An Offline App",
