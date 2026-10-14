@@ -803,6 +803,50 @@
     opacity: 1;
     animation: fx-beam 3.2s linear infinite;
   }
+
+  /* Industries section: blueprint grid + two drifting light orbs. */
+  .ind-stage { background: hsl(var(--surface-1) / 0.35); }
+  .ind-grid {
+    position: absolute;
+    inset: -48px 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(hsl(var(--primary) / 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.09) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(70% 70% at 50% 50%, #000 30%, transparent 100%);
+    animation: ind-grid 12s linear infinite;
+  }
+  .ind-orb {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    width: 520px;
+    height: 520px;
+    border-radius: 9999px;
+    background: radial-gradient(closest-side, hsl(var(--primary) / 0.22), transparent);
+    filter: blur(20px);
+    animation: ind-drift 18s ease-in-out infinite alternate;
+  }
+  .ind-orb-a { top: -120px; left: -80px; }
+  .ind-orb-b { bottom: -160px; right: -100px; animation-duration: 24s; animation-direction: alternate-reverse; }
+  @keyframes ind-grid { to { transform: translateY(48px); } }
+  @keyframes ind-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(14vw, 8vh, 0) scale(1.18); }
+  }
+  .ind-icon { transition: transform var(--dur-standard) var(--ease-out), color var(--dur-standard) var(--ease-out), border-color var(--dur-standard) var(--ease-out), box-shadow var(--dur-standard) var(--ease-out); }
+  .ind-tile:hover .ind-icon, .ind-tile:focus-within .ind-icon {
+    transform: translateY(-4px) scale(1.06);
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.6);
+  }
+  .ind-line { opacity: 0.7; transition: opacity var(--dur-standard) var(--ease-out), transform var(--dur-standard) var(--ease-out); }
+  .ind-tile:hover .ind-line { opacity: 1; transform: translateY(-2px); }
+
   /* Cursor spotlight (src/lib/spotlight.ts sets --mx/--my). */
   @media (hover: hover) {
     .fx-border:hover {
