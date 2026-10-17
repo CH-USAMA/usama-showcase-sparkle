@@ -30,7 +30,7 @@
 ## Pages
 
 - [Home](https://www.chaudharyusama.com/): Overview, selected work, services, process, pricing, contact
-- [Work](https://www.chaudharyusama.com/projects): 24 shipped projects: websites, platforms, AI and automation
+- [Work](https://www.chaudharyusama.com/projects): 25 shipped projects: websites, platforms, AI and automation
 - [Services](https://www.chaudharyusama.com/services): Full-stack capabilities and who they are for
 - [Blog](https://www.chaudharyusama.com/blog): Engineering articles
 - [Book a free call](https://www.chaudharyusama.com/book): Free 30-minute call
@@ -68,6 +68,7 @@
 - [Syed Zain Kazmi](https://www.chaudharyusama.com/project/22): A themed devotional website and living photo album for Astana Alia Khanoharni Sharif's gatherings, with a live Rabi ul Awal countdown, a Hijri calendar, a durood counter and an admin panel for adding albums
 - [Complaint Documents](https://www.chaudharyusama.com/project/23): An offline Windows desktop app that fills Wafaqi Mohtasib (Federal Ombudsman) offices' own Word formats with case details: typed or spoken, with batch generation from Excel and encrypted backup
 - [LinkedIn Post Agent Skill](https://www.chaudharyusama.com/project/24): An open-source agent skill that drafts one research-backed LinkedIn post at a time (image, video or PDF carousel), lints it for AI-sounding writing and leaves publishing to a human
+- [AI Voice Taxi Dispatcher](https://www.chaudharyusama.com/project/25): A browser-based voice AI dispatcher that takes taxi bookings in English or Urdu, reads the details back and saves the booking after one "yes", running entirely on Cloudflare Workers
 - [Solutions Zilla Digital](https://www.chaudharyusama.com/project/7): AI-enhanced corporate website for IT and BPO operations with smart lead gen
 - [Jabulani Hardware Store](https://www.chaudharyusama.com/project/8): Complete South African hardware e-commerce platform with Stripe payments, Google login, and fast search
 - [Solutions Zilla Software](https://www.chaudharyusama.com/project/9): Professional software house website showcasing development services and client portfolio
