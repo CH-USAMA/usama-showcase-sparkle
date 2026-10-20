@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-14T21:51:36.744Z",
+ "generatedAt": "2026-10-20T19:38:29.070Z",
  "source": "database",
  "projects": [
   {
@@ -1557,6 +1557,105 @@
     "detailPath": "/project/24"
    },
    "updatedAt": "2026-10-14T21:50:47.101Z"
+  },
+  {
+   "id": 25,
+   "slug": "taxi-voice-dispatcher",
+   "status": "published",
+   "featured": 0,
+   "sortOrder": 150,
+   "project": {
+    "id": 25,
+    "title": "AI Voice Taxi Dispatcher",
+    "description": "A browser-based voice AI dispatcher that takes taxi bookings in English or Urdu, reads the details back and saves the booking after one \"yes\", running entirely on Cloudflare Workers",
+    "fullDescription": "THE PROBLEM: A taxi booking call needs the same six details every time (name, phone, pickup, drop-off, time and passengers), and in Lahore it happens in Urdu as often as in English. I wanted to see how much of that call a voice agent could take on its own, in both languages, with no one on the line.\n\nTHE APPROACH: Callers tap the mic and speak, or type. The dispatcher collects the six details, reads them back and saves the booking after a single \"yes\" or \"جی ہاں\". Everything runs on Cloudflare Workers: Whisper large-v3-turbo for speech-to-text, Llama 3.3 70B with JSON-schema output for the conversation, MeloTTS for English speech, Azure Neural TTS (ur-PK-UzmaNeural) for a natural Pakistani Urdu voice, and D1 for bookings and call logs.\n\nONE LANGUAGE PER CALL: The caller picks English or Urdu before the call starts, and the whole call stays in it: a language hint to Whisper, a 'reply only in X' instruction to the model, validation of every reply with a retry, and templated fallbacks. A toggle switches language mid-call and keeps the details already collected.\n\nNUMBERS THAT SOUND RIGHT: A deterministic normaliser runs before text-to-speech, so phone numbers and booking references are read digit by digit and times naturally (\"nine thirty p.m.\", \"شام ساڑھے سات بجے\"), while the text on screen stays unchanged. Phone numbers are checked against Pakistani mobile and landline formats and asked for again when invalid.\n\nAUDIO THAT ALWAYS PLAYS: Audio is unlocked on the first tap, and old audio stops before new audio starts. Speech is retried on the server and once more from the browser, the browser's own voices are the next fallback, and a 'Tap to hear' prompt is the last. Without Azure, Urdu falls back to MeloTTS reading Roman Urdu. Empty, hallucinated (\"Thank you.\") or too-short recordings get \"please repeat\" instead of a wrong answer.\n\nCOST: Each turn sends only the last six messages and a compact JSON of the collected fields, with max_tokens at 160 (320 in Urdu mode). The confirming \"yes\" saves the booking without a model call, short phrases and greetings are cached, Azure tokens are reused for 8 minutes, and no audio is stored.\n\nTHE INTERFACE: A React UI with Motion animations: an orb that reacts to the caller's voice through the Web Audio API, chat bubbles with replay buttons, a booking summary that fills in live and a confirmation screen with the booking reference. It is built into one inlined HTML file that the Worker serves, and every turn and playback result is logged to D1 behind a token-protected logs page.\n\nBUILT WITH: Cloudflare Workers, Workers AI (Whisper, Llama 3.3 70B, MeloTTS), D1, Azure Neural TTS, React, Vite and Motion. It is a web demo, not a phone line yet: a telephony provider such as Twilio would connect it to real calls. Built in October 2026.",
+    "image": "/projects/taxi-voice-dispatcher.jpg",
+    "gallery": [
+     "/projects/taxi-voice-dispatcher.jpg"
+    ],
+    "technologies": [
+     "Cloudflare Workers + D1",
+     "Workers AI",
+     "Whisper · Llama 3.3 70B",
+     "MeloTTS · Azure Neural TTS",
+     "React · Motion",
+     "Vite"
+    ],
+    "category": "Voice AI",
+    "completionDate": "October 2026",
+    "liveUrl": "https://taxi-dispatcher.usama-dispatch.workers.dev",
+    "githubUrl": "https://github.com/CH-USAMA/usamas-taxi-dispatcher",
+    "features": [
+     "English or Urdu, Locked for the Whole Call",
+     "Speech, Language Model and Voice on Workers AI",
+     "Natural Pakistani Urdu Voice",
+     "Read-back and One-word Confirmation",
+     "Numbers Spoken Digit by Digit",
+     "Pakistani Phone Number Validation",
+     "Layered Speech Fallbacks",
+     "Bookings and Call Logs in D1"
+    ],
+    "challenges": [
+     {
+      "title": "Keeping a call in one language",
+      "description": "Speech recognition and the model drift between English, Urdu and Roman Urdu, so the chosen language is enforced at every step: a language hint, an explicit instruction, validation with retry and templated fallbacks"
+     },
+     {
+      "title": "Saying numbers the way people do",
+      "description": "Text-to-speech reads a phone number as one huge figure, so a deterministic normaliser rewrites phones, references and times for speech in both languages without touching the screen text"
+     },
+     {
+      "title": "Audio that always plays",
+      "description": "Browsers block autoplay and speech services fail or run out of quota, so playback falls through server retry, browser retry and the browser's own voices to a 'Tap to hear' prompt"
+     }
+    ],
+    "results": [
+     "A full booking by voice in English or Urdu, saved after one confirmation",
+     "Runs on the Workers AI and D1 free tiers, with Azure optional for the Urdu voice",
+     "The confirming turn saves without a model call, and each turn sends only the last six messages",
+     "Live demo and a public repository with setup, API and demo-script docs"
+    ]
+   },
+   "caseStudy": {
+    "id": "taxi-voice-dispatcher",
+    "n": "16",
+    "category": "Voice AI",
+    "hue": "var(--hue-realtime)",
+    "title": "AI Voice Taxi Dispatcher",
+    "image": "/projects/taxi-voice-dispatcher.jpg",
+    "year": "2026",
+    "role": "Voice AI · Cloudflare Workers · React",
+    "problem": "A taxi booking call needs the same six details every time, often in Urdu. A voice agent has to stay in the caller's language, hear phone numbers right and say them back clearly.",
+    "approach": "A browser voice dispatcher on Cloudflare Workers: Whisper for speech, Llama 3.3 70B for the conversation, MeloTTS and an Azure Urdu neural voice for replies, D1 for bookings. The caller picks English or Urdu and the call stays in it.",
+    "result": "A full booking by voice in either language, read back and saved after one \"yes\", with numbers spoken digit by digit, layered audio fallbacks and a live demo.",
+    "flow": [
+     {
+      "label": "Listen",
+      "note": "Whisper"
+     },
+     {
+      "label": "Understand",
+      "note": "Llama 3.3 70B"
+     },
+     {
+      "label": "Speak",
+      "note": "MeloTTS · Azure"
+     },
+     {
+      "label": "Save",
+      "note": "D1 booking"
+     }
+    ],
+    "stack": [
+     "Workers AI",
+     "D1",
+     "Azure TTS",
+     "React"
+    ],
+    "liveUrl": "https://taxi-dispatcher.usama-dispatch.workers.dev",
+    "detailPath": "/project/25"
+   },
+   "updatedAt": "2026-10-17T06:28:31.550Z"
   },
   {
    "id": 7,

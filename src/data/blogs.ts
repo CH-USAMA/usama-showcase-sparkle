@@ -7,6 +7,835 @@ export type { BlogPost };
 
 export const blogsData: BlogPost[] = [
   {
+    id: "40",
+    title: "15 Free AI and Online Tools Worth Bookmarking in 2026 (With Real Limits)",
+    seo_title: "15 Free AI and Online Tools Worth Bookmarking in 2026",
+    slug: "free-ai-tools-websites-2026",
+    excerpt: "15 free AI and browser tools I would bookmark in 2026: what each one does, what the free plan really includes, the limits, and the privacy points to check.",
+    content: `## The short version
+
+These are 15 free tools I would bookmark. I checked each one on its own website, pricing page, help centre or GitHub repository in October 2026, and I note what the free plan gives you and where it stops.
+
+Not all of them are AI. AudioMass, PairDrop, BentoPDF, Photopea, Tally and Cobalt are plain web apps, and several run entirely in your browser, which is often the better choice for private files.
+
+| Tool | What it does | Free plan | Sign-up needed |
+|---|---|---|---|
+| Duck.ai | Private chat with several AI models | Free within a daily limit | No |
+| Perplexity | AI answers with cited sources | Basic searches, a few Pro Searches | For history and settings |
+| Qwen Chat | Alibaba's general AI assistant | Free to use | Log in offered |
+| Gamma | AI slides, documents and web pages | 400 one-off credits, Gamma badge | Yes |
+| Napkin AI | Turns text into diagrams and charts | 500 AI credits a week, Napkin branding | Yes |
+| Goblin Tools | Small AI helpers for tasks and tone | Free website, no ads | No |
+| Google Vids | Video editor with AI help | 50 AI credits a month (personal account) | Google account |
+| Lumen5 | Turns text into short videos | 5 videos a month, 720p, branded outro | Yes |
+| AudioMass | Audio editor in the browser | Free, open source (MIT) | No |
+| Cobalt | Saves media from public links | Free, open source (AGPL-3.0), no ads | No |
+| BentoPDF | PDF toolkit that runs in the browser | Free, open source (AGPL-3.0) | No |
+| TinyWow | 200+ file, PDF, image and AI tools | Free with ads, Premium removes them | No |
+| PairDrop | Sends files between nearby devices | Free, open source (GPL-3.0) | No |
+| Photopea | Photoshop-style image editor | Free with ads, Premium removes them | No |
+| Tally | Forms you build like a document | Unlimited forms and submissions (fair use) | Not to start |
+
+Free plans change often. Treat the limits here as a snapshot from October 2026 and check the pricing page before you rely on one for work.
+
+## AI assistants and research
+
+### Duck.ai
+
+![Duck.ai home screen with the "Ask anything privately" chat box and model picker](/blog/free-ai-tools/duck-ai.webp "1280x800")
+
+Duck.ai is DuckDuckGo's chat interface for several AI models, including smaller models from OpenAI, Anthropic and Mistral and open models such as gpt-oss and Gemma. Text chat, voice chat and image generation are free within a daily limit, and DuckDuckGo says no account is needed. Paid Plus and Pro subscriptions raise the limits and add larger models.
+
+Privacy is the reason to use it. DuckDuckGo says it removes your IP address and other metadata before a prompt reaches the model provider, does not store chats by default, and has agreements with providers not to train on chats and to delete them after the reply (with stated exceptions, such as legal requirements).
+
+- **Good for:** quick questions you would rather not attach to your main AI account.
+- **Watch out:** the daily limit is not a fixed number of messages, and bigger models use it up faster. Anonymised is not the same as secret, so still leave out names and client data.
+
+[duck.ai](https://duck.ai/)
+
+### Perplexity
+
+![Perplexity search page asking "What do you want to know?"](/blog/free-ai-tools/perplexity.webp "1280x800")
+
+Perplexity answers questions by searching the web and citing its sources, so you can click through and check. The free plan includes what Perplexity calls practically unlimited basic searches and a small number of Pro Searches (its plans page listed 3 a day when I checked, while the pricing page talks about limited usage), limited file uploads, and no access to advanced models or image generation.
+
+- **Good for:** research where you need to see where a claim came from.
+- **Watch out:** "AI Data Retention" is on by default for free accounts, which lets Perplexity use your searches to improve its models. You can switch it off under Settings, Preferences, but it only applies from that point on. Always open the cited source before you quote it.
+
+[perplexity.ai](https://www.perplexity.ai/)
+
+### Qwen Chat
+
+![Qwen Chat home screen with the model selector and message box](/blog/free-ai-tools/qwen.webp "1280x800")
+
+Qwen Chat is Alibaba's assistant built on its Qwen models. The Qwen site says it is "free to use, open to all", and it covers the usual ground: chat, reading files and images, web search and image generation. It is a useful second opinion next to ChatGPT or Gemini.
+
+- **Good for:** comparing answers across models, and coding or writing help without a subscription.
+- **Watch out:** the privacy policy says the service is operated from Singapore, your input is processed by Alibaba Cloud (Singapore), and "de-identified user content" may be used for model training. It also asks you to avoid entering sensitive personal data. Take that advice literally.
+
+[chat.qwen.ai](https://chat.qwen.ai/)
+
+## Writing, slides and visuals
+
+### Gamma
+
+![Gamma Help Center home page with getting-started articles](/blog/free-ai-tools/gamma.webp "1280x800")
+
+Gamma turns a prompt, notes or a document into a presentation, a document or a simple web page, which you edit with blocks and can export to PDF or PowerPoint.
+
+The free plan is a one-off allowance: 400 credits when you sign up, and Gamma's help centre says free credits do not refresh. You can earn more by referring people (200 each). Free generation is capped at 10 slides per prompt, and free exports and shared decks carry a "Made with Gamma" badge, which the paid Plus plan removes.
+
+- **Good for:** a first draft of a pitch or a workshop deck that you then rewrite in your own words.
+- **Watch out:** 400 credits go quickly if you regenerate a lot. Plan the outline yourself first, then generate once.
+
+[gamma.app](https://gamma.app/)
+
+### Napkin AI
+
+![Napkin AI landing page: Get visuals from your text](/blog/free-ai-tools/napkin.webp "1280x800")
+
+Napkin takes text you paste or write and suggests visuals for it: diagrams, flowcharts, mind maps, infographics and simple charts. You pick one and adjust colours, icons and layout, with little prompting involved.
+
+The free plan gives 500 AI credits a week, unlimited editing, and unlimited PNG and PDF exports, with Napkin branding on the visuals. SVG and PowerPoint export and removing the branding need the paid Plus plan.
+
+- **Good for:** turning a paragraph in a proposal or a blog post into a clear diagram in a few minutes.
+- **Watch out:** check that the diagram says what your text says. A neat visual can quietly drop a step.
+
+[napkin.ai](https://www.napkin.ai/)
+
+### Goblin Tools
+
+![Goblin Tools home page showing Magic ToDo, Formalizer, Judge and other tools](/blog/free-ai-tools/goblin-tools.webp "1280x800")
+
+Goblin Tools is a set of small, single-purpose AI helpers, built mainly for neurodivergent people but useful for anyone. Magic ToDo breaks a vague task into steps, Formalizer rewrites text in a different tone, Judge reads the tone of a message, and Compiler turns a brain dump into actions.
+
+The website is free without ads or paywalls, and accounts are optional (they add history and sync). The mobile apps cost a small amount, and a Pro subscription adds some advanced features. The creator says output should be treated as guesswork, not truth.
+
+- **Good for:** getting unstuck on a task you keep putting off, or checking whether a reply sounds harsher than you meant.
+- **Watch out:** the privacy policy says text for its AI tools is sent to OpenAI to process. Do not paste anything confidential.
+
+[goblin.tools](https://goblin.tools/)
+
+## Video and audio
+
+### Google Vids
+
+![Google Vids product page: AI video creation for work, with a free trial banner](/blog/free-ai-tools/google-vids.webp "1280x800")
+
+Google Vids is Google's video editor in the browser, with templates, recording, and AI features such as voice-overs, generated clips and preset avatars. Google says it is "available to try at no cost" with a Google account.
+
+For a free personal account, Google's help page lists 50 AI credits a month (reset on the 1st, no roll-over), and AI video clips and avatars share a limit of 6 a month. Personal accounts only get preset avatars, many AI features are English only, and creating and editing work on desktop browsers only. Higher limits come with Workspace plans or Google AI subscriptions.
+
+- **Good for:** a short product walkthrough or training video from a few slides and a screen recording.
+- **Watch out:** the limits differ by account type and Google says they may change, so check the help page for your plan.
+
+[vids.google.com](https://vids.google.com/)
+
+### Lumen5
+
+![Lumen5 home page about turning blogs and documents into videos](/blog/free-ai-tools/lumen5.webp "1280x800")
+
+Lumen5 turns a blog post, article or script into a short video. Its pricing page still lists a free plan at $0: 5 videos a month, 720p, videos up to 2 minutes, and a Lumen5 branded outro at the end. No card is needed to start. The paid Basic plan removes the branding, and 1080p starts on the Starter plan.
+
+- **Good for:** a quick social video from a post you have already written.
+- **Watch out:** the outro and 720p are fine for testing an idea, less so for a client deliverable.
+
+[lumen5.com](https://lumen5.com/)
+
+### AudioMass
+
+![AudioMass about page showing the waveform editor with its equaliser open](/blog/free-ai-tools/audiomass.webp "1280x800")
+
+AudioMass is not AI. It is a free, open-source audio and waveform editor that runs in your browser with no backend, so your audio stays on your machine. It handles cutting, trimming, fades, normalising, compression, reverb, delay, click and hum repair, and now has a multitrack mode. It exports MP3 (and WAV for multitrack mixdowns) and keeps working offline once loaded. The code is MIT licensed on GitHub, and you can host it yourself.
+
+- **Good for:** trimming a voice note, cleaning a podcast intro or cutting a ringtone without installing anything.
+- **Watch out:** it is a lightweight editor. For long multitrack projects, a desktop tool like Audacity is still easier.
+
+[audiomass.co](https://audiomass.co/)
+
+### Cobalt
+
+![Cobalt downloader with the "paste the link here" box](/blog/free-ai-tools/cobalt.webp "1280x800")
+
+Cobalt is not AI either. You paste a link from a supported site (its list includes Vimeo, Bluesky, Reddit, SoundCloud, TikTok and others) and it gives you the video, audio or image file. It has no ads, trackers or paywalls, it is open source under AGPL-3.0, and the project says it keeps no logs and streams media to you without storing it on its servers.
+
+- **Good for:** saving your own uploads, or a clip you have permission to reuse.
+- **Watch out:** YouTube has been unreliable on the main cobalt.tools instance because of YouTube's own restrictions (the project's GitHub issue about it is still open), so check the status page. Only download media you have the right to use: Cobalt's terms make you responsible for what you save and share.
+
+[cobalt.tools](https://cobalt.tools/)
+
+## Files, PDFs and sharing
+
+### BentoPDF
+
+![BentoPDF landing page: The PDF Toolkit built for privacy](/blog/free-ai-tools/bentopdf.webp "1280x800")
+
+BentoPDF is a PDF toolkit with more than 100 tools (merge, split, compress, convert, sign, fill forms, remove metadata and more) that runs in your browser. The site says files are processed on your device and never sent to a server, with no sign-up, no file limits and no watermarks. It is open source under AGPL-3.0, with a paid commercial licence for closed-source use, and it can be self-hosted as static files.
+
+- **Good for:** contracts, ID scans, invoices and anything else you should not upload to a random PDF site.
+- **Watch out:** because the work happens on your device, very large files depend on your computer's memory.
+
+[bentopdf.com](https://www.bentopdf.com/)
+
+### TinyWow
+
+![TinyWow home page listing free PDF, image, video and AI tools](/blog/free-ai-tools/tinywow.webp "1280x800")
+
+TinyWow bundles more than 200 tools: PDF conversion and editing, image tools (including background removal), video tools and AI writing tools. The home page says "No Limits, No Sign-Up", and Premium ($9 a month) removes ads and promises unlimited usage.
+
+- **Good for:** one-off conversions when you need a format you do not usually deal with.
+- **Watch out:** unlike BentoPDF, files are uploaded and processed on TinyWow's servers. It says all files are deleted after 1 hour, but keep sensitive documents for a local tool anyway.
+
+[tinywow.com](https://tinywow.com/)
+
+### PairDrop
+
+![PairDrop waiting screen: "Open PairDrop on other devices to send files"](/blog/free-ai-tools/pairdrop.webp "1280x800")
+
+PairDrop is a free, open-source (GPL-3.0) way to send files between devices in the browser, similar to AirDrop but across Windows, Android, iPhone, Mac and Linux. Open it on both devices on the same network and they appear to each other. You can also pair devices with a code or join a temporary public room to send over the internet. No setup, no sign-up.
+
+Transfers use WebRTC, peer to peer and encrypted in transit. The FAQ says files on the same network never go to a server, and the service does not use a database. Paired devices behind strict networks may be relayed through PairDrop's TURN server.
+
+- **Good for:** getting a photo from your phone to a work laptop without emailing it to yourself.
+- **Watch out:** everyone in a public room sees each other's devices, so leave the room when you are done.
+
+[pairdrop.net](https://pairdrop.net/)
+
+## Images
+
+### Photopea
+
+![Photopea landing page: Free Online Photo Editor, fully local](/blog/free-ai-tools/photopea.webp "1280x800")
+
+Photopea is a Photoshop-style editor in the browser that opens PSD files (its main format) along with AI, Figma, INDD, HEIC and many others. It says files are processed on your device and never leave it, and it works offline. It is free, with ads, and logging in is optional. A Premium account, a one-time payment for a set period, removes the ads and adds credits for the AI tools (background removal and replacing part of an image from a text description).
+
+- **Good for:** editing a PSD from a designer when you do not have Photoshop, or resizing and cleaning up images for a website.
+- **Watch out:** if you close the tab without saving, the work is gone. The AI tools work with credits and are a different case from plain editing, so do not assume they stay on your device too.
+
+[photopea.com](https://www.photopea.com/)
+
+## Forms
+
+### Tally
+
+![Tally home page: The simplest way to create forms, no signup required](/blog/free-ai-tools/tally.webp "1280x800")
+
+Tally lets you build a form by typing, the way you write a document, and adding blocks for questions. The free plan includes unlimited forms and submissions within fair use, plus conditional logic, signatures, calculations and file uploads (10 MB per file). You can start a form without signing up. Tally says it is GDPR compliant and hosted in Europe. The Pro plan ($24 a month) removes Tally branding and adds custom domains, partial submissions and larger uploads.
+
+- **Good for:** contact forms, client intake questionnaires, event sign-ups and quick surveys, connected to Notion, Google Sheets or a webhook.
+- **Watch out:** free forms show Tally branding. If you collect personal data, you still need your own privacy notice.
+
+[tally.so](https://tally.so/)
+
+## How I would use them together
+
+- **Research to slides:** ask Perplexity for sources, read the originals, write the outline yourself, then let Gamma draft the deck and Napkin turn the key paragraph into a diagram.
+- **Private document work:** use BentoPDF to merge, compress or sign, and PairDrop to move the file from your phone. Neither uploads your files to a third party's storage.
+- **A short explainer video:** write the script, record the voice in any recorder, clean it in AudioMass, then build the video in Google Vids or Lumen5.
+- **Lead capture:** a Tally form that sends answers to Google Sheets or a webhook is a perfectly good start before you need a CRM.
+- **Sensitive questions:** Duck.ai for anything you would rather not keep in an account history.
+
+## Privacy checklist before you paste anything into a free AI tool
+
+1. **Assume it is stored** unless the tool's own privacy page says otherwise.
+2. **Check training settings.** Some tools train on free users' content by default (Perplexity's toggle is on by default, Qwen's policy allows de-identified training).
+3. **Remove names, emails, phone numbers, account numbers and client details** before pasting. Replace them with placeholders.
+4. **Prefer tools that run in the browser** (BentoPDF, Photopea, AudioMass) for private files.
+5. **Check the source** of any fact an AI gives you before you publish it.
+
+I cover these habits in [staying safe with AI](/learn-ai), and the free [AI prompt builder](/tools/prompt-builder) helps you write a clear prompt in your browser before it goes near an AI tool.
+
+## More free tools, and help if you need it
+
+I also keep a set of [free tools](/tools) on this site, with no sign-up and everything running in your browser: a prompt builder, an MVP planner, AI API and [call center cost calculators](/tools/call-center-cost-calculator), an [automation ROI calculator](/tools/automation-roi-calculator), a [meta tag generator](/tools/meta-tag-generator) and a README generator.
+
+If you want AI built into your own product or workflow, with your data handled properly, see [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: "/blog/blog-free-ai-tools.webp",
+    published_at: "2026-10-21T10:00:00Z",
+    author: "Usama Munawar",
+    tags: ["AI Tools", "Free Tools", "Productivity", "Privacy", "Open Source"],
+  },
+  {
+    id: "39",
+    title: "Node.js 26 LTS: What's New, What Breaks, and the New Release Schedule",
+    seo_title: "Node.js 26 LTS: What's New, What Breaks and How to Upgrade",
+    slug: "nodejs-26-lts-whats-new-upgrade",
+    excerpt: "Node.js 26 becomes LTS on 28 October 2026: Temporal by default, V8 14.6, what was removed since Node 24, support dates and the new yearly schedule.",
+    content: `## The short version
+
+Node.js 26 is scheduled to become the Active LTS line on 28 October 2026. As I write this (21 October), it is still the Current release: every 26.x build so far, up to 26.12.0 on 14 October, is published without an LTS label, and the codename is not yet assigned. The Node.js Release repository lists **Lithium** as the planned name, with the usual note that future names can change.
+
+What matters for backend and full-stack teams:
+
+- **Temporal is enabled by default**, so you get a proper date and time API without a polyfill.
+- **V8 14.6** (Node 24 ships V8 13.6), with \`Map.prototype.getOrInsert()\` and \`Iterator.concat()\`.
+- **Removals across Node 25 and 26**: the \`_stream_*\` modules, \`res.writeHeader()\`, \`fs.F_OK\` and friends, \`SlowBuffer\`, the \`--experimental-transform-types\` flag, and Corepack is no longer bundled.
+- **Native addons need rebuilding**: \`NODE_MODULE_VERSION\` is 147, up from 137 on Node 24.
+- **Node 22 reaches end of life on 30 April 2027.** That is the deadline that should drive your planning, not the 26 launch.
+- **From Node 27, every release becomes LTS**: one major a year, plus a new Alpha channel.
+
+My advice: test on 26 now, move production after the LTS promotion and once your host supports it, and upgrade anything still on 22 first.
+
+## Support timeline
+
+Dates from the Node.js Release schedule:
+
+| Line | Codename | Released | Active LTS | Maintenance | End of life |
+|---|---|---|---|---|---|
+| 22 | Jod | 24 April 2024 | 29 October 2024 | 21 October 2025 | 30 April 2027 |
+| 24 | Krypton | 6 May 2025 | 28 October 2025 | 20 October 2026 | 30 April 2028 |
+| 26 | Lithium (planned) | 5 May 2026 | 28 October 2026 | 20 October 2027 | 30 April 2029 |
+
+Node 24 was scheduled to move into maintenance on 20 October 2026; it keeps getting security fixes until April 2028 but fewer backports. Node 25 never became LTS and reached end of life on 1 June 2026. Node 20 reached end of life on 30 April 2026.
+
+One more date for this week: the project announced security releases for the 26.x, 24.x and 22.x lines on or shortly after 21 October 2026, with the highest severity rated HIGH. Whatever line you run, take that patch first.
+
+## What is new since Node 24
+
+### Temporal, on by default
+
+This is the change I care about most. \`Date\` is a common source of bugs in code that handles billing periods, bookings or time zones. Temporal separates the concepts \`Date\` mixes together (a calendar date, an exact instant, a date and time in a named zone), and its objects are immutable.
+
+\`\`\`js
+const start = Temporal.PlainDate.from('2026-10-28');
+console.log(start.add({ months: 30 }).toString()); // 2029-04-28
+
+const now = Temporal.Now.zonedDateTimeISO('Europe/London');
+console.log(now.toString());
+\`\`\`
+
+On Node 22 and 24, \`Temporal\` is not there by default (\`typeof Temporal\` is \`'undefined'\`). If you publish a library or share code with older runtimes, keep a fallback or a polyfill until you drop them.
+
+### V8 14.6
+
+Node 26 ships V8 14.6 (Chromium 146). Two additions I expect to use in ordinary backend code:
+
+\`\`\`js
+// Group jobs by tenant without the "if (!map.has(key))" dance
+const byTenant = new Map();
+for (const job of jobs) {
+  byTenant.getOrInsertComputed(job.tenantId, () => []).push(job);
+}
+
+// Iterate several sources as one
+for (const row of Iterator.concat(activeUsers, invitedUsers)) {
+  sendDigest(row);
+}
+\`\`\`
+
+From the Node 25 release, which used V8 14.1, you also get built-in base64 and hex on \`Uint8Array\` (\`bytes.toBase64()\`, \`Uint8Array.fromBase64()\`), and the project highlighted faster \`JSON.stringify\`. I have not benchmarked that, so measure your own payloads before you credit it with anything.
+
+### Undici 8 behind fetch
+
+Node 26.0.0 moved the built-in HTTP client, Undici, to version 8. Most code only touches it through \`fetch()\`. If you import \`undici\` directly, set custom dispatchers or agents, or pin an Undici version, read its release notes before upgrading.
+
+### TypeScript: strip-only
+
+Type stripping has been on by default since 22.18 and 23.6, and is marked stable from 24.12 and 25.2. Node 26 removes \`--experimental-transform-types\`, so anything that needs code generation fails:
+
+\`\`\`bash
+$ node --experimental-transform-types server.ts
+node: bad option: --experimental-transform-types
+
+$ node server.ts   # with an enum inside
+SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript enum is not supported in strip-only mode
+\`\`\`
+
+Enums, namespaces with runtime code and parameter properties need either a rewrite (a union type or a plain object) or a real compile step with \`tsc\` or a tool such as \`tsx\`.
+
+### Smaller changes
+
+- **Web Storage** came out from behind a flag in Node 25. On 26.12.0, \`localStorage\` is \`undefined\` and prints a warning unless you pass \`--localstorage-file\`. The API docs describe a \`DOMException\` instead, so do not build anything on either behaviour.
+- **Permission model**: Node 25 added \`--allow-net\` alongside the existing file system and child process permissions.
+- **\`ErrorEvent\`** is a global from Node 25.
+- **npm** stays on major version 11 (26.12.0 ships npm 11.20.0).
+
+## What breaks
+
+These are the semver-major removals and deprecations between 24 and 26 that I would search a codebase for. Most are old APIs, so they tend to turn up in older dependencies rather than in your own code.
+
+| Old | Replacement | Status |
+|---|---|---|
+| \`require('_stream_readable')\` and the other \`_stream_*\` modules | \`node:stream\` | Removed in 26 (DEP0193) |
+| \`res.writeHeader()\` | \`res.writeHead()\` | Removed in 26 (DEP0063) |
+| \`fs.F_OK\`, \`fs.R_OK\`, \`fs.W_OK\`, \`fs.X_OK\` | \`fs.constants.F_OK\` etc. | Removed in 25 (DEP0176) |
+| \`SlowBuffer\` | \`Buffer.allocUnsafeSlow()\` | Removed in 25 (DEP0030) |
+| Short AES-GCM auth tags without \`authTagLength\` | Pass \`authTagLength\` to \`createDecipheriv()\` | End of life in 26 (DEP0182) |
+| \`module.register()\` | \`module.registerHooks()\` | Runtime warning in 26 (DEP0205) |
+| Passing a \`CryptoKey\` to \`node:crypto\` APIs | A \`KeyObject\`, or keep the key in Web Crypto | Runtime warning in 26 (DEP0203) |
+
+Two of these have official codemods:
+
+\`\`\`bash
+npx codemod@latest @nodejs/fs-access-mode-constants
+npx codemod@latest @nodejs/slow-buffer-to-buffer-alloc-unsafe-slow
+\`\`\`
+
+The \`module.register()\` warning matters if you use custom loaders or a tool that installs them for you (instrumentation and test tooling are the usual places). It still works, but it will be removed in a later version, so check that your tools have moved to \`registerHooks()\`.
+
+### Corepack is no longer bundled
+
+Since Node 25, Corepack is not shipped with Node. If your projects use pnpm or Yarn through the \`packageManager\` field and \`corepack enable\`, CI and Docker builds on 26 will fail at that step until you install it yourself:
+
+\`\`\`dockerfile
+FROM node:26-bookworm-slim
+RUN npm install -g corepack && corepack enable
+\`\`\`
+
+### Native addons
+
+\`NODE_MODULE_VERSION\` is 147 on Node 26 and 137 on Node 24, so any addon compiled against the Node ABI has to be rebuilt or needs a prebuilt binary for 26. Addons built on Node-API are ABI stable and are meant to run on later majors without recompiling (their own external libraries may still need attention). In practice: delete \`node_modules\`, reinstall on 26, and do not reuse a Docker layer cache from a Node 24 image.
+
+## The new release schedule
+
+Node.js 26 is the last major to follow the odd/even model. From Node 27, the project moves to one major release a year:
+
+- **Alpha** for six months (October to March), for library authors and CI, with semver-major changes allowed and versions like \`27.0.0-alpha.1\`.
+- **Current** for six months (April to October).
+- **LTS** for 30 months, so 36 months of support from the first Current release.
+- **Every release becomes LTS.** There are no more short-lived odd versions to skip.
+- **Version numbers follow the calendar year** of the first Current release: 27.0.0 in 2027, 28.0.0 in 2028.
+
+For Node 27, the Alpha starts on 28 October 2026 (the same day 26 becomes LTS), 27.0.0 is planned for April 2027, LTS for October 2027, and end of life for 30 April 2030.
+
+If you only ever run LTS, very little changes: one upgrade window a year, every October, with a predictable 30-month runway. If you maintain packages, add the Alpha line to your CI matrix early, which is exactly what the project asks for. The odd releases used to be where breakage showed up first; now the Alpha is.
+
+## Hosting and tooling checks
+
+Check these before you change any production runtime:
+
+- **Docker**: the official \`node:26\`, \`node:26-bookworm-slim\`, \`node:26-trixie-slim\` and \`node:26-alpine\` tags exist. On 14 October, \`node:lts\` still pointed at the same image as \`node:24\`. If you build from \`node:lts\`, expect it to follow 26 after the promotion without any change on your side, so pin the major instead.
+- **AWS Lambda**: \`nodejs26.x\` is in public preview, which AWS says is not for production workloads. Its target for general availability is November 2026.
+- **Vercel**: the Node.js versions page lists 24.x (the default) and 22.x. I would wait until 26.x appears there, then set it with \`engines\`.
+
+Make the version explicit everywhere it is read:
+
+\`\`\`json
+{
+  "engines": { "node": "26.x" }
+}
+\`\`\`
+
+\`\`\`yaml
+strategy:
+  matrix:
+    node: [22, 24, 26]
+\`\`\`
+
+## Upgrade checklist
+
+1. **Apply this week's security release** on the line you run today.
+2. **Run the test suite on 26 with deprecations as errors**: \`NODE_OPTIONS=--throw-deprecation npm test\`. That turns every runtime warning above into a failing test with a stack trace.
+3. **Search for the removed APIs** in the table, including inside \`node_modules\`, and update the dependencies that use them.
+4. **Rebuild native addons** from a clean install.
+5. **Install Corepack** explicitly if you rely on it.
+6. **Check TypeScript execution** if you run \`.ts\` files directly: no enums, no transform flag.
+7. **Check loader hooks and instrumentation** for \`module.register()\`.
+8. **Confirm your platform supports 26** (Docker base image, Lambda, Vercel, your CI runners).
+9. **Pin the major** in \`engines\`, \`.nvmrc\` and the Dockerfile so local, CI and production agree.
+10. **Ship to staging first**, then production after 28 October, with the previous image ready to roll back.
+
+## Should you upgrade now?
+
+- **On Node 22**: yes, plan it this quarter. You have until April 2027. Going straight to 26 is reasonable if your host supports it; otherwise 24 is a safe stop.
+- **On Node 24**: no rush. It is supported until April 2028. Test on 26 now and move when your platforms are ready.
+- **New projects**: start on 26 once it is LTS and your host offers it.
+
+If a Node service is already open for other work, such as moving an MCP server to [MCP's stateless spec](/blog/mcp-2026-07-28-stateless-spec-migration), that is a good moment to change the runtime too. If you are still deciding whether Node is the right backend at all, I wrote up how I choose in [Laravel vs Node.js](/blog/laravel-vs-nodejs-backend-systems).
+
+## Need a hand?
+
+Upgrading a production Node.js backend, or building a new product on it? See [Idea to launch](/services/mvp-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: "/blog/blog-nodejs-26.webp",
+    published_at: "2026-10-21T09:00:00Z",
+    author: "Usama Munawar",
+    tags: ["Node.js", "Node.js 26", "LTS", "Upgrade", "Backend"],
+  },
+  {
+    id: "38",
+    title: "Asterisk 24 LTS: What Changed and How to Upgrade a Production Call Centre",
+    seo_title: "Asterisk 24 LTS: What Changed and How to Upgrade",
+    slug: "asterisk-24-lts-upgrade-guide",
+    excerpt: "Asterisk 24 is the next LTS, supported to October 2031: what changed since 22 and 20, the support dates, and how to upgrade a production call centre.",
+    content: `## The short version
+
+Asterisk 24 is the next long-term support (LTS) release. At the time of writing (21 October 2026) the final 24.0.0 has not been tagged yet: release candidate 2 came out on 8 October, and the GA release is due this month.
+
+Three things matter if you run a call centre on Asterisk:
+
+- **Asterisk 20 moved to security fixes only on 19 October 2026** and reaches end of life on 19 October 2027. Asterisk 21 reached end of life on 18 October 2026. If you are on either, start planning now.
+- **Most of the new features in 23 and 24 were also backported to 22 and 20.** The real difference between 22 and 24 is a set of removals (users.conf, DeadAGI, a few old functions and options) and a longer support window.
+- **Asterisk 22 is still fully supported until October 2028.** There is no rush to leave it. If you are on 20, going straight to 24 buys you the most time, but it also means crossing the big Asterisk 21 removals (chan_sip, app_macro, res_monitor).
+
+## Is Asterisk 24 out yet?
+
+Not as of today. The official GitHub releases page lists 24.0.0-rc1 (17 September) and 24.0.0-rc2 (8 October), both marked as pre-releases. The Asterisk Versions page on docs.asterisk.org lists 24.x as a pre-release with a planned release date of 15 October 2026. RC2 was a small update: three bug fixes covering ChanSpy bridging and PJSIP presence and dialog-info notifications.
+
+The RC is fine for a staging box. I would not put a release candidate on a production call centre; wait for 24.0.0, and ideally the first point release after it.
+
+## Support timeline
+
+These dates come from the Asterisk Versions page. LTS releases get four years of full support plus one year of security fixes; standard releases get at least one year of full support plus one year of security fixes. After end of life, a branch gets nothing.
+
+| Version | Type | Released | Security fixes only from | End of life |
+|---|---|---|---|---|
+| 20 | LTS | 19 October 2022 | 19 October 2026 | 19 October 2027 |
+| 21 | Standard | 18 October 2023 | 18 October 2025 | 18 October 2026 |
+| 22 | LTS | 16 October 2024 | 16 October 2028 | 16 October 2029 |
+| 23 | Standard | 15 October 2025 | 15 October 2026 | 15 October 2027 |
+| 24 | LTS | Due October 2026 | 15 October 2030 | 15 October 2031 |
+
+The 24 dates are based on the planned 15 October release, so treat them as approximate until the GA is out.
+
+Asterisk 23 was a standard release and is already security only. I would not plan a production move to 23 now: 24 contains everything in it and is supported for four years longer.
+
+## What actually changed between 22 and 24
+
+I compared the release branches directly. Since the 22 branch was cut, almost every new feature that landed on the main branch was also cherry-picked into the 22 and 20 branches. So if you keep 22 patched, you already have most of what is "new in 24". The changes you only get by moving up are the removals made for Asterisk 23.
+
+### Removed in Asterisk 23 (and therefore gone in 24)
+
+From the Asterisk 23.0.0 upgrade notes:
+
+- **users.conf** is gone. Every channel driver must be configured through its own file, and the res_phoneprov settings moved to \`phoneprov_users.conf\`.
+- **DeadAGI** is gone (deprecated since Asterisk 15). Use \`AGI()\`, which handles the same cases.
+- **VALID_EXTEN** is gone. Use \`DIALPLAN_EXISTS\`.
+- **QUEUE_MEMBER_COUNT** is gone. Use \`QUEUE_MEMBER(<queue>,logged)\`.
+- **Music on hold:** the old \`random\` option and the \`r\` flag on \`application=\` are gone. Use \`sort=random\`.
+- **Voicemail:** \`maxmessage\` and \`minmessage\` are gone (use \`maxsecs\` and \`minsecs\`), and the \`cz\` language code is gone (use \`cs\`).
+- **Logger:** \`rotatetimestamp\` is gone. Use \`rotatestrategy\`.
+- **CLI:** \`no debug channel\` is gone. Use \`core set debug channel\`.
+
+In dialplan terms, the fixes look like this:
+
+\`\`\`ini
+; Before (fails on 23 and 24)
+ same => n,GotoIf($[\${VALID_EXTEN(sales,\${EXTEN},1)}]?known)
+ same => n,Set(AGENTS=\${QUEUE_MEMBER_COUNT(support)})
+
+; After
+ same => n,GotoIf($[\${DIALPLAN_EXISTS(sales,\${EXTEN},1)}]?known)
+ same => n,Set(AGENTS=\${QUEUE_MEMBER(support,logged)})
+\`\`\`
+
+\`\`\`ini
+; musiconhold.conf
+[default]
+mode=files
+directory=moh
+sort=random   ; replaces random=yes
+\`\`\`
+
+### A config behaviour change worth testing
+
+Two changes in 23 affect configs that use templates. When a module looks up a setting by name, it now gets the value that overrides the template, not the template's value. And when a setting is updated (through AMI, for example), the change now applies even if the section inherits from a template. The upgrade notes say breakage is unlikely, but if your configs lean heavily on templates, or your application edits config files through AMI, test that on staging.
+
+### Coming from Asterisk 20: the Asterisk 21 removals
+
+If you are jumping from 20, you also cross everything Asterisk 21 removed. The ones that hit call centres:
+
+- **chan_sip** is gone. Every trunk and phone has to be on PJSIP.
+- **app_macro** is gone. Dialplan has to use \`Gosub\` instead of \`Macro\`. The \`Queue()\` argument order also shifted when the macro argument was removed, so check any \`Queue()\` call that passes a gosub.
+- **res_monitor** is gone, along with the \`w\` and \`W\` options of \`Queue()\`. Call recording has to use \`MixMonitor\`.
+- **NoCDR**, **ImportVar**, **SetAMAFlags**, **chan_skinny**, **chan_mgcp** and **chan_alsa** are gone too.
+
+For most older call centres, the chan_sip to PJSIP move is the real project; the Asterisk upgrade itself is the smaller part. I covered how the Asterisk and application layers fit together in [Asterisk + Laravel call centre](/blog/asterisk-laravel-voip-call-center).
+
+### Newer features you may already have
+
+These arrived during the 23 and 24 cycle and were backported, so check the version, not the major number:
+
+- **chan_websocket**, a channel driver that sends call media over a websocket, also usable with ARI external media (from 20.16.0 and 22.6.0). This is the simplest route for streaming audio to an AI service; I wrote about that in [AI voice agents on Asterisk](/blog/ai-voice-agents-asterisk).
+- **ARI REST requests over the same websocket** used for events (from 20.14.0 and 22.4.0).
+- **PJSIP endpoint maintenance mode** (\`res_pjsip_maintenance\`, from 20.20.0 and 22.10.0): new calls to or from an endpoint are refused while calls in progress carry on.
+- **Per-endpoint RTP port ranges** with \`rtp_port_start\` and \`rtp_port_end\` (from 20.20.0 and 22.10.0), useful for firewall rules per trunk.
+- **The internal web server's \`/httpstatus\` page is now off by default** (a security fix, from 20.18.2 and 22.8.2). Set \`enable_status=yes\` in http.conf if you relied on it.
+
+## Should you move to 24, or stay on 22?
+
+- **On 20 or 21:** yes, plan it now. 21 is out of support and 20 is security only. Go to 24 once it is GA, or to 22 if your distribution does not support 24 yet.
+- **On 22:** no hurry. Keep taking 22.x point releases and plan 24 for a quiet period in 2027. You lose nothing by waiting for 24 to settle.
+- **On FreePBX:** Sangoma's FreePBX 17 documentation says it ships with Asterisk 22 by default. I could not find an official statement about Asterisk 24, so check your distribution's support before upgrading Asterisk underneath it.
+
+## How I would plan the upgrade
+
+### 1. Take an inventory
+
+Before touching anything, I record what is running and search the config for anything removed:
+
+\`\`\`bash
+asterisk -rx "core show version"
+asterisk -rx "module show" > modules-before.txt
+asterisk -rx "pjsip show registrations" > registrations-before.txt
+
+# Removed in 23
+grep -rnE 'VALID_EXTEN|QUEUE_MEMBER_COUNT|DeadAGI|rotatetimestamp|maxmessage|minmessage' /etc/asterisk/
+grep -rnE '^\\s*random\\s*=' /etc/asterisk/musiconhold.conf
+ls -l /etc/asterisk/users.conf
+
+# Removed in 21 (only if coming from 20)
+grep -rnE 'Macro\\(|,Monitor\\(|NoCDR|ImportVar|SetAMAFlags|[(&]SIP/' /etc/asterisk/
+\`\`\`
+
+Run the same searches over your AGI scripts and any dialplan your application generates or stores in a database. That is where old function names tend to hide.
+
+### 2. Build a staging box
+
+Same operating system, same Asterisk build options, a copy of the real config, and a test trunk or a second account on the same carrier. Build from source or packages exactly as you will in production, so the module list matches.
+
+### 3. Test the call paths that make money
+
+I test the flows the business depends on, not just "a call connects":
+
+- Inbound to IVR, queue and agent, including queue announcements and position messages.
+- Outbound campaigns, including the dialer's AGI or ARI calls and caller ID.
+- Call recordings: a file is written, has audio on both legs, and lands where your application expects it.
+- SIP trunk registration and failover to the backup trunk.
+- Codecs: confirm what is negotiated with each trunk and phone type, and listen for one-way audio.
+- AMI and ARI clients: logins, the events you consume, and the actions your CRM sends.
+- CDR, CEL and queue_log rows: your reports read them, so check they still arrive with the fields you expect.
+
+### 4. Update the database schema if you use realtime
+
+If your PJSIP or queue configuration lives in a database, the alembic scripts need running. Recent releases add columns (per-endpoint RTP ports, PJSIP taskpool options) and change others:
+
+\`\`\`bash
+cd contrib/ast-db-manage
+cp config.ini.sample config.ini   # then set sqlalchemy.url
+alembic -c config.ini upgrade head
+\`\`\`
+
+One to schedule carefully: a new revision widens the queue_log \`time\` column to microseconds on MySQL and MariaDB. The upgrade note says it rewrites the table and blocks queue_log writes while it runs, which on a large table means a maintenance window. PostgreSQL is not affected.
+
+### 5. Cut over with a way back
+
+On cut-over day I drain traffic rather than dropping it. If the old server has \`res_pjsip_maintenance\` loaded, it can refuse new calls while existing ones finish:
+
+\`\`\`bash
+asterisk -rx "pjsip set maintenance on all"
+asterisk -rx "core show channels count"
+\`\`\`
+
+Maintenance state is held in memory only and clears on restart. For rollback, keep the old server, or a snapshot of it, untouched until the new one has run a full business day, and know exactly which DNS record, trunk IP allow-list or carrier setting you would switch back.
+
+## Upgrade checklist
+
+1. Confirm 24.0.0 is GA (and check whether a 24.0.1 has followed).
+2. Check your distribution or FreePBX supports 24; if not, target 22.
+3. Read the upgrade notes for 23.0.0 and every 24 release you will cross.
+4. Run the inventory searches and fix removed functions, options and users.conf.
+5. Coming from 20: finish chan_sip to PJSIP, Macro to Gosub, Monitor to MixMonitor first.
+6. Build staging, run the call path tests, check recordings, codecs and trunk failover.
+7. Run alembic on a copy of the database; time the queue_log change.
+8. Back up \`/etc/asterisk\`, the database, AGI scripts and sounds.
+9. Cut over in a quiet window, drain calls, keep the old server for rollback.
+10. Watch registrations, channel counts and error logs for the first few days.
+
+If you are still weighing up whether to run Asterisk at all, [Asterisk vs Twilio](/blog/asterisk-vs-twilio-cost-breakdown) covers the cost side, and the free [call center cost calculator](/tools/call-center-cost-calculator) runs the numbers for your own volume.
+
+## Need a hand?
+
+Planning an Asterisk upgrade, or moving off chan_sip and macros? See [VoIP and Asterisk](/services/voip-asterisk), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: "/blog/blog-asterisk-24.webp",
+    published_at: "2026-10-21T09:10:00Z",
+    author: "Usama Munawar",
+    tags: ["Asterisk", "Asterisk 24", "VoIP", "Call Center", "Upgrade"],
+  },
+  {
+    id: "37",
+    title: "PHP 8.6 for Laravel Developers: Partial Function Application, clamp() and What Breaks",
+    seo_title: "PHP 8.6 for Laravel Developers: What's New, What Breaks",
+    slug: "php-8-6-whats-new-laravel-developers",
+    excerpt: "PHP 8.6 lands on 19 November 2026: partial function application, clamp(), readonly defaults, what breaks, the deprecations and an upgrade checklist.",
+    content: `## The short version
+
+PHP 8.6 is scheduled for general availability on 19 November 2026. The release candidates are out now (RC3 shipped on 8 October, RC4 is planned for 22 October), so the feature list is frozen. This is the right moment to test against it, not to run it in production.
+
+For a Laravel developer the release comes down to three things:
+
+- **Partial function application** lets you write \`Str::limit(?, 120)\` where you used to write a closure. It is the biggest language change, and it pairs with the pipe operator that arrived in PHP 8.5.
+- **Small additions you will use**: a native \`clamp()\`, default values on readonly properties, a \`SortDirection\` enum and a \`Time\\Duration\` class.
+- **Stricter behaviour and a long deprecation list**: many functions now throw a \`ValueError\` on bad input, the session extension has safer defaults, and old aliases such as \`is_integer()\` and \`spl_object_hash()\` are deprecated.
+
+None of it forces a rewrite. The work is mostly packages, CI and the deprecation log.
+
+## Release timeline
+
+These dates come from the official PHP 8.6 release schedule.
+
+| Milestone | Date |
+|---|---|
+| Alpha 1 | 2 July 2026 |
+| Beta 1 | 13 August 2026 |
+| RC2 (RC1 was skipped) | 24 September 2026 |
+| RC3 | 8 October 2026 |
+| RC4 and RC5 (planned) | 22 October and 5 November 2026 |
+| General availability | 19 November 2026 |
+
+The RC announcements say release candidates are not for production, so put them in CI and on staging.
+
+## Partial function application
+
+Partial function application (PFA) means calling a function with some arguments filled in and the rest replaced by placeholders. Instead of running the function, PHP returns a \`Closure\` that waits for the missing arguments. \`?\` stands for exactly one argument, and \`...\` stands for "everything else".
+
+\`\`\`php
+use Illuminate\\Support\\Str;
+
+// Before: a closure that only exists to fix one argument
+$excerpts = $posts->pluck('body')->map(fn (string $body) => Str::limit($body, 120));
+
+// PHP 8.6
+$excerpts = $posts->pluck('body')->map(Str::limit(?, 120));
+\`\`\`
+
+The generated closure copies parameter names, types and defaults from the original, so reflection and stack traces see a real signature. It works with functions, static and instance methods, closures and invokable objects. It does not work with \`new\`, so partially apply a static factory method instead.
+
+### Why \`?\` is safer than \`...\` in Laravel callbacks
+
+This is the detail that matters most in Laravel code. \`Collection::map()\` calls your callback with two arguments, the value and the key (under the hood, \`Arr::map()\` runs \`array_map($callback, $array, $keys)\`). A first-class callable passes both along:
+
+\`\`\`php
+// Bug: the key (0, 1, 2...) lands in Str::limit()'s $limit parameter
+$posts->pluck('body')->map(Str::limit(...));
+
+// Fine: one placeholder, so the key is dropped
+$posts->pluck('body')->map(Str::limit(?, 120));
+\`\`\`
+
+The RFC spells this out. Without a \`...\` placeholder, extra arguments passed to the generated closure are ignored. With \`...\`, they are forwarded to the underlying function, which is how an optional parameter ends up receiving a value you never meant to pass. My rule: \`?\` for callbacks, \`...\` only when you deliberately want "fill in these and pass the rest through".
+
+One more difference from an arrow function: the arguments you supply are evaluated when the closure is created, not each time it is called. \`Str::limit(?, config('blog.excerpt_length'))\` reads the config once. Usually that is what you want, but it is not the same as \`fn ($body) => Str::limit($body, config('blog.excerpt_length'))\`.
+
+### With the pipe operator
+
+PHP 8.5 added \`|>\`, which needs a single-argument callable on its right-hand side. PFA fills the gap that first-class callables left:
+
+\`\`\`php
+$summary = $post->body
+    |> strip_tags(...)
+    |> Str::squish(?)
+    |> Str::limit(?, 160);
+\`\`\`
+
+According to the RFC, a single-placeholder PFA directly on the right of a pipe is optimised into a direct call, so there is no closure overhead. The UPGRADING notes also say that \`array_map()\` with a first-class callable or PFA callback is now compiled into the equivalent \`foreach\` loop.
+
+## clamp()
+
+\`\`\`php
+// Before
+$perPage = min(max($request->integer('per_page', 15), 1), 100);
+
+// PHP 8.6
+$perPage = clamp($request->integer('per_page', 15), min: 1, max: 100);
+\`\`\`
+
+\`clamp($value, $min, $max)\` returns the value if it is in range, otherwise the nearest bound. It accepts any comparable values, including strings and \`DateTimeImmutable\`, and it throws a \`ValueError\` if \`$min\` is greater than \`$max\` or either bound is \`NAN\`.
+
+Laravel already has \`Number::clamp()\`, which is \`min(max($number, $min), $max)\` and only takes \`int|float\`. It does not complain when the bounds are the wrong way round; the native function throws. If your bounds come from config or user input, add a test before you swap one for the other.
+
+The name is now taken, too. A global \`function clamp()\` declared without a \`function_exists()\` guard, in your code or in a package, will be a fatal redeclaration error on PHP 8.6. Namespaced functions are unaffected.
+
+## Readonly properties with defaults
+
+\`\`\`php
+interface PaymentGateway
+{
+    public string $name { get; }
+}
+
+final readonly class StripeGateway implements PaymentGateway
+{
+    public string $name = 'stripe';
+
+    public function __construct(private StripeClient $client) {}
+}
+\`\`\`
+
+Until now a readonly property could not declare a default value. In 8.6 it can, which suits fixed metadata on classes that implement interface properties (added in PHP 8.4). The default counts as the initialising assignment, so the constructor cannot overwrite it: assigning it again throws "Cannot modify readonly property".
+
+## Other additions worth knowing
+
+- **\`SortDirection\` enum** in the global namespace, with \`SortDirection::Ascending\` and \`SortDirection::Descending\`. It is deliberately unbacked, so map it to \`'asc'\` or \`'desc'\` with \`match\` until the framework accepts it directly. A global class called \`SortDirection\` in your own code now clashes; \`App\\Enums\\SortDirection\` does not.
+- **\`Time\\Duration\`**, an immutable "stopwatch" duration with nanosecond precision: \`Time\\Duration::fromMilliseconds(500)\`, \`fromSeconds()\`, \`fromIso8601DurationString('PT1M30S')\`, \`add()\`, \`sub()\`, \`multiplyBy()\`, \`divideBy()\`, and comparison with \`<\` and \`>\`. Existing functions such as \`sleep()\` do not accept it (the RFC only wires it into the new polling API), so for now it is a value object for your own timeouts and retry policies.
+- **\`#[\\Override]\` on class constants and enum cases**, and \`__debugInfo()\` on enums.
+- **JSON error locations**: \`json_last_error_msg()\` and \`JsonException\` messages now include where the error is, which helps when a webhook payload fails to decode.
+- **Performance work**: \`printf()\` with only \`%s\` and \`%d\` compiles to string interpolation, and \`array_sum()\`, \`str_pad()\` and JSON encoding are faster. I have no benchmark of my own, so measure your app.
+
+## What breaks
+
+### Stricter argument checks
+
+Across the standard library and extensions, input that used to be accepted, truncated or overflowed now throws. A selection that can reach a web app:
+
+- \`file_exists()\`, \`is_file()\`, \`filesize()\`, \`getenv()\`, \`parse_str()\` and friends throw a \`ValueError\` when given a string containing NUL bytes. If raw user input reaches a filesystem check, validate it first.
+- \`number_format()\` throws a \`ValueError\` when \`$decimals\` is outside the integer range, and \`sleep()\` and \`usleep()\` throw instead of overflowing.
+- \`preg_grep()\` returns \`false\` on a PCRE error instead of a partial array, like the other \`preg_*\` functions.
+- \`fclose()\`, \`file_put_contents()\` and \`copy()\` now return \`false\` when flushing or closing the stream fails. That is a fix, but code that checks the return value may start reporting failures it used to miss.
+- \`trim()\`, \`ltrim()\` and \`rtrim()\` now strip form feed (\`\\f\`) by default.
+
+### Session defaults
+
+\`session.use_strict_mode\` is now \`1\`, \`session.cookie_httponly\` is \`1\` and \`session.cookie_samesite\` is \`Lax\`. Laravel's session layer does not use PHP's native sessions (there is no \`session_start()\` in \`Illuminate\\Session\`), and the default \`config/session.php\` already sets \`http_only\` to \`true\` and \`same_site\` to \`'lax'\`. A standard Laravel app should not notice. Other code on the same runtime that calls \`session_start()\` will, especially anything relying on cross-site POST requests carrying the session cookie (the RFC names SP-initiated SAML SSO as an example).
+
+### Magic properties and exit codes
+
+- \`??\` and \`empty()\` on a magic property no longer call \`__get()\` when \`__isset()\` has already written the property into the object. This only matters for classes whose \`__isset()\` does that, so check any custom magic classes.
+- On a hard out-of-memory failure PHP now calls \`abort()\` instead of \`exit(1)\`, so the exit code becomes 134 and a core dump may be written. If your queue worker supervision or alerting matches on exit codes, check it.
+
+### Deprecations
+
+Deprecations are not errors, but they fill logs and they are the list of what PHP 9 will remove. The ones I would grep a Laravel codebase and its \`vendor\` folder for:
+
+| Deprecated in 8.6 | Use instead |
+|---|---|
+| \`is_integer()\`, \`is_long()\` | \`is_int()\` |
+| \`is_double()\`, \`doubleval()\` | \`is_float()\`, \`floatval()\` |
+| \`spl_object_hash()\` | \`spl_object_id()\` |
+| \`strcoll()\`, \`SORT_LOCALE_STRING\` | \`Collator::compare()\`, \`Collator::sort()\` |
+| Objects passed to \`http_build_query()\` | \`get_object_vars()\` first |
+| \`return\` inside \`finally\` | Return after the \`try\` block |
+| Returning a value from \`__construct()\` | Remove the return value |
+| \`SplFileObject::fgetcsv()\`, \`fputcsv()\` | Plain \`fgetcsv()\` and \`fputcsv()\`, or a CSV library |
+| Mbregex (\`mb_ereg*\` and friends) | \`preg_*\` with the \`u\` modifier |
+
+\`return\` in \`finally\` is the one with a real bug behind it: it silently swallows the exception or overwrites the return value from the \`try\` block.
+
+Laravel can collect these: the default \`config/logging.php\` sends deprecations to \`LOG_DEPRECATIONS_CHANNEL\`, which is \`null\` out of the box. Point it at a real channel on staging and run your test suite and a few days of traffic against 8.6.
+
+## Does Laravel support PHP 8.6?
+
+Not officially yet, as far as I can verify. Laravel 13's \`composer.json\` requires \`"php": "^8.3"\` and Laravel 12's requires \`^8.2\`, with no upper bound, so Composer will install either on 8.6. But as I write, the 13.x branch's CI tests PHP 8.3, 8.4 and 8.5 only. Wait for the framework to list 8.6 before you run it in production, and check every package: some pin an upper PHP bound. Composer will tell you which:
+
+\`\`\`shell
+composer prohibits php 8.6
+\`\`\`
+
+If you are still on PHP 8.2, the urgent move is not 8.6. PHP 8.2's security support ends on 31 December 2026, so get to 8.4 or 8.5 first. If you are also behind on the framework, my [Laravel 13](/blog/laravel-13-whats-new-upgrade-from-12) guide covers that upgrade.
+
+## Upgrade checklist
+
+1. **Know your starting point.** On PHP 8.2, move to 8.4 or 8.5 first.
+2. **Add an 8.6 RC job to CI**, allowed to fail, so you see problems weeks before GA.
+3. **Run \`composer prohibits php 8.6\`** and list the packages that block you.
+4. **Turn on deprecation logging** on staging with \`LOG_DEPRECATIONS_CHANNEL\`.
+5. **Grep for name clashes**: global \`function clamp(\`, a global \`SortDirection\` class, and \`let\`, \`is\` or \`_\` used as class, function or constant names (now deprecated).
+6. **Grep for the deprecated functions** in the table above, in \`app/\` and \`vendor/\`.
+7. **Check non-Laravel session code** and anything that relies on cross-site POST requests.
+8. **Check worker supervision** for assumptions about exit codes.
+9. **Update static analysis and code style tools** before you use \`?\` placeholders, or they may fail to parse your code.
+10. **Ship the PHP bump on its own**, after GA and after your framework and packages confirm support, with the previous runtime one deploy away.
+
+New code, such as a [Laravel AI SDK](/blog/laravel-ai-sdk-agents-tools-semantic-search) feature or a [Laravel MCP server](/blog/laravel-mcp-server), is a good place to try PFA and pipes first.
+
+## Need a hand?
+
+Planning a PHP or Laravel upgrade on a production app? See [Laravel development](/services/laravel-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
+    featured_image: "/blog/blog-php-8-6.webp",
+    published_at: "2026-10-21T09:20:00Z",
+    author: "Usama Munawar",
+    tags: ["PHP", "PHP 8.6", "Laravel", "Upgrade", "Partial Function Application"],
+  },
+  {
     id: "36",
     title: "I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me",
     seo_title: "LinkedIn Post Agent Skill: Draft, Lint, Approve",
