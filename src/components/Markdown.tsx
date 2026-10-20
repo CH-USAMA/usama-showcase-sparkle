@@ -61,8 +61,22 @@ const components: Components = {
       </a>
     );
   },
-  img: ({ src, alt }) =>
-    src ? <img loading="lazy" decoding="async" src={src} alt={alt ?? ""} className="rounded-xl border border-hairline/[0.1]" /> : null,
+  // A title of "1280x800" is read as the image's size, so the page reserves its
+  // space before it loads: ![alt](/blog/shot.webp "1280x800").
+  img: ({ src, alt, title }) => {
+    if (!src) return null;
+    const size = title?.match(/^(\d+)x(\d+)$/);
+    return (
+      <img
+        loading="lazy"
+        decoding="async"
+        src={src}
+        alt={alt ?? ""}
+        {...(size ? { width: Number(size[1]), height: Number(size[2]) } : { title })}
+        className="h-auto max-w-full rounded-xl border border-hairline/[0.1]"
+      />
+    );
+  },
   table: ({ children }) => (
     <div className="not-prose my-8 overflow-x-auto rounded-xl border border-hairline/[0.1]">
       <table className="w-full border-collapse text-left font-inter text-sm">{children}</table>

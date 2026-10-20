@@ -26,6 +26,9 @@ export const PromptBuilder = lazyPreload(() => import("./pages/tools/PromptBuild
 export const MvpPlanner = lazyPreload(() => import("./pages/tools/MvpPlanner"));
 export const AiCostCalculator = lazyPreload(() => import("./pages/tools/AiCostCalculator"));
 export const ReadmeGenerator = lazyPreload(() => import("./pages/tools/ReadmeGenerator"));
+export const AutomationRoiCalculator = lazyPreload(() => import("./pages/tools/AutomationRoiCalculator"));
+export const CallCenterCostCalculator = lazyPreload(() => import("./pages/tools/CallCenterCostCalculator"));
+export const MetaTagGenerator = lazyPreload(() => import("./pages/tools/MetaTagGenerator"));
 
 type Preloadable = { preload: () => Promise<unknown> };
 const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.preload()));
@@ -52,6 +55,9 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/tools/mvp-planner") return load(MvpPlanner);
   if (p === "/tools/ai-cost-calculator") return load(AiCostCalculator);
   if (p === "/tools/readme-generator") return load(ReadmeGenerator);
+  if (p === "/tools/automation-roi-calculator") return load(AutomationRoiCalculator);
+  if (p === "/tools/call-center-cost-calculator") return load(CallCenterCostCalculator);
+  if (p === "/tools/meta-tag-generator") return load(MetaTagGenerator);
   if (/^\/github\/[^/]+$/.test(p)) return load(GitHubReadme, Footer);
   if (p === "/auth" || p.startsWith("/admin")) return Promise.resolve();
   return load(NotFound);

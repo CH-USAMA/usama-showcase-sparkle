@@ -66,6 +66,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/ar/tools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -91,6 +106,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/fr/tools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -112,6 +142,21 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/fr/tools/readme-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/meta-tag-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -207,6 +252,11 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/project/24</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/project/25</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
