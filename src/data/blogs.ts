@@ -260,10 +260,10 @@ If you want AI built into your own product or workflow, with your data handled p
     title: "Node.js 26 LTS: What's New, What Breaks, and the New Release Schedule",
     seo_title: "Node.js 26 LTS: What's New, What Breaks and How to Upgrade",
     slug: "nodejs-26-lts-whats-new-upgrade",
-    excerpt: "Node.js 26 becomes LTS on 28 October 2026: Temporal by default, V8 14.6, what was removed since Node 24, support dates and the new yearly schedule.",
+    excerpt: "Node.js 26 became LTS on 28 October 2026: Temporal by default, V8 14.6, what was removed since Node 24, support dates and the new yearly schedule.",
     content: `## The short version
 
-Node.js 26 is scheduled to become the Active LTS line on 28 October 2026. As I write this (21 October), it is still the Current release: every 26.x build so far, up to 26.12.0 on 14 October, is published without an LTS label, and the codename is not yet assigned. The Node.js Release repository lists **Lithium** as the planned name, with the usual note that future names can change.
+Node.js 26 became the Active LTS line on 28 October 2026, with the codename **Lithium**. The promotion release, 26.13.0, contains no code changes from 26.12.1: it only marks the line as LTS, so everything below, written against the 26.12 builds, still applies.
 
 What matters for backend and full-stack teams:
 
@@ -284,11 +284,11 @@ Dates from the Node.js Release schedule:
 |---|---|---|---|---|---|
 | 22 | Jod | 24 April 2024 | 29 October 2024 | 21 October 2025 | 30 April 2027 |
 | 24 | Krypton | 6 May 2025 | 28 October 2025 | 20 October 2026 | 30 April 2028 |
-| 26 | Lithium (planned) | 5 May 2026 | 28 October 2026 | 20 October 2027 | 30 April 2029 |
+| 26 | Lithium | 5 May 2026 | 28 October 2026 | 20 October 2027 | 30 April 2029 |
 
-Node 24 was scheduled to move into maintenance on 20 October 2026; it keeps getting security fixes until April 2028 but fewer backports. Node 25 never became LTS and reached end of life on 1 June 2026. Node 20 reached end of life on 30 April 2026.
+Node 24 moved into maintenance on 20 October 2026; it keeps getting security fixes until April 2028 but fewer backports. Node 25 never became LTS and reached end of life on 1 June 2026. Node 20 reached end of life on 30 April 2026.
 
-One more date for this week: the project announced security releases for the 26.x, 24.x and 22.x lines on or shortly after 21 October 2026, with the highest severity rated HIGH. Whatever line you run, take that patch first.
+One more date: the project shipped security releases for the 26.x, 24.x and 22.x lines from 21 October 2026, with the highest severity rated HIGH (for example, TLS handling of non-canonical IP addresses). Whatever line you run, make sure you are on a build that includes those fixes. Node 26.13.0 does.
 
 ## What is new since Node 24
 
@@ -348,7 +348,7 @@ Enums, namespaces with runtime code and parameter properties need either a rewri
 - **Web Storage** came out from behind a flag in Node 25. On 26.12.0, \`localStorage\` is \`undefined\` and prints a warning unless you pass \`--localstorage-file\`. The API docs describe a \`DOMException\` instead, so do not build anything on either behaviour.
 - **Permission model**: Node 25 added \`--allow-net\` alongside the existing file system and child process permissions.
 - **\`ErrorEvent\`** is a global from Node 25.
-- **npm** stays on major version 11 (26.12.0 ships npm 11.20.0).
+- **npm** stays on major version 11 (26.13.0 ships npm 11.20.0).
 
 ## What breaks
 
@@ -396,7 +396,7 @@ Node.js 26 is the last major to follow the odd/even model. From Node 27, the pro
 - **Every release becomes LTS.** There are no more short-lived odd versions to skip.
 - **Version numbers follow the calendar year** of the first Current release: 27.0.0 in 2027, 28.0.0 in 2028.
 
-For Node 27, the Alpha starts on 28 October 2026 (the same day 26 becomes LTS), 27.0.0 is planned for April 2027, LTS for October 2027, and end of life for 30 April 2030.
+For Node 27, the first Alpha build (\`27.0.0-alpha.0\`) was published on 29 October 2026, the day after 26 became LTS; 27.0.0 is planned for April 2027, LTS for October 2027, and end of life for 30 April 2030.
 
 If you only ever run LTS, very little changes: one upgrade window a year, every October, with a predictable 30-month runway. If you maintain packages, add the Alpha line to your CI matrix early, which is exactly what the project asks for. The odd releases used to be where breakage showed up first; now the Alpha is.
 
@@ -424,7 +424,7 @@ strategy:
 
 ## Upgrade checklist
 
-1. **Apply this week's security release** on the line you run today.
+1. **Apply the October 2026 security release** on the line you run today (26.12.1 or later, 24.22.2 or later).
 2. **Run the test suite on 26 with deprecations as errors**: \`NODE_OPTIONS=--throw-deprecation npm test\`. That turns every runtime warning above into a failing test with a stack trace.
 3. **Search for the removed APIs** in the table, including inside \`node_modules\`, and update the dependencies that use them.
 4. **Rebuild native addons** from a clean install.
@@ -433,13 +433,13 @@ strategy:
 7. **Check loader hooks and instrumentation** for \`module.register()\`.
 8. **Confirm your platform supports 26** (Docker base image, Lambda, Vercel, your CI runners).
 9. **Pin the major** in \`engines\`, \`.nvmrc\` and the Dockerfile so local, CI and production agree.
-10. **Ship to staging first**, then production after 28 October, with the previous image ready to roll back.
+10. **Ship to staging first**, then production, with the previous image ready to roll back.
 
 ## Should you upgrade now?
 
 - **On Node 22**: yes, plan it this quarter. You have until April 2027. Going straight to 26 is reasonable if your host supports it; otherwise 24 is a safe stop.
-- **On Node 24**: no rush. It is supported until April 2028. Test on 26 now and move when your platforms are ready.
-- **New projects**: start on 26 once it is LTS and your host offers it.
+- **On Node 24**: no rush. It is supported until April 2028. Node 26 is LTS, so test it now and move when your platforms are ready.
+- **New projects**: start on 26 now that it is LTS, provided your host offers it.
 
 If a Node service is already open for other work, such as moving an MCP server to [MCP's stateless spec](/blog/mcp-2026-07-28-stateless-spec-migration), that is a good moment to change the runtime too. If you are still deciding whether Node is the right backend at all, I wrote up how I choose in [Laravel vs Node.js](/blog/laravel-vs-nodejs-backend-systems).
 
@@ -447,7 +447,7 @@ If a Node service is already open for other work, such as moving an MCP server t
 
 Upgrading a production Node.js backend, or building a new product on it? See [Idea to launch](/services/mvp-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
     featured_image: "/blog/blog-nodejs-26.webp",
-    published_at: "2026-10-21T09:00:00Z",
+    published_at: "2026-11-09T00:00:00Z",
     author: "Usama Munawar",
     tags: ["Node.js", "Node.js 26", "LTS", "Upgrade", "Backend"],
   },
@@ -459,7 +459,7 @@ Upgrading a production Node.js backend, or building a new product on it? See [Id
     excerpt: "Asterisk 24 is the next LTS, supported to October 2031: what changed since 22 and 20, the support dates, and how to upgrade a production call centre.",
     content: `## The short version
 
-Asterisk 24 is the next long-term support (LTS) release. At the time of writing (21 October 2026) the final 24.0.0 has not been tagged yet: release candidate 2 came out on 8 October, and the GA release is due this month.
+Asterisk 24 is the new long-term support (LTS) release. The final 24.0.0 was tagged on 5 November 2026, after four release candidates (the last on 29 October).
 
 Three things matter if you run a call centre on Asterisk:
 
@@ -469,9 +469,11 @@ Three things matter if you run a call centre on Asterisk:
 
 ## Is Asterisk 24 out yet?
 
-Not as of today. The official GitHub releases page lists 24.0.0-rc1 (17 September) and 24.0.0-rc2 (8 October), both marked as pre-releases. The Asterisk Versions page on docs.asterisk.org lists 24.x as a pre-release with a planned release date of 15 October 2026. RC2 was a small update: three bug fixes covering ChanSpy bridging and PJSIP presence and dialog-info notifications.
+Yes. 24.0.0 was tagged on 5 November 2026 and is a normal, non-pre-release build on the official GitHub releases page; the Asterisk Versions page on docs.asterisk.org lists 24.x as fully supported with that release date. It slipped three weeks from the 15 October date the project had planned, which is common for the first LTS build of a year.
 
-The RC is fine for a staging box. I would not put a release candidate on a production call centre; wait for 24.0.0, and ideally the first point release after it.
+The release candidates were small. RC2 (8 October) fixed ChanSpy bridging and PJSIP presence and dialog-info notifications. RC3 (22 October) was a single fix. RC4 (29 October) fixed two regressions that also exist in 22.11.0: park slot hints stuck at Unavailable after startup, and a segfault when a hint loses its presence part. If your dialplan leans on hints, parking or BLF, read those two issues (#2249 and #2257) before you upgrade.
+
+My advice for a production call centre: 24.0.0 is a fine target for staging today. Move production after you have run it through a full week of real call patterns, and ideally once the first point release (24.0.1) is out. Point releases arrive roughly every four to six weeks.
 
 ## Support timeline
 
@@ -483,9 +485,9 @@ These dates come from the Asterisk Versions page. LTS releases get four years of
 | 21 | Standard | 18 October 2023 | 18 October 2025 | 18 October 2026 |
 | 22 | LTS | 16 October 2024 | 16 October 2028 | 16 October 2029 |
 | 23 | Standard | 15 October 2025 | 15 October 2026 | 15 October 2027 |
-| 24 | LTS | Due October 2026 | 15 October 2030 | 15 October 2031 |
+| 24 | LTS | 5 November 2026 | 15 October 2030 | 15 October 2031 |
 
-The 24 dates are based on the planned 15 October release, so treat them as approximate until the GA is out.
+The 24 row is the project's published schedule: although 24.0.0 shipped on 5 November, the support dates are still counted from 15 October.
 
 Asterisk 23 was a standard release and is already security only. I would not plan a production move to 23 now: 24 contains everything in it and is supported for four years longer.
 
@@ -620,7 +622,7 @@ Maintenance state is held in memory only and clears on restart. For rollback, ke
 
 ## Upgrade checklist
 
-1. Confirm 24.0.0 is GA (and check whether a 24.0.1 has followed).
+1. Check whether a 24.0.1 has followed 24.0.0 (5 November 2026), and read its changelog.
 2. Check your distribution or FreePBX supports 24; if not, target 22.
 3. Read the upgrade notes for 23.0.0 and every 24 release you will cross.
 4. Run the inventory searches and fix removed functions, options and users.conf.
@@ -637,7 +639,7 @@ If you are still weighing up whether to run Asterisk at all, [Asterisk vs Twilio
 
 Planning an Asterisk upgrade, or moving off chan_sip and macros? See [VoIP and Asterisk](/services/voip-asterisk), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
     featured_image: "/blog/blog-asterisk-24.webp",
-    published_at: "2026-10-21T09:10:00Z",
+    published_at: "2026-11-09T00:10:00Z",
     author: "Usama Munawar",
     tags: ["Asterisk", "Asterisk 24", "VoIP", "Call Center", "Upgrade"],
   },
