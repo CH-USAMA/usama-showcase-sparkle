@@ -6,8 +6,36 @@
     <atom:link href="https://www.chaudharyusama.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>Deep dives on React, React Native, Node.js, TypeScript, Laravel/PHP, VoIP, automation, and AI engineering by Usama Munawar.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2026 11:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 00:10:00 GMT</lastBuildDate>
 
+    <item>
+      <title>Asterisk 24 LTS: What Changed and How to Upgrade a Production Call Centre</title>
+      <link>https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide</guid>
+      <pubDate>Mon, 09 Nov 2026 00:10:00 GMT</pubDate>
+      <description>Asterisk 24 is the next LTS, supported to October 2031: what changed since 22 and 20, the support dates, and how to upgrade a production call centre.</description>
+    </item>
+    <item>
+      <title>Node.js 26 LTS: What's New, What Breaks, and the New Release Schedule</title>
+      <link>https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade</guid>
+      <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Node.js 26 became LTS on 28 October 2026: Temporal by default, V8 14.6, what was removed since Node 24, support dates and the new yearly schedule.</description>
+    </item>
+    <item>
+      <title>15 Free AI and Online Tools Worth Bookmarking in 2026 (With Real Limits)</title>
+      <link>https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026</guid>
+      <pubDate>Wed, 21 Oct 2026 10:00:00 GMT</pubDate>
+      <description>15 free AI and browser tools I would bookmark in 2026: what each one does, what the free plan really includes, the limits, and the privacy points to check.</description>
+    </item>
+    <item>
+      <title>PHP 8.6 for Laravel Developers: Partial Function Application, clamp() and What Breaks</title>
+      <link>https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers</link>
+      <guid isPermaLink="true">https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers</guid>
+      <pubDate>Wed, 21 Oct 2026 09:20:00 GMT</pubDate>
+      <description>PHP 8.6 lands on 19 November 2026: partial function application, clamp(), readonly defaults, what breaks, the deprecations and an upgrade checklist.</description>
+    </item>
     <item>
       <title>I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me</title>
       <link>https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source</link>

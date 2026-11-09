@@ -84,6 +84,10 @@
 
 ## Articles
 
+- [Asterisk 24 LTS: What Changed and How to Upgrade a Production Call Centre](https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide)
+- [Node.js 26 LTS: What's New, What Breaks, and the New Release Schedule](https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade)
+- [15 Free AI and Online Tools Worth Bookmarking in 2026 (With Real Limits)](https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026)
+- [PHP 8.6 for Laravel Developers: Partial Function Application, clamp() and What Breaks](https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers)
 - [I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me](https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source)
 - [Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech](https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app)
 - [MCP's 2026-07-28 Spec: What Stateless Means for Your Server](https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration)

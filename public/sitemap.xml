@@ -306,6 +306,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
