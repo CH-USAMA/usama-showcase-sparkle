@@ -84,7 +84,9 @@ const Services = () => {
               </h1>
               <p className="enter-lift type-lead mx-auto mt-6 max-w-2xl text-muted-foreground" {...enter()}>
                 React, React Native, Node.js and Laravel: one engineer across the stack. Every engagement
-                draws on whichever of these the work actually needs, and nothing it does not.
+                draws on whichever of these the work actually needs, and nothing it does not. I work
+                remotely from Lahore with clients in South Africa, Ireland and Pakistan, and with teams
+                in Europe and the US, on hours that overlap with yours.
               </p>
             </div>
 

@@ -91,6 +91,10 @@ const faqs = [
     a: "By the shape of each layer. React and React Native handle web and mobile experiences, TypeScript keeps contracts consistent, Node.js handles services and real-time work, and Laravel/PHP carries domain-heavy application logic, queues, billing, and APIs. Python takes focused AI and data workloads.",
   },
   {
+    q: "Where are your clients, and how do time zones work?",
+    a: "I am based in Lahore, Pakistan (UTC+5) and work remotely. Recent clients are in South Africa, Ireland and Pakistan, and I work with teams in Europe and the US. Working hours are agreed up front so they overlap with yours.",
+  },
+  {
     q: "Do you sign NDAs?",
     a: "Yes. NDAs are signed before any sensitive architecture, codebase, or business detail is shared.",
   },
