@@ -331,6 +331,83 @@ export const servicesData: Service[] = [
       },
     ],
   },
+  {
+    slug: "small-business-websites",
+    hue: "var(--hue-interface)",
+    name: "Small Business Websites",
+    eyebrow: "Websites, shops & local SEO",
+    title: "Websites and Online Shops for Small Businesses",
+    metaTitle: "Small Business Websites & Online Shops | Usama Munawar",
+    metaDescription:
+      "Websites, online shops and booking sites for small businesses, built to be found locally. Live client sites in South Africa, Ireland and Pakistan.",
+    intro:
+      "A website that brings in customers: clear pages, a shop or booking flow that works on a phone, and local SEO so people nearby can find you. I have built them for a taxi firm in Galway, a hardware retailer and a quarry in South Africa, and shops in Ireland and Pakistan.",
+    outcomes: [
+      { value: "7", label: "Live client websites and shops" },
+      { value: "3", label: "Countries: South Africa, Ireland, Pakistan" },
+      { value: "Yours", label: "Domain, hosting and content in your name" },
+    ],
+    stack: ["WordPress", "WooCommerce", "Shopify", "Laravel", "React", "Stripe", "Local SEO", "Schema markup", "Google Analytics"],
+    pitch: {
+      title: "Need a website that brings in customers?",
+      text: "Bring your current site, or just your business, to a free 30-minute call and leave with a plan and a fixed price.",
+      heading: "Need a website that",
+      accent: "brings in customers?",
+      lead: "Tell me what you sell and who buys it. You will leave the call knowing what the site needs, how long it takes and what it costs.",
+    },
+    sections: [
+      {
+        heading: "Who this is for",
+        body: "Small and growing businesses that need their website to do a job, not just exist.",
+        bullets: [
+          "Local service businesses that want calls and bookings from people nearby",
+          "Shops moving from walk-in or WhatsApp orders to an online store with payments",
+          "Businesses with no website yet, or one that is slow, dated or impossible to update",
+          "Groups with several divisions that need one clear front door and a site for each",
+        ],
+      },
+      {
+        heading: "What you get",
+        body: "Every site is built around what a customer does on it: find you, trust you, and buy, book or call.",
+        bullets: [
+          "A fast, mobile-first website on WordPress, Shopify or a custom build, whichever suits how you will run it",
+          "Online shop or booking: products, payments, delivery options, or a link into your booking system",
+          "Local SEO from the start: page titles, schema markup, Google Business Profile guidance and a sitemap",
+          "Analytics and a contact pipeline, so enquiries reach your inbox and you can see what works",
+        ],
+      },
+      {
+        heading: "Recent work",
+        body: "Five Stars Galway Taxis: a 24/7 transport site in Ireland linking passengers to booking, airport transfers and tours. Marian Holy Art: an Irish WooCommerce shop for devotional gifts and pilgrimages. Jabulani Hardware Store: a South African online store with Stripe payments, Google sign-in and fast search, plus an SEO-first site for the group's quarry, which had no online presence before. Focus Interiors: a Shopify store for a Pakistani interior design brand. Each one is in the projects section with the full story.",
+      },
+      {
+        heading: "After launch",
+        body: "A website needs small changes every month: new products, prices, photos, a seasonal offer. I can keep it updated, look after hosting and backups, and help with content and social media through the virtual assistant service, or hand it over with a short guide so your own team can run it.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does a small business website cost?",
+        a: "It depends on the number of pages and whether you need a shop or booking. Every project is quoted as a fixed price after a free call, so you know the full cost before anything starts.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A brochure or local service site usually takes two to three weeks. An online shop with payments and a product catalogue takes longer, depending on the number of products and integrations.",
+      },
+      {
+        q: "WordPress, Shopify or a custom site?",
+        a: "Shopify suits a shop that wants simple, reliable selling. WordPress and WooCommerce suit businesses that publish a lot of content or want full control. A custom Laravel or React build suits anything with unusual workflows, such as stock control or a point of sale.",
+      },
+      {
+        q: "Is SEO included?",
+        a: "Yes, the basics are built in: clean page structure, titles and descriptions, schema markup, a sitemap, fast loading and Search Console set up. Ongoing content and link building can be added as a monthly service.",
+      },
+      {
+        q: "Do I own the website?",
+        a: "Yes. The domain, hosting account and content are in your name, and you get the logins. You can keep working with me or move to anyone else.",
+      },
+    ],
+  },
 ];
 
 /**

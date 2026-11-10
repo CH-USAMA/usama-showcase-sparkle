@@ -54,6 +54,7 @@
 - [Automation Infrastructure](https://www.chaudharyusama.com/services/automation-n8n): n8n workflows and custom pipelines that replace manual back-office work, with reliable integrations, retries, monitoring and Laravel-backed business logic.
 - [AI Integration](https://www.chaudharyusama.com/services/ai-integration): Practical AI integration: RAG over your data, LLM support and agent workflows, streaming APIs, cost control and evaluation, wired into Laravel backends.
 - [Idea to Launch (MVP)](https://www.chaudharyusama.com/services/mvp-development): Turn an idea into a working web or mobile app in weeks. AI-assisted MVP development with real auth, payments and deployment, reviewed by a senior engineer.
+- [Small Business Websites](https://www.chaudharyusama.com/services/small-business-websites): Websites, online shops and booking sites for small businesses, built to be found locally. Live client sites in South Africa, Ireland and Pakistan.
 
 ## Projects
 
