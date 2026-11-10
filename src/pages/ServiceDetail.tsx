@@ -30,6 +30,7 @@ const WORK_FILTER: Record<string, string> = {
   "automation-n8n": "ai",
   "ai-integration": "ai",
   "mvp-development": "platform",
+  "small-business-websites": "web",
 };
 
 /** `side` names a side offer with its own route (/virtual-assistant). */
