@@ -436,4 +436,43 @@ export const caseStudies: CaseStudy[] = [
     "liveUrl": "https://github.com/CH-USAMA/linkedin-post-skill",
     "detailPath": "/project/24"
   },
+  {
+    "id": "taxi-voice-dispatcher",
+    "n": "16",
+    "category": "Voice AI",
+    "hue": "var(--hue-realtime)",
+    "title": "AI Voice Taxi Dispatcher",
+    "image": "/projects/taxi-voice-dispatcher.jpg",
+    "year": "2026",
+    "role": "Voice AI · Cloudflare Workers · React",
+    "problem": "A taxi booking call needs the same six details every time, often in Urdu. A voice agent has to stay in the caller's language, hear phone numbers right and say them back clearly.",
+    "approach": "A browser voice dispatcher on Cloudflare Workers: Whisper for speech, Llama 3.3 70B for the conversation, MeloTTS and an Azure Urdu neural voice for replies, D1 for bookings. The caller picks English or Urdu and the call stays in it.",
+    "result": "A full booking by voice in either language, read back and saved after one \"yes\", with numbers spoken digit by digit, layered audio fallbacks and a live demo.",
+    "flow": [
+      {
+        "label": "Listen",
+        "note": "Whisper"
+      },
+      {
+        "label": "Understand",
+        "note": "Llama 3.3 70B"
+      },
+      {
+        "label": "Speak",
+        "note": "MeloTTS · Azure"
+      },
+      {
+        "label": "Save",
+        "note": "D1 booking"
+      }
+    ],
+    "stack": [
+      "Workers AI",
+      "D1",
+      "Azure TTS",
+      "React"
+    ],
+    "liveUrl": "https://taxi-dispatcher.usama-dispatch.workers.dev",
+    "detailPath": "/project/25"
+  },
 ];
