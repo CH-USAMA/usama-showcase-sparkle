@@ -26,12 +26,15 @@ import {
   AiCostCalculator,
   AdminScraper,
   Auth,
+  AutomationRoiCalculator,
   Blog,
   BlogPost,
   Book,
+  CallCenterCostCalculator,
   Checklist,
   GitHubReadme,
   LearnAI,
+  MetaTagGenerator,
   MvpPlanner,
   NotFound,
   PostEditor,
@@ -155,6 +158,9 @@ const App = () => {
           <Route key={`${prefix}/mvp`} path={`${prefix}/tools/mvp-planner`} element={<MvpPlanner key={prefix} />} />,
           <Route key={`${prefix}/cost`} path={`${prefix}/tools/ai-cost-calculator`} element={<AiCostCalculator key={prefix} />} />,
           <Route key={`${prefix}/readme`} path={`${prefix}/tools/readme-generator`} element={<ReadmeGenerator key={prefix} />} />,
+          <Route key={`${prefix}/roi`} path={`${prefix}/tools/automation-roi-calculator`} element={<AutomationRoiCalculator key={prefix} />} />,
+          <Route key={`${prefix}/calls`} path={`${prefix}/tools/call-center-cost-calculator`} element={<CallCenterCostCalculator key={prefix} />} />,
+          <Route key={`${prefix}/meta`} path={`${prefix}/tools/meta-tag-generator`} element={<MetaTagGenerator key={prefix} />} />,
         ])}
         <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />

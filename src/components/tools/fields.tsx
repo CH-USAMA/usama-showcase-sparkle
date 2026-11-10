@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 /* Plain form controls for the /tools pages, styled to the site's surfaces.
    Native elements on purpose: no Radix chunk on pages that only need inputs. */
@@ -73,3 +73,48 @@ export const Check = ({ id, checked, onChange, children }: { id: string; checked
     <span>{children}</span>
   </label>
 );
+
+/**
+ * A number input that keeps what the reader is typing ("0.00" on the way to
+ * "0.005") and only reports finite numbers, clamped to [min, max]. Follows
+ * changes from outside, such as a preset.
+ */
+export const NumberField = ({
+  id,
+  label,
+  hint,
+  value,
+  onChange,
+  min = 0,
+  max = 1e9,
+  step = 1,
+}: {
+  id: string;
+  label: string;
+  hint?: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}) => {
+  const [text, setText] = useState(String(value));
+  const [shown, setShown] = useState(value);
+  if (value !== shown) {
+    setShown(value);
+    setText(String(value));
+  }
+  const commit = (raw: string) => {
+    setText(raw);
+    const n = raw.trim() === "" ? 0 : Number(raw);
+    if (!Number.isFinite(n)) return;
+    const v = Math.min(max, Math.max(min, n));
+    setShown(v);
+    onChange(v);
+  };
+  return (
+    <Field id={id} label={label} hint={hint}>
+      <input id={id} type="number" inputMode="decimal" dir="ltr" min={min} max={max} step={step} className={fieldCls} value={text} onChange={(e) => commit(e.target.value)} />
+    </Field>
+  );
+};

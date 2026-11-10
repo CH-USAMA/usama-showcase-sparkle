@@ -6,7 +6,15 @@
  */
 import type { ToolsText } from "../i18n/tools/en";
 
-export const TOOL_SLUGS = ["prompt-builder", "mvp-planner", "ai-cost-calculator", "readme-generator"] as const;
+export const TOOL_SLUGS = [
+  "prompt-builder",
+  "mvp-planner",
+  "ai-cost-calculator",
+  "readme-generator",
+  "automation-roi-calculator",
+  "call-center-cost-calculator",
+  "meta-tag-generator",
+] as const;
 export type ToolSlug = (typeof TOOL_SLUGS)[number];
 
 /** Where each tool's closing card leads. These pages are English only. */
@@ -15,6 +23,9 @@ export const NEXT_LINK: Record<ToolSlug, string> = {
   "mvp-planner": "/services/mvp-development",
   "ai-cost-calculator": "/services/ai-integration",
   "readme-generator": "/services/mvp-development",
+  "automation-roi-calculator": "/services/automation-n8n",
+  "call-center-cost-calculator": "/services/voip-asterisk",
+  "meta-tag-generator": "/blog/seo-ai-search-rank-google-chatgpt-2026",
 };
 
 export type ToolCopy = ToolsText["tools"][ToolSlug] & { slug: ToolSlug };

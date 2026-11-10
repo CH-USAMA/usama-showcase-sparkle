@@ -66,6 +66,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/ar/tools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -87,6 +102,21 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/ar/tools/readme-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/meta-tag-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -116,6 +146,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/automation-roi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/call-center-cost-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/services/laravel-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -137,6 +182,11 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/services/mvp-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/services/small-business-websites</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -261,32 +311,56 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-ai-sdk-agents-tools-semantic-search</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-13-whats-new-upgrade-from-12</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -298,73 +372,73 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/seo-ai-search-rank-google-chatgpt-2026</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/ai-voice-agents-asterisk</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-mcp-server</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/react-native-2026</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-vs-nodejs-backend-systems</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/asterisk-vs-twilio-cost-breakdown</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/n8n-vs-custom-code-automation</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-vs-django-for-saas</loc>
-    <lastmod>2026-02-10</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/n8n-vs-make-enterprise-automation</loc>
-    <lastmod>2026-02-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/redis-vs-database-caching-laravel</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/mysql-vs-postgresql-laravel-saas</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/stripe-laravel-subscription-billing</loc>
-    <lastmod>2025-10-20</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -382,25 +456,25 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/asterisk-laravel-voip-call-center</loc>
-    <lastmod>2025-08-10</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/vibe-coding-2025-claude-lovable-cursor</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/laravel-mysql-best-practices-scalable-saas-2025</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/claude-vs-chatgpt-developers-ai-tools-2025</loc>
-    <lastmod>2025-07-20</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -412,7 +486,7 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/blog/php-2025-best-choice-web-development</loc>
-    <lastmod>2025-07-10</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

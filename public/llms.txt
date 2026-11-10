@@ -36,13 +36,16 @@
 - [Book a free call](https://www.chaudharyusama.com/book): Free 30-minute call
 - [How to use AI in daily life](https://www.chaudharyusama.com/learn-ai): Free guide with copy-paste prompts for everyday tasks
 - [Virtual Assistant & Peer Developer](https://www.chaudharyusama.com/virtual-assistant): Remote help for founders and small teams: customer support, content and social media, website updates, and a fellow developer to pair with, sped up by AI.
-- [Free tools](https://www.chaudharyusama.com/tools): Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator, GitHub README generator
+- [Free tools](https://www.chaudharyusama.com/tools): Browser tools: AI prompt builder, MVP scope planner, AI API cost calculator, GitHub README generator, automation ROI calculator, call center cost calculator, meta tag generator
 - [AI Prompt Builder](https://www.chaudharyusama.com/tools/prompt-builder): Turn a rough request into a clear prompt for ChatGPT, Claude or Gemini, in any answer language.
 - [MVP Scope Planner](https://www.chaudharyusama.com/tools/mvp-planner): Decide what goes in your app's first version and get a one-page plan with complexity and a timeline range.
 - [AI API Cost Calculator](https://www.chaudharyusama.com/tools/ai-cost-calculator): Estimate your monthly AI API bill and compare OpenAI, Claude and Gemini models side by side.
 - [GitHub README Generator](https://www.chaudharyusama.com/tools/readme-generator): Write a GitHub profile or project README with a live preview, skill icons and stats cards.
-- [Free tools in Arabic](https://www.chaudharyusama.com/ar/tools): The same four tools, in Arabic
-- [Free tools in French](https://www.chaudharyusama.com/fr/tools): The same four tools, in French
+- [Automation ROI Calculator](https://www.chaudharyusama.com/tools/automation-roi-calculator): See how many hours automating a task saves and how many months it takes to pay for itself.
+- [Call Center Cost Calculator](https://www.chaudharyusama.com/tools/call-center-cost-calculator): Compare Twilio with a self-hosted Asterisk server and SIP trunk, and see when self-hosting pays off.
+- [Meta Tag Generator](https://www.chaudharyusama.com/tools/meta-tag-generator): Write your title, description and share tags, preview them in Google and link previews, and copy the HTML.
+- [Free tools in Arabic](https://www.chaudharyusama.com/ar/tools): The same tools, in Arabic
+- [Free tools in French](https://www.chaudharyusama.com/fr/tools): The same tools, in French
 
 ## Services
 
@@ -51,6 +54,7 @@
 - [Automation Infrastructure](https://www.chaudharyusama.com/services/automation-n8n): n8n workflows and custom pipelines that replace manual back-office work, with reliable integrations, retries, monitoring and Laravel-backed business logic.
 - [AI Integration](https://www.chaudharyusama.com/services/ai-integration): Practical AI integration: RAG over your data, LLM support and agent workflows, streaming APIs, cost control and evaluation, wired into Laravel backends.
 - [Idea to Launch (MVP)](https://www.chaudharyusama.com/services/mvp-development): Turn an idea into a working web or mobile app in weeks. AI-assisted MVP development with real auth, payments and deployment, reviewed by a senior engineer.
+- [Small Business Websites](https://www.chaudharyusama.com/services/small-business-websites): Websites, online shops and booking sites for small businesses, built to be found locally. Live client sites in South Africa, Ireland and Pakistan.
 
 ## Projects
 
@@ -81,6 +85,10 @@
 
 ## Articles
 
+- [Asterisk 24 LTS: What Changed and How to Upgrade a Production Call Centre](https://www.chaudharyusama.com/blog/asterisk-24-lts-upgrade-guide)
+- [Node.js 26 LTS: What's New, What Breaks, and the New Release Schedule](https://www.chaudharyusama.com/blog/nodejs-26-lts-whats-new-upgrade)
+- [15 Free AI and Online Tools Worth Bookmarking in 2026 (With Real Limits)](https://www.chaudharyusama.com/blog/free-ai-tools-websites-2026)
+- [PHP 8.6 for Laravel Developers: Partial Function Application, clamp() and What Breaks](https://www.chaudharyusama.com/blog/php-8-6-whats-new-laravel-developers)
 - [I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me](https://www.chaudharyusama.com/blog/linkedin-post-agent-skill-open-source)
 - [Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech](https://www.chaudharyusama.com/blog/python-word-document-automation-offline-desktop-app)
 - [MCP's 2026-07-28 Spec: What Stateless Means for Your Server](https://www.chaudharyusama.com/blog/mcp-2026-07-28-stateless-spec-migration)

@@ -18,6 +18,7 @@ const SERVICES = [
   { label: "Automation infrastructure", to: "/services/automation-n8n" },
   { label: "AI integration", to: "/services/ai-integration" },
   { label: "Idea to launch (MVP)", to: "/services/mvp-development" },
+  { label: "Small business websites", to: "/services/small-business-websites" },
   { label: "Virtual assistant", to: "/virtual-assistant" },
 ];
 
