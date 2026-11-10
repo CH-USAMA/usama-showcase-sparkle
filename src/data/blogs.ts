@@ -651,7 +651,9 @@ Planning an Asterisk upgrade, or moving off chan_sip and macros? See [VoIP and A
     excerpt: "PHP 8.6 lands on 19 November 2026: partial function application, clamp(), readonly defaults, what breaks, the deprecations and an upgrade checklist.",
     content: `## The short version
 
-PHP 8.6 is scheduled for general availability on 19 November 2026. The release candidates are out now (RC3 shipped on 8 October, RC4 is planned for 22 October), so the feature list is frozen. This is the right moment to test against it, not to run it in production.
+PHP 8.6 is scheduled for general availability on 19 November 2026. RC5, the last release candidate, shipped on 5 November, and the announcement expects the stable release in about two weeks, so the feature list is frozen. This is the right moment to test against it, not to run it in production.
+
+One thing matters more than 8.6 itself: on 21 October the PHP project shipped out-of-cycle security releases for two critical remote code execution bugs. If your servers run PHP and are not on 8.5.12, 8.4.27, 8.3.36 or 8.2.35 or newer, patch those first (details below).
 
 For a Laravel developer the release comes down to three things:
 
@@ -671,8 +673,9 @@ These dates come from the official PHP 8.6 release schedule.
 | Beta 1 | 13 August 2026 |
 | RC2 (RC1 was skipped) | 24 September 2026 |
 | RC3 | 8 October 2026 |
-| RC4 and RC5 (planned) | 22 October and 5 November 2026 |
-| General availability | 19 November 2026 |
+| RC4 (includes the security fixes) | 21 October 2026 |
+| RC5 (last release candidate) | 5 November 2026 |
+| General availability (planned) | 19 November 2026 |
 
 The RC announcements say release candidates are not for production, so put them in CI and on staging.
 
@@ -804,6 +807,12 @@ Deprecations are not errors, but they fill logs and they are the list of what PH
 
 Laravel can collect these: the default \`config/logging.php\` sends deprecations to \`LOG_DEPRECATIONS_CHANNEL\`, which is \`null\` out of the box. Point it at a real channel on staging and run your test suite and a few days of traffic against 8.6.
 
+## Patch your current PHP first
+
+On 21 October 2026 the PHP project released 8.5.12, 8.4.27, 8.3.36 and 8.2.35 to fix two critical vulnerabilities that can allow unauthenticated remote code execution: CVE-2026-109618 and CVE-2026-109619. The advisory says all web SAPIs are affected (PHP-FPM, Apache \`mod_php\`, \`php-cgi\`, FrankenPHP and LiteSpeed), that \`mod_php\` is the highest risk, and that updating is the only complete fix. RC4 of PHP 8.6 carries the same fixes, so older 8.6 builds should be replaced.
+
+If you cannot update today, the advisory lists partial mitigations, such as setting \`session.upload_progress.enabled=0\` in \`php.ini\` or the FPM pool (not with \`ini_set()\`) and limiting request sizes at the web server. Treat them as a stopgap and read the [official advisory](https://www.php.net/archive/2026.php) for the exact settings. PHP 8.1 and older no longer get fixes from the project, so check with your distribution or move up.
+
 ## Does Laravel support PHP 8.6?
 
 Not officially yet, as far as I can verify. Laravel 13's \`composer.json\` requires \`"php": "^8.3"\` and Laravel 12's requires \`^8.2\`, with no upper bound, so Composer will install either on 8.6. But as I write, the 13.x branch's CI tests PHP 8.3, 8.4 and 8.5 only. Wait for the framework to list 8.6 before you run it in production, and check every package: some pin an upper PHP bound. Composer will tell you which:
@@ -817,15 +826,16 @@ If you are still on PHP 8.2, the urgent move is not 8.6. PHP 8.2's security supp
 ## Upgrade checklist
 
 1. **Know your starting point.** On PHP 8.2, move to 8.4 or 8.5 first.
-2. **Add an 8.6 RC job to CI**, allowed to fail, so you see problems weeks before GA.
-3. **Run \`composer prohibits php 8.6\`** and list the packages that block you.
-4. **Turn on deprecation logging** on staging with \`LOG_DEPRECATIONS_CHANNEL\`.
-5. **Grep for name clashes**: global \`function clamp(\`, a global \`SortDirection\` class, and \`let\`, \`is\` or \`_\` used as class, function or constant names (now deprecated).
-6. **Grep for the deprecated functions** in the table above, in \`app/\` and \`vendor/\`.
-7. **Check non-Laravel session code** and anything that relies on cross-site POST requests.
-8. **Check worker supervision** for assumptions about exit codes.
-9. **Update static analysis and code style tools** before you use \`?\` placeholders, or they may fail to parse your code.
-10. **Ship the PHP bump on its own**, after GA and after your framework and packages confirm support, with the previous runtime one deploy away.
+2. **Confirm you are on a patched release** (8.5.12, 8.4.27, 8.3.36 or 8.2.35 or newer).
+3. **Add an 8.6 RC job to CI**, allowed to fail, so you see problems weeks before GA.
+4. **Run \`composer prohibits php 8.6\`** and list the packages that block you.
+5. **Turn on deprecation logging** on staging with \`LOG_DEPRECATIONS_CHANNEL\`.
+6. **Grep for name clashes**: global \`function clamp(\`, a global \`SortDirection\` class, and \`let\`, \`is\` or \`_\` used as class, function or constant names (now deprecated).
+7. **Grep for the deprecated functions** in the table above, in \`app/\` and \`vendor/\`.
+8. **Check non-Laravel session code** and anything that relies on cross-site POST requests.
+9. **Check worker supervision** for assumptions about exit codes.
+10. **Update static analysis and code style tools** before you use \`?\` placeholders, or they may fail to parse your code.
+11. **Ship the PHP bump on its own**, after GA and after your framework and packages confirm support, with the previous runtime one deploy away.
 
 New code, such as a [Laravel AI SDK](/blog/laravel-ai-sdk-agents-tools-semantic-search) feature or a [Laravel MCP server](/blog/laravel-mcp-server), is a good place to try PFA and pipes first.
 
@@ -842,7 +852,7 @@ Planning a PHP or Laravel upgrade on a production app? See [Laravel development]
     title: "I Built an Agent Skill That Drafts LinkedIn Posts and Leaves Publishing to Me",
     seo_title: "LinkedIn Post Agent Skill: Draft, Lint, Approve",
     slug: "linkedin-post-agent-skill-open-source",
-    excerpt: "An open-source agent skill that drafts one research-backed LinkedIn post at a time, lints it for AI-sounding writing and never posts for you. How it works and why.",
+    excerpt: "An open-source agent skill that drafts one research-backed LinkedIn post at a time, lints it for AI-sounding writing and never posts for you.",
     content: `## The idea in one paragraph
 
 Most LinkedIn automation optimises for volume: schedule thirty posts, let a bot publish them, hope for reach. I wanted the opposite. I built an open-source agent skill, [linkedin-post-skill](https://github.com/CH-USAMA/linkedin-post-skill), that drafts one research-backed post at a time, checks the caption for AI-sounding writing, and then stops and hands the result to me. It never posts on a schedule. A human reads the draft and presses Post.
@@ -963,7 +973,7 @@ I build agent skills, automations and AI features with guardrails: drafting and 
     title: "Automating Word Documents in an Offline Desktop App: Python, docxtpl and Offline Speech",
     seo_title: "Word Document Automation in Python: An Offline App",
     slug: "python-word-document-automation-offline-desktop-app",
-    excerpt: "How an offline Windows app fills an office's own Word formats from short typed or spoken input: docxtpl, formatters, Vosk speech, encrypted backup and licensing.",
+    excerpt: "How an offline Windows app fills an office's own Word formats from short typed or spoken input: docxtpl, Vosk speech, encrypted backup and licensing.",
     content: `## The problem: the same document, a hundred times
 
 A lot of office work is one document written over and over. A findings letter, a decision, a notice: the layout is fixed, most of the wording is fixed, and only a handful of details change, such as names, dates, amounts and a case number. People retype it, copy an old file and edit it, and every copy is a chance to leave the wrong name or amount in the text.
@@ -1086,7 +1096,7 @@ If your team keeps retyping the same documents, this pattern can save hours a we
     title: "How to Rank on Google and Get Cited by ChatGPT and AI Overviews in 2026",
     seo_title: "How to Rank on Google and in AI Search (2026 Guide)",
     slug: "seo-ai-search-rank-google-chatgpt-2026",
-    excerpt: "A practical 2026 guide to ranking on the first page of Google and being cited in AI answers: what Google says, what studies show, and ten steps that actually work.",
+    excerpt: "A practical 2026 guide to ranking on Google and being cited in AI answers: what Google says, what studies show and ten steps that work.",
     content: `## The short version
 
 Search in 2026 has two front doors: the classic ranked results, and AI answers (Google's AI Overviews and AI Mode, ChatGPT search, Perplexity and others) that quote a handful of sources. The good news is that you do not need two strategies. Google's own guidance on its generative AI search features says optimizing for them is optimizing for the search experience, and so it is still SEO. There is no special markup, no AI-only file and no rewrite that unlocks them.
@@ -1235,7 +1245,7 @@ I build lead capture, AI qualification and CRM automation with n8n and custom La
     title: "Laravel 13: What's New and Whether to Upgrade from Laravel 12",
     seo_title: "Laravel 13: What's New and How to Upgrade from 12",
     slug: "laravel-13-whats-new-upgrade-from-12",
-    excerpt: "Laravel 13 shipped on March 17, 2026 with a first-party AI SDK and vector search. The support timeline, what changed, an upgrade checklist, and who should move now.",
+    excerpt: "Laravel 13 shipped on March 17, 2026 with a first-party AI SDK and vector search. Support dates, what changed, an upgrade checklist and who should move.",
     content: `## The short answer
 
 Laravel 13 was released on March 17, 2026 and requires PHP 8.3 or newer. If you are on Laravel 12, the upgrade is usually small and worth doing this quarter, mostly because of the support calendar. If you are still on Laravel 11, you are already out of security support and the upgrade is no longer optional.
@@ -1302,7 +1312,7 @@ Upgrading a production Laravel app, or adding AI features to one? See [Laravel d
     title: "Laravel AI SDK: Build an Agent with Tools and Semantic Search",
     seo_title: "Laravel AI SDK: Agents, Tools and Semantic Search",
     slug: "laravel-ai-sdk-agents-tools-semantic-search",
-    excerpt: "A hands-on guide to the Laravel AI SDK: install it, write an agent with structured output and tools, add pgvector semantic search, and fail over between providers.",
+    excerpt: "A hands-on Laravel AI SDK guide: install it, write an agent with structured output and tools, add pgvector search and fail over between providers.",
     content: `## What the Laravel AI SDK is
 
 The Laravel AI SDK (\`laravel/ai\`) is the first-party package for AI features in Laravel 13. It gives you one API for text and agents, embeddings, reranking, images, audio, transcription, files and vector stores, and it sits on top of several providers, so the model is a configuration choice and not a rewrite.
@@ -1460,7 +1470,7 @@ Adding AI features to a Laravel product? See [AI integration](/services/ai-integ
     title: "MCP's 2026-07-28 Spec: What Stateless Means for Your Server",
     seo_title: "MCP 2026-07-28 Spec: Stateless Servers Explained",
     slug: "mcp-2026-07-28-stateless-spec-migration",
-    excerpt: "The biggest Model Context Protocol update since launch removes sessions and the initialize handshake. What changed, what is deprecated, and a migration checklist.",
+    excerpt: "The biggest MCP update since launch removes sessions and the initialize handshake. What changed, what is deprecated and a migration checklist.",
     content: `## What changed
 
 The 2026-07-28 revision of the Model Context Protocol is the largest since the protocol launched. The headline: MCP is now stateless. There is no session handshake and no session id, so an MCP server behaves much more like an ordinary HTTP API and scales like one.
@@ -1548,7 +1558,7 @@ See [AI integration](/services/ai-integration), or email devusamaworks@gmail.com
     title: "Laravel vs Django for SaaS: Choosing the Right Backend in 2026",
     seo_title: "Laravel vs Django for SaaS: Choosing a Backend in 2026",
     slug: "laravel-vs-django-for-saas",
-    excerpt: "A practical comparison of Laravel and Django for building multi-tenant SaaS products, covering ecosystem, billing, background jobs, hiring, and long-term maintenance cost.",
+    excerpt: "Laravel vs Django for multi-tenant SaaS: ecosystem, billing, background jobs, hiring and long-term maintenance cost compared.",
     content: `## The honest answer
 
 Both frameworks will get you to a working SaaS. The decision is rarely about raw capability and almost always about ecosystem fit, team hiring, and how much of the boring plumbing you get for free.
@@ -1610,7 +1620,7 @@ Frameworks rarely fail a SaaS. Unclear tenancy boundaries, unmonitored queues, a
     title: "n8n vs Make.com for Enterprise Automation: A Field Comparison",
     seo_title: "n8n vs Make.com for Enterprise Automation",
     slug: "n8n-vs-make-enterprise-automation",
-    excerpt: "Self hosted n8n or managed Make.com? A practical comparison for teams running business critical automation, covering cost at scale, data residency, error handling, and when to write custom code instead.",
+    excerpt: "Self-hosted n8n or managed Make.com for business-critical automation: cost at scale, data residency, error handling and when to write custom code.",
     content: `## The decision in one paragraph
 
 Make.com is the faster start and the cleaner experience for business teams. n8n is the better long term home for engineering owned automation, especially when volume grows, data cannot leave your infrastructure, or workflows need real code inside them.
@@ -1738,7 +1748,7 @@ Caching is a powerful tool, but it is also a liability when it becomes an invisi
     id: "23",
     title: "MySQL vs PostgreSQL for Laravel SaaS: Which I Choose and Why",
     slug: "mysql-vs-postgresql-laravel-saas",
-    excerpt: "A practical comparison of MySQL and PostgreSQL for Laravel SaaS applications, covering JSON handling, scaling patterns, backups, and the decision framework I use on production systems.",
+    excerpt: "MySQL vs PostgreSQL for Laravel SaaS: JSON handling, scaling, backups and the decision framework I use on production systems.",
     content: `## The short answer
 
 For most Laravel SaaS products I build, **MySQL** is the default because it is predictable, well supported by the Laravel ecosystem, and cheaper to run at small scale. I move to **PostgreSQL** when the product needs advanced JSON operations, full-text search, complex analytics, or strict data integrity guarantees.
@@ -1798,7 +1808,7 @@ MySQL versus PostgreSQL is often a debate about future-proofing. My rule is to c
     id: "20",
     title: "Laravel vs Node.js for Backend Systems: How I Choose in 2026",
     slug: "laravel-vs-nodejs-backend-systems",
-    excerpt: "A practical, production-tested comparison of Laravel and Node.js across queues, real-time, team velocity, hosting cost, and long-term maintenance, with the decision rules I actually use on client projects.",
+    excerpt: "Laravel vs Node.js for backend systems: queues, real-time, team velocity, hosting cost and maintenance, plus the decision rules I use on client projects.",
     content: `## The short answer
 
 Choose **Laravel** when the system is business-logic heavy: billing, multi-tenancy, RBAC, admin panels, reporting, integrations. Choose **Node.js** when the system is connection heavy: real-time fan-out, streaming, event gateways, or when the whole team already lives in TypeScript.
@@ -1857,7 +1867,7 @@ On a recent dispatch platform, Laravel owned tenancy, jobs, billing, and the API
     title: "Asterisk vs Twilio: Real Cost Breakdown for Call Center Backends",
     seo_title: "Asterisk vs Twilio: Call Center Cost Breakdown",
     slug: "asterisk-vs-twilio-cost-breakdown",
-    excerpt: "Self-hosted Asterisk/FreePBX versus Twilio for outbound and inbound call operations: per-minute economics, engineering cost, break-even volume, and when each option is the responsible choice.",
+    excerpt: "Self-hosted Asterisk/FreePBX vs Twilio for call operations: per-minute cost, engineering effort, break-even volume and when each is the right choice.",
     content: `## Why this comparison keeps coming up
 
 Every team building a call center backend asks the same question: rent the telephony stack from Twilio, or run Asterisk on your own servers? The honest answer depends almost entirely on **call volume** and **how much control the workflows need**.
@@ -1933,7 +1943,7 @@ Self-hosted Asterisk for the high-volume core, plus a managed provider for inter
     title: "n8n vs Custom Code: Where Automation Platforms Stop Paying Off",
     seo_title: "n8n vs Custom Code: When Automation Stops Paying Off",
     slug: "n8n-vs-custom-code-automation",
-    excerpt: "When a visual automation platform like n8n is the correct engineering decision, when it becomes technical debt, and the migration path from workflow to service without a rewrite.",
+    excerpt: "When n8n is the right engineering call, when it becomes technical debt, and how to migrate from workflow to service without a rewrite.",
     content: `## The trap on both sides
 
 Teams either automate everything in a visual tool until it becomes an unmaintainable spaghetti canvas, or they refuse to use one and hand-code integrations that nobody wants to own. Both are expensive. The useful question is where the line sits.
@@ -2006,7 +2016,7 @@ On one operations platform, moving four billing-critical workflows out of a 60-n
     title: "Vibe Coding in 2025: How I Build Apps 10x Faster with Claude, Lovable & Cursor",
     seo_title: "Vibe Coding in 2025 with Claude, Lovable and Cursor",
     slug: "vibe-coding-2025-claude-lovable-cursor",
-    excerpt: "Vibe coding is revolutionizing software development. Learn how I use Claude AI, Lovable, Cursor, and Replit to ship production-ready Laravel and React apps in hours, not weeks.",
+    excerpt: "How I use Claude, Lovable, Cursor and Replit to ship production-ready Laravel and React apps in hours, not weeks, and where vibe coding breaks.",
     content: `## What is Vibe Coding?
 
 **Vibe coding** is the future of software development, using AI-powered tools to write, debug, and deploy code at unprecedented speed. Instead of typing every line manually, you describe what you want and let AI handle the implementation.
@@ -2057,7 +2067,7 @@ No, it's **augmenting** it. You still need deep knowledge of Laravel, PHP, MySQL
     title: "Laravel + MySQL Best Practices: Building Scalable SaaS Applications in 2025",
     seo_title: "Laravel + MySQL Best Practices for Scalable SaaS",
     slug: "laravel-mysql-best-practices-scalable-saas-2025",
-    excerpt: "A comprehensive guide to building production-ready SaaS applications with Laravel and MySQL, covering multi-tenancy, query optimization, caching, and deployment strategies.",
+    excerpt: "Building production-ready SaaS on Laravel and MySQL: multi-tenancy, query optimization, caching and deployment strategies.",
     content: `## Why Laravel + MySQL is Still King for SaaS
 
 In 2025, **Laravel** remains the most productive PHP framework for building SaaS applications. Combined with **MySQL**, it offers:
@@ -2129,7 +2139,7 @@ I've built multiple SaaS platforms with this stack:
     title: "Claude vs ChatGPT for Developers: Which AI Tool Should You Use in 2025?",
     seo_title: "Claude vs ChatGPT for Developers: Which to Use in 2025?",
     slug: "claude-vs-chatgpt-developers-ai-tools-2025",
-    excerpt: "An honest comparison of Claude (Anthropic) and ChatGPT (OpenAI) for software development, code generation, debugging, architecture planning, and vibe coding workflows.",
+    excerpt: "An honest comparison of Claude and ChatGPT for code generation, debugging, architecture planning and vibe coding workflows.",
     content: `## The AI Tools Every Developer Needs
 
 As an AI engineer who uses both **Claude** and **ChatGPT** daily, here's my honest breakdown for developers.
@@ -2439,7 +2449,7 @@ For most web applications, **PHP + MySQL** remains the most cost-effective, scal
     title: "Asterisk + Laravel: Building a Real-Time VoIP Call Center from Scratch",
     seo_title: "Asterisk + Laravel: Building a Real-Time VoIP Call Center",
     slug: "asterisk-laravel-voip-call-center",
-    excerpt: "How I integrated Asterisk PBX with Laravel to build Solutions Zilla, a real-time call center portal with live agent monitoring, call routing, and CDR analytics.",
+    excerpt: "How I integrated Asterisk with Laravel to build Solutions Zilla: a real-time call center portal with live agent monitoring, routing and CDR analytics.",
     content: `## The Challenge
 
 Most call center software is expensive, locked-in, and hard to customize. So I built one from scratch using **Asterisk**, **Laravel**, and **WebSockets**.
@@ -2579,7 +2589,7 @@ The AI Gateway is the easiest way I have found to ship multi-model AI features w
     title: "Stripe + Laravel: Building Subscription Billing That Does Not Break",
     seo_title: "Stripe + Laravel: Subscription Billing That Does Not Break",
     slug: "stripe-laravel-subscription-billing",
-    excerpt: "A field guide to building robust Stripe subscription billing in Laravel, covering Cashier, webhooks, proration, dunning, and the edge cases nobody warns you about.",
+    excerpt: "Building robust Stripe subscription billing in Laravel: Cashier, webhooks, proration, dunning and the edge cases nobody warns you about.",
     content: `## Billing Is Where SaaS Apps Die
 
 Most SaaS apps do not fail because of features. They fail because billing is buggy, confusing, or insecure. Here is how I build Stripe subscriptions in Laravel that actually hold up in production.
