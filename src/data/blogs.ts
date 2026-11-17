@@ -1685,7 +1685,7 @@ Automation tools are excellent glue and poor foundations. Use them to connect sy
     id: "24",
     title: "Redis vs Database Caching in Laravel: When to Use Each",
     slug: "redis-vs-database-caching-laravel",
-    excerpt: "A practical guide to choosing between Redis and database query caching in Laravel, covering cache invalidation, cache stamps, TTL strategy, and the exact rules I use on production SaaS backends.",
+    excerpt: "When Redis beats database caching in Laravel and when it doesn't: invalidation, cache stamps, TTL strategy and the rules I use on production SaaS.",
     content: `## The short answer
 
 Use **Redis** for high-read, low-write data that can live outside the database: user sessions, API rate-limit counters, real-time leaderboards, and precomputed dashboard tiles. Use **database query caching** only as a short-term safety net for slow, rarely-changing queries that are expensive to recalculate.
@@ -1738,7 +1738,9 @@ When Redis is used for queues, I monitor queue length, throughput, failed jobs, 
 
 ## Final thought
 
-Caching is a powerful tool, but it is also a liability when it becomes an invisible layer of state. The best systems I have built use Redis deliberately, with named keys, documented TTLs, and clear invalidation paths. That is how you keep a fast system from becoming a mysterious one.`,
+Caching is a powerful tool, but it is also a liability when it becomes an invisible layer of state. The best systems I have built use Redis deliberately, with named keys, documented TTLs, and clear invalidation paths. That is how you keep a fast system from becoming a mysterious one.
+
+Running a Laravel app that slows down under read-heavy load? See [Laravel development](/services/laravel-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
     featured_image: "/blog/blog-redis-vs-db.webp",
     published_at: "2026-01-23",
     author: "Usama Munawar",
@@ -2192,52 +2194,125 @@ The real power is in **combining them with vibe coding tools** like Lovable and 
   },
   {
     id: "1",
-    title: "Building Multi-Agent Systems with OpenAI & LangChain",
+    title: "Building Multi-Agent Systems with LangChain and OpenAI: Subagents, Handoffs and Supervisors",
+    seo_title: "LangChain Multi-Agent Systems: Subagents and Handoffs",
     slug: "building-multi-agent-systems-openai-langchain",
-    excerpt: "A deep dive into architecting main agent and sub-agent patterns for complex AI workflows, from task decomposition to autonomous execution.",
-    content: `## Why Multi-Agent Systems?
+    excerpt: "How to build multi-agent systems with LangChain 1.x and the OpenAI Agents SDK: supervisor and subagents, handoffs, and when one agent is enough.",
+    content: `## The short answer
 
-Single LLM calls hit their limits fast. When you need an AI system that can **research, plan, execute, and verify**, you need agents that collaborate.
+Start with one agent and good tools. Add more agents only when a single prompt has to cover distinct domains (say calendar, email and CRM), or when one context window can no longer hold everything the task needs.
 
-I recently built a production system where a **Main Orchestrator Agent** delegates tasks to specialized sub-agents:
+When you do need several, the default in LangChain today is the **subagents** pattern: a main agent, often called the supervisor, calls each specialist agent as a tool. All of them are built with \`create_agent\`. Use **handoffs** instead when a specialist has to take over the conversation with the user.
 
-- **Research Agent**, scrapes and summarizes web data
-- **Code Agent**, writes and tests code autonomously  
-- **Review Agent**, validates outputs against requirements
+When I first wrote this post in 2025, the code used \`AgentExecutor\`. That approach has been replaced by \`create_agent\` in LangChain 1.x, and the \`langgraph-supervisor\` package is no longer actively maintained, so new projects should not start from either.
+
+## When one agent is not enough
+
+More agents add model calls, latency and new ways to fail, so I look for a concrete reason:
+
+- **Distinct domains**, each with its own tools and instructions, that confuse a single prompt.
+- **Context pressure.** A research step can read twenty pages; the agent writing the answer only needs the findings.
+- **Different models per step**: a small, cheap model for routing and a stronger one for reasoning.
+- **Parallel work** that can run at the same time.
+
+If the steps always run in the same order, you do not need agents choosing what to do next. A plain workflow (a LangGraph graph, or ordinary code calling the model) is cheaper and much easier to test.
+
+## Pattern 1: a supervisor with subagents
+
+Each subagent is a normal agent wrapped in a tool. The supervisor decides when to call it and only ever sees its final answer, so every subagent works with a clean, small context.
 
 \`\`\`python
-from langchain.agents import AgentExecutor
-from langchain.tools import Tool
+from langchain.agents import create_agent
+from langchain.tools import tool
 
-class OrchestratorAgent:
-    def __init__(self):
-        self.sub_agents = {
-            "research": ResearchAgent(),
-            "code": CodeAgent(),
-            "review": ReviewAgent()
-        }
-    
-    async def execute(self, task):
-        plan = await self.decompose(task)
-        results = []
-        for step in plan:
-            agent = self.sub_agents[step.agent_type]
-            result = await agent.run(step.instruction)
-            results.append(result)
-        return self.synthesize(results)
+MODEL = "openai:gpt-5-mini"  # any "provider:model" string works
+
+research_agent = create_agent(
+    model=MODEL,
+    tools=[search_web, fetch_page],  # your own tools
+    system_prompt="Research the topic and return findings with source URLs.",
+)
+
+review_agent = create_agent(
+    model=MODEL,
+    tools=[],
+    system_prompt="Check the draft against the brief and list every problem.",
+)
+
+@tool("research", description="Research a topic and return findings with sources")
+def research(query: str) -> str:
+    result = research_agent.invoke({"messages": [{"role": "user", "content": query}]})
+    return result["messages"][-1].content
+
+@tool("review", description="Review a draft against its brief and list problems")
+def review(draft_and_brief: str) -> str:
+    result = review_agent.invoke({"messages": [{"role": "user", "content": draft_and_brief}]})
+    return result["messages"][-1].content
+
+supervisor = create_agent(
+    model=MODEL,
+    tools=[research, review],
+    system_prompt="Plan the task, call research and review as needed, then write the final answer.",
+)
+
+answer = supervisor.invoke({"messages": [{"role": "user", "content": "Write a brief on ..."}]})
 \`\`\`
 
-## The MCP Protocol
+Two details matter in practice. Make each subagent return a short, structured result rather than its whole transcript, or the supervisor's context fills up again. And write tool descriptions as carefully as prompts: they are how the supervisor decides which specialist to call.
 
-Model Context Protocol (MCP) is changing how agents interact with tools. Instead of hardcoding tool integrations, MCP provides a **standardized interface** for agents to discover and use tools dynamically.
+## Pattern 2: handoffs
 
-This is huge for building extensible agent systems that can adapt to new capabilities without code changes.
+In a handoff, control moves to another agent, and that agent talks to the user directly. A support triage agent that passes billing questions to a billing agent is the classic case. In LangChain, a tool call updates the conversation state and routing follows it. LangChain's [multi-agent documentation](https://docs.langchain.com/oss/python/langchain/multi-agent) covers both patterns and how many model calls each one costs.
 
-## Real-World Use Case
+My rule of thumb: use subagents when the user should hear one voice and the work spans several domains; use handoffs when the specialist should run the rest of the conversation.
 
-I deployed this architecture for a client's **automated content pipeline**, the system generates, reviews, optimizes, and publishes content with minimal human intervention. Result: **10x faster content production** with higher quality scores.
+## The same patterns in the OpenAI Agents SDK
 
-The future isn't single AI calls, it's **orchestrated intelligence**.`,
+If you are on OpenAI's own SDK, both patterns are built in: \`handoffs\` for passing control and \`as_tool()\` for the manager style.
+
+\`\`\`python
+from agents import Agent, Runner
+
+billing = Agent(name="Billing", instructions="Answer billing questions.")
+refunds = Agent(name="Refunds", instructions="Handle refund requests.")
+
+# Handoff: triage passes the conversation to a specialist
+triage = Agent(
+    name="Triage",
+    instructions="Send billing questions to Billing and refund requests to Refunds.",
+    handoffs=[billing, refunds],
+)
+
+# Agents as tools: a manager calls specialists and keeps control
+manager = Agent(
+    name="Manager",
+    instructions="Use the specialists, then answer the user yourself.",
+    tools=[
+        billing.as_tool(tool_name="billing_expert", tool_description="Answers billing questions"),
+        refunds.as_tool(tool_name="refunds_expert", tool_description="Handles refund requests"),
+    ],
+)
+
+result = Runner.run_sync(triage, "I was charged twice this month.")
+print(result.final_output)
+\`\`\`
+
+## Tools through MCP
+
+The Model Context Protocol (MCP) lets agents use tools served by an MCP server instead of integrations hard-coded into each agent. LangChain loads MCP tools through \`langchain-mcp-adapters\`, and the OpenAI Agents SDK connects to MCP servers directly. If your product runs on Laravel, my [Laravel MCP server](/blog/laravel-mcp-server) post shows how to expose your own app's actions this way, and the [stateless MCP spec](/blog/mcp-2026-07-28-stateless-spec-migration) post covers the latest protocol changes.
+
+## What goes wrong in production
+
+- **Loops and runaway cost.** Cap the number of steps: \`recursion_limit\` in LangChain's run config, \`max_turns\` in the Agents SDK.
+- **Actions without a person in the loop.** Anything that sends, pays or deletes should wait for approval. LangChain has human-in-the-loop middleware for this, and the Agents SDK supports approvals.
+- **No evaluation.** Keep a fixed set of test tasks and compare the outputs after every prompt or model change.
+- **No tracing.** You cannot debug a supervisor you cannot see. Turn on LangSmith or the Agents SDK's tracing from day one.
+
+## Where I have used it
+
+I deployed this architecture for a client's automated content pipeline: a research agent gathers material, the main agent drafts, and a review agent checks each draft against the brief before anything goes further. The system generates, reviews, optimizes and publishes content with minimal human intervention.
+
+Building agents into your own product or workflow? See [AI integration](/services/ai-integration), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
     featured_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
     published_at: "2025-07-15T10:00:00Z",
     author: "Usama Munawar",
@@ -2494,42 +2569,107 @@ The Solutions Zilla portal handles thousands of calls per day with sub-second da
   },
   {
     id: "15",
-    title: "Supabase Edge Functions vs Laravel APIs: When to Use Which",
+    title: "Supabase vs Laravel: Which Backend Should You Use?",
     slug: "supabase-edge-functions-vs-laravel-apis",
-    excerpt: "A practical comparison of Supabase Edge Functions and Laravel APIs based on real production projects, covering cost, latency, DX, and scaling.",
-    content: `## Two Tools, Different Jobs
+    excerpt: "Supabase or Laravel for your backend? Where each wins on database, sign-in, realtime, background jobs and cost, and how I use both in one product.",
+    content: `## The short answer
 
-I ship products with both **Supabase Edge Functions** (Deno) and **Laravel APIs** (PHP). They are not competitors, they solve different problems.
+Choose **Supabase** when the app is mostly data in and data out with signed-in users and permissions: a dashboard, an internal tool, a mobile app backend or an MVP. You get Postgres, sign-in, file storage, realtime updates and an API on day one, and you write the access rules in SQL.
 
-## When Supabase Edge Functions Win
+Choose **Laravel** when the business logic is the product: multi-step workflows, pricing and billing rules, multi-tenant SaaS, heavy background jobs and integrations that must retry until they succeed.
 
-- Lightweight webhooks and integrations
-- Server-side AI calls (OpenAI, Anthropic, Lovable AI Gateway)
-- Scheduled scrapers and data sync jobs
-- Anything that needs zero infra management
+Many products I build use both. Laravel owns the core business app, and Supabase Edge Functions handle the glue: webhooks, scheduled scrapers and server-side AI calls.
+
+## They are different kinds of tool
+
+The comparison is a little uneven, and that is the first thing to understand.
+
+- **Supabase is a hosted backend platform.** It is built around a Postgres database and adds authentication, Row Level Security, an API generated from your tables, realtime subscriptions, file storage and Edge Functions (TypeScript on Deno) for custom code.
+- **Laravel is a PHP framework.** You write the backend yourself, with an ORM (Eloquent), routing, validation, queues, a scheduler, mail, notifications and a large package ecosystem. You choose where it runs: Laravel Cloud, Forge, a VPS or containers.
+
+So the real question is: how much of your backend is standard plumbing that a platform can give you, and how much is logic only you can write?
+
+## Side by side
+
+| | Supabase | Laravel |
+|---|---|---|
+| Database | Postgres, managed for you | MySQL, PostgreSQL, SQLite or SQL Server; you run it or rent it managed |
+| API | Generated from your tables; custom endpoints in Edge Functions | You write the routes and controllers, with full control over every response |
+| Sign-in | Built in: email and password, magic links, OAuth providers, phone | Official starter kits, Fortify and Sanctum, Socialite for OAuth; the user tables are yours |
+| Permissions | Row Level Security policies in SQL | Policies and gates in PHP |
+| Realtime | Built in: database changes, broadcast and presence | Broadcasting with Laravel Reverb or a hosted WebSocket service |
+| Background work | Edge Functions, Cron and Queues built on Postgres | Queues, Horizon and the scheduler, built into the framework |
+| Hosting | Fully managed (self-hosting is possible) | Your choice of host |
+| Cost shape | Free tier, then a monthly plan plus usage | Server cost plus development time |
+| Lock-in | Low for the data (plain Postgres), higher for auth and the generated API | Low: it is your code |
+
+## When Supabase is the better choice
+
+- **An MVP or internal tool** where getting the first version in front of users matters more than anything else.
+- **A mobile app backend.** A React Native app gets sign-in, storage and realtime updates without a custom API layer.
+- **Most rules are about who can see which rows.** Row Level Security expresses that well, close to the data.
+- **AI features on your own data.** Postgres with pgvector stores embeddings next to the rest of your data, and an Edge Function keeps API keys off the client.
+- **Nobody on the team wants to run servers.**
+
+## When Laravel is the better choice
+
+- **The rules are complex:** pricing tiers, approvals, invoicing, multi-step workflows. These are easier to read, test and change in PHP than in SQL policies and database functions.
+- **Multi-tenant SaaS** with per-tenant settings, roles and billing.
+- **Heavy background work:** imports and exports, PDF generation, thousands of emails, jobs that must retry with backoff. Laravel queues and Horizon are built for this.
+- **Integrations with older systems**, such as SOAP services, FTP drops or telephony. My [Asterisk and Laravel call centre](/blog/asterisk-laravel-voip-call-center) post is an example of that kind of backend.
+- **The team already writes PHP.**
+
+## Using both in one product
+
+When a product needs both, I split it like this: Laravel holds the business logic and the main database, and Supabase Edge Functions run small jobs at the edges, where a full deploy of the main app would be overkill.
+
+A webhook receiver in an Edge Function takes a few lines:
 
 \`\`\`ts
+import { createClient } from "npm:@supabase/supabase-js@2";
+
 Deno.serve(async (req) => {
-  const { prompt } = await req.json();
-  const ai = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
-    headers: { Authorization: \`Bearer \${Deno.env.get("LOVABLE_API_KEY")}\` },
-    body: JSON.stringify({ model: "google/gemini-2.5-flash", messages: [{ role: "user", content: prompt }] })
-  });
-  return new Response(await ai.text());
+  // Verify the sender's signature here before trusting the body.
+  const event = await req.json();
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  );
+  const { error } = await supabase
+    .from("events")
+    .insert({ type: event.type, payload: event });
+  return new Response(error ? error.message : "ok", { status: error ? 500 : 200 });
 });
 \`\`\`
 
-## When Laravel Wins
+The same job in Laravel hands the work to a queue, so a slow downstream system never times out the sender, and failed jobs retry:
 
-- Complex domain logic with relationships
-- Multi-tenant SaaS with heavy business rules
-- Background queues, scheduled jobs, Horizon
-- Anything with deep MySQL transactions
+\`\`\`php
+// routes/api.php
+Route::post('/webhooks/events', function (Request $request) {
+    // Verify the sender's signature here before trusting the body.
+    ProcessEvent::dispatch($request->all());
 
-## My Default Stack
+    return response()->noContent();
+});
+\`\`\`
 
-For new projects I usually combine both: **Laravel for the core business app**, **Supabase Edge Functions for the glue**, scrapers, AI calls, third-party webhooks. The result is fast to ship and easy to scale.`,
+## Mistakes I see often
+
+- **Leaving Row Level Security off** on a table the API exposes. Anyone with your public anon key can then read or change it. Turn RLS on for every table and add policies deliberately.
+- **Shipping the service role key to the browser.** It bypasses every policy. Keep it in Edge Functions and servers only.
+- **Pushing complex business logic into SQL policies and triggers** until nobody can follow it. When the rules grow, move them into application code.
+- **Starting a simple CRUD MVP on Laravel** and spending the first month on sign-in, file uploads and admin screens that Supabase would have given you on day one.
+
+## Decide in five questions
+
+1. Is most of the work storing and showing data, with per-user permissions? **Supabase.**
+2. Would the business rules take pages to describe? **Laravel.**
+3. Do you need long-running or retried background jobs? **Laravel**, or both.
+4. Is there nobody to look after servers? **Supabase**, or Laravel on managed hosting.
+5. Does the team write TypeScript or PHP? Pick the one that matches.
+
+Choosing a backend for a new product, or moving off one that no longer fits? See [Laravel development](/services/laravel-development) and [Idea to launch](/services/mvp-development), or email devusamaworks@gmail.com or WhatsApp +92 303 8004684 for a free 30-minute call.`,
     featured_image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
     published_at: "2025-09-05T10:00:00Z",
     author: "Usama Munawar",
