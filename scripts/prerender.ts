@@ -244,6 +244,7 @@ const toolModule: Record<string, string> = {
   "automation-roi-calculator": "src/pages/tools/AutomationRoiCalculator.tsx",
   "call-center-cost-calculator": "src/pages/tools/CallCenterCostCalculator.tsx",
   "meta-tag-generator": "src/pages/tools/MetaTagGenerator.tsx",
+  "pjsip-config-generator": "src/pages/tools/PjsipConfigGenerator.tsx",
 };
 
 // /tools in each language (the words live in src/i18n/tools/<locale>.ts).

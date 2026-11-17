@@ -35,6 +35,7 @@ import {
   GitHubReadme,
   LearnAI,
   MetaTagGenerator,
+  PjsipConfigGenerator,
   MvpPlanner,
   NotFound,
   PostEditor,
@@ -161,6 +162,7 @@ const App = () => {
           <Route key={`${prefix}/roi`} path={`${prefix}/tools/automation-roi-calculator`} element={<AutomationRoiCalculator key={prefix} />} />,
           <Route key={`${prefix}/calls`} path={`${prefix}/tools/call-center-cost-calculator`} element={<CallCenterCostCalculator key={prefix} />} />,
           <Route key={`${prefix}/meta`} path={`${prefix}/tools/meta-tag-generator`} element={<MetaTagGenerator key={prefix} />} />,
+          <Route key={`${prefix}/pjsip`} path={`${prefix}/tools/pjsip-config-generator`} element={<PjsipConfigGenerator key={prefix} />} />,
         ])}
         <Route path="/virtual-assistant" element={<ServiceDetail side="virtual-assistant" />} />
         <Route path="*" element={<NotFound />} />

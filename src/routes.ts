@@ -29,6 +29,7 @@ export const ReadmeGenerator = lazyPreload(() => import("./pages/tools/ReadmeGen
 export const AutomationRoiCalculator = lazyPreload(() => import("./pages/tools/AutomationRoiCalculator"));
 export const CallCenterCostCalculator = lazyPreload(() => import("./pages/tools/CallCenterCostCalculator"));
 export const MetaTagGenerator = lazyPreload(() => import("./pages/tools/MetaTagGenerator"));
+export const PjsipConfigGenerator = lazyPreload(() => import("./pages/tools/PjsipConfigGenerator"));
 
 type Preloadable = { preload: () => Promise<unknown> };
 const load = (...parts: Preloadable[]) => Promise.all(parts.map((part) => part.preload()));
@@ -58,6 +59,7 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/tools/automation-roi-calculator") return load(AutomationRoiCalculator);
   if (p === "/tools/call-center-cost-calculator") return load(CallCenterCostCalculator);
   if (p === "/tools/meta-tag-generator") return load(MetaTagGenerator);
+  if (p === "/tools/pjsip-config-generator") return load(PjsipConfigGenerator);
   if (/^\/github\/[^/]+$/.test(p)) return load(GitHubReadme, Footer);
   if (p === "/auth" || p.startsWith("/admin")) return Promise.resolve();
   return load(NotFound);
