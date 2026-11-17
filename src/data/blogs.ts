@@ -1685,12 +1685,24 @@ Automation tools are excellent glue and poor foundations. Use them to connect sy
     id: "24",
     title: "Redis vs Database Caching in Laravel: When to Use Each",
     slug: "redis-vs-database-caching-laravel",
-    excerpt: "When Redis beats database caching in Laravel and when it doesn't: invalidation, cache stamps, TTL strategy and the rules I use on production SaaS.",
+    excerpt: "When Redis beats database caching in Laravel, and why Redis vs Laravel is not a real choice: invalidation, stampedes, TTLs and my production rules.",
     content: `## The short answer
 
 Use **Redis** for high-read, low-write data that can live outside the database: user sessions, API rate-limit counters, real-time leaderboards, and precomputed dashboard tiles. Use **database query caching** only as a short-term safety net for slow, rarely-changing queries that are expensive to recalculate.
 
 Redis is a separate memory store. Database query caching is a bandage. Know which one you are reaching for.
+
+## Redis vs Laravel (or PHP): not alternatives
+
+If you searched for "Redis vs Laravel" or "Redis vs PHP", the short answer is that you do not choose between them. Laravel is a PHP framework: it runs your application code. Redis is an in-memory data store that your application talks to, a very fast place to keep temporary data. A Laravel app uses Redis through its drivers for the cache, sessions and queues, set in \`.env\`:
+
+\`\`\`bash
+CACHE_STORE=redis
+SESSION_DRIVER=redis
+QUEUE_CONNECTION=redis
+\`\`\`
+
+The real decision is where Laravel keeps cached data: in Redis, or in the database you already run. That is what the rest of this post compares.
 
 ## Side by side
 

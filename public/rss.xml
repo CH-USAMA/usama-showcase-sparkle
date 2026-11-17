@@ -104,7 +104,7 @@
       <link>https://www.chaudharyusama.com/blog/react-native-2026</link>
       <guid isPermaLink="true">https://www.chaudharyusama.com/blog/react-native-2026</guid>
       <pubDate>Mon, 12 Oct 2026 09:00:00 GMT</pubDate>
-      <description>What the New Architecture and Expo changed, how React Native compares with native and Flutter, and the store rules to plan for in 2026.</description>
+      <description>Is React Native still relevant in 2026? Yes. What the New Architecture and Expo changed, how it compares with native and Flutter, and the 2026 store rules.</description>
     </item>
     <item>
       <title>Laravel vs Node.js for Backend Systems: How I Choose in 2026</title>
@@ -146,7 +146,7 @@
       <link>https://www.chaudharyusama.com/blog/redis-vs-database-caching-laravel</link>
       <guid isPermaLink="true">https://www.chaudharyusama.com/blog/redis-vs-database-caching-laravel</guid>
       <pubDate>Fri, 23 Jan 2026 00:00:00 GMT</pubDate>
-      <description>When Redis beats database caching in Laravel and when it doesn't: invalidation, cache stamps, TTL strategy and the rules I use on production SaaS.</description>
+      <description>When Redis beats database caching in Laravel, and why Redis vs Laravel is not a real choice: invalidation, stampedes, TTLs and my production rules.</description>
     </item>
     <item>
       <title>MySQL vs PostgreSQL for Laravel SaaS: Which I Choose and Why</title>
