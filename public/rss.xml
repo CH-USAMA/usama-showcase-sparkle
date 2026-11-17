@@ -170,11 +170,11 @@
       <description>How I use the Lovable AI Gateway to ship AI features without juggling API keys, rate limits, and SDKs from OpenAI, Anthropic, and Google.</description>
     </item>
     <item>
-      <title>Supabase Edge Functions vs Laravel APIs: When to Use Which</title>
+      <title>Supabase vs Laravel: Which Backend Should You Use?</title>
       <link>https://www.chaudharyusama.com/blog/supabase-edge-functions-vs-laravel-apis</link>
       <guid isPermaLink="true">https://www.chaudharyusama.com/blog/supabase-edge-functions-vs-laravel-apis</guid>
       <pubDate>Fri, 05 Sep 2025 10:00:00 GMT</pubDate>
-      <description>A practical comparison of Supabase Edge Functions and Laravel APIs based on real production projects, covering cost, latency, DX, and scaling.</description>
+      <description>Supabase or Laravel for your backend? Where each wins on database, sign-in, realtime, background jobs and cost, and how I use both in one product.</description>
     </item>
     <item>
       <title>Asterisk + Laravel: Building a Real-Time VoIP Call Center from Scratch</title>
@@ -205,11 +205,11 @@
       <description>An honest comparison of Claude and ChatGPT for code generation, debugging, architecture planning and vibe coding workflows.</description>
     </item>
     <item>
-      <title>Building Multi-Agent Systems with OpenAI &amp; LangChain</title>
+      <title>Building Multi-Agent Systems with LangChain and OpenAI: Subagents, Handoffs and Supervisors</title>
       <link>https://www.chaudharyusama.com/blog/building-multi-agent-systems-openai-langchain</link>
       <guid isPermaLink="true">https://www.chaudharyusama.com/blog/building-multi-agent-systems-openai-langchain</guid>
       <pubDate>Tue, 15 Jul 2025 10:00:00 GMT</pubDate>
-      <description>A deep dive into architecting main agent and sub-agent patterns for complex AI workflows, from task decomposition to autonomous execution.</description>
+      <description>How to build multi-agent systems with LangChain 1.x and the OpenAI Agents SDK: supervisor and subagents, handoffs, and when one agent is enough.</description>
     </item>
     <item>
       <title>PHP in 2025: Why It's Still the Best Choice for Web Development</title>
