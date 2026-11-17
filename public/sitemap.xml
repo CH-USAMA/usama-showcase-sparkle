@@ -81,6 +81,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/tools/pjsip-config-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/ar/tools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -121,6 +126,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.chaudharyusama.com/ar/tools/pjsip-config-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.chaudharyusama.com/fr/tools</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -157,6 +167,11 @@
   </url>
   <url>
     <loc>https://www.chaudharyusama.com/fr/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.chaudharyusama.com/fr/tools/pjsip-config-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

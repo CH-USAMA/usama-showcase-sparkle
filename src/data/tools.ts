@@ -14,6 +14,7 @@ export const TOOL_SLUGS = [
   "automation-roi-calculator",
   "call-center-cost-calculator",
   "meta-tag-generator",
+  "pjsip-config-generator",
 ] as const;
 export type ToolSlug = (typeof TOOL_SLUGS)[number];
 
@@ -26,6 +27,7 @@ export const NEXT_LINK: Record<ToolSlug, string> = {
   "automation-roi-calculator": "/services/automation-n8n",
   "call-center-cost-calculator": "/services/voip-asterisk",
   "meta-tag-generator": "/blog/seo-ai-search-rank-google-chatgpt-2026",
+  "pjsip-config-generator": "/services/voip-asterisk",
 };
 
 export type ToolCopy = ToolsText["tools"][ToolSlug] & { slug: ToolSlug };
