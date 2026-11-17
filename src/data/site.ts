@@ -40,6 +40,7 @@ export const SOCIALS = {
   linkedin: "https://www.linkedin.com/in/usama-works/",
   upwork: "https://www.upwork.com/freelancers/~01007bf0a0286da654",
   fiverr: "https://www.fiverr.com/ch_usama_",
+  dev: "https://dev.to/chusama",
   x: "https://x.com/usloopsama",
 } as const;
 

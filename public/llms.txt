@@ -13,6 +13,7 @@
 - **LinkedIn:** https://www.linkedin.com/in/usama-works/
 - **Upwork:** https://www.upwork.com/freelancers/~01007bf0a0286da654
 - **Fiverr:** https://www.fiverr.com/ch_usama_
+- **DEV:** https://dev.to/chusama
 
 ## What I do (services)
 
